@@ -1,6 +1,6 @@
 # Project charter — Phase 0
 
-**Status:** provisional scope, 18 October 2026. This is a planning document, not a results report.
+**Status:** provisional scope, updated 18 October 2026 after the Phase 1 literature review. This is a planning document, not a results report.
 
 ## Problem and purpose
 
@@ -42,9 +42,9 @@ The [released dataset](https://zenodo.org/records/19184662) reports 11,037 train
 
 ## Research positioning
 
-Published PRC 2025 challenge papers already report physics-guided boosting and weather-enhanced fuel estimation. A recent reliability/data-quality study also overlaps the broad theme. Phase 1 must produce a comparison matrix and refine a *specific* remaining gap. The candidate contribution is a transparent ADS-B-only feature boundary plus aircraft- and missingness-aware calibration under chronological testing. Whether this is sufficiently new for a Q1 journal remains an open research decision; no quartile, acceptance, or performance improvement is promised.
+Published PRC 2025 challenge papers already report physics-guided boosting and weather-enhanced fuel estimation. A paper published in October 2026 also studies data quality and conformal uncertainty with a small observed subset of this benchmark alongside synthetic experiments. The [Phase 1 comparison matrix](phase-1-literature-review.md) narrows our question to a full-benchmark, ADS-B-only, natural-gap and aircraft-group calibration study under chronological testing. Whether this is sufficiently distinct for a Q1 journal remains open; no quartile, acceptance, or performance improvement is promised.
 
-Starting references: [dataset paper](https://doi.org/10.59490/joas.2026.8750); [physics-guided challenge paper](https://doi.org/10.59490/joas.2026.8764); [weather-enhanced challenge paper](https://doi.org/10.59490/joas.2026.8766). Phase 1 will expand and critically synthesize these rather than treat this list as a completed literature review.
+Core references: [dataset paper](https://doi.org/10.59490/joas.2026.8750); [physics-guided challenge paper](https://doi.org/10.59490/joas.2026.8764); [weather-enhanced challenge paper](https://doi.org/10.59490/joas.2026.8766); [recent reliability paper](https://doi.org/10.3390/en19204797). The comparison matrix includes related trajectory and uncertainty studies.
 
 ## Gates, risks, and mitigations
 
@@ -60,6 +60,6 @@ Starting references: [dataset paper](https://doi.org/10.59490/joas.2026.8750); [
 
 ## Phase 0 completion and next gate
 
-This charter and the submission mapping establish scope. Dataset availability and paper-level novelty are **documented hypotheses, not empirically verified in this repository**. Phase 1 should refine the gap; Phase 2 is the data acceptance gate. Implementation starts only after the allowed feature list and split protocol are explicit.
+The charter, submission mapping, literature review and Phase 1 report content establish the proposal. Dataset usability and paper-level novelty are **documented hypotheses, not empirically verified in this repository**. Phase 2 is the data acceptance gate. Implementation starts only after the allowed feature list and split protocol are explicit.
 
 **Inputs to confirm with student/guide:** current Phase 1 and final deadlines; solo versus group membership and responsibilities; guide-approved title; current final-report rules; available storage/RAM/GPU; whether additional data access or an aircraft-performance reference is available. The 2025 archive dates are historical, not current deadlines.
