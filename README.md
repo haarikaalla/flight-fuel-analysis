@@ -4,7 +4,7 @@ Research project on reliable aircraft fuel-burn estimation from flight trajector
 
 ## Status
 
-**Phase 0: project scope and submission requirements documented.** No dataset or model results have been produced in this repository yet. Read the [project charter](docs/project-charter.md) and [submission requirements](docs/submission-requirements.md).
+**Phase 1: literature review, testable research question, and college report content draft complete.** No dataset or model results have been produced in this repository yet. Read the [project charter](docs/project-charter.md), [critical literature review](docs/phase-1-literature-review.md), [Phase 1 report draft](docs/phase-1-report-draft.md), and [submission requirements](docs/submission-requirements.md). The report still needs current student/guide details, college-template formatting, rendered page-count verification, and guide approval before submission.
 
 ## Proposed research question
 
