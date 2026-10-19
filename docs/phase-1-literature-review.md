@@ -1,5 +1,7 @@
 # Phase 1 literature review and research gap
 
+> **Phase 2 update (19 October 2026):** The metadata and six-flight probe found a major interval-duration documentation mismatch, suspected trajectory unit mismatch, a label lattice, and an example flight whose labeled intervals have no ADS-B input. The missingness-plus-conformal hypotheses below are now historical Phase 1 proposals. The [Phase 2 acceptance report](phase-2-data-acceptance.md) defines the revised, still provisional research gate; recheck overlap before claiming novelty.
+
 **Search snapshot:** 18 October 2026. This is a critical, focused review for the project proposal, not a systematic review or a claim that all relevant literature has been exhausted. Recheck new publications before submitting a journal manuscript.
 
 ## Selection and comparison method

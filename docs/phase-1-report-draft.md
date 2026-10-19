@@ -1,5 +1,7 @@
 # Phase 1 minor project report draft
 
+> **Revision required before submission:** This 18 October proposal predates the Phase 2 dataset audit. Read the [Phase 2 data acceptance report](phase-2-data-acceptance.md) and revise the abstract, objectives, research gap and methodology around the observation/measurement gate. The current claims about missingness and calibration are retained here as historical draft content.
+
 **Provisional title:** Reliable Aircraft Fuel Burn Estimation from Flight Trajectories  
 **Status:** research proposal drafted 18 October 2026. No implementation results are claimed.  
 **Student, registration number, section, guide, academic year, and official dates:** [to be entered from current college records].

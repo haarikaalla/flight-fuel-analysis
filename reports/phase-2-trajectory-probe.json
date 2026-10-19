@@ -1,0 +1,155 @@
+{
+  "sampling": "lexicographically first N flight IDs per split; diagnostic only",
+  "splits": {
+    "final": [
+      {
+        "acars_rows": 17,
+        "adsb_altitude_p50_raw": 38975.0,
+        "adsb_groundspeed_p50_raw": 470.0,
+        "adsb_null_counts": {
+          "altitude": 0,
+          "flight_id": 0,
+          "groundspeed": 8513,
+          "latitude": 0,
+          "longitude": 0,
+          "source": 0,
+          "timestamp": 0,
+          "track": 8513,
+          "typecode": 0,
+          "vertical_rate": 8513
+        },
+        "adsb_rows": 19025,
+        "adsb_vertical_rate_abs_p95_raw": 2240.0,
+        "flight_id": "prc814299936",
+        "intervals": 10,
+        "intervals_without_adsb": 0,
+        "max_adsb_gap_seconds": 1618.665999889,
+        "rows": 19042
+      },
+      {
+        "acars_rows": 18,
+        "adsb_altitude_p50_raw": 35000.0,
+        "adsb_groundspeed_p50_raw": 478.0,
+        "adsb_null_counts": {
+          "altitude": 0,
+          "flight_id": 0,
+          "groundspeed": 10732,
+          "latitude": 0,
+          "longitude": 0,
+          "source": 0,
+          "timestamp": 0,
+          "track": 10732,
+          "typecode": 0,
+          "vertical_rate": 10732
+        },
+        "adsb_rows": 23216,
+        "adsb_vertical_rate_abs_p95_raw": 2368.0,
+        "flight_id": "prc814304455",
+        "intervals": 16,
+        "intervals_without_adsb": 0,
+        "max_adsb_gap_seconds": 484.84800005,
+        "rows": 23234
+      }
+    ],
+    "rank": [
+      {
+        "acars_rows": 12,
+        "adsb_altitude_p50_raw": 36000.0,
+        "adsb_groundspeed_p50_raw": 431.0,
+        "adsb_null_counts": {
+          "altitude": 0,
+          "flight_id": 0,
+          "groundspeed": 3466,
+          "latitude": 0,
+          "longitude": 0,
+          "source": 0,
+          "timestamp": 0,
+          "track": 3466,
+          "typecode": 0,
+          "vertical_rate": 3466
+        },
+        "adsb_rows": 9450,
+        "adsb_vertical_rate_abs_p95_raw": 2048.0,
+        "flight_id": "prc806615763",
+        "intervals": 11,
+        "intervals_without_adsb": 0,
+        "max_adsb_gap_seconds": 172.952000141,
+        "rows": 9462
+      },
+      {
+        "acars_rows": 26,
+        "adsb_altitude_p50_raw": 35025.0,
+        "adsb_groundspeed_p50_raw": 451.0,
+        "adsb_null_counts": {
+          "altitude": 0,
+          "flight_id": 0,
+          "groundspeed": 8037,
+          "latitude": 0,
+          "longitude": 0,
+          "source": 0,
+          "timestamp": 0,
+          "track": 8037,
+          "typecode": 0,
+          "vertical_rate": 8037
+        },
+        "adsb_rows": 20796,
+        "adsb_vertical_rate_abs_p95_raw": 2304.0,
+        "flight_id": "prc806615831",
+        "intervals": 24,
+        "intervals_without_adsb": 0,
+        "max_adsb_gap_seconds": 670.882999897,
+        "rows": 20822
+      }
+    ],
+    "train": [
+      {
+        "acars_rows": 8,
+        "adsb_altitude_p50_raw": 35974.9344,
+        "adsb_groundspeed_p50_raw": 472.0,
+        "adsb_null_counts": {
+          "altitude": 0,
+          "flight_id": 0,
+          "groundspeed": 7375,
+          "latitude": 0,
+          "longitude": 0,
+          "source": 0,
+          "timestamp": 0,
+          "track": 7375,
+          "typecode": 0,
+          "vertical_rate": 7375
+        },
+        "adsb_rows": 25453,
+        "adsb_vertical_rate_abs_p95_raw": 2048.0,
+        "flight_id": "prc770822360",
+        "intervals": 5,
+        "intervals_without_adsb": 0,
+        "max_adsb_gap_seconds": 13382.046000003,
+        "rows": 25461
+      },
+      {
+        "acars_rows": 11,
+        "adsb_altitude_p50_raw": 14824.8624,
+        "adsb_groundspeed_p50_raw": 354.0,
+        "adsb_null_counts": {
+          "altitude": 0,
+          "flight_id": 0,
+          "groundspeed": 259,
+          "latitude": 0,
+          "longitude": 0,
+          "source": 0,
+          "timestamp": 0,
+          "track": 259,
+          "typecode": 0,
+          "vertical_rate": 259
+        },
+        "adsb_rows": 3831,
+        "adsb_vertical_rate_abs_p95_raw": 2112.0,
+        "flight_id": "prc770831136",
+        "intervals": 10,
+        "intervals_without_adsb": 10,
+        "max_adsb_gap_seconds": 33.901000023,
+        "rows": 3842
+      }
+    ]
+  }
+}
