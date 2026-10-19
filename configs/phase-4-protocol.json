@@ -1,0 +1,24 @@
+{
+  "base_config": "configs/phase-3-baselines.json",
+  "risk_train_before": "2025-09-10T00:00:00",
+  "calibration_before": "2025-09-19T00:00:00",
+  "target_coverages": [0.5, 0.75, 0.9, 1.0],
+  "primary_coverage": 0.75,
+  "fallback": "type-rate if ADS-B position count is zero; otherwise Phase 3 ADS-B HistGB",
+  "primary_selector": "predicted absolute error, trained on September 1-9 residuals",
+  "risk_hist_gradient_boosting": {
+    "loss": "absolute_error",
+    "max_iter": 100,
+    "learning_rate": 0.05,
+    "max_leaf_nodes": 15,
+    "l2_regularization": 10.0,
+    "random_state": 42
+  },
+  "outage": {
+    "validation_flights": 120,
+    "min_natural_adsb_positions": 20,
+    "removal_fractions": [0.2, 0.5, 0.8],
+    "seeds": [42, 43]
+  },
+  "note": "Frozen before October model scoring. October label distribution was inspected descriptively during data preparation, but no October model error or selection result was used to choose this protocol. September validation and October are evaluation periods, not tuning sets."
+}

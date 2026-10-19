@@ -4,7 +4,7 @@ Research project on reliable aircraft fuel-burn estimation from flight trajector
 
 ## Status
 
-**Phase 3 baselines implemented and scored on the September ranking period.** Read the [Phase 3 baseline report](docs/phase-3-baselines.md), [Phase 2 data acceptance report](docs/phase-2-data-acceptance.md), [project charter](docs/project-charter.md), [critical literature review](docs/phase-1-literature-review.md), [Phase 1 report draft](docs/phase-1-report-draft.md), and [submission requirements](docs/submission-requirements.md). The Phase 1 draft predates the revised research direction and must be updated before submission.
+**Phase 4 selective estimation and controlled observation-loss experiments implemented.** Read the [Phase 4 report](docs/phase-4-results.md) and [Jupyter walkthrough](notebooks/phase-4-walkthrough.ipynb), plus the [Phase 3 baseline report](docs/phase-3-baselines.md), [Phase 2 data acceptance report](docs/phase-2-data-acceptance.md), [project charter](docs/project-charter.md), [critical literature review](docs/phase-1-literature-review.md), [Phase 1 report draft](docs/phase-1-report-draft.md), and [submission requirements](docs/submission-requirements.md). The Phase 1 draft predates the revised research direction and must be updated before submission.
 
 ## Proposed research question
 
@@ -16,7 +16,7 @@ This is retrospective interval estimation. It is not a claim to forecast future 
 
 [EUROCONTROL PRC 2025 Aircraft Fuel Burn Estimation Data Challenge](https://zenodo.org/records/19184662), DOI [10.5281/zenodo.19184662](https://doi.org/10.5281/zenodo.19184662). Its released files contain ACARS-derived interval fuel labels, ADS-B trajectories, and aircraft metadata. The dataset README specifies CC BY 4.0 licensing and describes label-processing limitations. Cite the associated [dataset paper](https://doi.org/10.59490/joas.2026.8750).
 
-The seven small metadata/label files and all three trajectory ZIP archives were downloaded and verified against the published MD5s in the Phase 3 run. Raw data are not stored in Git. Full train/rank ADS-B interval features have been extracted; the October final split remains locked for model evaluation.
+The seven small metadata/label files and all three trajectory ZIP archives were downloaded and verified against the published MD5s. Raw data are not stored in Git. Full train/rank/final ADS-B interval features have been extracted. The October final split was evaluated with the committed Phase 4 protocol; see the Phase 4 report for provenance, a 100% comparator correction, and limits.
 
 ## Reproduce the Phase 2 audit
 
@@ -51,7 +51,17 @@ python -m src.flight_fuel.plots --report reports/phase-3-rank-baselines.json
 python -m unittest discover -s tests
 ```
 
-The [baseline report](docs/phase-3-baselines.md) has the fixed feature contract, metrics, subgroup counts and limitations. The model command refuses to read the final split. The September ADS-B model achieves 92.95 kg MAE and 256.70 kg RMSE; the simple aircraft-type median-rate baseline achieves 94.81 kg and 266.59 kg. The ADS-B model is **not** better on every aircraft or on intervals with no ADS-B input.
+The [baseline report](docs/phase-3-baselines.md) has the fixed feature contract, metrics, subgroup counts and limitations. The Phase 3 model command refuses to read the final split. The September ADS-B model achieves 92.95 kg MAE and 256.70 kg RMSE; the simple aircraft-type median-rate baseline achieves 94.81 kg and 266.59 kg. The ADS-B model is **not** better on every aircraft or on intervals with no ADS-B input.
+
+## Phase 4 selective estimation
+
+The [protocol](configs/phase-4-protocol.json) fixes a type-rate fallback on intervals with zero ADS-B positions, trains an absolute-error risk selector on early September, calibrates acceptance thresholds in mid-September, and tests them in late September and October. A controlled outage experiment removes scattered or contiguous ADS-B points from the same September validation flights before re-extracting features. The [report](docs/phase-4-results.md) states the error, acceptance, aircraft-group access, label-granularity diagnostics, and important limits. The [Jupyter notebook](notebooks/phase-4-walkthrough.ipynb) offers figures and tables without duplicating the repeatable Python training pipeline.
+
+```bash
+python -m src.flight_fuel.features --splits final
+python -m src.flight_fuel.phase4 --output reports/phase-4-results.json
+python -m unittest discover -s tests
+```
 
 ## Work sequence
 
