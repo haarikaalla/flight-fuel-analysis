@@ -22,9 +22,10 @@ ARCHIVES = {
 def download(raw_dir: Path, name: str) -> str:
     size, expected = ARCHIVES[name]
     path = raw_dir / name
-    if path.exists() and path.stat().st_size == size and checksum(path) == expected:
-        return f"Verified existing {name}"
     partial = raw_dir / (name + ".part")
+    if path.exists() and path.stat().st_size == size and checksum(path) == expected:
+        partial.unlink(missing_ok=True)
+        return f"Verified existing {name}"
     offset = partial.stat().st_size if partial.exists() else 0
     if offset > size:
         partial.unlink()

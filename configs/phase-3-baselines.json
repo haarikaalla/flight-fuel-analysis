@@ -1,0 +1,13 @@
+{
+  "hist_gradient_boosting": {
+    "loss": "squared_error",
+    "max_iter": 200,
+    "learning_rate": 0.05,
+    "max_leaf_nodes": 31,
+    "l2_regularization": 10.0,
+    "random_state": 42
+  },
+  "model_selection_period": "rank (September 2025)",
+  "locked_period": "final (October 2025)",
+  "note": "Fixed before inspecting trajectory-model ranking results; no search over hyperparameters."
+}

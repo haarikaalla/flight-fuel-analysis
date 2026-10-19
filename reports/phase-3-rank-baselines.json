@@ -1,0 +1,863 @@
+{
+  "configuration": {
+    "hist_gradient_boosting": {
+      "l2_regularization": 10.0,
+      "learning_rate": 0.05,
+      "loss": "squared_error",
+      "max_iter": 200,
+      "max_leaf_nodes": 31,
+      "random_state": 42
+    },
+    "locked_period": "final (October 2025)",
+    "model_selection_period": "rank (September 2025)",
+    "note": "Fixed before inspecting trajectory-model ranking results; no search over hyperparameters."
+  },
+  "feature_manifest": {
+    "rank": {
+      "archive_md5": "f8c7af3510d5ffd0d5662866d12aa760",
+      "feature_file": "features_rank.parquet",
+      "flights": 1888,
+      "intervals": 24289,
+      "split": "rank",
+      "subset": false,
+      "zero_adsb_intervals": 6395
+    },
+    "train": {
+      "archive_md5": "255cef578697dc79d5d98958b8a880f5",
+      "feature_file": "features_train.parquet",
+      "flights": 11037,
+      "intervals": 131530,
+      "split": "train",
+      "subset": false,
+      "zero_adsb_intervals": 45874
+    }
+  },
+  "features": "metadata and ADS-B only",
+  "models": {
+    "histgb_adsb": {
+      "overall": {
+        "flight_macro_mae_kg": 112.90877113869033,
+        "flight_macro_rmse_kg": 323.9949448872007,
+        "mae_kg": 92.95355892841938,
+        "mean_signed_error_kg": -5.2656427066792455,
+        "n_flights": 1888,
+        "n_intervals": 24289,
+        "rmse_kg": 256.69605186607026
+      },
+      "predictor_columns": [
+        "duration_min",
+        "adsb_altitude_median_raw",
+        "adsb_altitude_p10_raw",
+        "adsb_altitude_p90_raw",
+        "adsb_speed_median_raw",
+        "adsb_speed_p10_raw",
+        "adsb_speed_p90_raw",
+        "adsb_vertical_rate_abs_median_raw",
+        "adsb_vertical_rate_abs_p90_raw",
+        "adsb_position_count",
+        "adsb_speed_count",
+        "type_A20N",
+        "type_A21N",
+        "type_A306",
+        "type_A318",
+        "type_A319",
+        "type_A320",
+        "type_A321",
+        "type_A332",
+        "type_A333",
+        "type_A359",
+        "type_A388",
+        "type_B38M",
+        "type_B39M",
+        "type_B737",
+        "type_B738",
+        "type_B739",
+        "type_B744",
+        "type_B748",
+        "type_B752",
+        "type_B763",
+        "type_B772",
+        "type_B77L",
+        "type_B77W",
+        "type_B788",
+        "type_B789",
+        "type_MD11"
+      ],
+      "subgroups": {
+        "adsb_input": {
+          "at least one ADS-B": {
+            "flight_macro_mae_kg": 96.56259229010904,
+            "flight_macro_rmse_kg": 271.80934403054454,
+            "mae_kg": 67.04168303550703,
+            "mean_signed_error_kg": -2.7516552597165287,
+            "n_flights": 1555,
+            "n_intervals": 17894,
+            "rmse_kg": 162.00367501858364
+          },
+          "zero ADS-B": {
+            "flight_macro_mae_kg": 184.0826559672049,
+            "flight_macro_rmse_kg": 474.67655653352796,
+            "mae_kg": 165.45818867474836,
+            "mean_signed_error_kg": -12.300090146233723,
+            "n_flights": 751,
+            "n_intervals": 6395,
+            "rmse_kg": 420.51390945181674
+          }
+        },
+        "aircraft_type": {
+          "A20N": {
+            "flight_macro_mae_kg": 43.05192625714426,
+            "flight_macro_rmse_kg": 83.5526090261768,
+            "mae_kg": 44.46771287464058,
+            "mean_signed_error_kg": 0.7136086302423343,
+            "n_flights": 850,
+            "n_intervals": 11989,
+            "rmse_kg": 88.49895319748919
+          },
+          "A21N": {
+            "flight_macro_mae_kg": 56.98124781671923,
+            "flight_macro_rmse_kg": 104.82458061573719,
+            "mae_kg": 49.68290909223315,
+            "mean_signed_error_kg": -3.7526026838872535,
+            "n_flights": 20,
+            "n_intervals": 149,
+            "rmse_kg": 84.35900434447096
+          },
+          "A306": {
+            "flight_macro_mae_kg": 178.3355874455733,
+            "flight_macro_rmse_kg": 247.81325442057047,
+            "mae_kg": 178.3355874455733,
+            "mean_signed_error_kg": -37.69234417734708,
+            "n_flights": 1,
+            "n_intervals": 7,
+            "rmse_kg": 247.81325442057047
+          },
+          "A319": {
+            "flight_macro_mae_kg": 94.69438704676294,
+            "flight_macro_rmse_kg": 178.2270912345824,
+            "mae_kg": 76.0733898919754,
+            "mean_signed_error_kg": -1.6122252830525712,
+            "n_flights": 10,
+            "n_intervals": 124,
+            "rmse_kg": 150.24526382787914
+          },
+          "A320": {
+            "flight_macro_mae_kg": 64.76722232194392,
+            "flight_macro_rmse_kg": 118.35466521406369,
+            "mae_kg": 60.21983743205875,
+            "mean_signed_error_kg": -8.5074979609886,
+            "n_flights": 406,
+            "n_intervals": 4993,
+            "rmse_kg": 109.08103096272174
+          },
+          "A321": {
+            "flight_macro_mae_kg": 118.04633169839164,
+            "flight_macro_rmse_kg": 226.0089744436792,
+            "mae_kg": 78.86804755269782,
+            "mean_signed_error_kg": -21.944962004574908,
+            "n_flights": 16,
+            "n_intervals": 134,
+            "rmse_kg": 166.41155339910276
+          },
+          "A332": {
+            "flight_macro_mae_kg": 270.09188838424956,
+            "flight_macro_rmse_kg": 662.2411250769582,
+            "mae_kg": 236.712081773193,
+            "mean_signed_error_kg": -63.960595812269155,
+            "n_flights": 76,
+            "n_intervals": 805,
+            "rmse_kg": 571.248957980611
+          },
+          "A333": {
+            "flight_macro_mae_kg": 159.9914572375943,
+            "flight_macro_rmse_kg": 251.0270935974892,
+            "mae_kg": 150.86293179230105,
+            "mean_signed_error_kg": -35.74875419102961,
+            "n_flights": 22,
+            "n_intervals": 191,
+            "rmse_kg": 242.42613422337337
+          },
+          "A359": {
+            "flight_macro_mae_kg": 191.9433916427392,
+            "flight_macro_rmse_kg": 396.0811300322526,
+            "mae_kg": 182.36226942629284,
+            "mean_signed_error_kg": -35.389869799458886,
+            "n_flights": 255,
+            "n_intervals": 3578,
+            "rmse_kg": 401.50737152794113
+          },
+          "B737": {
+            "flight_macro_mae_kg": 115.9151204016853,
+            "flight_macro_rmse_kg": 150.40592493361336,
+            "mae_kg": 120.00448214554187,
+            "mean_signed_error_kg": -1.8645487990267091,
+            "n_flights": 4,
+            "n_intervals": 21,
+            "rmse_kg": 159.9859256861516
+          },
+          "B738": {
+            "flight_macro_mae_kg": 80.7567208859742,
+            "flight_macro_rmse_kg": 122.36246172278393,
+            "mae_kg": 74.6158792043591,
+            "mean_signed_error_kg": -6.29408130559106,
+            "n_flights": 63,
+            "n_intervals": 585,
+            "rmse_kg": 116.74274476188246
+          },
+          "B739": {
+            "flight_macro_mae_kg": 367.1490758831915,
+            "flight_macro_rmse_kg": 432.3380068219999,
+            "mae_kg": 367.1490758831915,
+            "mean_signed_error_kg": -347.2950898584354,
+            "n_flights": 1,
+            "n_intervals": 7,
+            "rmse_kg": 432.3380068219999
+          },
+          "B744": {
+            "flight_macro_mae_kg": 881.4387764293987,
+            "flight_macro_rmse_kg": 1408.279453691898,
+            "mae_kg": 672.6034203011819,
+            "mean_signed_error_kg": 138.34524993935392,
+            "n_flights": 38,
+            "n_intervals": 240,
+            "rmse_kg": 1120.7216229403573
+          },
+          "B752": {
+            "flight_macro_mae_kg": 262.3261874944316,
+            "flight_macro_rmse_kg": 334.74350723748046,
+            "mae_kg": 280.7108994679269,
+            "mean_signed_error_kg": -212.80465310403616,
+            "n_flights": 3,
+            "n_intervals": 25,
+            "rmse_kg": 360.08456387162335
+          },
+          "B763": {
+            "flight_macro_mae_kg": 103.23915458643302,
+            "flight_macro_rmse_kg": 163.6620604720405,
+            "mae_kg": 103.239154586433,
+            "mean_signed_error_kg": -52.555843715433795,
+            "n_flights": 1,
+            "n_intervals": 8,
+            "rmse_kg": 163.6620604720405
+          },
+          "B772": {
+            "flight_macro_mae_kg": 147.91543211658424,
+            "flight_macro_rmse_kg": 179.39988861812168,
+            "mae_kg": 147.0204603604826,
+            "mean_signed_error_kg": 15.518251902925288,
+            "n_flights": 13,
+            "n_intervals": 98,
+            "rmse_kg": 178.0731207023348
+          },
+          "B77W": {
+            "flight_macro_mae_kg": 407.77321205875774,
+            "flight_macro_rmse_kg": 804.6430344570125,
+            "mae_kg": 344.35668232401014,
+            "mean_signed_error_kg": 79.51272098446789,
+            "n_flights": 32,
+            "n_intervals": 318,
+            "rmse_kg": 712.1940517141992
+          },
+          "B788": {
+            "flight_macro_mae_kg": 288.5110725159784,
+            "flight_macro_rmse_kg": 467.802589877706,
+            "mae_kg": 272.444637948908,
+            "mean_signed_error_kg": 158.64609577811524,
+            "n_flights": 39,
+            "n_intervals": 387,
+            "rmse_kg": 447.8855381735109
+          },
+          "B789": {
+            "flight_macro_mae_kg": 173.92565093691846,
+            "flight_macro_rmse_kg": 316.6867293722246,
+            "mae_kg": 120.75671301656737,
+            "mean_signed_error_kg": -23.14579776643071,
+            "n_flights": 38,
+            "n_intervals": 630,
+            "rmse_kg": 224.2725561268656
+          }
+        },
+        "duration_bin": {
+          "15\u201360 min": {
+            "flight_macro_mae_kg": 369.4806155901468,
+            "flight_macro_rmse_kg": 721.3017010308959,
+            "mae_kg": 318.55393168033214,
+            "mean_signed_error_kg": -8.922217834104575,
+            "n_flights": 1002,
+            "n_intervals": 2788,
+            "rmse_kg": 604.9483567853973
+          },
+          "5\u201315 min": {
+            "flight_macro_mae_kg": 102.09225387814983,
+            "flight_macro_rmse_kg": 255.78415838315414,
+            "mae_kg": 74.61684685870767,
+            "mean_signed_error_kg": -4.0724608559434685,
+            "n_flights": 1759,
+            "n_intervals": 10952,
+            "rmse_kg": 194.93088767101375
+          },
+          "<5 min": {
+            "flight_macro_mae_kg": 59.808647555088186,
+            "flight_macro_rmse_kg": 190.4598544765235,
+            "mae_kg": 52.36675746431379,
+            "mean_signed_error_kg": -5.538009392999885,
+            "n_flights": 1599,
+            "n_intervals": 10549,
+            "rmse_kg": 124.69076592022752
+          }
+        }
+      }
+    },
+    "histgb_metadata": {
+      "overall": {
+        "flight_macro_mae_kg": 123.25142721988743,
+        "flight_macro_rmse_kg": 333.4230214091918,
+        "mae_kg": 100.03070824455347,
+        "mean_signed_error_kg": -6.632637888423933,
+        "n_flights": 1888,
+        "n_intervals": 24289,
+        "rmse_kg": 263.82564729543697
+      },
+      "predictor_columns": [
+        "duration_min",
+        "type_A20N",
+        "type_A21N",
+        "type_A306",
+        "type_A318",
+        "type_A319",
+        "type_A320",
+        "type_A321",
+        "type_A332",
+        "type_A333",
+        "type_A359",
+        "type_A388",
+        "type_B38M",
+        "type_B39M",
+        "type_B737",
+        "type_B738",
+        "type_B739",
+        "type_B744",
+        "type_B748",
+        "type_B752",
+        "type_B763",
+        "type_B772",
+        "type_B77L",
+        "type_B77W",
+        "type_B788",
+        "type_B789",
+        "type_MD11"
+      ],
+      "subgroups": {
+        "adsb_input": {
+          "at least one ADS-B": {
+            "flight_macro_mae_kg": 116.3005515125248,
+            "flight_macro_rmse_kg": 298.15508319640514,
+            "mae_kg": 76.9979553807623,
+            "mean_signed_error_kg": -2.6644456174943083,
+            "n_flights": 1555,
+            "n_intervals": 17894,
+            "rmse_kg": 178.50325485261504
+          },
+          "zero ADS-B": {
+            "flight_macro_mae_kg": 182.88335564617577,
+            "flight_macro_rmse_kg": 472.9466571129593,
+            "mae_kg": 164.47919608578553,
+            "mean_signed_error_kg": -17.736130069192466,
+            "n_flights": 751,
+            "n_intervals": 6395,
+            "rmse_kg": 418.57702014245234
+          }
+        },
+        "aircraft_type": {
+          "A20N": {
+            "flight_macro_mae_kg": 48.17423862602,
+            "flight_macro_rmse_kg": 88.58707993978159,
+            "mae_kg": 49.27528698569362,
+            "mean_signed_error_kg": -2.1399299402263416,
+            "n_flights": 850,
+            "n_intervals": 11989,
+            "rmse_kg": 93.83641608083843
+          },
+          "A21N": {
+            "flight_macro_mae_kg": 66.67477087757777,
+            "flight_macro_rmse_kg": 126.81999112544828,
+            "mae_kg": 50.887858857671986,
+            "mean_signed_error_kg": 2.922818800096822,
+            "n_flights": 20,
+            "n_intervals": 149,
+            "rmse_kg": 91.27178661725932
+          },
+          "A306": {
+            "flight_macro_mae_kg": 265.22841873473004,
+            "flight_macro_rmse_kg": 432.39746616426663,
+            "mae_kg": 265.2284187347301,
+            "mean_signed_error_kg": -106.07252085880512,
+            "n_flights": 1,
+            "n_intervals": 7,
+            "rmse_kg": 432.39746616426663
+          },
+          "A319": {
+            "flight_macro_mae_kg": 108.69545317815434,
+            "flight_macro_rmse_kg": 192.3735225433812,
+            "mae_kg": 91.70961927678594,
+            "mean_signed_error_kg": -52.941809439187026,
+            "n_flights": 10,
+            "n_intervals": 124,
+            "rmse_kg": 162.40010043946438
+          },
+          "A320": {
+            "flight_macro_mae_kg": 76.15530145784028,
+            "flight_macro_rmse_kg": 141.7919305767484,
+            "mae_kg": 70.44866461879728,
+            "mean_signed_error_kg": -11.821187233381762,
+            "n_flights": 406,
+            "n_intervals": 4993,
+            "rmse_kg": 129.8284091979575
+          },
+          "A321": {
+            "flight_macro_mae_kg": 158.31683384616002,
+            "flight_macro_rmse_kg": 296.13603765469475,
+            "mae_kg": 100.27289394746234,
+            "mean_signed_error_kg": -41.11275334754157,
+            "n_flights": 16,
+            "n_intervals": 134,
+            "rmse_kg": 214.15754847137273
+          },
+          "A332": {
+            "flight_macro_mae_kg": 277.7359198755956,
+            "flight_macro_rmse_kg": 663.3213670227323,
+            "mae_kg": 238.1977529052436,
+            "mean_signed_error_kg": -49.53510318748414,
+            "n_flights": 76,
+            "n_intervals": 805,
+            "rmse_kg": 566.4945220245418
+          },
+          "A333": {
+            "flight_macro_mae_kg": 173.52501537900315,
+            "flight_macro_rmse_kg": 243.2656921642312,
+            "mae_kg": 163.27119736294264,
+            "mean_signed_error_kg": -21.462510425518236,
+            "n_flights": 22,
+            "n_intervals": 191,
+            "rmse_kg": 234.3201211799977
+          },
+          "A359": {
+            "flight_macro_mae_kg": 197.30695969915593,
+            "flight_macro_rmse_kg": 401.5514749797385,
+            "mae_kg": 187.05309109637426,
+            "mean_signed_error_kg": -33.99968703069198,
+            "n_flights": 255,
+            "n_intervals": 3578,
+            "rmse_kg": 405.26723783775566
+          },
+          "B737": {
+            "flight_macro_mae_kg": 144.24963912047667,
+            "flight_macro_rmse_kg": 235.29905253278875,
+            "mae_kg": 153.936098275456,
+            "mean_signed_error_kg": -59.05422315259364,
+            "n_flights": 4,
+            "n_intervals": 21,
+            "rmse_kg": 256.7333075854923
+          },
+          "B738": {
+            "flight_macro_mae_kg": 97.71931125072234,
+            "flight_macro_rmse_kg": 157.3413892961887,
+            "mae_kg": 87.72454945128177,
+            "mean_signed_error_kg": -13.070565582313868,
+            "n_flights": 63,
+            "n_intervals": 585,
+            "rmse_kg": 147.52558838331527
+          },
+          "B739": {
+            "flight_macro_mae_kg": 374.5253905732026,
+            "flight_macro_rmse_kg": 437.1074583884442,
+            "mae_kg": 374.5253905732026,
+            "mean_signed_error_kg": -255.68601313485564,
+            "n_flights": 1,
+            "n_intervals": 7,
+            "rmse_kg": 437.1074583884442
+          },
+          "B744": {
+            "flight_macro_mae_kg": 936.9547296831008,
+            "flight_macro_rmse_kg": 1406.1939429069703,
+            "mae_kg": 701.9582315528261,
+            "mean_signed_error_kg": 132.19610844371408,
+            "n_flights": 38,
+            "n_intervals": 240,
+            "rmse_kg": 1127.9677000839072
+          },
+          "B752": {
+            "flight_macro_mae_kg": 446.3763295374356,
+            "flight_macro_rmse_kg": 621.6927640716623,
+            "mae_kg": 437.27817451692533,
+            "mean_signed_error_kg": -28.710339824676407,
+            "n_flights": 3,
+            "n_intervals": 25,
+            "rmse_kg": 596.5497215135504
+          },
+          "B763": {
+            "flight_macro_mae_kg": 122.48135715584402,
+            "flight_macro_rmse_kg": 169.98969421707832,
+            "mae_kg": 122.48135715584402,
+            "mean_signed_error_kg": -25.94036936852341,
+            "n_flights": 1,
+            "n_intervals": 8,
+            "rmse_kg": 169.98969421707832
+          },
+          "B772": {
+            "flight_macro_mae_kg": 248.910767117645,
+            "flight_macro_rmse_kg": 343.76540425240677,
+            "mae_kg": 245.18118827794,
+            "mean_signed_error_kg": 18.486340954541824,
+            "n_flights": 13,
+            "n_intervals": 98,
+            "rmse_kg": 340.64204181757793
+          },
+          "B77W": {
+            "flight_macro_mae_kg": 451.29263064755105,
+            "flight_macro_rmse_kg": 866.3215898813783,
+            "mae_kg": 354.5810480166554,
+            "mean_signed_error_kg": 130.20193021915827,
+            "n_flights": 32,
+            "n_intervals": 318,
+            "rmse_kg": 753.4270216628466
+          },
+          "B788": {
+            "flight_macro_mae_kg": 288.39583607094266,
+            "flight_macro_rmse_kg": 459.91484045997237,
+            "mae_kg": 272.34993648659605,
+            "mean_signed_error_kg": 151.01698761848618,
+            "n_flights": 39,
+            "n_intervals": 387,
+            "rmse_kg": 439.9365810654144
+          },
+          "B789": {
+            "flight_macro_mae_kg": 191.46484988890737,
+            "flight_macro_rmse_kg": 355.92427689356384,
+            "mae_kg": 128.47292233371977,
+            "mean_signed_error_kg": -32.06264668119753,
+            "n_flights": 38,
+            "n_intervals": 630,
+            "rmse_kg": 238.10074662338758
+          }
+        },
+        "duration_bin": {
+          "15\u201360 min": {
+            "flight_macro_mae_kg": 392.25056510920973,
+            "flight_macro_rmse_kg": 729.5130347036553,
+            "mae_kg": 337.7325394700398,
+            "mean_signed_error_kg": -12.007571134521559,
+            "n_flights": 1002,
+            "n_intervals": 2788,
+            "rmse_kg": 616.4576762279477
+          },
+          "5\u201315 min": {
+            "flight_macro_mae_kg": 112.8054531608095,
+            "flight_macro_rmse_kg": 269.6572032901628,
+            "mae_kg": 81.52887269072177,
+            "mean_signed_error_kg": -3.8458629768687906,
+            "n_flights": 1759,
+            "n_intervals": 10952,
+            "rmse_kg": 201.44590785330246
+          },
+          "<5 min": {
+            "flight_macro_mae_kg": 66.13614883893447,
+            "flight_macro_rmse_kg": 211.59505552434427,
+            "mae_kg": 56.417038468167924,
+            "mean_signed_error_kg": -8.105331503101322,
+            "n_flights": 1599,
+            "n_intervals": 10549,
+            "rmse_kg": 133.02727538821478
+          }
+        }
+      }
+    },
+    "median_type_rate": {
+      "overall": {
+        "flight_macro_mae_kg": 116.74581072583076,
+        "flight_macro_rmse_kg": 336.5479954033007,
+        "mae_kg": 94.80628105312607,
+        "mean_signed_error_kg": -23.067456002432298,
+        "n_flights": 1888,
+        "n_intervals": 24289,
+        "rmse_kg": 266.58987949141226
+      },
+      "subgroups": {
+        "adsb_input": {
+          "at least one ADS-B": {
+            "flight_macro_mae_kg": 107.15294489263987,
+            "flight_macro_rmse_kg": 295.45868356000346,
+            "mae_kg": 70.71950015622669,
+            "mean_signed_error_kg": -19.39225385808668,
+            "n_flights": 1555,
+            "n_intervals": 17894,
+            "rmse_kg": 176.2046308783034
+          },
+          "zero ADS-B": {
+            "flight_macro_mae_kg": 173.42682212781162,
+            "flight_macro_rmse_kg": 470.8137370249554,
+            "mae_kg": 162.20406953930558,
+            "mean_signed_error_kg": -33.351125614773274,
+            "n_flights": 751,
+            "n_intervals": 6395,
+            "rmse_kg": 427.85151756769415
+          }
+        },
+        "aircraft_type": {
+          "A20N": {
+            "flight_macro_mae_kg": 43.89701926976114,
+            "flight_macro_rmse_kg": 93.30709340031648,
+            "mae_kg": 44.95899711945846,
+            "mean_signed_error_kg": -19.306208197446367,
+            "n_flights": 850,
+            "n_intervals": 11989,
+            "rmse_kg": 99.78474237581777
+          },
+          "A21N": {
+            "flight_macro_mae_kg": 69.07320077730813,
+            "flight_macro_rmse_kg": 128.07717571113952,
+            "mae_kg": 49.901623157492764,
+            "mean_signed_error_kg": 11.365337044117556,
+            "n_flights": 20,
+            "n_intervals": 149,
+            "rmse_kg": 92.843728109754
+          },
+          "A306": {
+            "flight_macro_mae_kg": 297.0970451628585,
+            "flight_macro_rmse_kg": 469.384236810704,
+            "mae_kg": 297.0970451628585,
+            "mean_signed_error_kg": -102.86765922004645,
+            "n_flights": 1,
+            "n_intervals": 7,
+            "rmse_kg": 469.384236810704
+          },
+          "A319": {
+            "flight_macro_mae_kg": 61.93140172351184,
+            "flight_macro_rmse_kg": 116.47107370567652,
+            "mae_kg": 60.93524298615169,
+            "mean_signed_error_kg": -46.36924422333253,
+            "n_flights": 10,
+            "n_intervals": 124,
+            "rmse_kg": 110.44238395843766
+          },
+          "A320": {
+            "flight_macro_mae_kg": 74.22439539645727,
+            "flight_macro_rmse_kg": 142.12741379852343,
+            "mae_kg": 69.18990060829395,
+            "mean_signed_error_kg": -20.303749006280764,
+            "n_flights": 406,
+            "n_intervals": 4993,
+            "rmse_kg": 130.672861671072
+          },
+          "A321": {
+            "flight_macro_mae_kg": 151.0800247283875,
+            "flight_macro_rmse_kg": 298.9406315326334,
+            "mae_kg": 94.79259745803716,
+            "mean_signed_error_kg": -42.77166950803778,
+            "n_flights": 16,
+            "n_intervals": 134,
+            "rmse_kg": 214.8175227503726
+          },
+          "A332": {
+            "flight_macro_mae_kg": 270.9528284290089,
+            "flight_macro_rmse_kg": 678.9610267903064,
+            "mae_kg": 228.96872061992755,
+            "mean_signed_error_kg": -103.5602425499048,
+            "n_flights": 76,
+            "n_intervals": 805,
+            "rmse_kg": 583.816906627034
+          },
+          "A333": {
+            "flight_macro_mae_kg": 178.59937867699617,
+            "flight_macro_rmse_kg": 254.30544374315295,
+            "mae_kg": 169.00144658021682,
+            "mean_signed_error_kg": -2.605900388137364,
+            "n_flights": 22,
+            "n_intervals": 191,
+            "rmse_kg": 245.065138089933
+          },
+          "A359": {
+            "flight_macro_mae_kg": 199.9269674667954,
+            "flight_macro_rmse_kg": 409.0683046086247,
+            "mae_kg": 191.67748998511848,
+            "mean_signed_error_kg": -49.90567014795205,
+            "n_flights": 255,
+            "n_intervals": 3578,
+            "rmse_kg": 414.4410523033545
+          },
+          "B737": {
+            "flight_macro_mae_kg": 147.46581804692326,
+            "flight_macro_rmse_kg": 234.02302152831132,
+            "mae_kg": 165.51918837048336,
+            "mean_signed_error_kg": -47.91655347576522,
+            "n_flights": 4,
+            "n_intervals": 21,
+            "rmse_kg": 258.4028371210446
+          },
+          "B738": {
+            "flight_macro_mae_kg": 84.66375293583538,
+            "flight_macro_rmse_kg": 143.0834342591763,
+            "mae_kg": 78.21210088780747,
+            "mean_signed_error_kg": -14.977557636464635,
+            "n_flights": 63,
+            "n_intervals": 585,
+            "rmse_kg": 137.49503265760626
+          },
+          "B739": {
+            "flight_macro_mae_kg": 204.0563089159878,
+            "flight_macro_rmse_kg": 240.8634179315726,
+            "mae_kg": 204.05630891598784,
+            "mean_signed_error_kg": -68.45369188063262,
+            "n_flights": 1,
+            "n_intervals": 7,
+            "rmse_kg": 240.8634179315726
+          },
+          "B744": {
+            "flight_macro_mae_kg": 909.5719304445025,
+            "flight_macro_rmse_kg": 1414.256188788211,
+            "mae_kg": 621.3939526021425,
+            "mean_signed_error_kg": -56.590590847487526,
+            "n_flights": 38,
+            "n_intervals": 240,
+            "rmse_kg": 1095.0660665748765
+          },
+          "B752": {
+            "flight_macro_mae_kg": 311.99030402496936,
+            "flight_macro_rmse_kg": 444.0295706290434,
+            "mae_kg": 346.44177552385474,
+            "mean_signed_error_kg": -345.02346453768644,
+            "n_flights": 3,
+            "n_intervals": 25,
+            "rmse_kg": 490.394207437358
+          },
+          "B763": {
+            "flight_macro_mae_kg": 103.77581104424866,
+            "flight_macro_rmse_kg": 150.49100307090205,
+            "mae_kg": 103.77581104424866,
+            "mean_signed_error_kg": -49.38144677518228,
+            "n_flights": 1,
+            "n_intervals": 8,
+            "rmse_kg": 150.49100307090205
+          },
+          "B772": {
+            "flight_macro_mae_kg": 212.965785064232,
+            "flight_macro_rmse_kg": 339.0691214474379,
+            "mae_kg": 211.46312331831834,
+            "mean_signed_error_kg": 111.00070616867232,
+            "n_flights": 13,
+            "n_intervals": 98,
+            "rmse_kg": 336.2604903500617
+          },
+          "B77W": {
+            "flight_macro_mae_kg": 313.3233995006432,
+            "flight_macro_rmse_kg": 847.4686426099059,
+            "mae_kg": 238.21700864471373,
+            "mean_signed_error_kg": -59.662673427740295,
+            "n_flights": 32,
+            "n_intervals": 318,
+            "rmse_kg": 736.443126333833
+          },
+          "B788": {
+            "flight_macro_mae_kg": 288.52818136923577,
+            "flight_macro_rmse_kg": 490.55835685569093,
+            "mae_kg": 271.86501218690046,
+            "mean_signed_error_kg": 193.59256694995204,
+            "n_flights": 39,
+            "n_intervals": 387,
+            "rmse_kg": 468.86238435362066
+          },
+          "B789": {
+            "flight_macro_mae_kg": 183.46492399086208,
+            "flight_macro_rmse_kg": 360.9681671600141,
+            "mae_kg": 119.21346855401318,
+            "mean_signed_error_kg": 18.27200102185937,
+            "n_flights": 38,
+            "n_intervals": 630,
+            "rmse_kg": 236.2841679871526
+          }
+        },
+        "duration_bin": {
+          "15\u201360 min": {
+            "flight_macro_mae_kg": 356.4649342690427,
+            "flight_macro_rmse_kg": 719.234136137975,
+            "mae_kg": 320.28330664064936,
+            "mean_signed_error_kg": -31.860465597132965,
+            "n_flights": 1002,
+            "n_intervals": 2788,
+            "rmse_kg": 619.5931880667661
+          },
+          "5\u201315 min": {
+            "flight_macro_mae_kg": 107.72956480024561,
+            "flight_macro_rmse_kg": 275.29776672172505,
+            "mae_kg": 76.81876561157378,
+            "mean_signed_error_kg": -18.89061749282167,
+            "n_flights": 1759,
+            "n_intervals": 10952,
+            "rmse_kg": 203.1662938261894
+          },
+          "<5 min": {
+            "flight_macro_mae_kg": 64.80765996068337,
+            "flight_macro_rmse_kg": 225.48746589301106,
+            "mae_kg": 53.88954219426417,
+            "mean_signed_error_kg": -25.07995241036008,
+            "n_flights": 1599,
+            "n_intervals": 10549,
+            "rmse_kg": 139.01500916958724
+          }
+        }
+      }
+    }
+  },
+  "paired_comparisons": {
+    "histgb_metadata__vs__histgb_adsb": {
+      "bootstrap_repetitions": 1000,
+      "mae_95pct_flight_bootstrap_ci_kg": [
+        -8.186388554332252,
+        -6.095480057742681
+      ],
+      "rmse_95pct_flight_bootstrap_ci_kg": [
+        -10.84864380829512,
+        -3.6950076646718317
+      ],
+      "second_minus_first_mae_kg": -7.077149316134083,
+      "second_minus_first_rmse_kg": -7.129595429366702
+    },
+    "median_type_rate__vs__histgb_adsb": {
+      "bootstrap_repetitions": 1000,
+      "mae_95pct_flight_bootstrap_ci_kg": [
+        -3.6968555190613293,
+        0.037510911194201565
+      ],
+      "rmse_95pct_flight_bootstrap_ci_kg": [
+        -16.111127594364703,
+        -4.084231272002131
+      ],
+      "second_minus_first_mae_kg": -1.8527221247066876,
+      "second_minus_first_rmse_kg": -9.893827625341999
+    },
+    "median_type_rate__vs__histgb_metadata": {
+      "bootstrap_repetitions": 1000,
+      "mae_95pct_flight_bootstrap_ci_kg": [
+        3.7097697244176646,
+        6.876672618817258
+      ],
+      "rmse_95pct_flight_bootstrap_ci_kg": [
+        -9.778008602412847,
+        3.720791592680017
+      ],
+      "second_minus_first_mae_kg": 5.224427191427395,
+      "second_minus_first_rmse_kg": -2.7642321959752962
+    }
+  },
+  "protocol": "train April\u2013August 2025; rank September 2025; October final unopened",
+  "rank_flights": 1888,
+  "rank_intervals": 24289,
+  "train_flights": 11037,
+  "train_intervals": 131530,
+  "unseen_rank_types": [],
+  "versions": {
+    "numpy": "2.3.5",
+    "pandas": "2.2.3",
+    "scikit_learn": "1.8.0"
+  }
+}

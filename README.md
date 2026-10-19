@@ -4,7 +4,7 @@ Research project on reliable aircraft fuel-burn estimation from flight trajector
 
 ## Status
 
-**Phase 2 metadata audit complete; full trajectory audit pending.** No model has been fitted. Read the [Phase 2 data acceptance report](docs/phase-2-data-acceptance.md), [project charter](docs/project-charter.md), [critical literature review](docs/phase-1-literature-review.md), [Phase 1 report draft](docs/phase-1-report-draft.md), and [submission requirements](docs/submission-requirements.md). The Phase 1 draft predates the Phase 2 findings and must be revised before submission.
+**Phase 3 baselines implemented and scored on the September ranking period.** Read the [Phase 3 baseline report](docs/phase-3-baselines.md), [Phase 2 data acceptance report](docs/phase-2-data-acceptance.md), [project charter](docs/project-charter.md), [critical literature review](docs/phase-1-literature-review.md), [Phase 1 report draft](docs/phase-1-report-draft.md), and [submission requirements](docs/submission-requirements.md). The Phase 1 draft predates the revised research direction and must be updated before submission.
 
 ## Proposed research question
 
@@ -16,7 +16,7 @@ This is retrospective interval estimation. It is not a claim to forecast future 
 
 [EUROCONTROL PRC 2025 Aircraft Fuel Burn Estimation Data Challenge](https://zenodo.org/records/19184662), DOI [10.5281/zenodo.19184662](https://doi.org/10.5281/zenodo.19184662). Its released files contain ACARS-derived interval fuel labels, ADS-B trajectories, and aircraft metadata. The dataset README specifies CC BY 4.0 licensing and describes label-processing limitations. Cite the associated [dataset paper](https://doi.org/10.59490/joas.2026.8750).
 
-The seven small metadata/label files have been downloaded and checksum verified locally; raw data are not stored in Git. The large trajectory ZIP archives have only been range-probed, so population-wide coverage and ZIP checksums remain open.
+The seven small metadata/label files and all three trajectory ZIP archives were downloaded and verified against the published MD5s in the Phase 3 run. Raw data are not stored in Git. Full train/rank ADS-B interval features have been extracted; the October final split remains locked for model evaluation.
 
 ## Reproduce the Phase 2 audit
 
@@ -39,7 +39,19 @@ python -m src.flight_fuel.full_coverage_audit
 python -m unittest discover -s tests
 ```
 
-The downloader resumes interrupted `.part` files and verifies each archive against the Zenodo MD5. The coverage audit streams one flight at a time and writes aggregate results to `reports/phase-2-full-coverage-audit.json`. This full-archive command has not yet been run on the released ZIPs; the small synthetic test verifies interval boundaries and excluded ACARS rows.
+The downloader resumes interrupted `.part` files and verifies each archive against the Zenodo MD5. The optional coverage audit streams one flight at a time and writes aggregate results to `reports/phase-2-full-coverage-audit.json`. The Phase 3 feature pipeline already verifies the train/rank ZIPs and counts intervals with no ADS-B position; the separate all-three-split coverage audit has not been run. October remains reserved for a locked test.
+
+## Phase 3 baselines
+
+```bash
+python -m src.flight_fuel.baselines --output reports/phase-3-metadata-rank.json
+python -m src.flight_fuel.features --splits train rank
+python -m src.flight_fuel.baselines --feature-dir data/processed --output reports/phase-3-rank-baselines.json
+python -m src.flight_fuel.plots --report reports/phase-3-rank-baselines.json
+python -m unittest discover -s tests
+```
+
+The [baseline report](docs/phase-3-baselines.md) has the fixed feature contract, metrics, subgroup counts and limitations. The model command refuses to read the final split. The September ADS-B model achieves 92.95 kg MAE and 256.70 kg RMSE; the simple aircraft-type median-rate baseline achieves 94.81 kg and 266.59 kg. The ADS-B model is **not** better on every aircraft or on intervals with no ADS-B input.
 
 ## Work sequence
 
