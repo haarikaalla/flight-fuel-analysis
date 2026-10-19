@@ -31,6 +31,16 @@ python -m src.flight_fuel.dev_subset
 
 The first command downloads about 6 MB of released metadata and labels into ignored `data/raw/`, verifies each published MD5 and regenerates `reports/phase-2-metadata-audit.json`. The second reads six flights via HTTP range requests from the official archives and regenerates `reports/phase-2-trajectory-probe.json`; it does **not** verify the full ZIP checksums. The third freezes a small train/rank flight-ID subset by aircraft type in `configs/dev-flights.json`; final-period flight IDs are deliberately excluded. The report describes the sampling and limitations. Downloads and range probing require network access to Zenodo.
 
+For the **pending population-wide gate**, allow about 4.9 GB of download space plus extracted working space, then run:
+
+```bash
+python -m src.flight_fuel.download_archives
+python -m src.flight_fuel.full_coverage_audit
+python -m unittest discover -s tests
+```
+
+The downloader resumes interrupted `.part` files and verifies each archive against the Zenodo MD5. The coverage audit streams one flight at a time and writes aggregate results to `reports/phase-2-full-coverage-audit.json`. This full-archive command has not yet been run on the released ZIPs; the small synthetic test verifies interval boundaries and excluded ACARS rows.
+
 ## Work sequence
 
 0. Scope, feasibility, submission mapping.
