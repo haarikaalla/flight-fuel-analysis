@@ -4,7 +4,8 @@ import unittest
 import numpy as np
 import pandas as pd
 
-from src.flight_fuel.eligibility import describe, render, select
+from src.flight_fuel.eligibility import (describe, flight_bootstrap_tradeoff,
+                                         render, residual_profile, select)
 
 
 class EligibilityTests(unittest.TestCase):
@@ -47,6 +48,26 @@ class EligibilityTests(unittest.TestCase):
                                                {"text": "</script>"}))
         with self.assertRaises(ValueError):
             render("no marker", {})
+
+    def test_residual_diagnostics_and_flight_cluster_bootstrap(self):
+        frame = pd.DataFrame({"flight_id": ["f1", "f1", "f2", "f2"],
+                              "duration_min": [1., 2., 6., 20.],
+                              "fuel_kg": [1., 2., 10., 20.]})
+        predicted = np.array([2., 4., 8., 16.])
+        profile = residual_profile(frame, predicted, np.array([1., 2., 3., 4.]))
+        self.assertEqual(profile["full"]["n_intervals_under_5min"], 2)
+        self.assertAlmostEqual(profile["full"]["mae_kg"], 2.25)
+        self.assertAlmostEqual(profile["full"]["wape"], 9 / 33)
+        self.assertEqual(sum(d["n"] for d in profile["risk_deciles"]), 4)
+        with self.assertRaises(ValueError):
+            residual_profile(frame.assign(fuel_kg=[0., 2., 10., 20.]),
+                             predicted, np.ones(4))
+        risk = np.array([True, False, True, False])
+        floor = np.array([True, True, True, False])
+        bootstrap = flight_bootstrap_tradeoff(frame, predicted, risk, floor, 100)
+        self.assertEqual(bootstrap["resampling_unit"], "flight")
+        self.assertEqual(bootstrap["valid_resamples"], 100)
+        self.assertGreater(bootstrap["floor_minus_risk_labeled_fuel_share_95pct_ci"][1], 0)
 
 
 if __name__ == "__main__":
