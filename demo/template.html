@@ -1,233 +1,61 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Flight fuel | Reliability demo</title>
-  <style>
-    :root { color-scheme: light; --ink: #172438; --muted: #59687b; --blue: #176a9b;
-      --mint: #147d72; --orange: #c16a31; --line: #d9e3eb; --paper: #fff; --wash: #f4f7fa; }
-    * { box-sizing: border-box; }
-    body { margin: 0; background: var(--wash); color: var(--ink); font: 16px/1.5 system-ui, sans-serif; }
-    header { background: #10283e; color: #fff; padding: 2.8rem max(1.3rem, calc((100vw - 1120px)/2)); }
-    header p { max-width: 790px; color: #d6e7f1; margin: .65rem 0 0; }
-    h1 { font-size: clamp(2rem, 4vw, 3.3rem); line-height: 1.12; margin: .5rem 0; letter-spacing: -.025em; }
-    h2 { font-size: 1.45rem; margin: 0 0 .45rem; }
-    h3 { font-size: 1.05rem; margin: .25rem 0 .4rem; }
-    a { color: #12668f; }
-    header a { color: #b9e4f6; }
-    main { max-width: 1160px; margin: 0 auto; padding: 1.4rem 1.3rem 4rem; }
-    .eyebrow { text-transform: uppercase; letter-spacing: .13em; font-size: .76rem; font-weight: 750; color: #a8d9e7; }
-    .grid { display: grid; gap: 1rem; grid-template-columns: repeat(12, 1fr); }
-    .panel { background: var(--paper); border: 1px solid var(--line); border-radius: 16px;
-      padding: 1.3rem; box-shadow: 0 7px 25px #243c550a; }
-    .panel.full { grid-column: span 12; } .panel.half { grid-column: span 6; }
-    .intro { border-left: 5px solid var(--mint); margin-bottom: 1rem; }
-    .intro p, .note { color: var(--muted); margin: .25rem 0; }
-    .controls { display: flex; align-items: end; gap: 1rem; flex-wrap: wrap; margin: .9rem 0 1.3rem; }
-    label { font-size: .84rem; font-weight: 720; display: block; margin-bottom: .3rem; }
-    select { font: inherit; color: var(--ink); background: white; border: 1px solid #aabbc9;
-      border-radius: 9px; padding: .52rem .75rem; min-width: 160px; }
-    select:focus-visible, button:focus-visible { outline: 3px solid #f2b34d; outline-offset: 2px; }
-    .cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .7rem; }
-    .card { background: #f1f7f9; border-radius: 11px; padding: .8rem 1rem; }
-    .card strong { display: block; font-size: 1.6rem; line-height: 1.25; font-variant-numeric: tabular-nums; }
-    .card span { color: var(--muted); font-size: .84rem; }
-    .caption { font-size: .84rem; color: var(--muted); margin-top: .75rem; }
-    .bar-row { display: grid; grid-template-columns: minmax(85px, 110px) minmax(90px, 1fr) 70px;
-      align-items: center; gap: .7rem; margin: .5rem 0; font-size: .89rem; }
-    .bar-track { background: #e8eef1; border-radius: 12px; height: 15px; overflow: hidden; }
-    .bar { height: 100%; background: var(--mint); border-radius: inherit; }
-    .bar.rare { background: var(--orange); }
-    .bar-row output { text-align: right; font-variant-numeric: tabular-nums; }
-    .scroll { max-height: 350px; overflow: auto; padding-right: .4rem; }
-    .legend { display: flex; flex-wrap: wrap; gap: .5rem 1rem; font-size: .81rem; color: var(--muted); }
-    .legend i { display: inline-block; width: 12px; height: 12px; border-radius: 50%; margin-right: 5px; }
-    svg { width: 100%; height: auto; margin-top: .3rem; }
-    table { width: 100%; border-collapse: collapse; font-size: .89rem; }
-    th, td { text-align: left; padding: .52rem .35rem; border-bottom: 1px solid var(--line); }
-    th { color: var(--muted); font-size: .78rem; }
-    td:not(:first-child), th:not(:first-child) { text-align: right; font-variant-numeric: tabular-nums; }
-    .callout { border: 1px solid #ead4bb; background: #fff8ed; border-radius: 10px; padding: .8rem 1rem; margin-top: .85rem; }
-    .callout strong { color: #94501f; }
-    footer { color: var(--muted); font-size: .9rem; margin-top: 1.3rem; }
-    @media (max-width: 780px) { .panel.half { grid-column: span 12; } .cards { grid-template-columns: 1fr; } }
-  </style>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Flight Fuel | Eligibility audit</title>
+<style>
+:root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color:#153047;background:#eef3f5;line-height:1.5}
+*{box-sizing:border-box}body{margin:0}header{background:#12344b;color:#fff;padding:2rem max(1.5rem,calc((100% - 1100px)/2)) 2.4rem}header p{max-width:780px;color:#d0e3e8;margin-bottom:0}h1{font-size:clamp(1.8rem,4vw,2.8rem);line-height:1.16;margin:.3rem 0}h2{margin:0 0 .45rem;font-size:1.27rem}h3{margin:.8rem 0 .3rem}main{max-width:1100px;margin:-1.15rem auto 2rem;padding:0 1rem}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem}.panel{background:white;border:1px solid #d9e5e7;border-radius:13px;padding:1.25rem;box-shadow:0 5px 18px #16394a0a}.full{grid-column:1/-1}.eyebrow{font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:#a6deda;font-weight:750}.muted{color:#536a77;margin:.25rem 0 1rem}.controls{display:flex;gap:1rem;flex-wrap:wrap;align-items:end}.controls label{display:block;font-size:.84rem;font-weight:700;margin-bottom:.25rem}.controls select{font:inherit;border:1px solid #a9bec8;border-radius:8px;padding:.55rem;background:#fff;min-width:175px;color:#153047}.controls select:focus-visible{outline:3px solid #f0a95d}.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:.65rem;margin-top:1rem}.card{background:#edf6f4;border-radius:10px;padding:.75rem}.card strong{display:block;font-size:1.55rem;font-variant-numeric:tabular-nums}.card span{font-size:.78rem;color:#526876}.alert{border-left:4px solid #d97838;background:#fff6eb;border-radius:7px;padding:.8rem 1rem;margin:1rem 0 0}.small{font-size:.82rem}.scroll{max-height:460px;overflow:auto}table{border-collapse:collapse;width:100%;font-size:.86rem}th,td{padding:.5rem .4rem;border-bottom:1px solid #e3eaec;text-align:right;font-variant-numeric:tabular-nums}th:first-child,td:first-child{text-align:left}th{position:sticky;top:0;background:white;color:#536a77;font-size:.75rem}.meter{height:.52rem;border-radius:10px;background:#e4eef0;margin-top:.2rem;overflow:hidden}.meter i{height:100%;display:block;background:#188779}.bad i{background:#dc7941}.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem}.key{padding:.75rem;border-radius:8px;background:#f4f8f9}.key b{display:block}.key p{margin:.2rem 0;color:#536a77;font-size:.84rem}footer{color:#536a77;font-size:.85rem;margin-top:1.2rem}a{color:#106f77}header a{color:#a6deda}@media(max-width:750px){.grid{grid-template-columns:1fr}.cards{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}.panel{overflow-x:auto}}
+</style>
 </head>
 <body>
-  <header>
-    <div class="eyebrow">Phase 5 · Offline research demo</div>
-    <h1>When can we use a fuel estimate?</h1>
-    <p>Explore a retrospective ADS-B fuel study by period, acceptance rule, aircraft and observation loss. Every number comes from the committed aggregate Phase 4 evaluation.</p>
-  </header>
-  <main>
-    <section class="panel intro" aria-label="What this demo shows">
-      <h2>What is being estimated?</h2>
-      <p>Fuel consumed during a <strong>completed, predefined flight interval</strong>, in kilograms. The reference label comes from differences in onboard fuel reports; the predictors use aircraft type, interval duration and ADS-B observations. With no usable ADS-B position, the estimate falls back to the training-period aircraft-type median rate.</p>
-      <p>This demo compares <em>published group results</em>. It does not predict fuel for a new flight, present calibrated individual uncertainty, or identify fuel-saving opportunities.</p>
-    </section>
-
-    <div class="grid">
-      <section class="panel full" aria-labelledby="results-title">
-        <h2 id="results-title">Choose an acceptance rule</h2>
-        <p class="note">A rule may abstain, leaving an interval without an estimate. Lower error on the accepted cases can result from choosing easier intervals.</p>
-        <div class="controls">
-          <div><label for="period">Evaluation period</label><select id="period"><option value="validation">Late September validation</option><option value="final" selected>October holdout</option></select></div>
-          <div><label for="rule">Which intervals to accept?</label><select id="rule"><option value="learned_risk">Lowest predicted error</option><option value="duration">Shortest duration</option><option value="max_gap_fraction">Smallest ADS-B gap</option><option value="random_hash">Fixed random comparator</option></select></div>
-          <div><label for="target">Calibration target</label><select id="target"><option value="0.5">50%</option><option value="0.75" selected>75% · primary</option><option value="0.9">90%</option><option value="1.0">100%</option></select></div>
-        </div>
-        <div class="cards" aria-live="polite">
-          <div class="card"><strong id="accepted">—</strong><span>Intervals receiving an estimate</span></div>
-          <div class="card"><strong id="mae">—</strong><span>MAE among accepted intervals</span></div>
-          <div class="card"><strong id="full-mae">—</strong><span>Full fallback MAE, all intervals</span></div>
-        </div>
-        <div id="period-detail" class="caption"></div>
-        <div id="warning" class="callout" role="note"></div>
-      </section>
-
-      <section class="panel half" aria-labelledby="curve-title">
-        <h2 id="curve-title">Error and access</h2>
-        <p class="note">Each line uses the same fallback estimates, accepted in a different order. Points are calibrated targets; the x-axis shows actual acceptance in the selected period.</p>
-        <svg id="curve" viewBox="0 0 520 310" role="img" aria-label="Accepted-case mean absolute error by fraction accepted"></svg>
-        <div id="legend" class="legend"></div>
-      </section>
-
-      <section class="panel half" aria-labelledby="duration-title">
-        <h2 id="duration-title">Access by interval duration</h2>
-        <p class="note">How often the selected rule provides an estimate within each duration group.</p>
-        <div id="duration-bars"></div>
-        <h3>Duration sensitivity of the full fallback</h3>
-        <table><thead><tr><th>Duration</th><th>Intervals</th><th>MAE</th></tr></thead><tbody id="duration-table"></tbody></table>
-        <p class="caption">Duration MAE is reconstructed from disjoint published label strata. It is descriptive and does not describe the accepted subset.</p>
-      </section>
-
-      <section class="panel half" aria-labelledby="aircraft-title">
-        <h2 id="aircraft-title">Access by aircraft type</h2>
-        <p class="note">These are acceptance rates, not aircraft-specific accuracy. Orange bars have fewer than 100 intervals and are unstable summaries.</p>
-        <div id="aircraft-bars" class="scroll"></div>
-      </section>
-
-      <section class="panel half" aria-labelledby="outage-title">
-        <h2 id="outage-title">Remove ADS-B observations</h2>
-        <p class="note">September validation: 120 sampled flights, 1,355 originally observed intervals. Trajectory points were removed before extracting features again. The same labels and fitted model were used.</p>
-        <div class="controls">
-          <div><label for="removal">Points removed</label><select id="removal"><option value="20">20%</option><option value="50" selected>50%</option><option value="80">80%</option></select></div>
-          <div><label for="seed">Repeat</label><select id="seed"><option value="42">Seed 42</option><option value="43">Seed 43</option></select></div>
-        </div>
-        <table><thead><tr><th>Input pattern</th><th>ADS-B MAE</th><th>Fallback MAE</th></tr></thead><tbody id="outage-table"></tbody></table>
-        <p id="outage-detail" class="caption"></p>
-      </section>
-
-      <section class="panel full" aria-labelledby="reading-title">
-        <h2 id="reading-title">How to present this result</h2>
-        <p><strong>Finding:</strong> the zero-input fallback improved October average absolute error; contiguous loss of points damaged the ADS-B model more than scattered thinning in the controlled September sample.</p>
-        <p><strong>Limit:</strong> the 75% learned-risk rule almost never accepts longer intervals and has very uneven aircraft access. It should not be described as a universally reliable estimator. The controlled masks are not proof about naturally missing flights.</p>
-        <p><strong>Next evidence:</strong> independent operators, a prospective definition of interval boundaries, a cost for abstaining, and a deeper prior-work comparison. The public benchmark cannot establish those claims by itself.</p>
-      </section>
-    </div>
-    <footer>Reproduce the aggregate audit with <code>python -m src.flight_fuel.phase5</code>. Read <a href="../docs/phase-5-demo-and-robustness.md">the Phase 5 report</a> and <a href="../docs/phase-4-results.md">the Phase 4 protocol</a>. No network connection or raw trajectory archive is required to open this page.</footer>
-  </main>
-  <script>
-    /*__PHASE5_DATA__*/
-    const $ = (id) => document.getElementById(id);
-    const pct = (x) => (100*x).toFixed(1) + "%";
-    const kg = (x) => x.toFixed(2) + " kg";
-    const names = {learned_risk:"Predicted error", duration:"Duration", max_gap_fraction:"ADS-B gap", random_hash:"Hash comparator"};
-    const colors = {learned_risk:"#147d72", duration:"#176a9b", max_gap_fraction:"#c16a31", random_hash:"#8592a2"};
-    const targets = ["0.5", "0.75", "0.9", "1.0"];
-    const svgNS = "http://www.w3.org/2000/svg";
-    function svgNode(name, attrs, parent) {
-      const node = document.createElementNS(svgNS, name);
-      Object.entries(attrs).forEach(([key,value]) => node.setAttribute(key, value));
-      parent.appendChild(node); return node;
-    }
-    function drawCurve(period, chosen) {
-      const root = $("curve"); root.replaceChildren();
-      const left=52, top=20, width=440, height=240, bottom=top+height;
-      [0,50,100,150].forEach(y => {
-        const yy=bottom-y/180*height;
-        svgNode("line",{x1:left,y1:yy,x2:left+width,y2:yy,stroke:"#e4e9ef"},root);
-        svgNode("text",{x:8,y:yy+4,fill:"#59687b","font-size":12},root).textContent=y;
-      });
-      [0.5,0.75,1].forEach(x => {
-        const xx=left+(x-.4)/.6*width;
-        svgNode("text",{x:xx,y:bottom+22,fill:"#59687b","font-size":12,"text-anchor":"middle"},root).textContent=pct(x);
-      });
-      Object.keys(names).forEach(rule => {
-        const points=targets.map(t => period.selectors[rule][t]);
-        const xy=points.map(p => [left+(p.accepted_fraction-.4)/.6*width,
-          bottom-Math.min(180,p.accepted_score.mae_kg)/180*height]);
-        svgNode("polyline",{points:xy.map(p=>p.join(",")).join(" "),fill:"none",stroke:colors[rule],
-          "stroke-width":rule===chosen?3.5:1.8,opacity:rule===chosen?1:.65},root);
-        xy.forEach(([x,y]) => svgNode("circle",{cx:x,cy:y,r:rule===chosen?5:3,fill:colors[rule]},root));
-      });
-      svgNode("text",{x:left+width/2,y:bottom+44,fill:"#59687b","font-size":12,"text-anchor":"middle"},root).textContent="Fraction accepted";
-      svgNode("text",{x:left+3,y:14,fill:"#59687b","font-size":12},root).textContent="MAE (kg)";
-      $("legend").replaceChildren();
-      Object.keys(names).forEach(key => {
-        const item=document.createElement("span"); const dot=document.createElement("i");
-        dot.style.background=colors[key]; item.append(dot,document.createTextNode(names[key]));
-        $("legend").append(item);
-      });
-    }
-    function bars(container, entries) {
-      container.replaceChildren();
-      entries.forEach(([name, value]) => {
-        const row=document.createElement("div"); row.className="bar-row";
-        const title=document.createElement("span"); title.textContent=name;
-        const track=document.createElement("div"); track.className="bar-track";
-        const fill=document.createElement("div"); fill.className="bar"+(value.n<100?" rare":"");
-        fill.style.width=pct(value.accepted_fraction); track.append(fill);
-        const output=document.createElement("output"); output.textContent=pct(value.accepted_fraction);
-        row.title=`${name}: ${value.n.toLocaleString()} intervals, ${pct(value.accepted_fraction)} accepted`;
-        row.append(title,track,output); container.append(row);
-      });
-    }
-    function updateResults() {
-      const selectedPeriod=$("period").value, rule=$("rule").value, target=$("target").value;
-      const p=DATA.periods[selectedPeriod], s=p.selectors[rule][target];
-      $("accepted").textContent=pct(s.accepted_fraction);
-      $("mae").textContent=kg(s.accepted_score.mae_kg);
-      $("full-mae").textContent=kg(p.models.fallback.mae_kg);
-      $("period-detail").textContent=`${s.accepted_intervals.toLocaleString()} of ${p.models.fallback.n_intervals.toLocaleString()} intervals accepted; ${s.accepted_flights.toLocaleString()} flights contribute at least one accepted interval. Accepted-case RMSE: ${kg(s.accepted_score.rmse_kg)}.`;
-      const long=s.acceptance_by_group.duration_bin["15–60 min"];
-      $("warning").replaceChildren();
-      const bold=document.createElement("strong"); bold.textContent="Check the rejected cases. ";
-      $("warning").append(bold,document.createTextNode(`Only ${pct(long.accepted_fraction)} of 15–60 minute intervals receive an estimate (${long.n.toLocaleString()} in this group). The accepted-case MAE does not score the others.`));
-      const duration=s.acceptance_by_group.duration_bin;
-      bars($("duration-bars"),["<5 min","5–15 min","15–60 min"].map(key=>[key,duration[key]]));
-      const types=s.acceptance_by_group.aircraft_type;
-      bars($("aircraft-bars"),Object.entries(types).sort((a,b)=>b[1].n-a[1].n));
-      $("duration-table").replaceChildren();
-      for (const name of ["<5 min","5–15 min","15–60 min"]) {
-        const group=p.sensitivity.duration_groups[name], tr=document.createElement("tr");
-        [name,group.n.toLocaleString(),kg(group.fallback_mae_kg)].forEach(text=>{
-          const td=document.createElement("td");td.textContent=text;tr.append(td);
-        }); $("duration-table").append(tr);
-      }
-      drawCurve(p,rule);
-    }
-    function updateOutage() {
-      const fraction=$("removal").value, seed=$("seed").value;
-      const scenarios=DATA.outage.scenarios;
-      const thin=scenarios[`random points / ${fraction}% / seed ${seed}`];
-      const block=scenarios[`contiguous point block / ${fraction}% / seed ${seed}`];
-      const rows=[["Natural observations",DATA.outage.natural_adsb.mae_kg,null],
-                  ["Scattered points removed",thin.adsb.mae_kg,thin.fallback.mae_kg],
-                  ["Contiguous point block",block.adsb.mae_kg,block.fallback.mae_kg]];
-      $("outage-table").replaceChildren();
-      rows.forEach(([name,adsb,fallback])=>{
-        const tr=document.createElement("tr");
-        [name,kg(adsb),fallback===null?"—":kg(fallback)].forEach(value=>{
-          const td=document.createElement("td");td.textContent=value;tr.append(td);
-        });$("outage-table").append(tr);
-      });
-      const ci=block.adsb_vs_natural.mae_95pct_flight_bootstrap_ci_kg;
-      $("outage-detail").textContent=`The contiguous block changes ADS-B MAE by ${kg(block.adsb_vs_natural.second_minus_first_mae_kg)} against the same sample's natural input (95% whole-flight bootstrap interval ${kg(ci[0])} to ${kg(ci[1])}). It leaves ${pct(block.zero_adsb_fraction)} of originally observed intervals with no ADS-B input. A point block is not a constant-duration outage.`;
-    }
-    ["period","rule","target"].forEach(id=>$(id).addEventListener("change",updateResults));
-    ["removal","seed"].forEach(id=>$(id).addEventListener("change",updateOutage));
-    updateResults(); updateOutage();
-  </script>
-</body>
-</html>
+<header><div class="eyebrow">Open flight-data research • interactive audit</div><h1>Who gets a fuel estimate?</h1><p>Explore a real September validation batch. Move the coverage and group floor controls to see how a low-error selection can leave longer intervals or aircraft types behind. Each choice is recalculated without using the fuel labels to choose intervals.</p></header>
+<main><div class="grid">
+<section class="panel full"><h2>Set the batch policy</h2><p class="muted">The selector ranks predicted absolute error. A group floor first serves its lowest-risk intervals, then fills the overall target. At least 50 intervals are required to protect an aircraft type.</p><div class="controls"><div><label for="target">Overall target</label><select id="target"><option value=".5">50%</option><option value=".75" selected>75%</option><option value=".9">90%</option><option value="1">100%</option></select></div><div><label for="floor">Minimum within each duration and major type</label><select id="floor"><option value="0">0% • risk only</option><option value=".25">25%</option><option value=".5" selected>50%</option><option value=".75">75%</option></select></div></div><div class="cards" aria-live="polite"><div class="card"><strong id="coverage">—</strong><span>Intervals accepted</span></div><div class="card"><strong id="mae">—</strong><span>MAE, accepted only</span></div><div class="card"><strong id="fuel-share">—</strong><span>Share of labeled fuel represented</span></div><div class="card"><strong id="rejected">—</strong><span>Intervals rejected</span></div></div><p id="warning" class="alert" role="status"></p></section>
+<section class="panel full"><h2>Access and error by duration</h2><p class="muted">Each row shows the fraction of that duration group receiving an estimate, its accepted-case error, and how much of that group's observed fuel falls in accepted intervals. Fuel labels are used only to evaluate the policy after selection.</p><div class="scroll"><table><thead><tr><th>Interval length</th><th>Count</th><th>Accepted</th><th>Accepted MAE</th><th>Fuel represented</th></tr></thead><tbody id="duration"></tbody></table></div></section>
+<section class="panel"><h2>Aircraft access</h2><p class="muted">Groups below 50 intervals are shown but do not receive a minimum floor. A floor does not guarantee low error within a group.</p><div class="scroll"><table><thead><tr><th>Type</th><th>Count</th><th>Accepted</th><th>Accepted MAE</th></tr></thead><tbody id="aircraft"></tbody></table></div></section>
+<section class="panel"><h2>What changes?</h2><div class="two"><div class="key"><b>Risk only, 75%</b><p id="baseline">—</p></div><div class="key"><b>Current choice</b><p id="current">—</p></div></div><h3>How to read it</h3><p id="interpretation">—</p><p class="small muted">A larger accepted-case MAE is an honest cost of serving more difficult groups, not evidence that the fuel predictor changed. The underlying estimates are identical under both policies.</p></section>
+<section class="panel full"><h2>What this demo can and cannot establish</h2><p>Fuel is estimated retrospectively for completed intervals whose boundaries came from ACARS reports. April–August trained the fuel predictor; September 1–9 trained an error-ranking model; September 19–27 supplies this labeled batch. The policy was designed <strong>after</strong> examining earlier October results, so these comparisons are exploratory. It is a dataset audit, not a calibrated per-flight guarantee, live flight forecast, or verified emissions inventory.</p><p class="muted">The reference labels are differences between onboard fuel reports, and public ADS-B may be absent. Recorded fuel share is observable only when evaluating a labeled dataset; a new unlabeled batch cannot know its true fuel share. See the <a href="../README.md">README</a> for definitions, regeneration steps, and limitations.</p></section>
+</div><footer>Source: EUROCONTROL PRC 2025 Aircraft Fuel Burn Estimation Data Challenge, CC BY 4.0, DOI <a href="https://doi.org/10.5281/zenodo.19184662">10.5281/zenodo.19184662</a>. No network or server is needed after cloning.</footer></main>
+<script>
+/*__AUDIT_DATA__*/
+const $=id=>document.getElementById(id), pct=x=>(100*x).toFixed(1)+'%', kg=x=>x===null?'—':x.toFixed(1)+' kg';
+const labels=['<5 min','5–15 min','15–60 min','60+ min'];
+function group(d){return d<5?labels[0]:d<15?labels[1]:d<60?labels[2]:labels[3]}
+function choose(rows,target,floor){
+  const order=rows.map((_,i)=>i).sort((a,b)=>rows[a][2]-rows[b][2]||rows[a][6]-rows[b][6]);
+  const selected=new Uint8Array(rows.length), counts=new Map();
+  for(const r of rows)counts.set(r[0],(counts.get(r[0])||0)+1);
+  function serve(indices){let have=0;for(const i of indices)have+=selected[i];let need=Math.ceil(floor*indices.size)-have;
+    for(const i of order){if(need<=0)break;if(!selected[i]&&indices.has(i)){selected[i]=1;need--}}
+  }
+  const duration=labels.map(label=>new Set(rows.map((r,i)=>group(r[1])===label?i:-1).filter(i=>i>=0)));
+  duration.forEach(serve);
+  const types=[...counts].filter(([,n])=>n>=50).sort((a,b)=>a[1]-b[1]||a[0].localeCompare(b[0]));
+  types.forEach(([name])=>serve(new Set(rows.map((r,i)=>r[0]===name?i:-1).filter(i=>i>=0))));
+  const budget=Math.ceil(target*rows.length);let total=selected.reduce((a,b)=>a+b,0);
+  for(const i of order){if(total>=budget)break;if(!selected[i]){selected[i]=1;total++}}
+  return {selected,total,budget};
+}
+function stats(rows,selected,filter=()=>true){let n=0,accepted=0,ae=0,fuel=0,keptFuel=0;
+  rows.forEach((r,i)=>{if(!filter(r))return;n++;fuel+=r[4];if(selected[i]){accepted++;ae+=Math.abs(r[3]-r[4]);keptFuel+=r[4]}});
+  return {n,accepted,coverage:accepted/n,mae:accepted?ae/accepted:null,fuel:keptFuel/fuel};
+}
+function table(target,entries,withFuel){target.replaceChildren();for(const [name,s] of entries){const tr=document.createElement('tr'),title=document.createElement('td');title.textContent=name;tr.append(title);
+  const cells=[s.n.toLocaleString(),pct(s.coverage),kg(s.mae),...(withFuel?[pct(s.fuel)]:[])];
+  cells.forEach((value,j)=>{const td=document.createElement('td');td.textContent=value;if(j===1){const bar=document.createElement('div');bar.className='meter'+(s.coverage<.5?' bad':'');const fill=document.createElement('i');fill.style.width=pct(s.coverage);bar.append(fill);td.append(bar)}tr.append(td)});target.append(tr)}}
+function update(){const rows=DATA.rows,target=Number($('target').value),floor=Number($('floor').value);
+  const chosen=choose(rows,target,floor),s=stats(rows,chosen.selected),original=choose(rows,.75,0),baseline=stats(rows,original.selected);
+  $('coverage').textContent=pct(s.coverage);$('mae').textContent=kg(s.mae);$('fuel-share').textContent=pct(s.fuel);$('rejected').textContent=(s.n-s.accepted).toLocaleString();
+  const duration=labels.map(name=>[name,stats(rows,chosen.selected,r=>group(r[1])===name)]).filter(([,item])=>item.n);
+  table($('duration'),duration,true);
+  const types=new Map();rows.forEach(r=>types.set(r[0],(types.get(r[0])||0)+1));
+  table($('aircraft'),[...types].sort((a,b)=>b[1]-a[1]).map(([name,n])=>[name+(n<50?' *':''),stats(rows,chosen.selected,r=>r[0]===name)]),false);
+  const long=duration.find(([name])=>name==='15–60 min');
+  $('warning').textContent=`${long?pct(long[1].coverage):'—'} of 15–60 minute intervals accepted. ${chosen.total>chosen.budget?'Group floors required '+(chosen.total-chosen.budget)+' extra intervals above the overall target.':'The overall target was met.'} Rejected intervals are not included in accepted MAE.`;
+  $('baseline').textContent=`${pct(baseline.coverage)} accepted; ${kg(baseline.mae)} accepted MAE; ${pct(baseline.fuel)} of observed fuel represented.`;
+  $('current').textContent=`${pct(s.coverage)} accepted; ${kg(s.mae)} accepted MAE; ${pct(s.fuel)} of observed fuel represented.`;
+  $('interpretation').textContent=`The unchanged full-batch fallback MAE is ${kg(stats(rows,new Uint8Array(rows.length).fill(1)).mae)}. The current selection rejects ${(s.n-s.accepted).toLocaleString()} labeled intervals. Its group access is visible in the tables; the fuel share is evaluation-only.`;
+}
+['target','floor'].forEach(id=>$(id).addEventListener('change',update));update();
+</script></body></html>
