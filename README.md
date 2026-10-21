@@ -4,7 +4,7 @@ Research project on reliable aircraft fuel-burn estimation from flight trajector
 
 ## Status
 
-**Phase 4 selective estimation and controlled observation-loss experiments implemented.** Read the [Phase 4 report](docs/phase-4-results.md) and [Jupyter walkthrough](notebooks/phase-4-walkthrough.ipynb), plus the [Phase 3 baseline report](docs/phase-3-baselines.md), [Phase 2 data acceptance report](docs/phase-2-data-acceptance.md), [project charter](docs/project-charter.md), [critical literature review](docs/phase-1-literature-review.md), [Phase 1 report draft](docs/phase-1-report-draft.md), and [submission requirements](docs/submission-requirements.md). The Phase 1 draft predates the revised research direction and must be updated before submission.
+**Phase 5 offline demo and aggregate robustness audit implemented.** Open the [interactive demo](demo/index.html) locally and read its [Phase 5 explanation](docs/phase-5-demo-and-robustness.md). The [Phase 4 report](docs/phase-4-results.md) and [Jupyter walkthrough](notebooks/phase-4-walkthrough.ipynb) contain the underlying experiments. Also see the [Phase 3 baseline report](docs/phase-3-baselines.md), [Phase 2 data acceptance report](docs/phase-2-data-acceptance.md), [project charter](docs/project-charter.md), [critical literature review](docs/phase-1-literature-review.md), [Phase 1 report draft](docs/phase-1-report-draft.md), and [submission requirements](docs/submission-requirements.md). The Phase 1 draft predates the revised research direction and must be updated before submission.
 
 ## Proposed research question
 
@@ -31,7 +31,7 @@ python -m src.flight_fuel.dev_subset
 
 The first command downloads about 6 MB of released metadata and labels into ignored `data/raw/`, verifies each published MD5 and regenerates `reports/phase-2-metadata-audit.json`. The second reads six flights via HTTP range requests from the official archives and regenerates `reports/phase-2-trajectory-probe.json`; it does **not** verify the full ZIP checksums. The third freezes a small train/rank flight-ID subset by aircraft type in `configs/dev-flights.json`; final-period flight IDs are deliberately excluded. The report describes the sampling and limitations. Downloads and range probing require network access to Zenodo.
 
-For the **pending population-wide gate**, allow about 4.9 GB of download space plus extracted working space, then run:
+For the optional standalone full-coverage audit, allow about 4.9 GB of download space plus extracted working space, then run:
 
 ```bash
 python -m src.flight_fuel.download_archives
@@ -39,7 +39,7 @@ python -m src.flight_fuel.full_coverage_audit
 python -m unittest discover -s tests
 ```
 
-The downloader resumes interrupted `.part` files and verifies each archive against the Zenodo MD5. The optional coverage audit streams one flight at a time and writes aggregate results to `reports/phase-2-full-coverage-audit.json`. The Phase 3 feature pipeline already verifies the train/rank ZIPs and counts intervals with no ADS-B position; the separate all-three-split coverage audit has not been run. October remains reserved for a locked test.
+The downloader resumes interrupted `.part` files and verifies each archive against the Zenodo MD5. The optional coverage audit streams one flight at a time and writes aggregate results to `reports/phase-2-full-coverage-audit.json`. The Phase 3/4 feature pipeline verified all three ZIPs and counted intervals with no ADS-B position; the separate all-three-split coverage-audit command has not been run. October has already been evaluated under the Phase 4 protocol.
 
 ## Phase 3 baselines
 
@@ -62,6 +62,17 @@ python -m src.flight_fuel.features --splits final
 python -m src.flight_fuel.phase4 --output reports/phase-4-results.json
 python -m unittest discover -s tests
 ```
+
+## Phase 5 offline demo and aggregate audit
+
+Open [`demo/index.html`](demo/index.html) in a browser after cloning the repository. It displays the September/October risk–coverage results, aircraft and duration access, and the controlled-outage comparison. It works without raw data, a server, or an installed Python package. The [Phase 5 report](docs/phase-5-demo-and-robustness.md) explains its limits and the duration-filter sensitivity.
+
+```bash
+python -m src.flight_fuel.phase5
+python -m unittest discover -s tests
+```
+
+The script checks that committed aggregate counts and scores reconcile, then regenerates `reports/phase-5-robustness.json` and the standalone demo. It does not retrain the model or make an estimate for a new flight.
 
 ## Work sequence
 
