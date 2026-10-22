@@ -2,7 +2,7 @@ PYTHON ?= python3
 VENV ?= .venv
 RUN = $(VENV)/bin/python
 
-.PHONY: setup test advanced serve clean
+.PHONY: setup test advanced stream serve clean
 
 setup:
 	$(PYTHON) -m venv $(VENV)
@@ -14,6 +14,9 @@ test:
 
 advanced:
 	$(RUN) -m flight_fuel.advanced
+
+stream:
+	$(RUN) -m flight_fuel.streaming --limit 20 --withhold-labels
 
 serve: advanced
 	$(RUN) -m http.server 8000

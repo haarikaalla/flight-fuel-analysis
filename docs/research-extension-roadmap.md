@@ -22,6 +22,12 @@ ADS-B observations and temporal or route distribution shift?
   replay, per-row uncertainty and an accuracy–coverage frontier.
 - Added a generated result report, Python packaging, a one-command workflow
   and continuous integration.
+- Added cross-fitted duration- and aircraft-Mondrian interval comparisons,
+  aircraft-held-out risk-calibrator transfer diagnostics, natural ADS-B
+  availability analysis and deterministic risk-score perturbation tests.
+- Added a prospective confirmatory protocol, external-batch schema validation,
+  stable dataset fingerprints, a provider-safe streaming contract and a
+  compiled LaTeX manuscript draft.
 
 ## Next scientific milestone: independently validated uncertainty
 
@@ -35,6 +41,10 @@ ADS-B observations and temporal or route distribution shift?
    variants. Clearly report small-group instability.
 5. Never calibrate intervals on the committed September validation labels used
    for the headline selector comparison.
+
+The software paths and hypotheses for this milestone are now frozen in
+`configs/confirmatory-protocol.json`. They remain pending because no post-freeze
+confirmatory labels are present in this repository.
 
 ## Next generalization milestone
 
