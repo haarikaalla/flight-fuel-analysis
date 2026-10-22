@@ -11,11 +11,34 @@ workspace compares four policies, exposes bootstrap uncertainty and subgroup
 reliability, supports multiple coverage and replay filters, and remains fully
 self-contained in [`demo/advanced.html`](demo/advanced.html).
 
+The publication-oriented layer additionally compares global, duration-Mondrian
+and aircraft-Mondrian uncertainty, evaluates risk-calibrator transfer when each
+sufficiently large aircraft type is held out, audits natural ADS-B availability,
+and stress-tests the selector under score perturbations. A frozen prospective
+protocol in [`configs/confirmatory-protocol.json`](configs/confirmatory-protocol.json)
+defines the hypotheses and evidence required for a later untouched batch.
+
 The replay uses committed historical benchmark rows; it is not a live aircraft
 feed. A live system would require rolling-window retraining, approved telemetry
 access, calibrated uncertainty and a new independently frozen evaluation period.
 See [`UPSTREAM_ATTRIBUTION.md`](UPSTREAM_ATTRIBUTION.md) for the boundary between
 the upstream project and this fork's additions.
+
+### New robustness findings
+
+- Global cross-fitted intervals reach **89.95%** empirical coverage with a
+  **449.97 kg** mean width.
+- Duration-Mondrian intervals reach **90.25%** coverage with a narrower
+  **422.54 kg** mean width and only a **0.23 percentage-point** eligible-group
+  coverage gap on this exploratory benchmark.
+- Aircraft-Mondrian intervals are wider (**579.05 kg**) and still reach only
+  **87.88%** coverage for the worst eligible aircraft group.
+- When the risk calibrator is trained without each tested aircraft type in
+  turn, pooled coverage is **90.45%**, but B744 coverage falls to **75.76%**.
+  The fuel estimator itself is not held out in this diagnostic.
+- Zero-position intervals have **163.22 kg** MAE versus **68.84 kg** for
+  intervals with at least 51 ADS-B positions. Natural missingness is not random,
+  so this is an association rather than a causal outage effect.
 
 ## The problem
 
@@ -76,6 +99,16 @@ directly because it is self-contained. The command reads the committed benchmark
 payload and regenerates both `reports/advanced-results.json` and
 `demo/advanced.html`.
 
+To inspect the provider-safe event contract without revealing historical
+labels, run:
+
+```bash
+.venv/bin/python -m flight_fuel.streaming --limit 20 --withhold-labels
+```
+
+The live-provider class intentionally refuses to operate without an explicitly
+approved provider. It never invents a real-time reference-fuel value.
+
 Raw data and extracted features are excluded from Git. Downloads are checked against publisher MD5 values. The final analysis command regenerates `reports/eligibility-results.json` and `demo/index.html`.
 
 ## Scope and limitations
@@ -96,5 +129,6 @@ The contribution is a **dataset-specific, transparent coverage/error audit**, no
 | [`notebooks/`](notebooks/) | Presentation-friendly analysis of committed results. |
 | [`reports/`](reports/) | Generated result JSON and the historical Phase 4 record. |
 | [`tests/`](tests/) | Decision-rule, accounting and dashboard checks. |
+| [`paper/`](paper/) | Publication-stage LaTeX manuscript source (opens with live PDF preview in Codex). |
 
 Data: [EUROCONTROL PRC 2025 Aircraft Fuel Burn Estimation Data Challenge](https://doi.org/10.5281/zenodo.19184662), combining ACARS-derived fuel labels with OpenSky ADS-B records and metadata, licensed CC BY 4.0. Cite the [dataset paper](https://doi.org/10.59490/joas.2026.8750). This repository does not contain the raw dataset.

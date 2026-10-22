@@ -1,0 +1,130 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{amsmath}
+\usepackage{microtype}
+\usepackage{enumitem}
+\hypersetup{colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue}
+\title{Coverage-Constrained Selective Regression for Auditable Aircraft Fuel Estimation under Data-Quality and Subgroup Shift}
+\author{Anonymous manuscript}
+\date{22 October 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Open surveillance data enable scalable aircraft fuel estimation but create a second decision problem: which estimates should be served when trajectory quality and predictive reliability differ across aircraft and interval durations? Naive risk ranking lowers average error by abstaining on difficult cases, yet can almost remove long intervals and wide-body aircraft from the reported sample. We formulate fuel-estimate eligibility as coverage-constrained selective regression and evaluate greedy, mixed-integer, and calibrated policies on 7,619 chronologically later intervals from the EUROCONTROL PRC 2025 benchmark. The complete fuel model has 96.07\,kg mean absolute error (MAE), while unconstrained 75\% risk selection reaches 44.23\,kg accepted MAE but represents only 29.77\% of reference fuel and produces extreme subgroup coverage gaps. A calibrated group-floor policy raises represented reference fuel to 41.85\% with 55.40\,kg accepted MAE. Cross-fitted duration-Mondrian uncertainty reaches 90.25\% empirical coverage with a 422.54\,kg mean interval width, improving upon the 449.97\,kg global width, whereas aircraft-Mondrian and leave-one-aircraft-out diagnostics reveal substantial transfer failure. Zero-position intervals have 163.22\,kg MAE versus 68.84\,kg for intervals with at least 51 ADS-B positions. These results show that selective accuracy, uncertainty validity, and representation must be audited jointly. The study is exploratory; a frozen protocol specifies the independent temporal and external validation required before confirmatory or operational claims.
+\end{abstract}
+
+\section{Introduction}
+Aircraft fuel-burn observations are scarce because operational fuel records are usually proprietary. The PRC 2025 data challenge combines irregular ACARS-derived fuel-on-board differences with OpenSky ADS-B trajectories and flight metadata, enabling open supervised evaluation while retaining label noise, missing trajectories, and operational heterogeneity~\cite{sun2026}. Most prediction studies optimize aggregate error. In deployment or dataset curation, however, a system may abstain when a prediction appears unreliable. This can improve headline error while silently excluding the aircraft and intervals that are hardest to estimate.
+
+This paper studies the resulting access--accuracy problem. Its central question is: \emph{Can a selective fuel-regression system control prediction risk while preserving meaningful coverage across interval-duration and aircraft groups under natural ADS-B missingness and temporal shift?}
+
+The contributions are:
+\begin{enumerate}[leftmargin=*]
+\item an auditable batch formulation that minimizes predicted error subject to overall, duration, and aircraft coverage constraints;
+\item a comparison of unconstrained ranking, deterministic group floors, mixed-integer selection, and calibrated group floors over an accuracy--coverage frontier;
+\item cross-fitted global, duration-Mondrian, and aircraft-Mondrian uncertainty diagnostics, plus leave-one-aircraft-out risk-calibrator transfer tests;
+\item natural ADS-B availability and score-perturbation stress tests; and
+\item a reproducible offline dashboard, automated leakage and artifact tests, a provider-safe streaming contract, and a frozen prospective confirmation protocol.
+\end{enumerate}
+
+We do not claim a new universal fuel estimator, certified operational accuracy, or completed external validation.
+
+\section{Related Work}
+The PRC dataset publication describes the construction and quality limitations of the ACARS/ADS-B benchmark~\cite{sun2026}. Physics-guided and weather-enhanced challenge solutions combine OpenAP, meteorology, trajectory interpolation, and gradient boosting~\cite{grigoriou2026,kacar2026}. Separate work on aircraft fuel-flow generalization studies unseen aircraft types using domain knowledge, sampling, and regularization~\cite{jarry2025}. These studies establish that stronger prediction models are possible when richer inputs and raw trajectories are available.
+
+Selective regression permits abstention on uncertain cases, but subgroup performance may worsen as coverage falls~\cite{shah2022}. Fair selective regression therefore motivates explicit group-wise criteria. Conformal prediction provides marginal coverage without distributional assumptions under exchangeability; conditional and Mondrian variants target predefined groups, while covariate-shift methods require additional assumptions or weighting~\cite{romano2019,gibbs2023}. Our gap is narrower: we jointly expose selective error, fuel represented, group access, and empirical uncertainty validity for an open aviation benchmark.
+
+\section{Data and Leakage Controls}
+The upstream workflow fits the fuel model on April--August 2025, fits an absolute-error ranking model on 1--9 September, reserves 10--18 September for calibration, and evaluates the interactive batch on 19--27 September. Flights crossing block boundaries are excluded rather than split. October was inspected during development and is not treated as untouched confirmation.
+
+Inputs include aircraft type, interval duration, and ADS-B trajectory summaries. No fuel field is used as an estimator or selection feature. The target is the difference between reported fuel-on-board values, not direct fuel-flow measurement. Payload, takeoff mass, engine variant, wind, and weather are absent. The dashboard contains pre-scored historical intervals; labels are used only after decisions for evaluation.
+
+\section{Methods}
+\subsection{Fuel and risk models}
+A histogram gradient boosting model estimates interval fuel from aircraft and trajectory summaries. A training-only aircraft-type median fuel-rate fallback is used when no ADS-B positions are available. A separate residual model predicts absolute error using only information available at decision time. Let $\hat y_i$ be predicted fuel and $\hat r_i$ predicted absolute error.
+
+\subsection{Coverage-constrained selection}
+For binary decision $z_i$, the exact policy solves
+\[
+  \min_{z\in\{0,1\}^n}\sum_i z_i\hat r_i
+\]
+subject to an overall coverage target and minimum coverage for every duration group and aircraft group with at least 50 rows. A large count penalty prevents unnecessary selections when constraints already exceed the nominal budget. We compare this mixed-integer policy with unconstrained risk ranking, a deterministic greedy floor, and a calibrated-risk floor.
+
+\subsection{Uncertainty}
+Five deterministic folds are formed from stable row hashes. In each fold, isotonic regression maps risk to absolute error using only the other folds. Scaled conformal residuals construct nominal 90\% intervals. Global, duration-Mondrian, and aircraft-Mondrian multipliers are compared; groups below the minimum sample size fall back to the global multiplier. A separate diagnostic removes each sufficiently large aircraft type from risk-calibrator fitting and evaluates it as an unseen calibration group. This does not hold the upstream fuel model out.
+
+\subsection{Robustness and statistics}
+We report MAE, RMSE, bias, $R^2$, accepted and rejected error, reference-fuel share, subgroup coverage gaps, worst-group error, interval coverage and width, and risk--coverage curves. A deterministic sensitivity analysis perturbs calibrated risk scores at 10\%, 25\%, and 50\% of their standard deviation over 100 repetitions. Row bootstrap intervals in the current dashboard are exploratory. The frozen confirmatory protocol requires 2,000 flight-cluster bootstrap repetitions and Holm correction within subgroup families.
+
+\section{Results}
+\subsection{Prediction and selection}
+Across 7,619 validation intervals, the full model obtains 96.07\,kg MAE, 281.69\,kg RMSE, $R^2=0.872$, and 372.75\,kg 95th-percentile absolute error. Table~\ref{tab:policy} compares policies at the 75\% target.
+
+\begin{table}[ht]
+\centering
+\caption{Exploratory policy results at approximately 75\% coverage.}
+\label{tab:policy}
+\begin{tabular}{lrrrr}
+\toprule
+Policy & Accepted MAE & Fuel share & Duration gap & Aircraft gap\\
+ & (kg) & (\%) & (\%) & (\%)\\
+\midrule
+Risk ranking & 44.23 & 29.77 & 93.37 & 91.83\\
+Greedy group floor & 54.02 & 41.51 & 35.69 & 39.38\\
+Exact constrained & 54.63 & 41.31 & 35.90 & 39.38\\
+Calibrated risk + floor & 55.40 & 41.85 & 35.78 & 39.44\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The risk-only result is numerically best on served rows but highly unrepresentative. The constrained policies trade roughly 10--11\,kg accepted MAE for much broader access and 11--12 percentage points more represented reference fuel.
+
+\subsection{Uncertainty and transfer}
+\begin{table}[ht]
+\centering
+\caption{Cross-fitted nominal 90\% interval diagnostics.}
+\begin{tabular}{lrrr}
+\toprule
+Method & Coverage (\%) & Mean width (kg) & Worst eligible group (\%)\\
+\midrule
+Global scaled conformal & 89.95 & 449.97 & --\\
+Duration-Mondrian & 90.25 & 422.54 & 90.22\\
+Aircraft-Mondrian & 90.20 & 579.05 & 87.88\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Duration conditioning improves both width and uniformity on this benchmark. Aircraft conditioning is substantially wider and still misses the nominal target for the worst eligible type. When the risk calibrator is trained without each aircraft type in turn, pooled coverage is 90.45\%, but worst-type coverage is 75.76\% for B744, with a 2,346\,kg mean interval width. This is evidence against assuming type transfer from pooled results.
+
+\subsection{Data quality and stability}
+Zero-position intervals have 163.22\,kg MAE and 84.88\% global-interval coverage; intervals with at least 51 positions have 68.84\,kg MAE and 92.06\% coverage. Because missingness reflects routes, receivers, aircraft, and operations, this is associational. At risk-noise levels of 10\%, 25\%, and 50\% of score standard deviation, mean selection Jaccard overlap is 92.87\%, 85.10\%, and 76.80\%, while accepted MAE rises to 55.43, 58.15, and 63.44\,kg.
+
+\section{Discussion}
+Three findings are central. First, abstention is not neutral: ranking can create severe representation loss even when its accepted MAE is attractive. Second, uncertainty must be evaluated by operationally meaningful groups; marginal coverage masks wide-body transfer weakness. Third, data availability is a reliability signal and a source of shift, not merely an imputation nuisance.
+
+The exact optimizer is not automatically superior in observed MAE because it optimizes predicted risk, not labels. This distinction is important: an optimizer can solve the declared mathematical problem exactly while the learned objective remains imperfect. The duration-Mondrian result suggests a useful conditioning axis, but it was discovered on the exploratory benchmark and must be confirmed prospectively.
+
+\section{Limitations and Confirmatory Plan}
+The present study uses one public benchmark and pre-scored validation rows. October labels influenced development. Row-bootstrap intervals do not respect flight clustering. The current artifact cannot refit CatBoost, temporal neural models, OpenAP hybrids, or weather-enriched models because raw trajectories and enrichment data are not committed. The ACARS-derived label is noisy and is not a certified sensor measurement.
+
+Before confirmatory claims, the frozen protocol requires: (i) an untouched later or external operator/geography batch; (ii) temporal, route-disjoint, and aircraft-type holdouts; (iii) physics-only, boosting, hybrid, and temporal baselines on the same availability contract; (iv) strict earlier split conformal and shift-weighted sensitivity; (v) natural and simulated contiguous outage tests; and (vi) flight-cluster uncertainty with multiplicity control. An approved live source must respect provider licensing and must not display reference fuel before delayed ground truth exists.
+
+\section{Conclusion}
+Selective aircraft fuel estimation should be evaluated as a joint prediction, uncertainty, and access problem. On this benchmark, unconstrained abstention improves accepted error by excluding difficult and fuel-intensive cases, while coverage constraints expose a measurable accuracy cost. Duration-conditional uncertainty is promising, but aircraft transfer remains weak. The released implementation makes these tradeoffs inspectable and freezes the evidence needed to test them independently.
+
+\begin{thebibliography}{9}
+\bibitem{sun2026} J. Sun, E. Spinelli, and M. Strohmeier, ``Aircraft Fuel Burn Estimation: The EUROCONTROL PRC 2025 Data Challenge,'' \emph{Journal of Open Aviation Science}, 2026. \url{https://doi.org/10.59490/joas.2026.8750}
+\bibitem{grigoriou2026} Y. Grigoriou et al., ``A Physics-Guided Machine Learning Framework for Aircraft Fuel Burn Estimation,'' \emph{Journal of Open Aviation Science}, 2026. \url{https://doi.org/10.59490/joas.2026.8764}
+\bibitem{kacar2026} M. Ka\v{c}ar and M. \'{C}ulibrk, ``Fuel Burn Prediction from Open Flight Trajectory and Meteorological Data for the PRC Data Challenge 2025,'' \emph{Journal of Open Aviation Science}, 2026. \url{https://doi.org/10.59490/joas.2026.8766}
+\bibitem{shah2022} A. Shah et al., ``Selective Regression under Fairness Criteria,'' in \emph{Proc. ICML}, 2022.
+\bibitem{romano2019} Y. Romano, E. Patterson, and E. Cand\`es, ``Conformalized Quantile Regression,'' in \emph{NeurIPS}, 2019.
+\bibitem{gibbs2023} I. Gibbs, J. Cherian, and E. Cand\`es, ``Conformal Prediction With Conditional Guarantees,'' arXiv:2305.12616, 2023.
+\bibitem{jarry2025} G. Jarry, R. Dalmau, P. Very, and J. Sun, ``On the Generalization Properties of Deep Learning for Aircraft Fuel Flow Estimation Models,'' \emph{Transportation Research Part C}, vol. 176, 2025.
+\end{thebibliography}
+
+\end{document}

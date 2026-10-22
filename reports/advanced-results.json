@@ -85,6 +85,424 @@
       }
     ]
   },
+  "uncertainty_comparison": {
+    "global_scaled_conformal": {
+      "method": "5-fold out-of-fold isotonic calibration with scaled conformal intervals",
+      "folds": 5,
+      "nominal_interval_coverage": 0.9,
+      "observed_interval_coverage": 0.8994618716366978,
+      "mean_interval_width_kg": 449.9682707546108,
+      "median_interval_width_kg": 174.65658170397512,
+      "expected_calibration_error_kg": 2.868118228992653,
+      "bins": [
+        {
+          "n": 890,
+          "predicted_error_kg": 21.38408498273408,
+          "observed_mae_kg": 22.326051547427205,
+          "interval_coverage": 0.8966292134831461
+        },
+        {
+          "n": 1004,
+          "predicted_error_kg": 28.073763458512783,
+          "observed_mae_kg": 28.77836789710047,
+          "interval_coverage": 0.8715139442231076
+        },
+        {
+          "n": 416,
+          "predicted_error_kg": 31.24282599169152,
+          "observed_mae_kg": 31.98152740432341,
+          "interval_coverage": 0.8894230769230769
+        },
+        {
+          "n": 841,
+          "predicted_error_kg": 31.48705936986001,
+          "observed_mae_kg": 30.820543092869613,
+          "interval_coverage": 0.8751486325802615
+        },
+        {
+          "n": 714,
+          "predicted_error_kg": 33.798357403761656,
+          "observed_mae_kg": 34.82635631192868,
+          "interval_coverage": 0.9019607843137255
+        },
+        {
+          "n": 731,
+          "predicted_error_kg": 41.49138963815221,
+          "observed_mae_kg": 39.17270987407122,
+          "interval_coverage": 0.9302325581395349
+        },
+        {
+          "n": 879,
+          "predicted_error_kg": 96.29280734362567,
+          "observed_mae_kg": 101.46703913914696,
+          "interval_coverage": 0.8896473265073948
+        },
+        {
+          "n": 727,
+          "predicted_error_kg": 114.13222608791827,
+          "observed_mae_kg": 109.99910770083304,
+          "interval_coverage": 0.9174690508940853
+        },
+        {
+          "n": 676,
+          "predicted_error_kg": 164.69470916115893,
+          "observed_mae_kg": 170.39332058637942,
+          "interval_coverage": 0.9215976331360947
+        },
+        {
+          "n": 741,
+          "predicted_error_kg": 420.7090729183327,
+          "observed_mae_kg": 413.1457187427934,
+          "interval_coverage": 0.9149797570850202
+        }
+      ]
+    },
+    "duration_mondrian": {
+      "method": "5-fold cross-fitted duration Mondrian scaled conformal",
+      "nominal_interval_coverage": 0.9,
+      "observed_interval_coverage": 0.9024806405040031,
+      "mean_interval_width_kg": 422.5390182273714,
+      "median_interval_width_kg": 170.32269351404716,
+      "worst_group_coverage": 0.9022195560887822,
+      "group_coverage_gap": 0.0023150501164683757,
+      "fallback_fraction": 0.0,
+      "groups": [
+        {
+          "group": "15–60 min",
+          "n": 838,
+          "eligible_for_group_summary": true,
+          "coverage": 0.9045346062052506,
+          "mean_interval_width_kg": 1339.128441743826,
+          "fallback_fraction": 0.0
+        },
+        {
+          "group": "5–15 min",
+          "n": 3334,
+          "eligible_for_group_summary": true,
+          "coverage": 0.9022195560887822,
+          "mean_interval_width_kg": 371.36011708902635,
+          "fallback_fraction": 0.0
+        },
+        {
+          "group": "<5 min",
+          "n": 3447,
+          "eligible_for_group_summary": true,
+          "coverage": 0.9022338265158109,
+          "mean_interval_width_kg": 249.208156460169,
+          "fallback_fraction": 0.0
+        }
+      ]
+    },
+    "aircraft_mondrian": {
+      "method": "5-fold cross-fitted aircraft Mondrian scaled conformal",
+      "nominal_interval_coverage": 0.9,
+      "observed_interval_coverage": 0.9019556372227326,
+      "mean_interval_width_kg": 579.048296110024,
+      "median_interval_width_kg": 173.85582963148158,
+      "worst_group_coverage": 0.8787878787878788,
+      "group_coverage_gap": 0.037878787878787845,
+      "fallback_fraction": 0.015356345977162357,
+      "groups": [
+        {
+          "group": "A20N",
+          "n": 3485,
+          "eligible_for_group_summary": true,
+          "coverage": 0.9007173601147777,
+          "mean_interval_width_kg": 231.1631226892259,
+          "fallback_fraction": 0.0
+        },
+        {
+          "group": "A21N",
+          "n": 18,
+          "eligible_for_group_summary": false,
+          "coverage": 0.9444444444444444,
+          "mean_interval_width_kg": 570.9129974545159,
+          "fallback_fraction": 1.0
+        },
+        {
+          "group": "A319",
+          "n": 9,
+          "eligible_for_group_summary": false,
+          "coverage": 1.0,
+          "mean_interval_width_kg": 242.5058218923449,
+          "fallback_fraction": 1.0
+        },
+        {
+          "group": "A320",
+          "n": 1676,
+          "eligible_for_group_summary": true,
+          "coverage": 0.9033412887828163,
+          "mean_interval_width_kg": 374.3208039244299,
+          "fallback_fraction": 0.0
+        },
+        {
+          "group": "A321",
+          "n": 47,
+          "eligible_for_group_summary": false,
+          "coverage": 0.851063829787234,
+          "mean_interval_width_kg": 555.7823454456453,
+          "fallback_fraction": 1.0
+        },
+        {
+          "group": "A332",
+          "n": 282,
+          "eligible_for_group_summary": true,
+          "coverage": 0.900709219858156,
+          "mean_interval_width_kg": 633.0196539522411,
+          "fallback_fraction": 0.0
+        },
+        {
+          "group": "A333",
+          "n": 98,
+          "eligible_for_group_summary": true,
+          "coverage": 0.9081632653061225,
+          "mean_interval_width_kg": 644.0708161357484,
+          "fallback_fraction": 0.0
+        },
+        {
+          "group": "A359",
+          "n": 1122,
+          "eligible_for_group_summary": true,
+          "coverage": 0.9001782531194296,
+          "mean_interval_width_kg": 1571.5070239347474,
+          "fallback_fraction": 0.0
+        },
+        {
+          "group": "B737",
+          "n": 1,
+          "eligible_for_group_summary": false,
+          "coverage": 0.0,
+          "mean_interval_width_kg": 113.4118697639838,
+          "fallback_fraction": 1.0
+        },
+        {
+          "group": "B738",
+          "n": 232,
+          "eligible_for_group_summary": true,
+          "coverage": 0.9137931034482759,
+          "mean_interval_width_kg": 357.6862949333685,
+          "fallback_fraction": 0.0
+        },
+        {
+          "group": "B739",
+          "n": 7,
+          "eligible_for_group_summary": false,
+          "coverage": 0.5714285714285714,
+          "mean_interval_width_kg": 770.0028934731665,
+          "fallback_fraction": 1.0
+        },
+        {
+          "group": "B744",
+          "n": 66,
+          "eligible_for_group_summary": true,
+          "coverage": 0.8787878787878788,
+          "mean_interval_width_kg": 4614.26543513868,
+          "fallback_fraction": 0.2878787878787879
+        },
+        {
+          "group": "B772",
+          "n": 16,
+          "eligible_for_group_summary": false,
+          "coverage": 1.0,
+          "mean_interval_width_kg": 1187.0356807723297,
+          "fallback_fraction": 1.0
+        },
+        {
+          "group": "B77W",
+          "n": 108,
+          "eligible_for_group_summary": true,
+          "coverage": 0.9166666666666666,
+          "mean_interval_width_kg": 1880.0987479791818,
+          "fallback_fraction": 0.0
+        },
+        {
+          "group": "B788",
+          "n": 91,
+          "eligible_for_group_summary": true,
+          "coverage": 0.9010989010989011,
+          "mean_interval_width_kg": 1324.613974351677,
+          "fallback_fraction": 0.0
+        },
+        {
+          "group": "B789",
+          "n": 361,
+          "eligible_for_group_summary": true,
+          "coverage": 0.9113573407202216,
+          "mean_interval_width_kg": 553.3252622363284,
+          "fallback_fraction": 0.0
+        }
+      ]
+    }
+  },
+  "aircraft_held_out_risk_calibration": {
+    "scope": "Risk calibrator held out by aircraft type; fuel model not held out",
+    "eligible_aircraft_types": 10,
+    "rows_evaluated": 7521,
+    "pooled_interval_coverage": 0.904533971546337,
+    "pooled_mean_interval_width_kg": 458.0564100775047,
+    "worst_aircraft_coverage": 0.7575757575757576,
+    "aircraft": [
+      {
+        "aircraft_type": "B744",
+        "n": 66,
+        "mae_kg": 773.6495495326147,
+        "interval_coverage": 0.7575757575757576,
+        "mean_interval_width_kg": 2346.1961272555955
+      },
+      {
+        "aircraft_type": "B788",
+        "n": 91,
+        "mae_kg": 244.60614500399933,
+        "interval_coverage": 0.7692307692307693,
+        "mean_interval_width_kg": 899.7491366589348
+      },
+      {
+        "aircraft_type": "A333",
+        "n": 98,
+        "mae_kg": 136.18711800346165,
+        "interval_coverage": 0.8163265306122449,
+        "mean_interval_width_kg": 511.68888466994787
+      },
+      {
+        "aircraft_type": "A359",
+        "n": 1122,
+        "mae_kg": 221.23478311351155,
+        "interval_coverage": 0.8440285204991087,
+        "mean_interval_width_kg": 859.5187213801395
+      },
+      {
+        "aircraft_type": "B77W",
+        "n": 108,
+        "mae_kg": 343.2521054595032,
+        "interval_coverage": 0.8611111111111112,
+        "mean_interval_width_kg": 863.1389594817934
+      },
+      {
+        "aircraft_type": "A320",
+        "n": 1676,
+        "mae_kg": 60.49520208434459,
+        "interval_coverage": 0.880071599045346,
+        "mean_interval_width_kg": 347.3002145326961
+      },
+      {
+        "aircraft_type": "A332",
+        "n": 282,
+        "mae_kg": 125.66306417816962,
+        "interval_coverage": 0.9219858156028369,
+        "mean_interval_width_kg": 663.4267506782674
+      },
+      {
+        "aircraft_type": "B789",
+        "n": 361,
+        "mae_kg": 102.9454425147223,
+        "interval_coverage": 0.9335180055401662,
+        "mean_interval_width_kg": 818.208196794492
+      },
+      {
+        "aircraft_type": "A20N",
+        "n": 3485,
+        "mae_kg": 43.889764424775855,
+        "interval_coverage": 0.9374461979913917,
+        "mean_interval_width_kg": 267.2218487831028
+      },
+      {
+        "aircraft_type": "B738",
+        "n": 232,
+        "mae_kg": 82.16400630396964,
+        "interval_coverage": 0.9655172413793104,
+        "mean_interval_width_kg": 451.58972132707027
+      }
+    ]
+  },
+  "natural_adsb_availability": [
+    {
+      "group": "Zero positions",
+      "n": 2203,
+      "mae_kg": 163.2191514007885,
+      "rmse_kg": 460.1328662164567,
+      "mean_calibrated_risk_kg": 140.44268093611623,
+      "interval_coverage": 0.8488424875170223,
+      "mean_interval_width_kg": 658.0543191052236
+    },
+    {
+      "group": "Sparse (1–10)",
+      "n": 43,
+      "mae_kg": 69.26516648393205,
+      "rmse_kg": 126.61944022285117,
+      "mean_calibrated_risk_kg": 89.77087678229363,
+      "interval_coverage": 0.8837209302325582,
+      "mean_interval_width_kg": 419.5883483682477
+    },
+    {
+      "group": "Partial (11–50)",
+      "n": 110,
+      "mae_kg": 64.59915189723411,
+      "rmse_kg": 240.30657824069135,
+      "mean_calibrated_risk_kg": 59.31023631524987,
+      "interval_coverage": 0.9090909090909091,
+      "mean_interval_width_kg": 276.99765429558994
+    },
+    {
+      "group": "Dense (51+)",
+      "n": 5263,
+      "mae_kg": 68.8426696399469,
+      "rmse_kg": 157.83111883304693,
+      "mean_calibrated_risk_kg": 78.29618323183784,
+      "interval_coverage": 0.9205776173285198,
+      "mean_interval_width_kg": 366.73048621284863
+    }
+  ],
+  "risk_score_sensitivity": {
+    "scope": "Exploratory sensitivity; perturbation is not a physical ADS-B outage model",
+    "baseline_selected": 5715,
+    "scenarios": [
+      {
+        "score_noise_fraction_of_sd": 0.1,
+        "repetitions": 100,
+        "mean_selection_jaccard": 0.9286580752056769,
+        "selection_jaccard_95pct_range": [
+          0.9239185322336307,
+          0.9335276020900003
+        ],
+        "mean_accepted_mae_kg": 55.43276066221195,
+        "accepted_mae_95pct_range_kg": [
+          54.51489822926341,
+          56.485310288488726
+        ],
+        "mean_duration_coverage_gap": 0.3517905611949929
+      },
+      {
+        "score_noise_fraction_of_sd": 0.25,
+        "repetitions": 100,
+        "mean_selection_jaccard": 0.8510342790319464,
+        "selection_jaccard_95pct_range": [
+          0.8454757305906587,
+          0.8578194408670325
+        ],
+        "mean_accepted_mae_kg": 58.152165160528575,
+        "accepted_mae_95pct_range_kg": [
+          56.70713356336423,
+          59.314266820965734
+        ],
+        "mean_duration_coverage_gap": 0.3306823857762933
+      },
+      {
+        "score_noise_fraction_of_sd": 0.5,
+        "repetitions": 100,
+        "mean_selection_jaccard": 0.768041750277462,
+        "selection_jaccard_95pct_range": [
+          0.761415463328919,
+          0.7762655661000681
+        ],
+        "mean_accepted_mae_kg": 63.44316240840958,
+        "accepted_mae_95pct_range_kg": [
+          61.57098110274084,
+          65.27683677918061
+        ],
+        "mean_duration_coverage_gap": 0.3096723414154884
+      }
+    ]
+  },
   "group_reliability": {
     "duration": [
       {
@@ -458,6 +876,8 @@
       "mean_predicted_risk_kg": 25.69525939612294,
       "duration_coverage_gap": 0.9336910862269637,
       "protected_aircraft_coverage_gap": 0.9182774661971219,
+      "minimum_protected_group_coverage": 0.0059665871121718375,
+      "worst_group_accepted_mae_kg": 296.71638577458606,
       "accepted_mae_95pct_row_bootstrap_ci_kg": [
         42.4289706310231,
         46.179810884156424
@@ -699,6 +1119,8 @@
       "mean_predicted_risk_kg": 33.11135543772332,
       "duration_coverage_gap": 0.3569441934565909,
       "protected_aircraft_coverage_gap": 0.39383070301291245,
+      "minimum_protected_group_coverage": 0.5,
+      "worst_group_accepted_mae_kg": 609.900944238952,
       "accepted_mae_95pct_row_bootstrap_ci_kg": [
         51.210171346300974,
         57.11385845479176
@@ -983,6 +1405,8 @@
       "mean_predicted_risk_kg": 33.049525963074224,
       "duration_coverage_gap": 0.3590078328981723,
       "protected_aircraft_coverage_gap": 0.39383070301291245,
+      "minimum_protected_group_coverage": 0.5,
+      "worst_group_accepted_mae_kg": 765.2167545761715,
       "accepted_mae_95pct_row_bootstrap_ci_kg": [
         51.52464931155216,
         58.03079708143081
@@ -1224,6 +1648,8 @@
       "mean_predicted_risk_kg": 54.1881972375711,
       "duration_coverage_gap": 0.35784740353930955,
       "protected_aircraft_coverage_gap": 0.3944045911047346,
+      "minimum_protected_group_coverage": 0.5,
+      "worst_group_accepted_mae_kg": 514.7167689707527,
       "accepted_mae_95pct_row_bootstrap_ci_kg": [
         52.431103395169565,
         58.574705010369144
@@ -1241,6 +1667,8 @@
         "mean_predicted_risk_kg": 15.623412141493146,
         "duration_coverage_gap": 0.592394408946373,
         "protected_aircraft_coverage_gap": 0.8031563845050215,
+        "minimum_protected_group_coverage": 0.0,
+        "worst_group_accepted_mae_kg": 585.3473330999973,
         "accepted_mae_95pct_row_bootstrap_ci_kg": [
           27.79204248491695,
           30.037964483370956
@@ -1255,6 +1683,8 @@
         "mean_predicted_risk_kg": 33.30161850916093,
         "duration_coverage_gap": 0.21014987956044928,
         "protected_aircraft_coverage_gap": 0.2193687230989957,
+        "minimum_protected_group_coverage": 0.5,
+        "worst_group_accepted_mae_kg": 609.900944238952,
         "accepted_mae_95pct_row_bootstrap_ci_kg": [
           53.91113439008971,
           61.5121285685156
@@ -1269,6 +1699,8 @@
         "mean_predicted_risk_kg": 35.58098926698977,
         "duration_coverage_gap": 0.00014505366985784196,
         "protected_aircraft_coverage_gap": 0.005494505494505475,
+        "minimum_protected_group_coverage": 0.5,
+        "worst_group_accepted_mae_kg": 765.2167545761715,
         "accepted_mae_95pct_row_bootstrap_ci_kg": [
           58.232879195193114,
           68.05634767513841
@@ -1283,6 +1715,8 @@
         "mean_predicted_risk_kg": 57.34578116247886,
         "duration_coverage_gap": 0.21134319698288362,
         "protected_aircraft_coverage_gap": 0.2268292682926829,
+        "minimum_protected_group_coverage": 0.5,
+        "worst_group_accepted_mae_kg": 514.7167689707527,
         "accepted_mae_95pct_row_bootstrap_ci_kg": [
           55.29291404763798,
           62.77787631781662
@@ -1299,6 +1733,8 @@
         "mean_predicted_risk_kg": 18.879454251784857,
         "duration_coverage_gap": 0.6808161501855925,
         "protected_aircraft_coverage_gap": 0.8703012912482067,
+        "minimum_protected_group_coverage": 0.0,
+        "worst_group_accepted_mae_kg": 585.3473330999973,
         "accepted_mae_95pct_row_bootstrap_ci_kg": [
           29.586777352901837,
           31.81067323652727
@@ -1313,6 +1749,8 @@
         "mean_predicted_risk_kg": 33.30161850916093,
         "duration_coverage_gap": 0.21014987956044928,
         "protected_aircraft_coverage_gap": 0.2193687230989957,
+        "minimum_protected_group_coverage": 0.5,
+        "worst_group_accepted_mae_kg": 609.900944238952,
         "accepted_mae_95pct_row_bootstrap_ci_kg": [
           53.91113439008971,
           61.5121285685156
@@ -1327,6 +1765,8 @@
         "mean_predicted_risk_kg": 33.2014639139473,
         "duration_coverage_gap": 0.14693936756599946,
         "protected_aircraft_coverage_gap": 0.22022955523672882,
+        "minimum_protected_group_coverage": 0.5,
+        "worst_group_accepted_mae_kg": 765.2167545761715,
         "accepted_mae_95pct_row_bootstrap_ci_kg": [
           52.90789893110469,
           60.95896816626795
@@ -1341,6 +1781,8 @@
         "mean_predicted_risk_kg": 57.34578116247886,
         "duration_coverage_gap": 0.21134319698288362,
         "protected_aircraft_coverage_gap": 0.2268292682926829,
+        "minimum_protected_group_coverage": 0.5,
+        "worst_group_accepted_mae_kg": 514.7167689707527,
         "accepted_mae_95pct_row_bootstrap_ci_kg": [
           55.29291404763798,
           62.77787631781662
@@ -1357,6 +1799,8 @@
         "mean_predicted_risk_kg": 23.23637222694437,
         "duration_coverage_gap": 0.8696431402769382,
         "protected_aircraft_coverage_gap": 0.9035868005738881,
+        "minimum_protected_group_coverage": 0.0,
+        "worst_group_accepted_mae_kg": 426.9765120684965,
         "accepted_mae_95pct_row_bootstrap_ci_kg": [
           39.38901741436439,
           43.17061066746708
@@ -1371,6 +1815,8 @@
         "mean_predicted_risk_kg": 32.56513582024893,
         "duration_coverage_gap": 0.29602165211629494,
         "protected_aircraft_coverage_gap": 0.3479196556671449,
+        "minimum_protected_group_coverage": 0.5,
+        "worst_group_accepted_mae_kg": 609.900944238952,
         "accepted_mae_95pct_row_bootstrap_ci_kg": [
           51.70407801861802,
           58.3744129461405
@@ -1385,6 +1831,8 @@
         "mean_predicted_risk_kg": 32.47749650476402,
         "duration_coverage_gap": 0.2966347548592979,
         "protected_aircraft_coverage_gap": 0.348780487804878,
+        "minimum_protected_group_coverage": 0.5,
+        "worst_group_accepted_mae_kg": 765.2167545761715,
         "accepted_mae_95pct_row_bootstrap_ci_kg": [
           50.82085128671975,
           57.71361866573384
@@ -1399,6 +1847,8 @@
         "mean_predicted_risk_kg": 54.562333460439575,
         "duration_coverage_gap": 0.2946040034812881,
         "protected_aircraft_coverage_gap": 0.34935437589670015,
+        "minimum_protected_group_coverage": 0.5,
+        "worst_group_accepted_mae_kg": 514.7167689707527,
         "accepted_mae_95pct_row_bootstrap_ci_kg": [
           53.18018166363132,
           59.425757560731135
@@ -1415,6 +1865,8 @@
         "mean_predicted_risk_kg": 25.69525939612294,
         "duration_coverage_gap": 0.9336910862269637,
         "protected_aircraft_coverage_gap": 0.9182774661971219,
+        "minimum_protected_group_coverage": 0.0059665871121718375,
+        "worst_group_accepted_mae_kg": 296.71638577458606,
         "accepted_mae_95pct_row_bootstrap_ci_kg": [
           42.4289706310231,
           46.179810884156424
@@ -1429,6 +1881,8 @@
         "mean_predicted_risk_kg": 33.11135543772332,
         "duration_coverage_gap": 0.3569441934565909,
         "protected_aircraft_coverage_gap": 0.39383070301291245,
+        "minimum_protected_group_coverage": 0.5,
+        "worst_group_accepted_mae_kg": 609.900944238952,
         "accepted_mae_95pct_row_bootstrap_ci_kg": [
           51.210171346300974,
           57.11385845479176
@@ -1443,6 +1897,8 @@
         "mean_predicted_risk_kg": 33.049525963074224,
         "duration_coverage_gap": 0.3590078328981723,
         "protected_aircraft_coverage_gap": 0.39383070301291245,
+        "minimum_protected_group_coverage": 0.5,
+        "worst_group_accepted_mae_kg": 765.2167545761715,
         "accepted_mae_95pct_row_bootstrap_ci_kg": [
           51.52464931155216,
           58.03079708143081
@@ -1457,6 +1913,8 @@
         "mean_predicted_risk_kg": 54.1881972375711,
         "duration_coverage_gap": 0.35784740353930955,
         "protected_aircraft_coverage_gap": 0.3944045911047346,
+        "minimum_protected_group_coverage": 0.5,
+        "worst_group_accepted_mae_kg": 514.7167689707527,
         "accepted_mae_95pct_row_bootstrap_ci_kg": [
           52.431103395169565,
           58.574705010369144
@@ -1473,6 +1931,8 @@
         "mean_predicted_risk_kg": 29.222191918757048,
         "duration_coverage_gap": 0.9730470202375834,
         "protected_aircraft_coverage_gap": 0.9354941089517848,
+        "minimum_protected_group_coverage": 0.00954653937947494,
+        "worst_group_accepted_mae_kg": 232.50648953021835,
         "accepted_mae_95pct_row_bootstrap_ci_kg": [
           47.00536325238186,
           50.96842209879502
@@ -1487,6 +1947,8 @@
         "mean_predicted_risk_kg": 34.223647783001546,
         "duration_coverage_gap": 0.43382263848125,
         "protected_aircraft_coverage_gap": 0.43543758967001434,
+        "minimum_protected_group_coverage": 0.5,
+        "worst_group_accepted_mae_kg": 609.900944238952,
         "accepted_mae_95pct_row_bootstrap_ci_kg": [
           53.86952889876393,
           60.29895066982557
@@ -1501,6 +1963,8 @@
         "mean_predicted_risk_kg": 34.1730774148004,
         "duration_coverage_gap": 0.434435741224253,
         "protected_aircraft_coverage_gap": 0.4365853658536586,
+        "minimum_protected_group_coverage": 0.5,
+        "worst_group_accepted_mae_kg": 765.2167545761715,
         "accepted_mae_95pct_row_bootstrap_ci_kg": [
           54.91238945590842,
           61.20657639289468
@@ -1515,6 +1979,8 @@
         "mean_predicted_risk_kg": 57.0557454629971,
         "duration_coverage_gap": 0.4231215549753409,
         "protected_aircraft_coverage_gap": 0.44060258249641315,
+        "minimum_protected_group_coverage": 0.5,
+        "worst_group_accepted_mae_kg": 514.7167689707527,
         "accepted_mae_95pct_row_bootstrap_ci_kg": [
           54.50226904390059,
           60.72735553771954
@@ -1531,6 +1997,8 @@
         "mean_predicted_risk_kg": 38.94879587940351,
         "duration_coverage_gap": 0.7315693560794105,
         "protected_aircraft_coverage_gap": 0.9848484848484849,
+        "minimum_protected_group_coverage": 0.015151515151515152,
+        "worst_group_accepted_mae_kg": 168.48272403671942,
         "accepted_mae_95pct_row_bootstrap_ci_kg": [
           58.4905422281513,
           63.77138587518088
@@ -1545,6 +2013,8 @@
         "mean_predicted_risk_kg": 39.953508417495996,
         "duration_coverage_gap": 0.49329464312296745,
         "protected_aircraft_coverage_gap": 0.46671449067431847,
+        "minimum_protected_group_coverage": 0.5,
+        "worst_group_accepted_mae_kg": 609.900944238952,
         "accepted_mae_95pct_row_bootstrap_ci_kg": [
           61.844391966553204,
           68.21584891024088
@@ -1559,6 +2029,8 @@
         "mean_predicted_risk_kg": 39.93239217983379,
         "duration_coverage_gap": 0.4944879605454018,
         "protected_aircraft_coverage_gap": 0.46671449067431847,
+        "minimum_protected_group_coverage": 0.5,
+        "worst_group_accepted_mae_kg": 765.2167545761715,
         "accepted_mae_95pct_row_bootstrap_ci_kg": [
           62.16672575908804,
           68.86955604760922
@@ -1573,6 +2045,8 @@
         "mean_predicted_risk_kg": 64.44299125400278,
         "duration_coverage_gap": 0.49564838990426463,
         "protected_aircraft_coverage_gap": 0.46987087517934,
+        "minimum_protected_group_coverage": 0.5,
+        "worst_group_accepted_mae_kg": 514.7167689707527,
         "accepted_mae_95pct_row_bootstrap_ci_kg": [
           62.148123838814826,
           67.90071176076567
@@ -1589,6 +2063,8 @@
         "mean_predicted_risk_kg": 55.982601567255536,
         "duration_coverage_gap": 0.0,
         "protected_aircraft_coverage_gap": 0.0,
+        "minimum_protected_group_coverage": 1.0,
+        "worst_group_accepted_mae_kg": 773.6495495326147,
         "accepted_mae_95pct_row_bootstrap_ci_kg": [
           90.40326672891916,
           102.30203166553676
@@ -1603,6 +2079,8 @@
         "mean_predicted_risk_kg": 55.982601567255536,
         "duration_coverage_gap": 0.0,
         "protected_aircraft_coverage_gap": 0.0,
+        "minimum_protected_group_coverage": 1.0,
+        "worst_group_accepted_mae_kg": 773.6495495326147,
         "accepted_mae_95pct_row_bootstrap_ci_kg": [
           90.40326672891916,
           102.30203166553676
@@ -1617,6 +2095,8 @@
         "mean_predicted_risk_kg": 55.982601567255536,
         "duration_coverage_gap": 0.0,
         "protected_aircraft_coverage_gap": 0.0,
+        "minimum_protected_group_coverage": 1.0,
+        "worst_group_accepted_mae_kg": 773.6495495326147,
         "accepted_mae_95pct_row_bootstrap_ci_kg": [
           90.40326672891916,
           102.30203166553676
@@ -1631,6 +2111,8 @@
         "mean_predicted_risk_kg": 96.05621632074325,
         "duration_coverage_gap": 0.0,
         "protected_aircraft_coverage_gap": 0.0,
+        "minimum_protected_group_coverage": 1.0,
+        "worst_group_accepted_mae_kg": 773.6495495326147,
         "accepted_mae_95pct_row_bootstrap_ci_kg": [
           90.40326672891916,
           102.30203166553676
@@ -1863,5 +2345,56 @@
       "labeled_fuel_share": 1.0,
       "mean_predicted_risk_kg": 96.05621632074325
     }
-  ]
+  ],
+  "selective_curve_summary": [
+    {
+      "policy": "calibrated_floor",
+      "coverage_min": 0.6101850636566478,
+      "coverage_max": 1.0,
+      "risk_coverage_auc_kg": 24.959316737995003,
+      "mean_curve_mae_kg": 64.0286310527892,
+      "mae_at_full_coverage_kg": 96.07232835260301
+    },
+    {
+      "policy": "greedy_floor",
+      "coverage_min": 0.6084788029925187,
+      "coverage_max": 1.0,
+      "risk_coverage_auc_kg": 24.79385254119952,
+      "mean_curve_mae_kg": 63.32697368803189,
+      "mae_at_full_coverage_kg": 96.07232835260301
+    },
+    {
+      "policy": "optimized_floor",
+      "coverage_min": 0.5000656254101589,
+      "coverage_max": 1.0,
+      "risk_coverage_auc_kg": 31.37923689712109,
+      "mean_curve_mae_kg": 62.76671197667776,
+      "mae_at_full_coverage_kg": 96.07232835260301
+    },
+    {
+      "policy": "risk_only",
+      "coverage_min": 0.5000656254101589,
+      "coverage_max": 1.0,
+      "risk_coverage_auc_kg": 24.403332054272603,
+      "mean_curve_mae_kg": 48.81307086413835,
+      "mae_at_full_coverage_kg": 96.07232835260301
+    }
+  ],
+  "publication_readiness": {
+    "completed": [
+      "time-ordered upstream train/risk/calibration/validation design",
+      "coverage-constrained and calibrated selective-regression baselines",
+      "global and subgroup-conditional cross-fitted uncertainty diagnostics",
+      "aircraft-held-out risk-calibrator sensitivity",
+      "natural ADS-B availability audit and risk-score perturbation stress test",
+      "automated artifact, dashboard and leakage tests"
+    ],
+    "requires_new_evidence": [
+      "untouched post-policy labeled evaluation period",
+      "external operator or geography validation",
+      "weather and physics-informed model refit on raw trajectories",
+      "flight-cluster confirmatory intervals with real flight identifiers",
+      "approved live telemetry provider and delayed ground truth"
+    ]
+  }
 }

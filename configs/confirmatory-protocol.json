@@ -1,0 +1,88 @@
+{
+  "protocol_version": "1.0.0",
+  "frozen_on": "2026-10-22",
+  "status": "prospective_protocol_no_confirmatory_labels_loaded",
+  "research_question": "Can coverage-constrained selective regression preserve aircraft and duration access while maintaining calibrated fuel-burn uncertainty under temporal, route and data-quality shift?",
+  "primary_hypotheses": [
+    {
+      "id": "H1",
+      "test": "At matched overall coverage, the constrained policy reduces the maximum duration and eligible-aircraft coverage gap relative to unconstrained risk ranking.",
+      "primary_endpoint": "maximum subgroup coverage gap",
+      "direction": "lower"
+    },
+    {
+      "id": "H2",
+      "test": "Duration-Mondrian split-conformal intervals improve worst-duration coverage without increasing mean interval width by more than 25 percent relative to global split conformal.",
+      "primary_endpoint": "worst-duration empirical coverage",
+      "direction": "higher"
+    },
+    {
+      "id": "H3",
+      "test": "Natural zero-ADS-B intervals have materially higher absolute error than intervals with at least 51 positions.",
+      "primary_endpoint": "flight-cluster bootstrap MAE difference",
+      "direction": "higher"
+    }
+  ],
+  "data_roles": {
+    "training": "chronologically earlier flights; fuel-model fitting only",
+    "risk_training": "later disjoint flights; absolute-error model fitting only",
+    "calibration": "later disjoint flights; conformal quantiles and fixed policy thresholds only",
+    "validation": "later disjoint flights; model selection and exploratory ablations only",
+    "confirmation": "post-freeze, untouched flights from a later period or independent operator/geography"
+  },
+  "required_confirmation_columns": [
+    "interval_id",
+    "flight_id",
+    "interval_start_utc",
+    "interval_end_utc",
+    "aircraft_type",
+    "predicted_fuel_kg",
+    "reference_fuel_kg",
+    "predicted_error_risk_kg",
+    "adsb_position_count",
+    "origin_icao",
+    "destination_icao",
+    "model_version"
+  ],
+  "locked_primary_setting": {
+    "overall_coverage": 0.75,
+    "subgroup_floor": 0.50,
+    "minimum_aircraft_group_n": 50,
+    "prediction_interval_level": 0.90
+  },
+  "model_comparisons_when_raw_data_are_available": [
+    "aircraft-type median fuel-rate baseline",
+    "histogram gradient boosting baseline",
+    "CatBoost or equivalent categorical boosting",
+    "physics-only OpenAP estimate",
+    "physics-guided residual boosting",
+    "temporal sequence model with an identical split and feature availability"
+  ],
+  "generalization_tests": [
+    "forward temporal holdout",
+    "route-disjoint holdout",
+    "aircraft-type holdout",
+    "receiver-region or operator holdout when identifiers and permissions allow"
+  ],
+  "uncertainty_methods": [
+    "global split conformal",
+    "duration-Mondrian split conformal",
+    "aircraft-Mondrian split conformal with minimum sample fallback",
+    "importance-weighted split conformal under measured covariate shift"
+  ],
+  "statistics": {
+    "resampling_unit": "flight_id",
+    "bootstrap_repetitions": 2000,
+    "confidence_level": 0.95,
+    "multiple_testing": "Holm correction within each reported subgroup family",
+    "random_seeds": [17, 42, 314, 2025, 20251022],
+    "report_effect_sizes": true
+  },
+  "claim_rules": [
+    "No confirmatory claim may be made from September or October 2025 because those labels informed development.",
+    "No live reference fuel may be displayed before delayed ground truth is legitimately available.",
+    "No external-validity claim may be made from a route split alone.",
+    "The fuel estimator and the uncertainty calibrator must be distinguished in every unseen-aircraft result.",
+    "All exclusions, failed runs and deviations from this protocol must be reported."
+  ]
+}

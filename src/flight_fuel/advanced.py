@@ -134,6 +134,162 @@ def cross_fitted_uncertainty(
     return calibrated, half_width, diagnostics
 
 
+def _finite_sample_quantile(values: np.ndarray, level: float) -> float:
+    """Return the conservative split-conformal quantile."""
+    values = np.asarray(values, dtype=float)
+    if not len(values) or not np.isfinite(values).all() or not 0 < level < 1:
+        raise ValueError("Conformal scores and level must be valid")
+    quantile = min(1.0, math.ceil((len(values) + 1) * level) / len(values))
+    return float(np.quantile(values, quantile, method="higher"))
+
+
+def cross_fitted_mondrian_uncertainty(
+    risk: np.ndarray,
+    predicted: np.ndarray,
+    truth: np.ndarray,
+    ties: np.ndarray,
+    groups: np.ndarray,
+    *,
+    group_label: str,
+    folds: int = 5,
+    interval_level: float = 0.9,
+    min_group_n: int = 50,
+) -> tuple[np.ndarray, dict]:
+    """Cross-fit group-conditional interval scales with an honest fallback.
+
+    The risk-to-error mapping is fitted without the held-out fold. Within each
+    training fold, a group-specific conformal multiplier is used only when the
+    group has enough calibration rows; otherwise the global multiplier is used.
+    This is an exploratory Mondrian diagnostic, not a future-period guarantee.
+    """
+    risk, predicted, truth, ties = (
+        np.asarray(values, dtype=float) for values in (risk, predicted, truth, ties)
+    )
+    groups = np.asarray(groups).astype(str)
+    n = len(risk)
+    if any(len(values) != n for values in (predicted, truth, ties, groups)):
+        raise ValueError("Mondrian uncertainty inputs must have equal length")
+    if min_group_n < 2:
+        raise ValueError("min_group_n must be at least two")
+    absolute_error = np.abs(predicted - truth)
+    fold_id = np.minimum((np.mod(ties, 1.0) * folds).astype(int), folds - 1)
+    half_width = np.empty(n, dtype=float)
+    used_fallback = np.zeros(n, dtype=bool)
+    for fold in range(folds):
+        held_out = fold_id == fold
+        train = ~held_out
+        if not held_out.any() or train.sum() < 2:
+            raise ValueError("Stable tie values do not support the requested folds")
+        model = IsotonicRegression(out_of_bounds="clip", y_min=0.0)
+        model.fit(risk[train], absolute_error[train])
+        train_scale = np.maximum(model.predict(risk[train]), 1.0)
+        held_scale = np.maximum(model.predict(risk[held_out]), 1.0)
+        train_ratios = absolute_error[train] / train_scale
+        global_multiplier = _finite_sample_quantile(train_ratios, interval_level)
+        held_indices = np.flatnonzero(held_out)
+        for name in np.unique(groups[held_out]):
+            local_train = train & (groups == name)
+            local_held = groups[held_indices] == name
+            target_indices = held_indices[local_held]
+            if local_train.sum() >= min_group_n:
+                multiplier = _finite_sample_quantile(
+                    absolute_error[local_train]
+                    / np.maximum(model.predict(risk[local_train]), 1.0),
+                    interval_level,
+                )
+            else:
+                multiplier = global_multiplier
+                used_fallback[target_indices] = True
+            half_width[target_indices] = held_scale[local_held] * multiplier
+
+    covered = absolute_error <= half_width
+    group_rows = []
+    for name in sorted(np.unique(groups)):
+        member = groups == name
+        group_rows.append({
+            "group": name,
+            "n": int(member.sum()),
+            "eligible_for_group_summary": bool(member.sum() >= min_group_n),
+            "coverage": float(covered[member].mean()),
+            "mean_interval_width_kg": float(2 * half_width[member].mean()),
+            "fallback_fraction": float(used_fallback[member].mean()),
+        })
+    eligible_rows = [row for row in group_rows if row["eligible_for_group_summary"]]
+    if not eligible_rows:
+        eligible_rows = group_rows
+    diagnostics = {
+        "method": f"{folds}-fold cross-fitted {group_label} Mondrian scaled conformal",
+        "nominal_interval_coverage": interval_level,
+        "observed_interval_coverage": float(covered.mean()),
+        "mean_interval_width_kg": float(2 * half_width.mean()),
+        "median_interval_width_kg": float(2 * np.median(half_width)),
+        "worst_group_coverage": float(min(row["coverage"] for row in eligible_rows)),
+        "group_coverage_gap": float(
+            max(row["coverage"] for row in eligible_rows)
+            - min(row["coverage"] for row in eligible_rows)
+        ),
+        "fallback_fraction": float(used_fallback.mean()),
+        "groups": group_rows,
+    }
+    return half_width, diagnostics
+
+
+def leave_aircraft_out_risk_calibration(
+    risk: np.ndarray,
+    predicted: np.ndarray,
+    truth: np.ndarray,
+    aircraft: np.ndarray,
+    *,
+    interval_level: float = 0.9,
+    min_type_n: int = 50,
+) -> dict:
+    """Test risk calibration on each sufficiently large unseen aircraft group.
+
+    Only the uncertainty calibrator is held out here. The upstream fuel model
+    may have seen the aircraft type, so this must not be presented as complete
+    unseen-aircraft fuel-model validation.
+    """
+    risk, predicted, truth = (
+        np.asarray(values, dtype=float) for values in (risk, predicted, truth)
+    )
+    aircraft = np.asarray(aircraft).astype(str)
+    error = np.abs(predicted - truth)
+    rows = []
+    covered_parts = []
+    width_parts = []
+    for name, count in zip(*np.unique(aircraft, return_counts=True)):
+        if count < min_type_n:
+            continue
+        held = aircraft == name
+        train = ~held
+        model = IsotonicRegression(out_of_bounds="clip", y_min=0.0)
+        model.fit(risk[train], error[train])
+        train_scale = np.maximum(model.predict(risk[train]), 1.0)
+        multiplier = _finite_sample_quantile(error[train] / train_scale, interval_level)
+        half = np.maximum(model.predict(risk[held]), 1.0) * multiplier
+        covered = error[held] <= half
+        covered_parts.append(covered)
+        width_parts.append(2 * half)
+        rows.append({
+            "aircraft_type": name,
+            "n": int(count),
+            "mae_kg": float(error[held].mean()),
+            "interval_coverage": float(covered.mean()),
+            "mean_interval_width_kg": float(2 * half.mean()),
+        })
+    if not rows:
+        raise ValueError("No aircraft groups meet the holdout threshold")
+    return {
+        "scope": "Risk calibrator held out by aircraft type; fuel model not held out",
+        "eligible_aircraft_types": len(rows),
+        "rows_evaluated": int(sum(row["n"] for row in rows)),
+        "pooled_interval_coverage": float(np.concatenate(covered_parts).mean()),
+        "pooled_mean_interval_width_kg": float(np.concatenate(width_parts).mean()),
+        "worst_aircraft_coverage": float(min(row["interval_coverage"] for row in rows)),
+        "aircraft": sorted(rows, key=lambda row: row["interval_coverage"]),
+    }
+
+
 def _regression_metrics(predicted: np.ndarray, truth: np.ndarray) -> dict:
     residual = np.asarray(predicted, dtype=float) - np.asarray(truth, dtype=float)
     absolute = np.abs(residual)
@@ -200,6 +356,100 @@ def _group_reliability(
     ]
     aircraft_rows.sort(key=lambda row: (-row["n"], row["group"]))
     return {"duration": duration_rows, "aircraft": aircraft_rows}
+
+
+def _missingness_reliability(
+    frame: pd.DataFrame,
+    predicted: np.ndarray,
+    calibrated_risk: np.ndarray,
+    half_width: np.ndarray,
+) -> list[dict]:
+    """Summarize natural ADS-B availability without treating it as random."""
+    positions = frame.adsb_position_count.to_numpy(dtype=int)
+    names = np.select(
+        [positions == 0, positions <= 10, positions <= 50],
+        ["Zero positions", "Sparse (1–10)", "Partial (11–50)"],
+        default="Dense (51+)",
+    )
+    truth = frame.fuel_kg.to_numpy(dtype=float)
+    error = np.asarray(predicted, dtype=float) - truth
+    covered = np.abs(error) <= half_width
+    rows = []
+    for name in ("Zero positions", "Sparse (1–10)", "Partial (11–50)", "Dense (51+)"):
+        member = names == name
+        if not member.any():
+            continue
+        rows.append({
+            "group": name,
+            "n": int(member.sum()),
+            "mae_kg": float(np.abs(error[member]).mean()),
+            "rmse_kg": float(np.sqrt(np.mean(error[member] ** 2))),
+            "mean_calibrated_risk_kg": float(calibrated_risk[member].mean()),
+            "interval_coverage": float(covered[member].mean()),
+            "mean_interval_width_kg": float(2 * half_width[member].mean()),
+        })
+    return rows
+
+
+def _risk_perturbation_sensitivity(
+    frame: pd.DataFrame,
+    calibrated_risk: np.ndarray,
+    predicted: np.ndarray,
+    ties: np.ndarray,
+    *,
+    target: float,
+    floor: float,
+    min_type_n: int,
+    repetitions: int = 100,
+    seed: int = 20251022,
+) -> dict:
+    """Stress-test selection stability under deterministic score noise."""
+    types = frame.aircraft_type.to_numpy(dtype=str)
+    duration = frame.duration_min.to_numpy(dtype=float)
+    truth = frame.fuel_kg.to_numpy(dtype=float)
+    baseline, _ = select(
+        calibrated_risk, types, duration, ties, target, floor, min_type_n
+    )
+    groups = duration_groups(duration)
+    score_scale = max(float(np.std(calibrated_risk)), 1.0)
+    rng = np.random.default_rng(seed)
+    scenarios = []
+    for fraction in (0.10, 0.25, 0.50):
+        jaccard, mae, gap = [], [], []
+        for _ in range(repetitions):
+            perturbed = np.maximum(
+                0.0,
+                calibrated_risk
+                + rng.normal(0.0, fraction * score_scale, len(calibrated_risk)),
+            )
+            mask, _ = select(perturbed, types, duration, ties, target, floor, min_type_n)
+            union = np.logical_or(mask, baseline).sum()
+            jaccard.append(float(np.logical_and(mask, baseline).sum() / union))
+            mae.append(float(np.abs(predicted[mask] - truth[mask]).mean()))
+            coverages = [
+                float(mask[groups == name].mean())
+                for name in DURATION_LABELS
+                if np.any(groups == name)
+            ]
+            gap.append(max(coverages) - min(coverages))
+        scenarios.append({
+            "score_noise_fraction_of_sd": fraction,
+            "repetitions": repetitions,
+            "mean_selection_jaccard": float(np.mean(jaccard)),
+            "selection_jaccard_95pct_range": [
+                float(value) for value in np.quantile(jaccard, [0.025, 0.975])
+            ],
+            "mean_accepted_mae_kg": float(np.mean(mae)),
+            "accepted_mae_95pct_range_kg": [
+                float(value) for value in np.quantile(mae, [0.025, 0.975])
+            ],
+            "mean_duration_coverage_gap": float(np.mean(gap)),
+        })
+    return {
+        "scope": "Exploratory sensitivity; perturbation is not a physical ADS-B outage model",
+        "baseline_selected": int(baseline.sum()),
+        "scenarios": scenarios,
+    }
 
 
 def _constraint_members(
@@ -336,10 +586,47 @@ def _policy_summary(
     summary["protected_aircraft_coverage_gap"] = (
         float(max(protected) - min(protected)) if protected else None
     )
+    protected_rows = list(summary["groups"]["duration"].values()) + [
+        group
+        for group in summary["groups"]["aircraft_type"].values()
+        if group["n"] >= int(policy.get("min_type_n", 50))
+    ]
+    accepted_group_errors = [
+        group["accepted_mae_kg"]
+        for group in protected_rows
+        if group["accepted_mae_kg"] is not None
+    ]
+    summary["minimum_protected_group_coverage"] = float(
+        min(group["coverage"] for group in protected_rows)
+    )
+    summary["worst_group_accepted_mae_kg"] = float(max(accepted_group_errors))
     summary["accepted_mae_95pct_row_bootstrap_ci_kg"] = _bootstrap_mae_ci(
         predicted, frame.fuel_kg.to_numpy(dtype=float), mask
     )
     return summary
+
+
+def _selective_curve_summary(pareto: list[dict]) -> list[dict]:
+    """Summarize the complete risk–coverage curve for every policy."""
+    rows = []
+    for name in sorted({row["policy"] for row in pareto}):
+        values = sorted(
+            (row for row in pareto if row["policy"] == name),
+            key=lambda row: row["actual_coverage"],
+        )
+        coverage = np.asarray([row["actual_coverage"] for row in values], dtype=float)
+        risk = np.asarray([row["accepted_mae_kg"] for row in values], dtype=float)
+        span = float(coverage[-1] - coverage[0])
+        area = float(np.trapezoid(risk, coverage))
+        rows.append({
+            "policy": name,
+            "coverage_min": float(coverage[0]),
+            "coverage_max": float(coverage[-1]),
+            "risk_coverage_auc_kg": area,
+            "mean_curve_mae_kg": area / span if span else float(risk[0]),
+            "mae_at_full_coverage_kg": float(risk[-1]),
+        })
+    return rows
 
 
 def analyze(
@@ -359,6 +646,15 @@ def analyze(
     calibrated_risk, interval_half_width, uncertainty = cross_fitted_uncertainty(
         scores, predicted, truth, ties
     )
+    duration_names = duration_groups(duration)
+    _, duration_mondrian = cross_fitted_mondrian_uncertainty(
+        scores, predicted, truth, ties, duration_names,
+        group_label="duration", min_group_n=min_type_n,
+    )
+    _, aircraft_mondrian = cross_fitted_mondrian_uncertainty(
+        scores, predicted, truth, ties, types,
+        group_label="aircraft", min_group_n=min_type_n,
+    )
 
     targets = tuple(sorted(set(COVERAGE_TARGETS + (target,))))
     selection_grid: dict[str, dict[str, str]] = {}
@@ -370,6 +666,7 @@ def analyze(
         "accepted", "coverage", "accepted_mae_kg", "rejected_mae_kg",
         "accepted_reference_fuel_fraction", "mean_predicted_risk_kg",
         "duration_coverage_gap", "protected_aircraft_coverage_gap",
+        "minimum_protected_group_coverage", "worst_group_accepted_mae_kg",
         "accepted_mae_95pct_row_bootstrap_ci_kg",
     )
     for coverage in targets:
@@ -446,12 +743,45 @@ def analyze(
         "rows": len(frame),
         "regression": _regression_metrics(predicted, truth),
         "uncertainty": uncertainty,
+        "uncertainty_comparison": {
+            "global_scaled_conformal": uncertainty,
+            "duration_mondrian": duration_mondrian,
+            "aircraft_mondrian": aircraft_mondrian,
+        },
+        "aircraft_held_out_risk_calibration": leave_aircraft_out_risk_calibration(
+            scores, predicted, truth, types, min_type_n=min_type_n
+        ),
+        "natural_adsb_availability": _missingness_reliability(
+            frame, predicted, calibrated_risk, interval_half_width
+        ),
+        "risk_score_sensitivity": _risk_perturbation_sensitivity(
+            frame, calibrated_risk, predicted, ties,
+            target=target, floor=floor, min_type_n=min_type_n,
+        ),
         "group_reliability": _group_reliability(
             frame, predicted, scores, calibrated_risk, interval_half_width, min_type_n
         ),
         "policies": policies,
         "policy_grid": policy_grid,
         "pareto": pareto,
+        "selective_curve_summary": _selective_curve_summary(pareto),
+        "publication_readiness": {
+            "completed": [
+                "time-ordered upstream train/risk/calibration/validation design",
+                "coverage-constrained and calibrated selective-regression baselines",
+                "global and subgroup-conditional cross-fitted uncertainty diagnostics",
+                "aircraft-held-out risk-calibrator sensitivity",
+                "natural ADS-B availability audit and risk-score perturbation stress test",
+                "automated artifact, dashboard and leakage tests",
+            ],
+            "requires_new_evidence": [
+                "untouched post-policy labeled evaluation period",
+                "external operator or geography validation",
+                "weather and physics-informed model refit on raw trajectories",
+                "flight-cluster confirmatory intervals with real flight identifiers",
+                "approved live telemetry provider and delayed ground truth",
+            ],
+        },
     }
     dashboard_payload = {
         "period": payload.get("period", "Committed validation benchmark"),

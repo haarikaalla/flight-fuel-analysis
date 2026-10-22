@@ -37,8 +37,21 @@ jobs:
           }
           observed = report["uncertainty"]["observed_interval_coverage"]
           assert 0.85 <= observed <= 0.95
+          comparisons = report["uncertainty_comparison"]
+          assert set(comparisons) == {
+              "global_scaled_conformal", "duration_mondrian", "aircraft_mondrian"
+          }
+          assert comparisons["duration_mondrian"]["worst_group_coverage"] >= 0.85
+          assert report["aircraft_held_out_risk_calibration"]["eligible_aircraft_types"] >= 5
+          assert len(report["natural_adsb_availability"]) >= 3
+          assert len(report["risk_score_sensitivity"]["scenarios"]) == 3
+          protocol = json.loads(Path("configs/confirmatory-protocol.json").read_text())
+          assert protocol["status"] == "prospective_protocol_no_confirmatory_labels_loaded"
+          assert {row["id"] for row in protocol["primary_hypotheses"]} == {"H1", "H2", "H3"}
           dashboard = Path("demo/advanced.html").read_text()
           assert "Flight Fuel Intelligence Dashboard" in dashboard
+          assert "Robustness and transfer diagnostics" in dashboard
+          assert "Publication evidence boundary" in dashboard
           assert "const DATA=" in dashboard
           assert "What is advanced—and what is not yet claimed" not in dashboard
           Path("/tmp/flight-fuel-dashboard.js").write_text(
