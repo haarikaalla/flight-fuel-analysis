@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [main, research-extension]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: python -m pip install --upgrade pip
+      - run: python -m pip install -e .
+      - run: python -m unittest discover -v -s tests
+      - run: python -m flight_fuel.advanced
+      - run: git diff --exit-code -- reports/advanced-results.json demo/advanced.html

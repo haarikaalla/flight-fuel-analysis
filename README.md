@@ -2,6 +2,21 @@
 
 An interactive data science project that estimates fuel use for **completed flight intervals** from public flight tracking data, then checks **which flights those estimates cover and how accurate they are**. [Try the offline dashboard](demo/index.html) or [walk through the results in Jupyter](notebooks/eligibility-walkthrough.ipynb).
 
+## Research extension in this fork
+
+The `research-extension` branch preserves the original analysis and adds an
+**exact coverage-constrained selector** using mixed-integer optimization. It
+compares the original risk-only and greedy policies with a minimum-predicted-risk
+solution under explicit overall, duration and aircraft coverage constraints.
+It also adds per-decision explanations, an accuracy–coverage frontier and an
+offline streaming replay in [`demo/advanced.html`](demo/advanced.html).
+
+The replay uses committed historical benchmark rows; it is not a live aircraft
+feed. A live system would require rolling-window retraining, approved telemetry
+access, calibrated uncertainty and a new independently frozen evaluation period.
+See [`UPSTREAM_ATTRIBUTION.md`](UPSTREAM_ATTRIBUTION.md) for the boundary between
+the upstream project and this fork's additions.
+
 ## The problem
 
 Public ADS-B flight tracking data contain aircraft positions, but no measured fuel consumption. Researchers can estimate fuel use with a model; if they keep only its easiest predictions, the reported error looks better while longer intervals and some aircraft types largely disappear from the sample. That can distort conclusions drawn from the selected data.
@@ -46,6 +61,19 @@ python -m src.flight_fuel.features --splits train rank final
 python -m src.flight_fuel.eligibility
 python -m unittest discover -s tests
 ```
+
+To run the advanced extension without downloading the raw trajectory archives:
+
+```bash
+python -m venv .venv
+.venv/bin/python -m pip install -e .
+.venv/bin/python -m flight_fuel.advanced
+.venv/bin/python -m http.server 8000
+```
+
+Then open `http://localhost:8000/demo/advanced.html`. The advanced command reads
+the committed benchmark payload and regenerates both
+`reports/advanced-results.json` and `demo/advanced.html`.
 
 Raw data and extracted features are excluded from Git. Downloads are checked against publisher MD5 values. The final analysis command regenerates `reports/eligibility-results.json` and `demo/index.html`.
 
