@@ -16,7 +16,7 @@ ADS-B observations and temporal or route distribution shift?
 - Added five-fold out-of-fold isotonic error calibration and scaled conformal
   90% interval diagnostics without fitting a row's uncertainty on its own label.
 - Added row-bootstrap confidence intervals, calibration bins, subgroup
-  reliability tables and an additional calibrated constrained policy.
+  reliability tables and an additional calibrated group-floor policy.
 - Added a self-contained professional dashboard with four policy choices,
   seven coverage targets, aircraft and duration filters, historical streaming
   replay, per-row uncertainty and an accuracy–coverage frontier.

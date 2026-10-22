@@ -378,7 +378,7 @@ def analyze(
         optimized_mask, optimized_details = constrained_select(
             scores, types, duration, ties, coverage, floor, min_type_n
         )
-        calibrated_mask, calibrated_details = constrained_select(
+        calibrated_mask, calibrated_details = select(
             calibrated_risk, types, duration, ties, coverage, floor, min_type_n
         )
         masks = {
@@ -401,9 +401,9 @@ def analyze(
                 frame, optimized_mask, predicted, scores,
                 {"floor": floor, "min_type_n": min_type_n, **optimized_details},
             ),
-            "calibrated_optimized": _policy_summary(
+            "calibrated_floor": _policy_summary(
                 frame, calibrated_mask, predicted, calibrated_risk,
-                {"method": "cross_fitted_calibrated_mixed_integer_minimum_risk",
+                {"method": "cross_fitted_calibrated_group_floor",
                  "floor": floor, "min_type_n": min_type_n, **calibrated_details},
             ),
         }
@@ -420,7 +420,7 @@ def analyze(
             ("risk_only", risk_mask, scores),
             ("greedy_floor", greedy_mask, scores),
             ("optimized_floor", optimized_mask, scores),
-            ("calibrated_optimized", calibrated_mask, calibrated_risk),
+            ("calibrated_floor", calibrated_mask, calibrated_risk),
         ):
             pareto.append({
                 "policy": name,
