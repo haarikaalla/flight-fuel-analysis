@@ -1,0 +1,378 @@
+{
+  "counts": {
+    "calibration_flights": 1888,
+    "calibration_intervals": 24289,
+    "test_flights": 2836,
+    "test_intervals": 37456,
+    "test_routes": 471,
+    "train_flights": 11037,
+    "train_intervals": 131530
+  },
+  "evidence_boundary": "October 2025 labels were previously inspected; no confirmatory or PI-MCS claim",
+  "feature_columns": [
+    "duration_min",
+    "flight_duration_min",
+    "elapsed_from_takeoff_min",
+    "remaining_to_landing_min",
+    "start_hour_sin",
+    "start_hour_cos",
+    "type_A20N",
+    "type_A21N",
+    "type_A306",
+    "type_A318",
+    "type_A319",
+    "type_A320",
+    "type_A321",
+    "type_A332",
+    "type_A333",
+    "type_A359",
+    "type_A388",
+    "type_B38M",
+    "type_B39M",
+    "type_B737",
+    "type_B738",
+    "type_B739",
+    "type_B744",
+    "type_B748",
+    "type_B752",
+    "type_B763",
+    "type_B772",
+    "type_B77L",
+    "type_B77W",
+    "type_B788",
+    "type_B789",
+    "type_MD11"
+  ],
+  "models": {
+    "aircraft_type_median_rate": {
+      "mae_route_cluster_ci": {
+        "cluster_bootstrap_95pct_ci": [
+          77.03056568045577,
+          105.24319086683904
+        ],
+        "clusters": 471,
+        "mean": 89.30149280342748,
+        "repetitions": 2000
+      },
+      "regression": {
+        "bias_kg": -24.803900291313557,
+        "mae_kg": 89.30149280342748,
+        "n": 37456,
+        "r2": 0.8954395849941442,
+        "rmse_kg": 249.35675824116115
+      },
+      "split_conformal_90": {
+        "calibration_n": 24289,
+        "coverage": 0.9093336181119179,
+        "mean_width_kg": 345.91436331347245,
+        "median_width_kg": 353.2904588642546,
+        "nominal_coverage": 0.9,
+        "quantile": 206.7401826630446,
+        "winkler_score": 943.7470691449453
+      }
+    },
+    "deep_ensemble": {
+      "mae_route_cluster_ci": {
+        "cluster_bootstrap_95pct_ci": [
+          67.35795707437923,
+          95.49071823484945
+        ],
+        "clusters": 471,
+        "mean": 79.48247560414296,
+        "repetitions": 2000
+      },
+      "regression": {
+        "bias_kg": -5.512730187795022,
+        "mae_kg": 79.48247560414296,
+        "n": 37456,
+        "r2": 0.9051477154514364,
+        "rmse_kg": 237.4987848095752
+      },
+      "split_conformal_90": {
+        "calibration_n": 24289,
+        "coverage": 0.9101078598889364,
+        "mean_width_kg": 293.5802342654955,
+        "median_width_kg": 326.6887416938842,
+        "nominal_coverage": 0.9,
+        "quantile": 167.4764684779625,
+        "winkler_score": 864.2834999726687
+      }
+    },
+    "hist_gradient_boosting": {
+      "mae_route_cluster_ci": {
+        "cluster_bootstrap_95pct_ci": [
+          67.15351063053716,
+          95.25399164728871
+        ],
+        "clusters": 471,
+        "mean": 79.21996011993191,
+        "repetitions": 2000
+      },
+      "regression": {
+        "bias_kg": -5.752087135733615,
+        "mae_kg": 79.21996011993191,
+        "n": 37456,
+        "r2": 0.9056972797194658,
+        "rmse_kg": 236.80976370596647
+      },
+      "split_conformal_90": {
+        "calibration_n": 24289,
+        "coverage": 0.9091734301580521,
+        "mean_width_kg": 293.1989678504742,
+        "median_width_kg": 326.6331715890673,
+        "nominal_coverage": 0.9,
+        "quantile": 167.20217426831397,
+        "winkler_score": 858.7672693182517
+      }
+    },
+    "lasso": {
+      "mae_route_cluster_ci": {
+        "cluster_bootstrap_95pct_ci": [
+          164.7964172681408,
+          209.10703829685676
+        ],
+        "clusters": 471,
+        "mean": 185.22064841462344,
+        "repetitions": 2000
+      },
+      "regression": {
+        "bias_kg": 14.50311986655613,
+        "mae_kg": 185.22064841462344,
+        "n": 37456,
+        "r2": 0.7247664089832995,
+        "rmse_kg": 404.5649108192213
+      },
+      "split_conformal_90": {
+        "calibration_n": 24289,
+        "coverage": 0.8996689448953439,
+        "mean_width_kg": 541.6668380176537,
+        "median_width_kg": 494.12867011120704,
+        "nominal_coverage": 0.9,
+        "quantile": 377.0733851507082,
+        "winkler_score": 1742.3347499596741
+      }
+    },
+    "mlp": {
+      "mae_route_cluster_ci": {
+        "cluster_bootstrap_95pct_ci": [
+          72.65549437162346,
+          101.08495816785299
+        ],
+        "clusters": 471,
+        "mean": 84.4766553724185,
+        "repetitions": 2000
+      },
+      "regression": {
+        "bias_kg": -15.026952653832371,
+        "mae_kg": 84.4766553724185,
+        "n": 37456,
+        "r2": 0.9013605520359455,
+        "rmse_kg": 242.1936825219351
+      },
+      "split_conformal_90": {
+        "calibration_n": 24289,
+        "coverage": 0.9095472020504058,
+        "mean_width_kg": 331.0860186717689,
+        "median_width_kg": 347.79599407154467,
+        "nominal_coverage": 0.9,
+        "quantile": 195.37755277986594,
+        "winkler_score": 865.0994067550461
+      }
+    },
+    "quantile_regression": {
+      "cqr_90": {
+        "calibration_n": 24289,
+        "correction_kg": 0.012636959185044816,
+        "coverage": 0.8967855617257582,
+        "mean_width_kg": 304.8487287423815,
+        "median_width_kg": 155.34957746179265,
+        "winkler_score": 548.0299155893023
+      },
+      "mae_route_cluster_ci": {
+        "cluster_bootstrap_95pct_ci": [
+          84.03593136945273,
+          112.52874487192764
+        ],
+        "clusters": 471,
+        "mean": 96.18435192020503,
+        "repetitions": 2000
+      },
+      "regression": {
+        "bias_kg": 5.379920334110364,
+        "mae_kg": 96.18435192020503,
+        "n": 37456,
+        "r2": 0.8975782340591202,
+        "rmse_kg": 246.7934470178362
+      },
+      "split_conformal_90": {
+        "calibration_n": 24289,
+        "coverage": 0.9121369073045706,
+        "mean_width_kg": 395.247132553832,
+        "median_width_kg": 386.8064918157627,
+        "nominal_coverage": 0.9,
+        "quantile": 232.22482185159538,
+        "winkler_score": 909.1782287494552
+      }
+    },
+    "ridge": {
+      "mae_route_cluster_ci": {
+        "cluster_bootstrap_95pct_ci": [
+          164.80814997388924,
+          209.12288450542678
+        ],
+        "clusters": 471,
+        "mean": 185.23177521057272,
+        "repetitions": 2000
+      },
+      "regression": {
+        "bias_kg": 14.50106843420487,
+        "mae_kg": 185.23177521057272,
+        "n": 37456,
+        "r2": 0.7247590856941317,
+        "rmse_kg": 404.57029302222656
+      },
+      "split_conformal_90": {
+        "calibration_n": 24289,
+        "coverage": 0.8996689448953439,
+        "mean_width_kg": 541.5984172509859,
+        "median_width_kg": 494.08342390664495,
+        "nominal_coverage": 0.9,
+        "quantile": 377.02881242474814,
+        "winkler_score": 1742.3842934711324
+      }
+    }
+  },
+  "paired_against_hist_gradient_boosting": {
+    "aircraft_type_median_rate": {
+      "cluster_bootstrap_95pct_ci": [
+        5.294996059406112,
+        14.69724438910169
+      ],
+      "clusters": 471,
+      "mean_difference_b_minus_a": 10.081532683495581,
+      "repetitions": 2000,
+      "standardized_effect": 0.07303317829684917
+    },
+    "deep_ensemble": {
+      "cluster_bootstrap_95pct_ci": [
+        -0.1650578521030242,
+        0.7440217871941287
+      ],
+      "clusters": 471,
+      "mean_difference_b_minus_a": 0.2625154842110433,
+      "repetitions": 2000,
+      "standardized_effect": 0.012099751122510757
+    },
+    "lasso": {
+      "cluster_bootstrap_95pct_ci": [
+        93.18328009627017,
+        121.03124507046188
+      ],
+      "clusters": 471,
+      "mean_difference_b_minus_a": 106.00068829469154,
+      "repetitions": 2000,
+      "standardized_effect": 0.3958480859362088
+    },
+    "mlp": {
+      "cluster_bootstrap_95pct_ci": [
+        2.576717359386083,
+        8.222049033086396
+      ],
+      "clusters": 471,
+      "mean_difference_b_minus_a": 5.256695252486602,
+      "repetitions": 2000,
+      "standardized_effect": 0.049052609019363334
+    },
+    "quantile_regression": {
+      "cluster_bootstrap_95pct_ci": [
+        14.08798240105909,
+        20.1030896412645
+      ],
+      "clusters": 471,
+      "mean_difference_b_minus_a": 16.96439180027313,
+      "repetitions": 2000,
+      "standardized_effect": 0.16888850568300262
+    },
+    "ridge": {
+      "cluster_bootstrap_95pct_ci": [
+        93.19920652452777,
+        121.04086765902655
+      ],
+      "clusters": 471,
+      "mean_difference_b_minus_a": 106.01181509064081,
+      "repetitions": 2000,
+      "standardized_effect": 0.39588573251604375
+    }
+  },
+  "protocol": "train April-August 2025; calibrate September 2025; evaluate October 2025",
+  "seed": 20251022,
+  "source_sha256": {
+    "flightlist_final.parquet": "4d67d4bd88081a9986c9327636467c2e99c7d6d6eafe070b0516a54cc2c64990",
+    "flightlist_rank.parquet": "ce2807ad8adf8212c068eb6a1d73b3480a174ac6a167dab93d0bed4d356ceaaf",
+    "flightlist_train.parquet": "70d4fbf0824e54a8657d3a87002a7dda98469dfd02c6c05bb2fdbdc83e5b5387",
+    "fuel_final.parquet": "87fda164e39ba7faa7ae7e2ac39f7f7fd01fdb61f13d5af4edfa4f6b08be24f4",
+    "fuel_rank.parquet": "25ac3903b7df7f97fd1dd1729a9383741422320bace33967aa7c8d23ec7edca4",
+    "fuel_train.parquet": "c7f22a18659db2e3d47948ccde0c6ff2aa350db56aa0c987114d175ce411170d"
+  },
+  "status": "REAL_DATA_EXPLORATORY_METADATA_BENCHMARK",
+  "unseen_aircraft_intervals": 4,
+  "unseen_aircraft_metrics": {
+    "aircraft_type_median_rate": {
+      "bias_kg": -11.017476604570058,
+      "mae_kg": 11.017476604570058,
+      "n": 4,
+      "r2": 0.369654330907796,
+      "rmse_kg": 15.593923845675173
+    },
+    "deep_ensemble": {
+      "bias_kg": 31.54173264084154,
+      "mae_kg": 31.54173264084154,
+      "n": 4,
+      "r2": -1.861018947145944,
+      "rmse_kg": 33.22204707654681
+    },
+    "hist_gradient_boosting": {
+      "bias_kg": 12.625926146453924,
+      "mae_kg": 14.480494733034586,
+      "n": 4,
+      "r2": 0.33957201041508833,
+      "rmse_kg": 15.961685804061096
+    },
+    "lasso": {
+      "bias_kg": 13.026534449666297,
+      "mae_kg": 13.026534449666297,
+      "n": 4,
+      "r2": 0.4495922629638589,
+      "rmse_kg": 14.571635106740002
+    },
+    "mlp": {
+      "bias_kg": 292.5584733899318,
+      "mae_kg": 292.5584733899318,
+      "n": 4,
+      "r2": -221.71815734567204,
+      "rmse_kg": 293.1189084694543
+    },
+    "quantile_regression": {
+      "bias_kg": 41.80582072881573,
+      "mae_kg": 41.80582072881573,
+      "n": 4,
+      "r2": -3.6801456871608798,
+      "rmse_kg": 42.49087833079829
+    },
+    "ridge": {
+      "bias_kg": -48.67237397538891,
+      "mae_kg": 48.67237397538891,
+      "n": 4,
+      "r2": -5.269402449350841,
+      "rmse_kg": 49.178932436268084
+    }
+  },
+  "unseen_aircraft_types": [
+    "B734"
+  ],
+  "versions": {
+    "numpy": "2.3.4",
+    "pandas": "2.3.3",
+    "scikit_learn": "1.9.1"
+  }
+}

@@ -17,13 +17,13 @@ def cluster_bootstrap_difference(values_a: np.ndarray, values_b: np.ndarray,
     names = np.unique(clusters)
     if len(names) < 2:
         raise ValueError("Cluster bootstrap requires at least two clusters")
-    by_cluster = {name: np.flatnonzero(clusters == name) for name in names}
+    cluster_sum = np.array([(b[clusters == name] - a[clusters == name]).sum() for name in names])
+    cluster_n = np.array([(clusters == name).sum() for name in names])
     rng = np.random.default_rng(seed)
     draws = np.empty(repetitions)
     for iteration in range(repetitions):
-        sampled = rng.choice(names, size=len(names), replace=True)
-        positions = np.concatenate([by_cluster[name] for name in sampled])
-        draws[iteration] = np.mean(b[positions] - a[positions])
+        sampled = rng.integers(0, len(names), size=len(names))
+        draws[iteration] = cluster_sum[sampled].sum() / cluster_n[sampled].sum()
     delta = b - a
     return {
         "mean_difference_b_minus_a": float(delta.mean()),
@@ -31,6 +31,24 @@ def cluster_bootstrap_difference(values_a: np.ndarray, values_b: np.ndarray,
         "clusters": int(len(names)), "repetitions": repetitions,
         "standardized_effect": float(delta.mean() / delta.std(ddof=1)) if delta.std(ddof=1) else 0.0,
     }
+
+
+def cluster_bootstrap_mean(values: np.ndarray, clusters: np.ndarray, *,
+                           repetitions: int = 2000, seed: int = 20251022) -> dict:
+    values, clusters = np.asarray(values, float), np.asarray(clusters).astype(str)
+    names = np.unique(clusters)
+    if len(names) < 2:
+        raise ValueError("Cluster bootstrap requires at least two clusters")
+    sums = np.array([values[clusters == name].sum() for name in names])
+    counts = np.array([(clusters == name).sum() for name in names])
+    rng = np.random.default_rng(seed)
+    draws = np.empty(repetitions)
+    for iteration in range(repetitions):
+        sampled = rng.integers(0, len(names), size=len(names))
+        draws[iteration] = sums[sampled].sum() / counts[sampled].sum()
+    return {"mean": float(values.mean()),
+            "cluster_bootstrap_95pct_ci": np.quantile(draws, [.025, .975]).tolist(),
+            "clusters": int(len(names)), "repetitions": repetitions}
 
 
 def paired_wilcoxon(values_a: np.ndarray, values_b: np.ndarray) -> dict:

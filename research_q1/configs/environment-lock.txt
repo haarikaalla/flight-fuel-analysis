@@ -1,0 +1,8 @@
+# Exact environment used for the verified 2026-10-22 development run.
+python==3.14.6
+numpy==2.3.4
+pandas==2.3.3
+scipy==1.18.1
+scikit-learn==1.9.1
+matplotlib==3.11.2
+pyarrow==26.0.0
