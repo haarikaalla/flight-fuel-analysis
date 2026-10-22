@@ -1,0 +1,259 @@
+{
+  "cross_split": {
+    "all_aircraft_type_count": 27,
+    "overlapping_flight_ids": {
+      "rank_final": 0,
+      "train_final": 0,
+      "train_rank": 0
+    },
+    "test_only_aircraft_types": [
+      "B734"
+    ]
+  },
+  "dataset_doi": "10.5281/zenodo.19184662",
+  "splits": {
+    "final": {
+      "aircraft_types": {
+        "A20N": 1151,
+        "A21N": 94,
+        "A306": 1,
+        "A319": 16,
+        "A320": 645,
+        "A321": 24,
+        "A332": 106,
+        "A333": 34,
+        "A359": 370,
+        "B38M": 10,
+        "B734": 1,
+        "B737": 3,
+        "B738": 139,
+        "B739": 5,
+        "B744": 47,
+        "B763": 1,
+        "B772": 17,
+        "B77L": 1,
+        "B77W": 80,
+        "B788": 33,
+        "B789": 58
+      },
+      "duplicate_indices": 0,
+      "duration_min_quantiles": {
+        "0": 0.016966666666666668,
+        "0.5": 5.0028999999999995,
+        "0.99": 48.0152175,
+        "1": 59.99995
+      },
+      "exact_200_kg_count": 2935,
+      "first_date": "2025-10-01",
+      "flight_columns": {
+        "aircraft_type": "object",
+        "destination_icao": "object",
+        "destination_name": "object",
+        "flight_date": "object",
+        "flight_id": "object",
+        "landed": "datetime64[us]",
+        "origin_icao": "object",
+        "origin_name": "object",
+        "takeoff": "datetime64[us]"
+      },
+      "flights": 2836,
+      "fuel_columns": {
+        "end": "datetime64[ns]",
+        "flight_id": "object",
+        "fuel_kg": "float64",
+        "idx": "int64",
+        "start": "datetime64[ns]"
+      },
+      "fuel_kg_quantiles": {
+        "0": 0.453592,
+        "0.5": 163.0,
+        "0.99": 4199.808328,
+        "1": 13228.0
+      },
+      "integer_pound_lattice_count": 21788,
+      "intervals": 37456,
+      "labeled_flights": 2836,
+      "last_date": "2025-10-31",
+      "nonpositive_durations": 0,
+      "nonpositive_targets": 0,
+      "null_targets": 0,
+      "orphan_intervals": 0,
+      "over_60_min": 0,
+      "under_1_min": 1450,
+      "under_5_min": 17318
+    },
+    "rank": {
+      "aircraft_types": {
+        "A20N": 850,
+        "A21N": 20,
+        "A306": 1,
+        "A319": 10,
+        "A320": 406,
+        "A321": 16,
+        "A332": 76,
+        "A333": 22,
+        "A359": 255,
+        "B737": 4,
+        "B738": 63,
+        "B739": 1,
+        "B744": 38,
+        "B752": 3,
+        "B763": 1,
+        "B772": 13,
+        "B77W": 32,
+        "B788": 39,
+        "B789": 38
+      },
+      "duplicate_indices": 0,
+      "duration_min_quantiles": {
+        "0": 0.027766666666666665,
+        "0.5": 5.004583333333333,
+        "0.99": 48.255711999999896,
+        "1": 59.98963333333334
+      },
+      "exact_200_kg_count": 2080,
+      "first_date": "2025-09-01",
+      "flight_columns": {
+        "aircraft_type": "object",
+        "destination_icao": "object",
+        "destination_name": "object",
+        "flight_date": "object",
+        "flight_id": "object",
+        "landed": "datetime64[us]",
+        "origin_icao": "object",
+        "origin_name": "object",
+        "takeoff": "datetime64[us]"
+      },
+      "flights": 1888,
+      "fuel_columns": {
+        "end": "datetime64[ns]",
+        "flight_id": "object",
+        "fuel_kg": "float64",
+        "idx": "int64",
+        "start": "datetime64[ns]"
+      },
+      "fuel_kg_quantiles": {
+        "0": 0.453592,
+        "0.5": 163.29312,
+        "0.99": 4173.0464,
+        "1": 14771.0
+      },
+      "integer_pound_lattice_count": 13867,
+      "intervals": 24289,
+      "labeled_flights": 1888,
+      "last_date": "2025-09-27",
+      "nonpositive_durations": 0,
+      "nonpositive_targets": 0,
+      "null_targets": 0,
+      "orphan_intervals": 0,
+      "over_60_min": 0,
+      "under_1_min": 950,
+      "under_5_min": 10549
+    },
+    "train": {
+      "aircraft_types": {
+        "A20N": 3220,
+        "A21N": 393,
+        "A306": 10,
+        "A318": 1,
+        "A319": 19,
+        "A320": 3023,
+        "A321": 285,
+        "A332": 532,
+        "A333": 156,
+        "A359": 1571,
+        "A388": 4,
+        "B38M": 20,
+        "B39M": 1,
+        "B737": 29,
+        "B738": 551,
+        "B739": 28,
+        "B744": 90,
+        "B748": 3,
+        "B752": 3,
+        "B763": 2,
+        "B772": 103,
+        "B77L": 2,
+        "B77W": 183,
+        "B788": 583,
+        "B789": 224,
+        "MD11": 1
+      },
+      "duplicate_indices": 0,
+      "duration_min_quantiles": {
+        "0": 0.026833333333333334,
+        "0.5": 5.0097,
+        "0.99": 48.55124449999998,
+        "1": 59.99988333333333
+      },
+      "exact_200_kg_count": 14208,
+      "first_date": "2025-04-12",
+      "flight_columns": {
+        "aircraft_type": "object",
+        "destination_icao": "object",
+        "destination_name": "object",
+        "flight_date": "object",
+        "flight_id": "object",
+        "landed": "datetime64[us]",
+        "origin_icao": "object",
+        "origin_name": "object",
+        "takeoff": "datetime64[us]"
+      },
+      "flights": 11037,
+      "fuel_columns": {
+        "end": "datetime64[ns]",
+        "flight_id": "object",
+        "fuel_kg": "float64",
+        "idx": "int64",
+        "start": "datetime64[ns]"
+      },
+      "fuel_kg_quantiles": {
+        "0": 0.453592,
+        "0.5": 200.0,
+        "0.99": 4469.241976,
+        "1": 32205.032000000003
+      },
+      "integer_pound_lattice_count": 70659,
+      "intervals": 131530,
+      "labeled_flights": 11037,
+      "last_date": "2025-08-31",
+      "nonpositive_durations": 0,
+      "nonpositive_targets": 0,
+      "null_targets": 0,
+      "orphan_intervals": 0,
+      "over_60_min": 0,
+      "under_1_min": 3358,
+      "under_5_min": 48856
+    }
+  },
+  "verified_files": {
+    "flightlist_final.parquet": {
+      "bytes": 98418,
+      "md5": "c70836916aa5d27fb792a4391f5ac339"
+    },
+    "flightlist_rank.parquet": {
+      "bytes": 69002,
+      "md5": "a5285c9f50171d376dabb478f9d286c3"
+    },
+    "flightlist_train.parquet": {
+      "bytes": 361072,
+      "md5": "1c7b9c86aa9e366236828e2439184d37"
+    },
+    "fuel_final.parquet": {
+      "bytes": 1030742,
+      "md5": "90aff13775122bacbe0054040d7e83b6"
+    },
+    "fuel_rank.parquet": {
+      "bytes": 683090,
+      "md5": "97f44f189f41df4957338b20e48f647c"
+    },
+    "fuel_train.parquet": {
+      "bytes": 3715395,
+      "md5": "4ff4df3aca1a2d0850f48ef08395f1f9"
+    },
+    "readme.txt": {
+      "bytes": 7821,
+      "md5": "bb62f84f63c10b08d4381e82f83abe33"
+    }
+  }
+}
