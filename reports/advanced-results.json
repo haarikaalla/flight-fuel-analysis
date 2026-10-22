@@ -1,0 +1,897 @@
+{
+  "status": "Advanced exploratory extension on committed September benchmark rows",
+  "research_claim": "Exact coverage-constrained selection is compared with risk-only and the existing greedy rule; labels are used only after selection for evaluation.",
+  "limitations": [
+    "This is a historical replay, not live aircraft telemetry.",
+    "Optimization improves the selection rule but does not make the fuel model physically validated.",
+    "A later untouched dataset is still required for confirmatory publication claims."
+  ],
+  "target": 0.75,
+  "floor": 0.5,
+  "min_aircraft_group_n": 50,
+  "rows": 7619,
+  "policies": {
+    "risk_only": {
+      "policy": {
+        "method": "risk_rank",
+        "floor": 0,
+        "min_type_n": 50,
+        "target_count": 5715,
+        "floor_forced_over_budget": false,
+        "protected_aircraft_types": [
+          "B744",
+          "B788",
+          "A333",
+          "B77W",
+          "B738",
+          "A332",
+          "B789",
+          "A359",
+          "A320",
+          "A20N"
+        ],
+        "unprotected_aircraft_types": [
+          "A21N",
+          "A319",
+          "A321",
+          "B737",
+          "B739",
+          "B772"
+        ]
+      },
+      "n": 7619,
+      "accepted": 5715,
+      "coverage": 0.7500984381152382,
+      "all_mae_kg": 96.07232835260301,
+      "accepted_mae_kg": 44.23031322176978,
+      "rejected_mae_kg": 251.6800575924727,
+      "accepted_reference_fuel_fraction": 0.297682518552535,
+      "accepted_flights": 5715,
+      "groups": {
+        "duration": {
+          "15–60 min": {
+            "n": 838,
+            "accepted": 5,
+            "coverage": 0.0059665871121718375,
+            "all_mae_kg": 346.11838196513025,
+            "accepted_mae_kg": 296.71638577458606,
+            "reference_fuel_fraction": 0.4832256506784131,
+            "accepted_reference_fuel_fraction": 0.0011475549052318886
+          },
+          "5–15 min": {
+            "n": 3334,
+            "accepted": 2471,
+            "coverage": 0.7411517696460708,
+            "all_mae_kg": 73.4256333537414,
+            "accepted_mae_kg": 35.97937611728257,
+            "reference_fuel_fraction": 0.2978482336625773,
+            "accepted_reference_fuel_fraction": 0.34781900761196294
+          },
+          "<5 min": {
+            "n": 3447,
+            "accepted": 3239,
+            "coverage": 0.9396576733391355,
+            "all_mae_kg": 57.18793270389593,
+            "accepted_mae_kg": 50.13510952384566,
+            "reference_fuel_fraction": 0.2189261156590096,
+            "accepted_reference_fuel_fraction": 0.8840001246662917
+          }
+        },
+        "aircraft_type": {
+          "A20N": {
+            "n": 3485,
+            "accepted": 3253,
+            "coverage": 0.933428981348637,
+            "all_mae_kg": 43.889764424775855,
+            "accepted_mae_kg": 31.182049991110752,
+            "reference_fuel_fraction": 0.1381667828928318,
+            "accepted_reference_fuel_fraction": 0.6727058123196012
+          },
+          "A21N": {
+            "n": 18,
+            "accepted": 9,
+            "coverage": 0.5,
+            "all_mae_kg": 101.68985752526994,
+            "accepted_mae_kg": 20.901093929549134,
+            "reference_fuel_fraction": 0.0017247943793144054,
+            "accepted_reference_fuel_fraction": 0.04111375621635659
+          },
+          "A319": {
+            "n": 9,
+            "accepted": 8,
+            "coverage": 0.8888888888888888,
+            "all_mae_kg": 17.36752815732797,
+            "accepted_mae_kg": 18.28353607991047,
+            "reference_fuel_fraction": 0.0005499921890722725,
+            "accepted_reference_fuel_fraction": 0.6763231197771588
+          },
+          "A320": {
+            "n": 1676,
+            "accepted": 1331,
+            "coverage": 0.7941527446300716,
+            "all_mae_kg": 60.49520208434459,
+            "accepted_mae_kg": 35.8459745561678,
+            "reference_fuel_fraction": 0.14646833240745233,
+            "accepted_reference_fuel_fraction": 0.4663148357760701
+          },
+          "A321": {
+            "n": 47,
+            "accepted": 27,
+            "coverage": 0.574468085106383,
+            "all_mae_kg": 149.54223091834274,
+            "accepted_mae_kg": 41.26318162307211,
+            "reference_fuel_fraction": 0.00654006589308687,
+            "accepted_reference_fuel_fraction": 0.15343158723242775
+          },
+          "A332": {
+            "n": 282,
+            "accepted": 86,
+            "coverage": 0.3049645390070922,
+            "all_mae_kg": 125.66306417816962,
+            "accepted_mae_kg": 88.78381379708611,
+            "reference_fuel_fraction": 0.03674903072723339,
+            "accepted_reference_fuel_fraction": 0.19697166737500196
+          },
+          "A333": {
+            "n": 98,
+            "accepted": 46,
+            "coverage": 0.46938775510204084,
+            "all_mae_kg": 136.18711800346165,
+            "accepted_mae_kg": 81.72246356605372,
+            "reference_fuel_fraction": 0.01342042221803094,
+            "accepted_reference_fuel_fraction": 0.4657534246575342
+          },
+          "A359": {
+            "n": 1122,
+            "accepted": 521,
+            "coverage": 0.464349376114082,
+            "all_mae_kg": 221.23478311351155,
+            "accepted_mae_kg": 120.41186217171075,
+            "reference_fuel_fraction": 0.41132950732538326,
+            "accepted_reference_fuel_fraction": 0.18495207263894858
+          },
+          "B737": {
+            "n": 1,
+            "accepted": 1,
+            "coverage": 1.0,
+            "all_mae_kg": 70.03480592854125,
+            "accepted_mae_kg": 70.03480592854125,
+            "reference_fuel_fraction": 2.9019367970451226e-05,
+            "accepted_reference_fuel_fraction": 1.0
+          },
+          "B738": {
+            "n": 232,
+            "accepted": 142,
+            "coverage": 0.6120689655172413,
+            "all_mae_kg": 82.16400630396964,
+            "accepted_mae_kg": 39.610603905342494,
+            "reference_fuel_fraction": 0.023844607884100935,
+            "accepted_reference_fuel_fraction": 0.34869892457280494
+          },
+          "B739": {
+            "n": 7,
+            "accepted": 2,
+            "coverage": 0.2857142857142857,
+            "all_mae_kg": 348.73567392834093,
+            "accepted_mae_kg": 585.3473330999973,
+            "reference_fuel_fraction": 0.0016239323688484924,
+            "accepted_reference_fuel_fraction": 0.22641509433962276
+          },
+          "B744": {
+            "n": 66,
+            "accepted": 1,
+            "coverage": 0.015151515151515152,
+            "all_mae_kg": 773.6495495326147,
+            "accepted_mae_kg": 99.29030047654436,
+            "reference_fuel_fraction": 0.042219895528671794,
+            "accepted_reference_fuel_fraction": 0.0014514594596138632
+          },
+          "B772": {
+            "n": 16,
+            "accepted": 0,
+            "coverage": 0.0,
+            "all_mae_kg": 154.84550368096782,
+            "accepted_mae_kg": null,
+            "reference_fuel_fraction": 0.009804874679839955,
+            "accepted_reference_fuel_fraction": 0.0
+          },
+          "B77W": {
+            "n": 108,
+            "accepted": 38,
+            "coverage": 0.35185185185185186,
+            "all_mae_kg": 343.2521054595032,
+            "accepted_mae_kg": 96.49105999908174,
+            "reference_fuel_fraction": 0.05276561300369096,
+            "accepted_reference_fuel_fraction": 0.09156288025975098
+          },
+          "B788": {
+            "n": 91,
+            "accepted": 22,
+            "coverage": 0.24175824175824176,
+            "all_mae_kg": 244.60614500399933,
+            "accepted_mae_kg": 81.20550108760622,
+            "reference_fuel_fraction": 0.02641109359226022,
+            "accepted_reference_fuel_fraction": 0.09542914722830668
+          },
+          "B789": {
+            "n": 361,
+            "accepted": 228,
+            "coverage": 0.631578947368421,
+            "all_mae_kg": 102.9454425147223,
+            "accepted_mae_kg": 68.57204796551808,
+            "reference_fuel_fraction": 0.08835203554221188,
+            "accepted_reference_fuel_fraction": 0.3316338371932699
+          }
+        },
+        "adsb_input": {
+          "observed": {
+            "n": 5416,
+            "accepted": 4315,
+            "coverage": 0.7967134416543574,
+            "all_mae_kg": 68.75983736753052,
+            "accepted_mae_kg": 34.56799922617525,
+            "reference_fuel_fraction": 0.4858586750654415,
+            "accepted_reference_fuel_fraction": 0.3696286353579688
+          },
+          "zero": {
+            "n": 2203,
+            "accepted": 1400,
+            "coverage": 0.6354970494779846,
+            "all_mae_kg": 163.2191514007885,
+            "accepted_mae_kg": 74.01094528676288,
+            "reference_fuel_fraction": 0.5141413249345586,
+            "accepted_reference_fuel_fraction": 0.22969412063170883
+          }
+        }
+      },
+      "mean_predicted_risk_kg": 25.69525939612294,
+      "duration_coverage_gap": 0.9336910862269637,
+      "protected_aircraft_coverage_gap": 0.9182774661971219
+    },
+    "greedy_floor": {
+      "policy": {
+        "method": "duration_then_aircraft_greedy",
+        "floor": 0.5,
+        "min_type_n": 50,
+        "target_count": 5715,
+        "floor_forced_over_budget": false,
+        "protected_aircraft_types": [
+          "B744",
+          "B788",
+          "A333",
+          "B77W",
+          "B738",
+          "A332",
+          "B789",
+          "A359",
+          "A320",
+          "A20N"
+        ],
+        "unprotected_aircraft_types": [
+          "A21N",
+          "A319",
+          "A321",
+          "B737",
+          "B739",
+          "B772"
+        ]
+      },
+      "n": 7619,
+      "accepted": 5715,
+      "coverage": 0.7500984381152382,
+      "all_mae_kg": 96.07232835260301,
+      "accepted_mae_kg": 54.015535203453375,
+      "rejected_mae_kg": 222.30897375564408,
+      "accepted_reference_fuel_fraction": 0.4150853351678193,
+      "accepted_flights": 5715,
+      "groups": {
+        "duration": {
+          "15–60 min": {
+            "n": 838,
+            "accepted": 420,
+            "coverage": 0.5011933174224343,
+            "all_mae_kg": 346.11838196513025,
+            "accepted_mae_kg": 201.92409202755226,
+            "reference_fuel_fraction": 0.4832256506784131,
+            "accepted_reference_fuel_fraction": 0.31026133704090036
+          },
+          "5–15 min": {
+            "n": 3334,
+            "accepted": 2337,
+            "coverage": 0.7009598080383923,
+            "all_mae_kg": 73.4256333537414,
+            "accepted_mae_kg": 39.46625498921034,
+            "reference_fuel_fraction": 0.2978482336625773,
+            "accepted_reference_fuel_fraction": 0.35916674052805936
+          },
+          "<5 min": {
+            "n": 3447,
+            "accepted": 2958,
+            "coverage": 0.8581375108790252,
+            "all_mae_kg": 57.18793270389593,
+            "accepted_mae_kg": 44.50913695956034,
+            "reference_fuel_fraction": 0.2189261156590096,
+            "accepted_reference_fuel_fraction": 0.722535632457965
+          }
+        },
+        "aircraft_type": {
+          "A20N": {
+            "n": 3485,
+            "accepted": 3115,
+            "coverage": 0.8938307030129125,
+            "all_mae_kg": 43.889764424775855,
+            "accepted_mae_kg": 31.340436340113424,
+            "reference_fuel_fraction": 0.1381667828928318,
+            "accepted_reference_fuel_fraction": 0.6399008361905155
+          },
+          "A21N": {
+            "n": 18,
+            "accepted": 14,
+            "coverage": 0.7777777777777778,
+            "all_mae_kg": 101.68985752526994,
+            "accepted_mae_kg": 96.60838506908983,
+            "reference_fuel_fraction": 0.0017247943793144054,
+            "accepted_reference_fuel_fraction": 0.46818073874184485
+          },
+          "A319": {
+            "n": 9,
+            "accepted": 9,
+            "coverage": 1.0,
+            "all_mae_kg": 17.36752815732797,
+            "accepted_mae_kg": 17.36752815732797,
+            "reference_fuel_fraction": 0.0005499921890722725,
+            "accepted_reference_fuel_fraction": 1.0
+          },
+          "A320": {
+            "n": 1676,
+            "accepted": 1322,
+            "coverage": 0.788782816229117,
+            "all_mae_kg": 60.49520208434459,
+            "accepted_mae_kg": 38.29687267087928,
+            "reference_fuel_fraction": 0.14646833240745233,
+            "accepted_reference_fuel_fraction": 0.5323814883538142
+          },
+          "A321": {
+            "n": 47,
+            "accepted": 29,
+            "coverage": 0.6170212765957447,
+            "all_mae_kg": 149.54223091834274,
+            "accepted_mae_kg": 75.15455761977245,
+            "reference_fuel_fraction": 0.00654006589308687,
+            "accepted_reference_fuel_fraction": 0.31405615445520446
+          },
+          "A332": {
+            "n": 282,
+            "accepted": 141,
+            "coverage": 0.5,
+            "all_mae_kg": 125.66306417816962,
+            "accepted_mae_kg": 92.83251933198288,
+            "reference_fuel_fraction": 0.03674903072723339,
+            "accepted_reference_fuel_fraction": 0.31070276642644234
+          },
+          "A333": {
+            "n": 98,
+            "accepted": 49,
+            "coverage": 0.5,
+            "all_mae_kg": 136.18711800346165,
+            "accepted_mae_kg": 82.96740817329685,
+            "reference_fuel_fraction": 0.01342042221803094,
+            "accepted_reference_fuel_fraction": 0.4954337899543379
+          },
+          "A359": {
+            "n": 1122,
+            "accepted": 561,
+            "coverage": 0.5,
+            "all_mae_kg": 221.23478311351155,
+            "accepted_mae_kg": 136.73242498995847,
+            "reference_fuel_fraction": 0.41132950732538326,
+            "accepted_reference_fuel_fraction": 0.34209100930317415
+          },
+          "B737": {
+            "n": 1,
+            "accepted": 1,
+            "coverage": 1.0,
+            "all_mae_kg": 70.03480592854125,
+            "accepted_mae_kg": 70.03480592854125,
+            "reference_fuel_fraction": 2.9019367970451226e-05,
+            "accepted_reference_fuel_fraction": 1.0
+          },
+          "B738": {
+            "n": 232,
+            "accepted": 147,
+            "coverage": 0.6336206896551724,
+            "all_mae_kg": 82.16400630396964,
+            "accepted_mae_kg": 50.84253288736613,
+            "reference_fuel_fraction": 0.023844607884100935,
+            "accepted_reference_fuel_fraction": 0.49755769693099056
+          },
+          "B739": {
+            "n": 7,
+            "accepted": 5,
+            "coverage": 0.7142857142857143,
+            "all_mae_kg": 348.73567392834093,
+            "accepted_mae_kg": 432.0427583303901,
+            "reference_fuel_fraction": 0.0016239323688484924,
+            "accepted_reference_fuel_fraction": 0.679245283018868
+          },
+          "B744": {
+            "n": 66,
+            "accepted": 33,
+            "coverage": 0.5,
+            "all_mae_kg": 773.6495495326147,
+            "accepted_mae_kg": 609.900944238952,
+            "reference_fuel_fraction": 0.042219895528671794,
+            "accepted_reference_fuel_fraction": 0.3352110206367403
+          },
+          "B772": {
+            "n": 16,
+            "accepted": 8,
+            "coverage": 0.5,
+            "all_mae_kg": 154.84550368096782,
+            "accepted_mae_kg": 142.84188963949867,
+            "reference_fuel_fraction": 0.009804874679839955,
+            "accepted_reference_fuel_fraction": 0.35937499999999994
+          },
+          "B77W": {
+            "n": 108,
+            "accepted": 54,
+            "coverage": 0.5,
+            "all_mae_kg": 343.2521054595032,
+            "accepted_mae_kg": 119.46378531310893,
+            "reference_fuel_fraction": 0.05276561300369096,
+            "accepted_reference_fuel_fraction": 0.24557881050082234
+          },
+          "B788": {
+            "n": 91,
+            "accepted": 46,
+            "coverage": 0.5054945054945055,
+            "all_mae_kg": 244.60614500399933,
+            "accepted_mae_kg": 231.01934566513683,
+            "reference_fuel_fraction": 0.02641109359226022,
+            "accepted_reference_fuel_fraction": 0.42276210055340213
+          },
+          "B789": {
+            "n": 361,
+            "accepted": 181,
+            "coverage": 0.5013850415512465,
+            "all_mae_kg": 102.9454425147223,
+            "accepted_mae_kg": 82.0075764631323,
+            "reference_fuel_fraction": 0.08835203554221188,
+            "accepted_reference_fuel_fraction": 0.35889003811909753
+          }
+        },
+        "adsb_input": {
+          "observed": {
+            "n": 5416,
+            "accepted": 4301,
+            "coverage": 0.7941285081240768,
+            "all_mae_kg": 68.75983736753052,
+            "accepted_mae_kg": 40.73030659935179,
+            "reference_fuel_fraction": 0.4858586750654415,
+            "accepted_reference_fuel_fraction": 0.47638178543963505
+          },
+          "zero": {
+            "n": 2203,
+            "accepted": 1414,
+            "coverage": 0.6418520199727644,
+            "all_mae_kg": 163.2191514007885,
+            "accepted_mae_kg": 94.42555516543419,
+            "reference_fuel_fraction": 0.5141413249345586,
+            "accepted_reference_fuel_fraction": 0.3571607711015681
+          }
+        }
+      },
+      "mean_predicted_risk_kg": 33.11135543772332,
+      "duration_coverage_gap": 0.3569441934565909,
+      "protected_aircraft_coverage_gap": 0.39383070301291245
+    },
+    "optimized_floor": {
+      "policy": {
+        "floor": 0.5,
+        "min_type_n": 50,
+        "method": "mixed_integer_minimum_risk",
+        "solver": "scipy.optimize.milp (HiGHS)",
+        "solver_status": 0,
+        "solver_message": "Optimization terminated successfully. (HiGHS Status 7: Optimal)",
+        "target_count": 5715,
+        "selected_count": 5715,
+        "floor_forced_over_budget": false,
+        "objective_predicted_risk_sum_kg": 188878.0408789692,
+        "constraints": {
+          "overall": {
+            "required": 5715,
+            "achieved": 5715
+          },
+          "duration:<5 min": {
+            "required": 1724,
+            "achieved": 2961
+          },
+          "duration:5–15 min": {
+            "required": 1667,
+            "achieved": 2335
+          },
+          "duration:15–60 min": {
+            "required": 419,
+            "achieved": 419
+          },
+          "aircraft:A20N": {
+            "required": 1743,
+            "achieved": 3115
+          },
+          "aircraft:A320": {
+            "required": 838,
+            "achieved": 1322
+          },
+          "aircraft:A332": {
+            "required": 141,
+            "achieved": 141
+          },
+          "aircraft:A333": {
+            "required": 49,
+            "achieved": 49
+          },
+          "aircraft:A359": {
+            "required": 561,
+            "achieved": 561
+          },
+          "aircraft:B738": {
+            "required": 116,
+            "achieved": 147
+          },
+          "aircraft:B744": {
+            "required": 33,
+            "achieved": 33
+          },
+          "aircraft:B77W": {
+            "required": 54,
+            "achieved": 54
+          },
+          "aircraft:B788": {
+            "required": 46,
+            "achieved": 46
+          },
+          "aircraft:B789": {
+            "required": 181,
+            "achieved": 181
+          }
+        }
+      },
+      "n": 7619,
+      "accepted": 5715,
+      "coverage": 0.7500984381152382,
+      "all_mae_kg": 96.07232835260301,
+      "accepted_mae_kg": 54.62510756765602,
+      "rejected_mae_kg": 220.4792962023782,
+      "accepted_reference_fuel_fraction": 0.41307426647753914,
+      "accepted_flights": 5715,
+      "groups": {
+        "duration": {
+          "15–60 min": {
+            "n": 838,
+            "accepted": 419,
+            "coverage": 0.5,
+            "all_mae_kg": 346.11838196513025,
+            "accepted_mae_kg": 215.6747799982603,
+            "reference_fuel_fraction": 0.4832256506784131,
+            "accepted_reference_fuel_fraction": 0.3072489187420297
+          },
+          "5–15 min": {
+            "n": 3334,
+            "accepted": 2335,
+            "coverage": 0.7003599280143972,
+            "all_mae_kg": 73.4256333537414,
+            "accepted_mae_kg": 39.1172174092723,
+            "reference_fuel_fraction": 0.2978482336625773,
+            "accepted_reference_fuel_fraction": 0.35680068530944126
+          },
+          "<5 min": {
+            "n": 3447,
+            "accepted": 2961,
+            "coverage": 0.8590078328981723,
+            "all_mae_kg": 57.18793270389593,
+            "accepted_mae_kg": 44.06486128984544,
+            "reference_fuel_fraction": 0.2189261156590096,
+            "accepted_reference_fuel_fraction": 0.7232177551433792
+          }
+        },
+        "aircraft_type": {
+          "A20N": {
+            "n": 3485,
+            "accepted": 3115,
+            "coverage": 0.8938307030129125,
+            "all_mae_kg": 43.889764424775855,
+            "accepted_mae_kg": 31.340436340113424,
+            "reference_fuel_fraction": 0.1381667828928318,
+            "accepted_reference_fuel_fraction": 0.6399008361905155
+          },
+          "A21N": {
+            "n": 18,
+            "accepted": 14,
+            "coverage": 0.7777777777777778,
+            "all_mae_kg": 101.68985752526994,
+            "accepted_mae_kg": 96.60838506908983,
+            "reference_fuel_fraction": 0.0017247943793144054,
+            "accepted_reference_fuel_fraction": 0.46818073874184485
+          },
+          "A319": {
+            "n": 9,
+            "accepted": 9,
+            "coverage": 1.0,
+            "all_mae_kg": 17.36752815732797,
+            "accepted_mae_kg": 17.36752815732797,
+            "reference_fuel_fraction": 0.0005499921890722725,
+            "accepted_reference_fuel_fraction": 1.0
+          },
+          "A320": {
+            "n": 1676,
+            "accepted": 1322,
+            "coverage": 0.788782816229117,
+            "all_mae_kg": 60.49520208434459,
+            "accepted_mae_kg": 38.29687267087928,
+            "reference_fuel_fraction": 0.14646833240745233,
+            "accepted_reference_fuel_fraction": 0.5323814883538142
+          },
+          "A321": {
+            "n": 47,
+            "accepted": 29,
+            "coverage": 0.6170212765957447,
+            "all_mae_kg": 149.54223091834274,
+            "accepted_mae_kg": 75.15455761977245,
+            "reference_fuel_fraction": 0.00654006589308687,
+            "accepted_reference_fuel_fraction": 0.31405615445520446
+          },
+          "A332": {
+            "n": 282,
+            "accepted": 141,
+            "coverage": 0.5,
+            "all_mae_kg": 125.66306417816962,
+            "accepted_mae_kg": 98.17259201187177,
+            "reference_fuel_fraction": 0.03674903072723339,
+            "accepted_reference_fuel_fraction": 0.360728956671172
+          },
+          "A333": {
+            "n": 98,
+            "accepted": 49,
+            "coverage": 0.5,
+            "all_mae_kg": 136.18711800346165,
+            "accepted_mae_kg": 82.96740817329685,
+            "reference_fuel_fraction": 0.01342042221803094,
+            "accepted_reference_fuel_fraction": 0.4954337899543379
+          },
+          "A359": {
+            "n": 1122,
+            "accepted": 561,
+            "coverage": 0.5,
+            "all_mae_kg": 221.23478311351155,
+            "accepted_mae_kg": 132.76964515482496,
+            "reference_fuel_fraction": 0.41132950732538326,
+            "accepted_reference_fuel_fraction": 0.3314387441277563
+          },
+          "B737": {
+            "n": 1,
+            "accepted": 1,
+            "coverage": 1.0,
+            "all_mae_kg": 70.03480592854125,
+            "accepted_mae_kg": 70.03480592854125,
+            "reference_fuel_fraction": 2.9019367970451226e-05,
+            "accepted_reference_fuel_fraction": 1.0
+          },
+          "B738": {
+            "n": 232,
+            "accepted": 147,
+            "coverage": 0.6336206896551724,
+            "all_mae_kg": 82.16400630396964,
+            "accepted_mae_kg": 50.84253288736613,
+            "reference_fuel_fraction": 0.023844607884100935,
+            "accepted_reference_fuel_fraction": 0.49755769693099056
+          },
+          "B739": {
+            "n": 7,
+            "accepted": 5,
+            "coverage": 0.7142857142857143,
+            "all_mae_kg": 348.73567392834093,
+            "accepted_mae_kg": 432.0427583303901,
+            "reference_fuel_fraction": 0.0016239323688484924,
+            "accepted_reference_fuel_fraction": 0.679245283018868
+          },
+          "B744": {
+            "n": 66,
+            "accepted": 33,
+            "coverage": 0.5,
+            "all_mae_kg": 773.6495495326147,
+            "accepted_mae_kg": 765.2167545761715,
+            "reference_fuel_fraction": 0.042219895528671794,
+            "accepted_reference_fuel_fraction": 0.32722799360886407
+          },
+          "B772": {
+            "n": 16,
+            "accepted": 8,
+            "coverage": 0.5,
+            "all_mae_kg": 154.84550368096782,
+            "accepted_mae_kg": 142.84188963949867,
+            "reference_fuel_fraction": 0.009804874679839955,
+            "accepted_reference_fuel_fraction": 0.35937499999999994
+          },
+          "B77W": {
+            "n": 108,
+            "accepted": 54,
+            "coverage": 0.5,
+            "all_mae_kg": 343.2521054595032,
+            "accepted_mae_kg": 122.59413477960967,
+            "reference_fuel_fraction": 0.05276561300369096,
+            "accepted_reference_fuel_fraction": 0.26299707936430927
+          },
+          "B788": {
+            "n": 91,
+            "accepted": 46,
+            "coverage": 0.5054945054945055,
+            "all_mae_kg": 244.60614500399933,
+            "accepted_mae_kg": 228.8459791096481,
+            "reference_fuel_fraction": 0.02641109359226022,
+            "accepted_reference_fuel_fraction": 0.42392222795469536
+          },
+          "B789": {
+            "n": 361,
+            "accepted": 181,
+            "coverage": 0.5013850415512465,
+            "all_mae_kg": 102.9454425147223,
+            "accepted_mae_kg": 80.67823696201057,
+            "reference_fuel_fraction": 0.08835203554221188,
+            "accepted_reference_fuel_fraction": 0.3579780613202409
+          }
+        },
+        "adsb_input": {
+          "observed": {
+            "n": 5416,
+            "accepted": 4299,
+            "coverage": 0.7937592319054653,
+            "all_mae_kg": 68.75983736753052,
+            "accepted_mae_kg": 40.75578042005384,
+            "reference_fuel_fraction": 0.4858586750654415,
+            "accepted_reference_fuel_fraction": 0.4797239751842566
+          },
+          "zero": {
+            "n": 2203,
+            "accepted": 1416,
+            "coverage": 0.6427598729005901,
+            "all_mae_kg": 163.2191514007885,
+            "accepted_mae_kg": 96.73261986111774,
+            "reference_fuel_fraction": 0.5141413249345586,
+            "accepted_reference_fuel_fraction": 0.3500909239697857
+          }
+        }
+      },
+      "mean_predicted_risk_kg": 33.049525963074224,
+      "duration_coverage_gap": 0.3590078328981723,
+      "protected_aircraft_coverage_gap": 0.39383070301291245
+    }
+  },
+  "pareto": [
+    {
+      "policy": "risk_only",
+      "target": 0.5,
+      "actual_coverage": 0.5000656254101589,
+      "accepted_mae_kg": 28.788374172378862,
+      "labeled_fuel_share": 0.12691626459727628,
+      "mean_predicted_risk_kg": 15.623412141493146,
+      "floor_forced_over_budget": false
+    },
+    {
+      "policy": "optimized_floor",
+      "target": 0.5,
+      "actual_coverage": 0.5000656254101589,
+      "accepted_mae_kg": 62.9210730346548,
+      "labeled_fuel_share": 0.35602561353296996,
+      "mean_predicted_risk_kg": 35.58098926698977,
+      "floor_forced_over_budget": false
+    },
+    {
+      "policy": "risk_only",
+      "target": 0.6,
+      "actual_coverage": 0.6000787504921906,
+      "accepted_mae_kg": 30.657231573473016,
+      "labeled_fuel_share": 0.1695895082930076,
+      "mean_predicted_risk_kg": 18.879454251784857,
+      "floor_forced_over_budget": false
+    },
+    {
+      "policy": "optimized_floor",
+      "target": 0.6,
+      "actual_coverage": 0.6000787504921906,
+      "accepted_mae_kg": 57.16677851739144,
+      "labeled_fuel_share": 0.3732844298658538,
+      "mean_predicted_risk_kg": 33.2014639139473,
+      "floor_forced_over_budget": false
+    },
+    {
+      "policy": "risk_only",
+      "target": 0.7,
+      "actual_coverage": 0.7000918755742224,
+      "accepted_mae_kg": 41.1786781303442,
+      "labeled_fuel_share": 0.2635618644958294,
+      "mean_predicted_risk_kg": 23.23637222694437,
+      "floor_forced_over_budget": false
+    },
+    {
+      "policy": "optimized_floor",
+      "target": 0.7,
+      "actual_coverage": 0.7000918755742224,
+      "accepted_mae_kg": 54.202943944244105,
+      "labeled_fuel_share": 0.39657590497372985,
+      "mean_predicted_risk_kg": 32.47749650476402,
+      "floor_forced_over_budget": false
+    },
+    {
+      "policy": "risk_only",
+      "target": 0.75,
+      "actual_coverage": 0.7500984381152382,
+      "accepted_mae_kg": 44.23031322176978,
+      "labeled_fuel_share": 0.297682518552535,
+      "mean_predicted_risk_kg": 25.69525939612294,
+      "floor_forced_over_budget": false
+    },
+    {
+      "policy": "optimized_floor",
+      "target": 0.75,
+      "actual_coverage": 0.7500984381152382,
+      "accepted_mae_kg": 54.62510756765602,
+      "labeled_fuel_share": 0.41307426647753914,
+      "mean_predicted_risk_kg": 33.049525963074224,
+      "floor_forced_over_budget": false
+    },
+    {
+      "policy": "risk_only",
+      "target": 0.8,
+      "actual_coverage": 0.8001050006562541,
+      "accepted_mae_kg": 48.95460055161837,
+      "labeled_fuel_share": 0.33592338401846883,
+      "mean_predicted_risk_kg": 29.222191918757048,
+      "floor_forced_over_budget": false
+    },
+    {
+      "policy": "optimized_floor",
+      "target": 0.8,
+      "actual_coverage": 0.8001050006562541,
+      "accepted_mae_kg": 57.96628143549832,
+      "labeled_fuel_share": 0.45391027491038316,
+      "mean_predicted_risk_kg": 34.1730774148004,
+      "floor_forced_over_budget": false
+    },
+    {
+      "policy": "risk_only",
+      "target": 0.9,
+      "actual_coverage": 0.9001181257382859,
+      "accepted_mae_kg": 61.30186061777919,
+      "labeled_fuel_share": 0.5214993596225315,
+      "mean_predicted_risk_kg": 38.94879587940351,
+      "floor_forced_over_budget": false
+    },
+    {
+      "policy": "optimized_floor",
+      "target": 0.9,
+      "actual_coverage": 0.9001181257382859,
+      "accepted_mae_kg": 65.7544223726128,
+      "labeled_fuel_share": 0.5606608652853908,
+      "mean_predicted_risk_kg": 39.93239217983379,
+      "floor_forced_over_budget": false
+    },
+    {
+      "policy": "risk_only",
+      "target": 1.0,
+      "actual_coverage": 1.0,
+      "accepted_mae_kg": 96.07232835260301,
+      "labeled_fuel_share": 1.0,
+      "mean_predicted_risk_kg": 55.982601567255536,
+      "floor_forced_over_budget": false
+    },
+    {
+      "policy": "optimized_floor",
+      "target": 1.0,
+      "actual_coverage": 1.0,
+      "accepted_mae_kg": 96.07232835260301,
+      "labeled_fuel_share": 1.0,
+      "mean_predicted_risk_kg": 55.982601567255536,
+      "floor_forced_over_budget": false
+    }
+  ]
+}
