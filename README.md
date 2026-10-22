@@ -2,14 +2,14 @@
 
 An interactive data science project that estimates fuel use for **completed flight intervals** from public flight tracking data, then checks **which flights those estimates cover and how accurate they are**. [Try the offline dashboard](demo/index.html) or [walk through the results in Jupyter](notebooks/eligibility-walkthrough.ipynb).
 
-## Research extension in this fork
+## Optimization and reliability workspace
 
 The `research-extension` branch preserves the original analysis and adds an
-**exact coverage-constrained selector** using mixed-integer optimization. It
-compares the original risk-only and greedy policies with a minimum-predicted-risk
-solution under explicit overall, duration and aircraft coverage constraints.
-It also adds per-decision explanations, an accuracy–coverage frontier and an
-offline streaming replay in [`demo/advanced.html`](demo/advanced.html).
+**exact coverage-constrained selector**, five-fold out-of-fold isotonic risk
+calibration and scaled conformal prediction intervals. The professional
+workspace compares four policies, exposes bootstrap uncertainty and subgroup
+reliability, supports multiple coverage and replay filters, and remains fully
+self-contained in [`demo/advanced.html`](demo/advanced.html).
 
 The replay uses committed historical benchmark rows; it is not a live aircraft
 feed. A live system would require rolling-window retraining, approved telemetry
@@ -62,7 +62,7 @@ python -m src.flight_fuel.eligibility
 python -m unittest discover -s tests
 ```
 
-To run the advanced extension without downloading the raw trajectory archives:
+To regenerate the reliability workspace without downloading the raw trajectory archives:
 
 ```bash
 python -m venv .venv
@@ -71,9 +71,10 @@ python -m venv .venv
 .venv/bin/python -m http.server 8000
 ```
 
-Then open `http://localhost:8000/demo/advanced.html`. The advanced command reads
-the committed benchmark payload and regenerates both
-`reports/advanced-results.json` and `demo/advanced.html`.
+Then open `http://localhost:8000/demo/advanced.html`, or open the generated file
+directly because it is self-contained. The command reads the committed benchmark
+payload and regenerates both `reports/advanced-results.json` and
+`demo/advanced.html`.
 
 Raw data and extracted features are excluded from Git. Downloads are checked against publisher MD5 values. The final analysis command regenerates `reports/eligibility-results.json` and `demo/index.html`.
 

@@ -1,4 +1,4 @@
-# Research extension roadmap
+# Model reliability and publication roadmap
 
 ## Proposed research question
 
@@ -6,23 +6,29 @@ Can coverage-constrained selective regression preserve access across aircraft
 and interval-duration groups while controlling prediction risk under missing
 ADS-B observations and temporal or route distribution shift?
 
-## Completed first milestone
+## Completed engineering milestone
 
 - Preserved the upstream analysis without changing its repository.
 - Added a mixed-integer minimum-risk selector with explicit overall, duration
   and sufficiently represented aircraft-group constraints.
 - Added decision explanations that distinguish low-risk inclusion from
   constraint-driven inclusion.
-- Added an advanced offline dashboard with policy comparison, historical
-  streaming replay, per-row decisions and an accuracy–coverage frontier.
-- Added a generated advanced result report, Python packaging, a one-command
-  workflow and continuous integration.
+- Added five-fold out-of-fold isotonic error calibration and scaled conformal
+  90% interval diagnostics without fitting a row's uncertainty on its own label.
+- Added row-bootstrap confidence intervals, calibration bins, subgroup
+  reliability tables and an additional calibrated constrained policy.
+- Added a self-contained professional dashboard with four policy choices,
+  seven coverage targets, aircraft and duration filters, historical streaming
+  replay, per-row uncertainty and an accuracy–coverage frontier.
+- Added a generated result report, Python packaging, a one-command workflow
+  and continuous integration.
 
-## Next scientific milestone: calibrated uncertainty
+## Next scientific milestone: independently validated uncertainty
 
 1. Freeze a chronological calibration block that is not used for fitting the
    fuel model or the risk model.
-2. Add split conformal residual calibration for marginal prediction intervals.
+2. Replace the current cross-fitted diagnostic with a strictly earlier split-
+   conformal calibration block and lock its quantile before final evaluation.
 3. Report empirical coverage and interval width overall and by aircraft,
    duration, route familiarity and ADS-B availability.
 4. Compare global, Mondrian/group-conditional and risk-adaptive conformal
@@ -68,8 +74,9 @@ state source -> flight state store -> rolling feature extractor
 
 ## Publication boundary
 
-The advanced selector and dashboard are meaningful engineering and experimental
-extensions, not a guarantee of journal acceptance. A strong paper requires a
+The selector, calibration diagnostics and dashboard are meaningful engineering
+and experimental contributions, not a guarantee of journal acceptance. A
+strong paper requires a
 clear comparison with selective-regression and fairness-constrained baselines,
 an untouched confirmatory dataset, calibrated uncertainty, independent
 reproduction and appropriately narrow aviation claims.

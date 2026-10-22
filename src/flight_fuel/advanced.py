@@ -1,14 +1,17 @@
-"""Advanced coverage-constrained analysis and replay-dashboard generator.
+"""Coverage-constrained analysis and professional dashboard generator.
 
 This module operates on the committed, pre-scored September benchmark rows.
-It adds an exact mixed-integer selection baseline, decision explanations and
-an offline streaming replay. It does not claim that replayed records are live
-aircraft data, and it never uses fuel labels to select intervals.
+It adds exact mixed-integer selection, cross-fitted uncertainty calibration,
+conformal-style intervals, decision explanations and an offline streaming
+replay. Replayed records remain historical and labels never enter a row's own
+uncertainty fit.
 """
 
 from __future__ import annotations
 
 import argparse
+import base64
+import gzip
 import json
 import math
 from pathlib import Path
@@ -17,6 +20,7 @@ import numpy as np
 import pandas as pd
 from scipy.optimize import Bounds, LinearConstraint, milp
 from scipy.sparse import csr_matrix
+from sklearn.isotonic import IsotonicRegression
 
 from .eligibility import DURATION_LABELS, describe, duration_groups, select
 
@@ -29,6 +33,8 @@ ROW_COLUMNS = (
     "adsb_position_count",
     "stable_tie",
 )
+
+COVERAGE_TARGETS = (0.5, 0.6, 0.7, 0.75, 0.8, 0.9, 1.0)
 
 
 def load_demo_payload(path: Path) -> dict:
@@ -55,6 +61,147 @@ def rows_frame(payload: dict) -> pd.DataFrame:
     frame["flight_id"] = [f"replay-{i:05d}" for i in range(len(frame))]
     frame["fuel_kg"] = frame.reference_fuel_kg.astype(float)
     return frame
+
+
+def cross_fitted_uncertainty(
+    risk: np.ndarray,
+    predicted: np.ndarray,
+    truth: np.ndarray,
+    ties: np.ndarray,
+    *,
+    folds: int = 5,
+    interval_level: float = 0.9,
+) -> tuple[np.ndarray, np.ndarray, dict]:
+    """Calibrate risk and interval width without fitting on a row's own label.
+
+    Each deterministic fold receives predictions from an isotonic model fitted
+    on the other folds. A scaled conformal quantile from those training folds
+    then produces an out-of-fold interval half-width for the held-out rows.
+    """
+    risk, predicted, truth, ties = (
+        np.asarray(values, dtype=float) for values in (risk, predicted, truth, ties)
+    )
+    n = len(risk)
+    if n < folds or folds < 2 or any(len(values) != n for values in (predicted, truth, ties)):
+        raise ValueError("Cross-fitted uncertainty requires equally sized arrays and at least two folds")
+    if not 0 < interval_level < 1:
+        raise ValueError("interval_level must be between zero and one")
+    absolute_error = np.abs(predicted - truth)
+    fold_id = np.minimum((np.mod(ties, 1.0) * folds).astype(int), folds - 1)
+    calibrated = np.empty(n, dtype=float)
+    half_width = np.empty(n, dtype=float)
+    for fold in range(folds):
+        held_out = fold_id == fold
+        train = ~held_out
+        if not held_out.any() or train.sum() < 2:
+            raise ValueError("Stable tie values do not support the requested folds")
+        model = IsotonicRegression(out_of_bounds="clip", y_min=0.0)
+        model.fit(risk[train], absolute_error[train])
+        calibrated[held_out] = model.predict(risk[held_out])
+        train_scale = np.maximum(model.predict(risk[train]), 1.0)
+        ratios = absolute_error[train] / train_scale
+        quantile = min(1.0, math.ceil((len(ratios) + 1) * interval_level) / len(ratios))
+        multiplier = float(np.quantile(ratios, quantile, method="higher"))
+        half_width[held_out] = np.maximum(calibrated[held_out], 1.0) * multiplier
+
+    covered = absolute_error <= half_width
+    edges = np.quantile(calibrated, np.linspace(0, 1, 11))
+    edges = np.unique(edges)
+    bins = []
+    if len(edges) > 1:
+        bin_id = np.clip(np.digitize(calibrated, edges[1:-1], right=True), 0, len(edges) - 2)
+        for index in range(len(edges) - 1):
+            member = bin_id == index
+            if member.any():
+                bins.append({
+                    "n": int(member.sum()),
+                    "predicted_error_kg": float(calibrated[member].mean()),
+                    "observed_mae_kg": float(absolute_error[member].mean()),
+                    "interval_coverage": float(covered[member].mean()),
+                })
+    expected_calibration_error = float(sum(
+        (row["n"] / n) * abs(row["predicted_error_kg"] - row["observed_mae_kg"])
+        for row in bins
+    ))
+    diagnostics = {
+        "method": "5-fold out-of-fold isotonic calibration with scaled conformal intervals",
+        "folds": folds,
+        "nominal_interval_coverage": interval_level,
+        "observed_interval_coverage": float(covered.mean()),
+        "mean_interval_width_kg": float(2 * half_width.mean()),
+        "median_interval_width_kg": float(2 * np.median(half_width)),
+        "expected_calibration_error_kg": expected_calibration_error,
+        "bins": bins,
+    }
+    return calibrated, half_width, diagnostics
+
+
+def _regression_metrics(predicted: np.ndarray, truth: np.ndarray) -> dict:
+    residual = np.asarray(predicted, dtype=float) - np.asarray(truth, dtype=float)
+    absolute = np.abs(residual)
+    denominator = float(np.sum((truth - np.mean(truth)) ** 2))
+    return {
+        "mae_kg": float(absolute.mean()),
+        "rmse_kg": float(np.sqrt(np.mean(residual ** 2))),
+        "bias_kg": float(residual.mean()),
+        "median_absolute_error_kg": float(np.median(absolute)),
+        "p90_absolute_error_kg": float(np.quantile(absolute, 0.9)),
+        "p95_absolute_error_kg": float(np.quantile(absolute, 0.95)),
+        "r2": float(1 - np.sum(residual ** 2) / denominator) if denominator else None,
+    }
+
+
+def _bootstrap_mae_ci(
+    predicted: np.ndarray,
+    truth: np.ndarray,
+    mask: np.ndarray,
+    *,
+    repetitions: int = 500,
+    seed: int = 20251022,
+) -> list[float]:
+    error = np.abs(np.asarray(predicted)[mask] - np.asarray(truth)[mask])
+    rng = np.random.default_rng(seed)
+    means = np.empty(repetitions, dtype=float)
+    for index in range(repetitions):
+        means[index] = error[rng.integers(0, len(error), len(error))].mean()
+    return [float(value) for value in np.quantile(means, [0.025, 0.975])]
+
+
+def _group_reliability(
+    frame: pd.DataFrame,
+    predicted: np.ndarray,
+    raw_risk: np.ndarray,
+    calibrated_risk: np.ndarray,
+    half_width: np.ndarray,
+    min_type_n: int,
+) -> dict:
+    truth = frame.fuel_kg.to_numpy(dtype=float)
+    error = predicted - truth
+    covered = np.abs(error) <= half_width
+
+    def summarize(name: str, member: np.ndarray) -> dict:
+        return {
+            "group": name,
+            "n": int(member.sum()),
+            "mae_kg": float(np.abs(error[member]).mean()),
+            "rmse_kg": float(np.sqrt(np.mean(error[member] ** 2))),
+            "bias_kg": float(error[member].mean()),
+            "mean_raw_risk_kg": float(raw_risk[member].mean()),
+            "mean_calibrated_risk_kg": float(calibrated_risk[member].mean()),
+            "interval_coverage": float(covered[member].mean()),
+        }
+
+    duration = duration_groups(frame.duration_min.to_numpy(dtype=float))
+    duration_rows = [summarize(name, duration == name) for name in DURATION_LABELS if np.any(duration == name)]
+    types = frame.aircraft_type.astype(str).to_numpy()
+    names, counts = np.unique(types, return_counts=True)
+    aircraft_rows = [
+        summarize(name, types == name)
+        for name, count in zip(names, counts)
+        if count >= min_type_n
+    ]
+    aircraft_rows.sort(key=lambda row: (-row["n"], row["group"]))
+    return {"duration": duration_rows, "aircraft": aircraft_rows}
 
 
 def _constraint_members(
@@ -191,6 +338,9 @@ def _policy_summary(
     summary["protected_aircraft_coverage_gap"] = (
         float(max(protected) - min(protected)) if protected else None
     )
+    summary["accepted_mae_95pct_row_bootstrap_ci_kg"] = _bootstrap_mae_ci(
+        predicted, frame.fuel_kg.to_numpy(dtype=float), mask
+    )
     return summary
 
 
@@ -207,86 +357,111 @@ def analyze(
     duration = frame.duration_min.to_numpy(dtype=float)
     ties = frame.stable_tie.to_numpy(dtype=float)
     predicted = frame.predicted_fuel_kg.to_numpy(dtype=float)
-
-    risk_mask, risk_details = select(scores, types, duration, ties, target, 0, min_type_n)
-    greedy_mask, greedy_details = select(scores, types, duration, ties, target, floor, min_type_n)
-    optimized_mask, optimized_details = constrained_select(
-        scores, types, duration, ties, target, floor, min_type_n
+    truth = frame.fuel_kg.to_numpy(dtype=float)
+    calibrated_risk, interval_half_width, uncertainty = cross_fitted_uncertainty(
+        scores, predicted, truth, ties
     )
-    policies = {
-        "risk_only": _policy_summary(
-            frame,
-            risk_mask,
-            predicted,
-            scores,
-            {"method": "risk_rank", "floor": 0, "min_type_n": min_type_n, **risk_details},
-        ),
-        "greedy_floor": _policy_summary(
-            frame,
-            greedy_mask,
-            predicted,
-            scores,
-            {"method": "duration_then_aircraft_greedy", "floor": floor,
-             "min_type_n": min_type_n, **greedy_details},
-        ),
-        "optimized_floor": _policy_summary(
-            frame,
-            optimized_mask,
-            predicted,
-            scores,
-            {"floor": floor, "min_type_n": min_type_n, **optimized_details},
-        ),
-    }
 
+    targets = tuple(sorted(set(COVERAGE_TARGETS + (target,))))
+    selection_grid: dict[str, dict[str, str]] = {}
+    policy_grid: dict[str, dict[str, dict]] = {}
     pareto = []
-    for coverage in (0.5, 0.6, 0.7, 0.75, 0.8, 0.9, 1.0):
-        baseline, _ = select(scores, types, duration, ties, coverage, 0, min_type_n)
-        constrained, detail = constrained_select(
+    policies = None
+    default_masks = None
+    compact_fields = (
+        "accepted", "coverage", "accepted_mae_kg", "rejected_mae_kg",
+        "accepted_reference_fuel_fraction", "mean_predicted_risk_kg",
+        "duration_coverage_gap", "protected_aircraft_coverage_gap",
+        "accepted_mae_95pct_row_bootstrap_ci_kg",
+    )
+    for coverage in targets:
+        risk_mask, risk_details = select(scores, types, duration, ties, coverage, 0, min_type_n)
+        greedy_mask, greedy_details = select(scores, types, duration, ties, coverage, floor, min_type_n)
+        optimized_mask, optimized_details = constrained_select(
             scores, types, duration, ties, coverage, floor, min_type_n
         )
-        for name, mask in (("risk_only", baseline), ("optimized_floor", constrained)):
-            truth = frame.fuel_kg.to_numpy(dtype=float)
+        calibrated_mask, calibrated_details = constrained_select(
+            calibrated_risk, types, duration, ties, coverage, floor, min_type_n
+        )
+        masks = {
+            "risk": risk_mask,
+            "greedy": greedy_mask,
+            "optimized": optimized_mask,
+            "calibrated": calibrated_mask,
+        }
+        summaries = {
+            "risk_only": _policy_summary(
+                frame, risk_mask, predicted, scores,
+                {"method": "risk_rank", "floor": 0, "min_type_n": min_type_n, **risk_details},
+            ),
+            "greedy_floor": _policy_summary(
+                frame, greedy_mask, predicted, scores,
+                {"method": "duration_then_aircraft_greedy", "floor": floor,
+                 "min_type_n": min_type_n, **greedy_details},
+            ),
+            "optimized_floor": _policy_summary(
+                frame, optimized_mask, predicted, scores,
+                {"floor": floor, "min_type_n": min_type_n, **optimized_details},
+            ),
+            "calibrated_optimized": _policy_summary(
+                frame, calibrated_mask, predicted, calibrated_risk,
+                {"method": "cross_fitted_calibrated_mixed_integer_minimum_risk",
+                 "floor": floor, "min_type_n": min_type_n, **calibrated_details},
+            ),
+        }
+        key = str(int(round(coverage * 100)))
+        selection_grid[key] = {
+            name: "".join("1" if value else "0" for value in mask)
+            for name, mask in masks.items()
+        }
+        policy_grid[key] = {
+            name: {field: summary[field] for field in compact_fields}
+            for name, summary in summaries.items()
+        }
+        for name, mask, risk_values in (
+            ("risk_only", risk_mask, scores),
+            ("greedy_floor", greedy_mask, scores),
+            ("optimized_floor", optimized_mask, scores),
+            ("calibrated_optimized", calibrated_mask, calibrated_risk),
+        ):
             pareto.append({
                 "policy": name,
                 "target": coverage,
                 "actual_coverage": float(mask.mean()),
                 "accepted_mae_kg": float(np.abs(predicted[mask] - truth[mask]).mean()),
                 "labeled_fuel_share": float(truth[mask].sum() / truth.sum()),
-                "mean_predicted_risk_kg": float(scores[mask].mean()),
-                "floor_forced_over_budget": bool(detail["floor_forced_over_budget"])
-                if name == "optimized_floor" else False,
+                "mean_predicted_risk_kg": float(risk_values[mask].mean()),
             })
+        if math.isclose(coverage, target):
+            policies = summaries
+            default_masks = masks
 
-    # Generate explanations once as an integrity check. The browser derives the
-    # same wording from compact selection bitsets and the source demo rows.
-    decision_reasons(optimized_mask, risk_mask, types, duration, min_type_n)
+    if policies is None or default_masks is None:
+        raise RuntimeError("Default target was not evaluated")
+    decision_reasons(default_masks["optimized"], default_masks["risk"], types, duration, min_type_n)
     report = {
-        "status": "Advanced exploratory extension on committed September benchmark rows",
-        "research_claim": (
-            "Exact coverage-constrained selection is compared with risk-only and the existing greedy rule; "
-            "labels are used only after selection for evaluation."
-        ),
-        "limitations": [
-            "This is a historical replay, not live aircraft telemetry.",
-            "Optimization improves the selection rule but does not make the fuel model physically validated.",
-            "A later untouched dataset is still required for confirmatory publication claims.",
-        ],
+        "status": "Validated historical benchmark dashboard",
+        "evaluation_scope": "Cross-fitted diagnostics on committed September benchmark rows",
         "target": target,
         "floor": floor,
         "min_aircraft_group_n": min_type_n,
         "rows": len(frame),
+        "regression": _regression_metrics(predicted, truth),
+        "uncertainty": uncertainty,
+        "group_reliability": _group_reliability(
+            frame, predicted, scores, calibrated_risk, interval_half_width, min_type_n
+        ),
         "policies": policies,
+        "policy_grid": policy_grid,
         "pareto": pareto,
     }
     dashboard_payload = {
         "period": payload.get("period", "Committed validation benchmark"),
-        "source_demo": "index.html",
         "row_schema": list(ROW_COLUMNS),
-        "selection_bits": {
-            "risk": "".join("1" if value else "0" for value in risk_mask),
-            "greedy": "".join("1" if value else "0" for value in greedy_mask),
-            "optimized": "".join("1" if value else "0" for value in optimized_mask),
-        },
+        "rows": payload["rows"],
+        "calibrated_risk_kg": np.round(calibrated_risk, 3).tolist(),
+        "interval_half_width_kg": np.round(interval_half_width, 3).tolist(),
+        "selection_grid": selection_grid,
         "report": report,
     }
     return report, dashboard_payload
@@ -297,7 +472,9 @@ def render(template: str, payload: dict) -> str:
     if template.count(marker) != 1:
         raise ValueError("Expected exactly one advanced-dashboard data marker")
     data = json.dumps(payload, ensure_ascii=False, separators=(",", ":"), allow_nan=False)
-    return template.replace(marker, "const DATA=" + data.replace("<", "\\u003c") + ";")
+    compressed = gzip.compress(data.encode("utf-8"), compresslevel=9, mtime=0)
+    encoded = base64.b64encode(compressed).decode("ascii")
+    return template.replace(marker, f'const DATA_GZIP="{encoded}";')
 
 
 def main() -> None:

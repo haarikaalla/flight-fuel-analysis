@@ -1,10 +1,18 @@
-"""Tests for the optimization-based research extension."""
+"""Tests for optimization, uncertainty calibration and dashboard generation."""
 
+import base64
+import gzip
+import json
 import unittest
 
 import numpy as np
 
-from src.flight_fuel.advanced import constrained_select, decision_reasons, render
+from src.flight_fuel.advanced import (
+    constrained_select,
+    cross_fitted_uncertainty,
+    decision_reasons,
+    render,
+)
 from src.flight_fuel.eligibility import duration_groups, select
 
 
@@ -51,9 +59,28 @@ class AdvancedSelectionTests(unittest.TestCase):
 
     def test_dashboard_embedding_escapes_script_content(self):
         html = render("<script>/*__ADVANCED_DATA__*/</script>", {"x": "</script>"})
-        self.assertIn("\\u003c/script", html)
+        encoded = html.split('const DATA_GZIP="', 1)[1].split('"', 1)[0]
+        payload = json.loads(gzip.decompress(base64.b64decode(encoded)))
+        self.assertEqual(payload, {"x": "</script>"})
+        self.assertEqual(html.count("</script>"), 1)
         with self.assertRaises(ValueError):
             render("no marker", {})
+
+    def test_cross_fitted_uncertainty_is_finite_and_out_of_fold(self):
+        risk = np.tile(np.arange(1, 11, dtype=float), 5)
+        truth = np.linspace(100, 400, 50)
+        signed_error = np.where(np.arange(50) % 2, risk * 1.8, -risk * 1.8)
+        predicted = truth + signed_error
+        ties = (np.arange(50) + .5) / 50
+        calibrated, half_width, diagnostics = cross_fitted_uncertainty(
+            risk, predicted, truth, ties, folds=5, interval_level=.9
+        )
+        self.assertEqual(calibrated.shape, risk.shape)
+        self.assertTrue(np.isfinite(calibrated).all())
+        self.assertTrue((calibrated >= 0).all())
+        self.assertTrue((half_width > 0).all())
+        self.assertEqual(diagnostics["folds"], 5)
+        self.assertGreaterEqual(diagnostics["observed_interval_coverage"], .8)
 
 
 if __name__ == "__main__":
