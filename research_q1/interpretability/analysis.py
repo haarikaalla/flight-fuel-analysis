@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import numpy as np
+from scipy.stats import spearmanr
 
 from research_q1.validation.metrics import regression_metrics
 
@@ -65,4 +66,17 @@ COMPONENT_ABLATIONS = {
     "remove_risk_calibration": ["risk_calibration"],
     "replace_exact_with_greedy": ["exact_optimizer"],
 }
+
+
+def importance_stability(fold_importances: list[np.ndarray]) -> dict:
+    """Pairwise Spearman stability of feature rankings across grouped folds."""
+    if len(fold_importances) < 2:
+        raise ValueError("At least two fold-importance vectors are required")
+    arrays = [np.asarray(values, float) for values in fold_importances]
+    if len({len(values) for values in arrays}) != 1:
+        raise ValueError("Fold-importance vectors must align")
+    correlations = [float(spearmanr(arrays[i], arrays[j]).statistic)
+                    for i in range(len(arrays)) for j in range(i + 1, len(arrays))]
+    return {"pairwise_spearman": correlations, "mean_spearman": float(np.nanmean(correlations)),
+            "minimum_spearman": float(np.nanmin(correlations))}
 

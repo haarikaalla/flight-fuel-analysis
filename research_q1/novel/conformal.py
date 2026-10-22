@@ -165,6 +165,20 @@ def benjamini_hochberg(p_values: np.ndarray, q: float) -> np.ndarray:
     return selected
 
 
+def conformal_bh_selection(calibration_scores: np.ndarray, test_scores: np.ndarray,
+                           q: float, *, dependence_assumption_verified: bool = False) -> tuple[np.ndarray, dict]:
+    p_values = conformal_p_values(calibration_scores, test_scores)
+    selected = benjamini_hochberg(p_values, q)
+    return selected, {
+        "method": "conformal_p_values_plus_BH",
+        "target_fdr": q,
+        "selected_n": int(selected.sum()),
+        "guarantee": ("BH FDR guarantee invoked only because independent/PRDS dependence was explicitly verified"
+                      if dependence_assumption_verified else
+                      "EMPIRICAL ONLY: conformal p-value dependence was not shown to satisfy ordinary BH conditions"),
+    }
+
+
 def clopper_pearson_upper(errors: int, n: int, delta: float) -> float:
     if not 0 <= errors <= n or not 0 < delta < 1:
         raise ValueError("Binomial-bound inputs are invalid")

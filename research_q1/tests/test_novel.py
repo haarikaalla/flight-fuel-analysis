@@ -3,6 +3,7 @@ import unittest
 import numpy as np
 
 from research_q1.novel.conformal import (HierarchicalMondrian, benjamini_hochberg,
+                                         conformal_bh_selection,
                                          bonferroni_risk_control_threshold,
                                          finite_quantile)
 from research_q1.novel.selection import exact_risk_budget, robust_risk_budget
@@ -44,6 +45,8 @@ class NovelMethodTests(unittest.TestCase):
             np.arange(20), np.zeros(20, dtype=int), np.array([5, 10, 19]), .5, .1)
         self.assertIsNotNone(result["chosen"])
         self.assertIn("iid calibration", result["guarantee_scope"])
+        _, audit = conformal_bh_selection(np.arange(20.), np.array([30.]), .1)
+        self.assertIn("EMPIRICAL ONLY", audit["guarantee"])
 
     def test_finite_quantile_is_conservative(self):
         self.assertEqual(finite_quantile(np.arange(1, 11), .1), 10)

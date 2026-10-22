@@ -4,9 +4,12 @@ import unittest
 
 import numpy as np
 import pandas as pd
+from sklearn.linear_model import Ridge
 
 from research_q1.validation.data_contract import FrozenDataAccessError, guard_confirmation_access
 from research_q1.validation.metrics import interval_metrics
+from research_q1.validation.labels import label_audit
+from research_q1.validation.nested_cv import grouped_nested_cv
 from research_q1.validation.splits import grouped_folds, grouped_holdout, temporal_split
 
 
@@ -54,6 +57,23 @@ class ValidationTests(unittest.TestCase):
         covered = interval_metrics(np.array([1.0]), np.array([0.0]), np.array([2.0]))
         missed = interval_metrics(np.array([4.0]), np.array([0.0]), np.array([2.0]))
         self.assertGreater(missed["winkler_score"], covered["winkler_score"])
+
+    def test_label_audit_documents_source_and_lattice(self):
+        frame = pd.DataFrame({"reference_fuel_kg": [0.45359237, 2.0],
+                              "label_source": ["ACARS", "ACARS"]})
+        audit = label_audit(frame)
+        self.assertEqual(audit["n"], 2)
+        self.assertEqual(audit["label_sources"]["ACARS"], 2)
+
+    def test_nested_cv_keeps_grouped_oof_predictions(self):
+        x = np.arange(24, dtype=float).reshape(-1, 1)
+        y = x[:, 0] * 2
+        groups = np.repeat([f"g{i}" for i in range(12)], 2)
+        result = grouped_nested_cv(x, y, groups,
+                                   lambda parameters: Ridge(**parameters),
+                                   {"alpha": [.1, 1.]}, outer_folds=3, inner_folds=2)
+        self.assertEqual(len(result["oof_prediction"]), 24)
+        self.assertFalse(result["group_overlap"])
 
 
 if __name__ == "__main__":

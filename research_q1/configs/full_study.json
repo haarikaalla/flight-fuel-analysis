@@ -1,0 +1,31 @@
+{
+  "seed": 20251022,
+  "alpha": 0.10,
+  "minimum_coverage": 0.75,
+  "risk_event_absolute_error_kg": 100.0,
+  "risk_budget_multiplier_over_minimum_feasible": 1.25,
+  "robust_deviation_fraction": 0.25,
+  "robust_gamma": 5,
+  "mondrian_minimum_n": 50,
+  "model_iterations": 300,
+  "bootstrap_repetitions": 2000,
+  "temporal": {
+    "train_before": "2023-01-01T00:00:00Z",
+    "calibration_before": "2024-01-01T00:00:00Z",
+    "test_before": "2025-01-01T00:00:00Z"
+  },
+  "numeric_features": [
+    "segment_duration_s", "range_m", "altitude_m", "vertical_rate_mps",
+    "tas_acceleration_mps2", "ground_velocity_east_mps",
+    "ground_velocity_north_mps", "wind_east_mps", "wind_north_mps",
+    "wing_area_m2", "aspect_ratio", "max_takeoff_mass_kg",
+    "tank_capacity_kg", "adsb_position_count"
+  ],
+  "feature_groups": {
+    "physics": ["wing_area_m2", "aspect_ratio", "max_takeoff_mass_kg", "tank_capacity_kg"],
+    "weather": ["wind_east_mps", "wind_north_mps"],
+    "trajectory": ["range_m", "altitude_m", "vertical_rate_mps", "tas_acceleration_mps2", "ground_velocity_east_mps", "ground_velocity_north_mps"],
+    "data_quality": ["adsb_position_count"]
+  }
+}
+
