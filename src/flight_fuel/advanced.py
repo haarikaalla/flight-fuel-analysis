@@ -10,8 +10,6 @@ uncertainty fit.
 from __future__ import annotations
 
 import argparse
-import base64
-import gzip
 import json
 import math
 from pathlib import Path
@@ -457,8 +455,14 @@ def analyze(
     }
     dashboard_payload = {
         "period": payload.get("period", "Committed validation benchmark"),
-        "row_schema": list(ROW_COLUMNS),
-        "rows": payload["rows"],
+        "row_schema": list(ROW_COLUMNS[:-1]),
+        "rows": [
+            [
+                row[0], round(float(row[1]), 3), round(float(row[2]), 3),
+                round(float(row[3]), 3), round(float(row[4]), 3), int(row[5]),
+            ]
+            for row in payload["rows"]
+        ],
         "calibrated_risk_kg": np.round(calibrated_risk, 3).tolist(),
         "interval_half_width_kg": np.round(interval_half_width, 3).tolist(),
         "selection_grid": selection_grid,
@@ -472,9 +476,7 @@ def render(template: str, payload: dict) -> str:
     if template.count(marker) != 1:
         raise ValueError("Expected exactly one advanced-dashboard data marker")
     data = json.dumps(payload, ensure_ascii=False, separators=(",", ":"), allow_nan=False)
-    compressed = gzip.compress(data.encode("utf-8"), compresslevel=9, mtime=0)
-    encoded = base64.b64encode(compressed).decode("ascii")
-    return template.replace(marker, f'const DATA_GZIP="{encoded}";')
+    return template.replace(marker, "const DATA=" + data.replace("<", "\\u003c") + ";")
 
 
 def main() -> None:

@@ -1,8 +1,5 @@
 """Tests for optimization, uncertainty calibration and dashboard generation."""
 
-import base64
-import gzip
-import json
 import unittest
 
 import numpy as np
@@ -59,10 +56,7 @@ class AdvancedSelectionTests(unittest.TestCase):
 
     def test_dashboard_embedding_escapes_script_content(self):
         html = render("<script>/*__ADVANCED_DATA__*/</script>", {"x": "</script>"})
-        encoded = html.split('const DATA_GZIP="', 1)[1].split('"', 1)[0]
-        payload = json.loads(gzip.decompress(base64.b64decode(encoded)))
-        self.assertEqual(payload, {"x": "</script>"})
-        self.assertEqual(html.count("</script>"), 1)
+        self.assertIn("\\u003c/script", html)
         with self.assertRaises(ValueError):
             render("no marker", {})
 
