@@ -1,0 +1,41 @@
+{
+  "study_id": "PI-MCS-v1",
+  "status": "PRE_REGISTERED_IMPLEMENTATION_NO_RESULTS",
+  "frozen_on": "2026-10-22",
+  "seed": 20251022,
+  "alpha": 0.10,
+  "coverage_tolerance": 0.02,
+  "research_questions": [
+    "Does a training-fold-only physics prior improve fuel prediction under aircraft and route shift?",
+    "Do physics-residual Mondrian intervals retain coverage with less width than standard split conformal and CQR?",
+    "Does exact or robust risk-budget selection improve utility at matched empirical risk and coverage relative to established selectors?"
+  ],
+  "hypotheses": {
+    "H1": "PI-MCS coverage is at least 1-alpha-tolerance on aircraft-held-out data where standard split conformal under-covers.",
+    "H2": "PI-MCS intervals are narrower than standard conformal and CQR at matched coverage.",
+    "H3": "Exact optimization has greater utility than greedy selection at the same risk budget and minimum coverage, with its solver gap reported.",
+    "H4": "The physics prior improves held-out-aircraft error relative to the same residual learner without physics."
+  },
+  "split_order": ["temporal", "route_holdout", "aircraft_holdout", "aircraft_family_holdout", "seasonal"],
+  "grouped_nested_cv": {
+    "outer_folds": 5,
+    "inner_folds": 3,
+    "group_columns": ["route_id", "aircraft_type", "aircraft_family"]
+  },
+  "calibration": {
+    "fraction_after_training": 0.20,
+    "minimum_mondrian_n": 50,
+    "hierarchy": ["aircraft_type+flight_phase", "aircraft_type", "flight_phase", "global"]
+  },
+  "prediction_baselines": ["physics_only", "ridge", "lasso", "hist_gradient_boosting", "mlp", "deep_ensemble", "quantile_regression", "existing_project"],
+  "interval_baselines": ["split_conformal", "mondrian_without_physics", "cqr", "weighted_conformal", "adaptive_conformal", "ensemble_variance"],
+  "selection_baselines": ["random_group_hash", "fixed_threshold", "confidence_only", "greedy", "risk_ranked", "calibrated", "exact_milp", "robust_milp", "conformal_bh", "conformal_risk_control"],
+  "alphas": [0.05, 0.10, 0.20],
+  "coverage_targets": [0.50, 0.60, 0.70, 0.75, 0.80, 0.90],
+  "risk_budget_multipliers": [0.75, 1.00, 1.25],
+  "robust_gamma": [0, 1, 5, 10],
+  "fixed_seeds": [17, 42, 314, 2025, 20251022],
+  "bootstrap_repetitions": 2000,
+  "multiplicity": "Holm for confirmatory hypotheses; BH for explicitly exploratory families",
+  "claim_rule": "Every hypothesis is PASS, FAIL, or INCONCLUSIVE. No result is emitted unless source hashes, split audit and leakage checks pass."
+}

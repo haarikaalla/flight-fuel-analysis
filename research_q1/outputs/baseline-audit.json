@@ -1,0 +1,27 @@
+{
+  "audit_date": "2026-10-22",
+  "parent_branch": "research-extension",
+  "parent_commit": "fa9dedaef4e271cf2656c007e19d3cb0c80ea424",
+  "working_branch": "q1-research-extension",
+  "existing_tests": {
+    "command": ".venv/bin/python -m unittest discover -v -s tests",
+    "passed": 22,
+    "failed": 0
+  },
+  "dashboard": {
+    "url": "http://127.0.0.1:8765/demo/advanced.html",
+    "http_status": 200,
+    "content_type": "text/html",
+    "bytes": 718320,
+    "embedded_data_marker_present": true
+  },
+  "raw_data_directory_present": false,
+  "sha256": {
+    "reports/advanced-results.json": "39eb0f8f94022f8bcad62473d485f8df14c401460601ad40441cff32ab78b7c4",
+    "reports/eligibility-results.json": "07a8e4339a1469533ed146050f68a04d5b7d15a04f12809b83a39c6a7c8d22aa",
+    "reports/phase-4-results.json": "dad0da562a4ffb8fb29b23253e9d4f2f2281fb6017abbb286b1806feadeb6cb0",
+    "demo/advanced.html": "983195070c04658acf344f75664216a608fca6ef2567d6e34537d02a02967a0a",
+    "demo/index.html": "c94a082b1e7eeb38f95880acf659e9fe67a50a5f1d35592a71e65dfc2a34ea9b"
+  },
+  "frozen_confirmation_labels_accessed": false
+}

@@ -1,0 +1,39 @@
+{
+  "sources": [
+    {
+      "name": "EUROCONTROL PRC 2025 Aircraft Fuel Burn Estimation Data Challenge",
+      "url": "https://doi.org/10.5281/zenodo.19184662",
+      "license": "CC BY 4.0",
+      "role": "development benchmark",
+      "local_status": "scheduled for verified acquisition"
+    },
+    {
+      "name": "OpenSky Network historical data",
+      "url": "https://opensky-network.org/data",
+      "license": "research-access eligibility and OpenSky terms; commercial use requires separate permission",
+      "role": "multi-year trajectories",
+      "local_status": "not acquired"
+    },
+    {
+      "name": "ERA5 Copernicus Climate Data Store",
+      "url": "https://cds.climate.copernicus.eu/",
+      "license": "Copernicus/ERA5 dataset terms accepted at download",
+      "role": "winds and atmosphere",
+      "local_status": "not acquired"
+    },
+    {
+      "name": "US BTS Airline Fuel Cost and Consumption",
+      "url": "https://transtats.bts.gov/fuel.asp?display=data1&pn=0",
+      "license": "US public statistical table; verify terms at retrieval",
+      "role": "aggregate external plausibility only",
+      "local_status": "not acquired"
+    },
+    {
+      "name": "EASA Data4Safety",
+      "url": "https://www.easa.europa.eu/en/domains/safety-management/data4safety",
+      "license": "controlled partnership platform",
+      "role": "possible external validation",
+      "local_status": "not accessible"
+    }
+  ]
+}
