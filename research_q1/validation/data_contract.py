@@ -18,12 +18,15 @@ REQUIRED_COLUMNS = (
     "label_source", "ground_velocity_east_mps", "ground_velocity_north_mps",
     "wind_east_mps", "wind_north_mps", "altitude_m", "vertical_rate_mps",
     "wing_area_m2", "aspect_ratio", "tank_capacity_kg", "adsb_position_count",
+    "max_takeoff_mass_kg", "segment_duration_s", "range_m",
+    "tas_acceleration_mps2",
     "source_release", "source_license",
 )
 
 NUMERIC_NONNEGATIVE = (
     "reference_fuel_kg", "altitude_m", "wing_area_m2", "aspect_ratio",
     "tank_capacity_kg", "adsb_position_count",
+    "max_takeoff_mass_kg", "segment_duration_s", "range_m",
 )
 
 
@@ -75,6 +78,7 @@ def validate_frame(frame: pd.DataFrame, *, required: Iterable[str] = REQUIRED_CO
     numeric_names = list(NUMERIC_NONNEGATIVE) + [
         "ground_velocity_east_mps", "ground_velocity_north_mps",
         "wind_east_mps", "wind_north_mps", "vertical_rate_mps",
+        "tas_acceleration_mps2",
     ]
     numeric = frame[numeric_names].apply(pd.to_numeric, errors="coerce")
     if not np.isfinite(numeric.to_numpy(dtype=float)).all():
