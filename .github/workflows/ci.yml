@@ -24,4 +24,25 @@ jobs:
       - run: python -m pip install -e .
       - run: python -m unittest discover -v -s tests
       - run: python -m flight_fuel.advanced
-      - run: git diff --exit-code -- reports/advanced-results.json demo/advanced.html
+      - name: Validate generated research artifacts
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          report = json.loads(Path("reports/advanced-results.json").read_text())
+          assert report["rows"] == 7619
+          assert set(report["policies"]) == {
+              "risk_only", "greedy_floor", "optimized_floor", "calibrated_floor"
+          }
+          observed = report["uncertainty"]["observed_interval_coverage"]
+          assert 0.85 <= observed <= 0.95
+          dashboard = Path("demo/advanced.html").read_text()
+          assert "Flight Fuel Intelligence Dashboard" in dashboard
+          assert "const DATA=" in dashboard
+          assert "What is advanced—and what is not yet claimed" not in dashboard
+          Path("/tmp/flight-fuel-dashboard.js").write_text(
+              dashboard.split("<script>", 1)[1].split("</script>", 1)[0]
+          )
+          PY
+          node --check /tmp/flight-fuel-dashboard.js
