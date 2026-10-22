@@ -1,0 +1,18 @@
+{
+  "selection_rule": "All hyperparameters are fixed or selected in grouped inner CV; test labels are never used.",
+  "inner_grouped_folds": 3,
+  "maximum_candidates_per_model": 12,
+  "maximum_iterations": 300,
+  "ensemble_members": 5,
+  "models": {
+    "physics_only": "bounded type-level least squares on training folds",
+    "ridge": {"alpha": [0.01, 0.1, 1.0, 10.0]},
+    "lasso": {"alpha": [0.001, 0.01, 0.1, 1.0]},
+    "hist_gradient_boosting": {"learning_rate": [0.03, 0.05, 0.1], "max_leaf_nodes": [15, 31, 63]},
+    "mlp": {"hidden_layer_sizes": [[32], [64, 32], [128, 64]], "alpha": [0.0001, 0.001]},
+    "deep_ensemble": {"members": 5},
+    "quantile_regression": {"lower_quantile": 0.05, "upper_quantile": 0.95},
+    "existing_project": "imported without refit when reproducing the committed benchmark"
+  }
+}
+
