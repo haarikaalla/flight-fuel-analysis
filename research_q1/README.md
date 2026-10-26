@@ -59,3 +59,25 @@ python -m research_q1.paper.build_docx
 The final command requires `python-docx`. Author details, funding and competing
 interest statements must be confirmed by the submitting authors.
 
+## View the verified research results
+
+Open [`dashboard/index.html`](dashboard/index.html) directly in a browser. It is
+self-contained and works without a server or downloaded raw data. The model
+selector updates charts instantly from committed real-result JSON; the export
+button downloads the comparison table. The page also links to the existing
+recorded-flight replay and the editable journal manuscript. Historical replay
+is not a live flight feed.
+
+To run the repository locally with one URL:
+
+```bash
+python -m http.server 8765
+```
+
+Then visit `http://localhost:8765/research_q1/dashboard/index.html`. To rebuild
+the page after verified result JSON changes, run:
+
+```bash
+.venv/bin/python -m research_q1.dashboard.build
+```
+
