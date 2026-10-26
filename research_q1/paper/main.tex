@@ -93,6 +93,21 @@ is inadequate evidence for unseen-aircraft generalization. The full physics,
 weather, trajectory, shift, ablation and external-confirmation analyses require
 their documented licensed inputs and are not replaced with simulated results.
 
+\subsection{Metadata interpretability}
+Exact tree-path-dependent TreeSHAP and test-set permutation importance agree
+that interval duration dominates the metadata model. Refit ablation is more
+direct for the grouped scientific question: removing interval duration raises
+MAE by 155.02 kg, removing all aircraft indicators raises it by 29.18 kg, and
+removing whole-flight timing raises it by 16.77 kg. Removing time of day changes
+MAE by only 0.18 kg. These are predictive associations, not causal effects, and
+they do not substitute for the planned physics/weather/trajectory ablations.
+
+\begin{table}[ht]
+\centering
+\caption{Refit metadata feature-group ablations on the exploratory October set.}
+\input{generated/metadata_ablation.tex}
+\end{table}
+
 \section{Validation and statistical analysis}
 All observations from one flight remain together. Primary partitions are
 forward temporal, route-held-out, aircraft-held-out and aircraft-family-held-out,

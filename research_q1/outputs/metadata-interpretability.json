@@ -1,0 +1,747 @@
+{
+  "evidence_boundary": "No physics, weather, raw trajectory or data-quality features are present in this metadata model",
+  "permutation_importance": [
+    {
+      "delta_mae_kg": 280.48751897434033,
+      "delta_mae_sd_kg": 1.6658705484340404,
+      "feature": "duration_min"
+    },
+    {
+      "delta_mae_kg": 66.28276918016222,
+      "delta_mae_sd_kg": 1.0023866134054673,
+      "feature": "flight_duration_min"
+    },
+    {
+      "delta_mae_kg": 63.497227761078236,
+      "delta_mae_sd_kg": 0.7621635407514714,
+      "feature": "type_A20N"
+    },
+    {
+      "delta_mae_kg": 52.258814002228405,
+      "delta_mae_sd_kg": 0.48589059193268996,
+      "feature": "type_A359"
+    },
+    {
+      "delta_mae_kg": 31.191549563347003,
+      "delta_mae_sd_kg": 0.6736671082471776,
+      "feature": "elapsed_from_takeoff_min"
+    },
+    {
+      "delta_mae_kg": 28.946197967851713,
+      "delta_mae_sd_kg": 0.57765175146915,
+      "feature": "remaining_to_landing_min"
+    },
+    {
+      "delta_mae_kg": 9.340628880716592,
+      "delta_mae_sd_kg": 0.3257383622090255,
+      "feature": "type_B77W"
+    },
+    {
+      "delta_mae_kg": 8.264047991359954,
+      "delta_mae_sd_kg": 0.32211145993764556,
+      "feature": "type_A332"
+    },
+    {
+      "delta_mae_kg": 7.934336608326445,
+      "delta_mae_sd_kg": 0.30814989305406915,
+      "feature": "type_B744"
+    },
+    {
+      "delta_mae_kg": 2.60458038827194,
+      "delta_mae_sd_kg": 0.12580288766495742,
+      "feature": "type_A21N"
+    },
+    {
+      "delta_mae_kg": 2.1816615626476716,
+      "delta_mae_sd_kg": 0.07275708144957303,
+      "feature": "type_A320"
+    },
+    {
+      "delta_mae_kg": 1.6437337421711704,
+      "delta_mae_sd_kg": 0.06487769417405648,
+      "feature": "type_B772"
+    },
+    {
+      "delta_mae_kg": 1.523447643145289,
+      "delta_mae_sd_kg": 0.12980251423381964,
+      "feature": "type_A333"
+    },
+    {
+      "delta_mae_kg": 0.5667190325239432,
+      "delta_mae_sd_kg": 0.06636334812018407,
+      "feature": "type_B788"
+    },
+    {
+      "delta_mae_kg": 0.546371942719972,
+      "delta_mae_sd_kg": 0.025082521213317877,
+      "feature": "type_B789"
+    },
+    {
+      "delta_mae_kg": 0.40224663447076664,
+      "delta_mae_sd_kg": 0.09686919774329505,
+      "feature": "start_hour_cos"
+    },
+    {
+      "delta_mae_kg": 0.2329186832208748,
+      "delta_mae_sd_kg": 0.011379372040735027,
+      "feature": "type_B738"
+    },
+    {
+      "delta_mae_kg": 0.16605384477061308,
+      "delta_mae_sd_kg": 0.061117952286323884,
+      "feature": "start_hour_sin"
+    },
+    {
+      "delta_mae_kg": 0.08405097769594079,
+      "delta_mae_sd_kg": 0.018908391249605222,
+      "feature": "type_A319"
+    },
+    {
+      "delta_mae_kg": 0.07502730144708494,
+      "delta_mae_sd_kg": 0.04888480741827235,
+      "feature": "type_A306"
+    },
+    {
+      "delta_mae_kg": 0.045603151468991146,
+      "delta_mae_sd_kg": 0.01160908469359516,
+      "feature": "type_B737"
+    },
+    {
+      "delta_mae_kg": 0.03899413592568664,
+      "delta_mae_sd_kg": 0.0033688470982983043,
+      "feature": "type_A321"
+    },
+    {
+      "delta_mae_kg": 0.026434096514768156,
+      "delta_mae_sd_kg": 0.0031742056973600758,
+      "feature": "type_B38M"
+    },
+    {
+      "delta_mae_kg": 0.008372323368045897,
+      "delta_mae_sd_kg": 0.0009558309192998403,
+      "feature": "type_B739"
+    },
+    {
+      "delta_mae_kg": 0.0,
+      "delta_mae_sd_kg": 0.0,
+      "feature": "type_A318"
+    },
+    {
+      "delta_mae_kg": 0.0,
+      "delta_mae_sd_kg": 0.0,
+      "feature": "type_A388"
+    },
+    {
+      "delta_mae_kg": 0.0,
+      "delta_mae_sd_kg": 0.0,
+      "feature": "type_B39M"
+    },
+    {
+      "delta_mae_kg": 0.0,
+      "delta_mae_sd_kg": 0.0,
+      "feature": "type_B748"
+    },
+    {
+      "delta_mae_kg": 0.0,
+      "delta_mae_sd_kg": 0.0,
+      "feature": "type_B752"
+    },
+    {
+      "delta_mae_kg": 0.0,
+      "delta_mae_sd_kg": 0.0,
+      "feature": "type_B763"
+    },
+    {
+      "delta_mae_kg": 0.0,
+      "delta_mae_sd_kg": 0.0,
+      "feature": "type_B77L"
+    },
+    {
+      "delta_mae_kg": 0.0,
+      "delta_mae_sd_kg": 0.0,
+      "feature": "type_MD11"
+    }
+  ],
+  "refit_feature_group_ablation": [
+    {
+      "ablation": "none",
+      "delta_mae_kg": 0.0,
+      "features": 32,
+      "mae_kg": 79.21996011993191
+    },
+    {
+      "ablation": "remove_interval_duration",
+      "delta_mae_kg": 155.0171441987901,
+      "features": 31,
+      "mae_kg": 234.23710431872203
+    },
+    {
+      "ablation": "remove_whole_flight_timing",
+      "delta_mae_kg": 16.76718760502375,
+      "features": 29,
+      "mae_kg": 95.98714772495566
+    },
+    {
+      "ablation": "remove_time_of_day",
+      "delta_mae_kg": 0.18165970539509146,
+      "features": 30,
+      "mae_kg": 79.401619825327
+    },
+    {
+      "ablation": "remove_aircraft_type",
+      "delta_mae_kg": 29.18149968375451,
+      "features": 6,
+      "mae_kg": 108.40145980368642
+    }
+  ],
+  "shap": {
+    "explainer": "exact tree-path-dependent TreeSHAP",
+    "global": [
+      {
+        "feature": "duration_min",
+        "mean_absolute_shap_kg": 384.6781648584394,
+        "mean_signed_shap_kg": -75.85079279600374
+      },
+      {
+        "feature": "flight_duration_min",
+        "mean_absolute_shap_kg": 137.1078310636116,
+        "mean_signed_shap_kg": -44.50587462744658
+      },
+      {
+        "feature": "type_A20N",
+        "mean_absolute_shap_kg": 78.03966561084927,
+        "mean_signed_shap_kg": -11.61891159416491
+      },
+      {
+        "feature": "type_A359",
+        "mean_absolute_shap_kg": 39.586714241258434,
+        "mean_signed_shap_kg": -29.794239516934358
+      },
+      {
+        "feature": "remaining_to_landing_min",
+        "mean_absolute_shap_kg": 32.22023635657833,
+        "mean_signed_shap_kg": -9.131940554680515
+      },
+      {
+        "feature": "elapsed_from_takeoff_min",
+        "mean_absolute_shap_kg": 31.272864086928536,
+        "mean_signed_shap_kg": 8.838277743277827
+      },
+      {
+        "feature": "type_B77W",
+        "mean_absolute_shap_kg": 17.887650494289357,
+        "mean_signed_shap_kg": -0.28095156901080326
+      },
+      {
+        "feature": "type_A332",
+        "mean_absolute_shap_kg": 15.987170030760822,
+        "mean_signed_shap_kg": -0.9773169268695246
+      },
+      {
+        "feature": "type_B744",
+        "mean_absolute_shap_kg": 10.97413139127359,
+        "mean_signed_shap_kg": 1.2875193742640199
+      },
+      {
+        "feature": "type_A320",
+        "mean_absolute_shap_kg": 5.54667262900774,
+        "mean_signed_shap_kg": 0.034239250825511505
+      },
+      {
+        "feature": "type_B788",
+        "mean_absolute_shap_kg": 4.22601819236192,
+        "mean_signed_shap_kg": 2.692114538355627
+      },
+      {
+        "feature": "type_A21N",
+        "mean_absolute_shap_kg": 3.7579448108804003,
+        "mean_signed_shap_kg": 1.3919516013502584
+      },
+      {
+        "feature": "type_B772",
+        "mean_absolute_shap_kg": 3.345250321629408,
+        "mean_signed_shap_kg": -1.1574258671750066
+      },
+      {
+        "feature": "type_A333",
+        "mean_absolute_shap_kg": 2.5255989349728267,
+        "mean_signed_shap_kg": -0.20180128615688536
+      },
+      {
+        "feature": "start_hour_cos",
+        "mean_absolute_shap_kg": 2.091843426060717,
+        "mean_signed_shap_kg": -0.388166639652637
+      },
+      {
+        "feature": "start_hour_sin",
+        "mean_absolute_shap_kg": 2.014319502031756,
+        "mean_signed_shap_kg": 0.42010027423293017
+      },
+      {
+        "feature": "type_B738",
+        "mean_absolute_shap_kg": 0.9034328094845855,
+        "mean_signed_shap_kg": 0.5905957422757604
+      },
+      {
+        "feature": "type_A306",
+        "mean_absolute_shap_kg": 0.7959967768645682,
+        "mean_signed_shap_kg": -0.15561340988815142
+      },
+      {
+        "feature": "type_B789",
+        "mean_absolute_shap_kg": 0.4920857067363916,
+        "mean_signed_shap_kg": 0.17935888375549633
+      },
+      {
+        "feature": "type_A321",
+        "mean_absolute_shap_kg": 0.2930421619096736,
+        "mean_signed_shap_kg": 0.2546491272959958
+      },
+      {
+        "feature": "type_B737",
+        "mean_absolute_shap_kg": 0.2891884699977725,
+        "mean_signed_shap_kg": 0.2891884699977725
+      },
+      {
+        "feature": "type_A319",
+        "mean_absolute_shap_kg": 0.18950378805280804,
+        "mean_signed_shap_kg": -0.08988602529634553
+      },
+      {
+        "feature": "type_B739",
+        "mean_absolute_shap_kg": 0.08367068140064944,
+        "mean_signed_shap_kg": 0.08276998464198954
+      },
+      {
+        "feature": "type_B38M",
+        "mean_absolute_shap_kg": 0.0367805542188144,
+        "mean_signed_shap_kg": 0.007250420755136805
+      },
+      {
+        "feature": "type_A318",
+        "mean_absolute_shap_kg": 0.0,
+        "mean_signed_shap_kg": 0.0
+      },
+      {
+        "feature": "type_A388",
+        "mean_absolute_shap_kg": 0.0,
+        "mean_signed_shap_kg": 0.0
+      },
+      {
+        "feature": "type_B39M",
+        "mean_absolute_shap_kg": 0.0,
+        "mean_signed_shap_kg": 0.0
+      },
+      {
+        "feature": "type_B748",
+        "mean_absolute_shap_kg": 0.0,
+        "mean_signed_shap_kg": 0.0
+      },
+      {
+        "feature": "type_B752",
+        "mean_absolute_shap_kg": 0.0,
+        "mean_signed_shap_kg": 0.0
+      },
+      {
+        "feature": "type_B763",
+        "mean_absolute_shap_kg": 0.0,
+        "mean_signed_shap_kg": 0.0
+      },
+      {
+        "feature": "type_B77L",
+        "mean_absolute_shap_kg": 0.0,
+        "mean_signed_shap_kg": 0.0
+      },
+      {
+        "feature": "type_MD11",
+        "mean_absolute_shap_kg": 0.0,
+        "mean_signed_shap_kg": 0.0
+      }
+    ],
+    "mean_absolute_by_aircraft": {
+      "A20N": {
+        "duration_min": 305.3431481153384,
+        "elapsed_from_takeoff_min": 25.887052470396277,
+        "flight_duration_min": 134.0905531328116,
+        "remaining_to_landing_min": 20.721986742460903,
+        "start_hour_cos": 1.4169026372133258,
+        "start_hour_sin": 1.433474848741408,
+        "type_A20N": 99.62064133890465,
+        "type_A21N": 1.429067315281521,
+        "type_A306": 0.43817757342224445,
+        "type_A318": 0.0,
+        "type_A319": 0.04474547233996992,
+        "type_A320": 2.997430115825076,
+        "type_A321": 0.2953100743221015,
+        "type_A332": 9.479382602451155,
+        "type_A333": 1.471364195237043,
+        "type_A359": 44.258300620592244,
+        "type_A388": 0.0,
+        "type_B38M": 0.02257467314517661,
+        "type_B39M": 0.0,
+        "type_B737": 0.24716384690753126,
+        "type_B738": 0.7412874843584983,
+        "type_B739": 0.06900748908454592,
+        "type_B744": 3.5955220224288706,
+        "type_B748": 0.0,
+        "type_B752": 0.0,
+        "type_B763": 0.0,
+        "type_B772": 2.0075256000092616,
+        "type_B77L": 0.0,
+        "type_B77W": 6.435021456540665,
+        "type_B788": 1.7234400958954141,
+        "type_B789": 0.3458217845167548,
+        "type_MD11": 0.0
+      },
+      "A21N": {
+        "duration_min": 241.84526733702987,
+        "elapsed_from_takeoff_min": 14.92619135378469,
+        "flight_duration_min": 68.77417657720689,
+        "remaining_to_landing_min": 34.90463756277775,
+        "start_hour_cos": 0.9668580564344723,
+        "start_hour_sin": 0.8212500439669652,
+        "type_A20N": 45.722665380252685,
+        "type_A21N": 62.26297919816162,
+        "type_A306": 0.461986433212772,
+        "type_A318": 0.0,
+        "type_A319": 0.0431985439492838,
+        "type_A320": 3.7937431748658277,
+        "type_A321": 0.24745238954587845,
+        "type_A332": 10.469727613408516,
+        "type_A333": 1.9794098460506078,
+        "type_A359": 42.20012714012562,
+        "type_A388": 0.0,
+        "type_B38M": 0.022426498791784228,
+        "type_B39M": 0.0,
+        "type_B737": 0.17693704758451756,
+        "type_B738": 0.8247054047733998,
+        "type_B739": 0.08763228398181996,
+        "type_B744": 4.366875439436597,
+        "type_B748": 0.0,
+        "type_B752": 0.0,
+        "type_B763": 0.0,
+        "type_B772": 2.1473733877779564,
+        "type_B77L": 0.0,
+        "type_B77W": 6.138997049966715,
+        "type_B788": 1.0595796506560144,
+        "type_B789": 0.21731091163216948,
+        "type_MD11": 0.0
+      },
+      "A320": {
+        "duration_min": 329.6185199208407,
+        "elapsed_from_takeoff_min": 38.334935944711525,
+        "flight_duration_min": 105.91396522618727,
+        "remaining_to_landing_min": 34.027888507544546,
+        "start_hour_cos": 0.9521116512050348,
+        "start_hour_sin": 0.9310263897902104,
+        "type_A20N": 50.8497254417463,
+        "type_A21N": 1.559277263724833,
+        "type_A306": 0.4584539023992964,
+        "type_A318": 0.0,
+        "type_A319": 0.04394446334395761,
+        "type_A320": 12.335188245556619,
+        "type_A321": 0.30076309473175,
+        "type_A332": 10.77583990425278,
+        "type_A333": 1.7720683400579162,
+        "type_A359": 46.29845017427993,
+        "type_A388": 0.0,
+        "type_B38M": 0.022641084631729078,
+        "type_B39M": 0.0,
+        "type_B737": 0.19925295919895977,
+        "type_B738": 0.7711077023112444,
+        "type_B739": 0.10014761582714074,
+        "type_B744": 4.575912019289094,
+        "type_B748": 0.0,
+        "type_B752": 0.0,
+        "type_B763": 0.0,
+        "type_B772": 2.6239006817477764,
+        "type_B77L": 0.0,
+        "type_B77W": 6.551384943339087,
+        "type_B788": 1.4986030300528133,
+        "type_B789": 0.33881950806741834,
+        "type_MD11": 0.0
+      },
+      "A332": {
+        "duration_min": 436.59409264343697,
+        "elapsed_from_takeoff_min": 28.795307187109216,
+        "flight_duration_min": 60.59334057388365,
+        "remaining_to_landing_min": 59.252274075000436,
+        "start_hour_cos": 3.4477679200498574,
+        "start_hour_sin": 2.4663370260340276,
+        "type_A20N": 61.02488331949103,
+        "type_A21N": 4.245454776885999,
+        "type_A306": 0.43409302861174687,
+        "type_A318": 0.0,
+        "type_A319": 0.04388089683585644,
+        "type_A320": 3.820085170250687,
+        "type_A321": 0.22500305484753558,
+        "type_A332": 166.7761455987922,
+        "type_A333": 1.0454261593287129,
+        "type_A359": 16.506856908698488,
+        "type_A388": 0.0,
+        "type_B38M": 0.020694566602860984,
+        "type_B39M": 0.0,
+        "type_B737": 0.3557937983234942,
+        "type_B738": 0.8158023627582842,
+        "type_B739": 0.03919038797535237,
+        "type_B744": 6.132349313884079,
+        "type_B748": 0.0,
+        "type_B752": 0.0,
+        "type_B763": 0.0,
+        "type_B772": 1.8204944029368653,
+        "type_B77L": 0.0,
+        "type_B77W": 9.418280906312873,
+        "type_B788": 3.7152871925728386,
+        "type_B789": 0.2638482758252966,
+        "type_MD11": 0.0
+      },
+      "A333": {
+        "duration_min": 431.73252227472636,
+        "elapsed_from_takeoff_min": 30.889603403794485,
+        "flight_duration_min": 137.5119381985406,
+        "remaining_to_landing_min": 51.41193977871061,
+        "start_hour_cos": 1.8370701798898215,
+        "start_hour_sin": 5.522318624382015,
+        "type_A20N": 64.03494300386575,
+        "type_A21N": 5.608127929500428,
+        "type_A306": 0.5440015700612167,
+        "type_A318": 0.0,
+        "type_A319": 0.05336851209345639,
+        "type_A320": 4.966931529679558,
+        "type_A321": 0.4774760447037103,
+        "type_A332": 5.158595824027593,
+        "type_A333": 109.28213073021669,
+        "type_A359": 9.160762269783508,
+        "type_A388": 0.0,
+        "type_B38M": 0.022142697440968206,
+        "type_B39M": 0.0,
+        "type_B737": 0.4575575093700709,
+        "type_B738": 1.3935899070603657,
+        "type_B739": 0.45677813264517586,
+        "type_B744": 9.437688493393232,
+        "type_B748": 0.0,
+        "type_B752": 0.0,
+        "type_B763": 0.0,
+        "type_B772": 2.0576511848386585,
+        "type_B77L": 0.0,
+        "type_B77W": 12.56947331645071,
+        "type_B788": 5.232326038709944,
+        "type_B789": 0.39413469378536253,
+        "type_MD11": 0.0
+      },
+      "A359": {
+        "duration_min": 600.633141728885,
+        "elapsed_from_takeoff_min": 27.839944944928344,
+        "flight_duration_min": 199.62769655623035,
+        "remaining_to_landing_min": 44.02968702565858,
+        "start_hour_cos": 2.6538714778358603,
+        "start_hour_sin": 2.1220485268830234,
+        "type_A20N": 70.80941629081217,
+        "type_A21N": 6.1397722042555385,
+        "type_A306": 0.5799047351206462,
+        "type_A318": 0.0,
+        "type_A319": 0.06950945421828146,
+        "type_A320": 3.8110129043430567,
+        "type_A321": 0.1748915103938556,
+        "type_A332": 4.7758108007128675,
+        "type_A333": 0.6229220466693804,
+        "type_A359": 34.75178947189853,
+        "type_A388": 0.0,
+        "type_B38M": 0.02020670424506808,
+        "type_B39M": 0.0,
+        "type_B737": 0.48469322304662105,
+        "type_B738": 0.6084548846197548,
+        "type_B739": 0.020405121471154124,
+        "type_B744": 8.140572848000238,
+        "type_B748": 0.0,
+        "type_B752": 0.0,
+        "type_B763": 0.0,
+        "type_B772": 2.4714093345122534,
+        "type_B77L": 0.0,
+        "type_B77W": 20.10082566298815,
+        "type_B788": 10.824337233766187,
+        "type_B789": 0.13300876444694898,
+        "type_MD11": 0.0
+      },
+      "B738": {
+        "duration_min": 321.84129977108074,
+        "elapsed_from_takeoff_min": 42.06090846442218,
+        "flight_duration_min": 112.88632616423779,
+        "remaining_to_landing_min": 31.883722120622643,
+        "start_hour_cos": 1.4344983294576976,
+        "start_hour_sin": 0.8288333710618632,
+        "type_A20N": 52.513721680443965,
+        "type_A21N": 1.7586365722220685,
+        "type_A306": 0.48730631363625476,
+        "type_A318": 0.0,
+        "type_A319": 0.053741066044036,
+        "type_A320": 6.115291506585644,
+        "type_A321": 0.2858438261765649,
+        "type_A332": 12.224960883067281,
+        "type_A333": 2.3938023982557457,
+        "type_A359": 49.19739306854795,
+        "type_A388": 0.0,
+        "type_B38M": 0.0228739478363311,
+        "type_B39M": 0.0,
+        "type_B737": 0.22458477028950022,
+        "type_B738": 5.601238781977412,
+        "type_B739": 0.1343753556158222,
+        "type_B744": 4.687446290262824,
+        "type_B748": 0.0,
+        "type_B752": 0.0,
+        "type_B763": 0.0,
+        "type_B772": 3.0206246477029235,
+        "type_B77L": 0.0,
+        "type_B77W": 7.35379379968497,
+        "type_B788": 1.4548710776135916,
+        "type_B789": 0.44062096325016636,
+        "type_MD11": 0.0
+      },
+      "B744": {
+        "duration_min": 414.6263565904884,
+        "elapsed_from_takeoff_min": 58.49540241035379,
+        "flight_duration_min": 130.4564840117317,
+        "remaining_to_landing_min": 157.5162512311253,
+        "start_hour_cos": 21.300084149631786,
+        "start_hour_sin": 8.77104475819343,
+        "type_A20N": 89.29044897941903,
+        "type_A21N": 5.345678098415686,
+        "type_A306": 0.6709598646830673,
+        "type_A318": 0.0,
+        "type_A319": 0.05388901827281427,
+        "type_A320": 3.180349542192837,
+        "type_A321": 0.1443555794569641,
+        "type_A332": 4.915130583319358,
+        "type_A333": 0.5439279711423476,
+        "type_A359": 5.589553256013587,
+        "type_A388": 0.0,
+        "type_B38M": 0.0198388976111013,
+        "type_B39M": 0.0,
+        "type_B737": 0.4064910950765198,
+        "type_B738": 0.4034318392382171,
+        "type_B739": 0.03916694869109773,
+        "type_B744": 583.8881316922673,
+        "type_B748": 0.0,
+        "type_B752": 0.0,
+        "type_B763": 0.0,
+        "type_B772": 1.5694804784538845,
+        "type_B77L": 0.0,
+        "type_B77W": 10.727249105911644,
+        "type_B788": 7.6244758182782535,
+        "type_B789": 0.3237668284140638,
+        "type_MD11": 0.0
+      },
+      "B77W": {
+        "duration_min": 871.1725327932007,
+        "elapsed_from_takeoff_min": 69.65626125349594,
+        "flight_duration_min": 319.3212948281759,
+        "remaining_to_landing_min": 53.04194239825329,
+        "start_hour_cos": 8.587413584093618,
+        "start_hour_sin": 24.472862774919307,
+        "type_A20N": 86.9734848165389,
+        "type_A21N": 5.766786454837794,
+        "type_A306": 0.5164508655350238,
+        "type_A318": 0.0,
+        "type_A319": 0.06487005873231706,
+        "type_A320": 6.165387141658633,
+        "type_A321": 0.18106826617924934,
+        "type_A332": 4.71351215041313,
+        "type_A333": 0.5489733310620719,
+        "type_A359": 5.621486803012853,
+        "type_A388": 0.0,
+        "type_B38M": 0.020345516477586933,
+        "type_B39M": 0.0,
+        "type_B737": 0.48483746816164025,
+        "type_B738": 0.5105139639353508,
+        "type_B739": 0.026664742062014062,
+        "type_B744": 5.779191681556581,
+        "type_B748": 0.0,
+        "type_B752": 0.0,
+        "type_B763": 0.0,
+        "type_B772": 1.8841007737218773,
+        "type_B77L": 0.0,
+        "type_B77W": 451.453818596886,
+        "type_B788": 9.70083573617766,
+        "type_B789": 0.29839046720916484,
+        "type_MD11": 0.0
+      },
+      "B788": {
+        "duration_min": 472.91492601318186,
+        "elapsed_from_takeoff_min": 35.15857952776949,
+        "flight_duration_min": 142.88030526496004,
+        "remaining_to_landing_min": 13.400109344666328,
+        "start_hour_cos": 15.345749223901487,
+        "start_hour_sin": 2.9905763451304215,
+        "type_A20N": 68.81465144305011,
+        "type_A21N": 5.527631409600646,
+        "type_A306": 0.6837720692155517,
+        "type_A318": 0.0,
+        "type_A319": 0.06878044348992751,
+        "type_A320": 5.099569060858479,
+        "type_A321": 0.29425695987560163,
+        "type_A332": 7.351156184945471,
+        "type_A333": 0.9890309942789933,
+        "type_A359": 20.792919556189407,
+        "type_A388": 0.0,
+        "type_B38M": 0.02186937566328282,
+        "type_B39M": 0.0,
+        "type_B737": 0.3963101817442968,
+        "type_B738": 0.9526104834477239,
+        "type_B739": 0.03148395183098091,
+        "type_B744": 10.404438898438432,
+        "type_B748": 0.0,
+        "type_B752": 0.0,
+        "type_B763": 0.0,
+        "type_B772": 2.989798769861421,
+        "type_B77L": 0.0,
+        "type_B77W": 19.302182758967692,
+        "type_B788": 70.89812038275063,
+        "type_B789": 0.5906027130320849,
+        "type_MD11": 0.0
+      },
+      "B789": {
+        "duration_min": 704.2428555983626,
+        "elapsed_from_takeoff_min": 20.721214531466817,
+        "flight_duration_min": 196.59679529345522,
+        "remaining_to_landing_min": 27.4024746764079,
+        "start_hour_cos": 1.789666814140335,
+        "start_hour_sin": 1.2435019460674757,
+        "type_A20N": 71.5980899247306,
+        "type_A21N": 6.105189365331118,
+        "type_A306": 0.5047777380043438,
+        "type_A318": 0.0,
+        "type_A319": 0.06329429031223863,
+        "type_A320": 3.5337101506335076,
+        "type_A321": 0.15660933462585838,
+        "type_A332": 5.545122789081743,
+        "type_A333": 0.6413354873546211,
+        "type_A359": 8.842310281193322,
+        "type_A388": 0.0,
+        "type_B38M": 0.02135723963791791,
+        "type_B39M": 0.0,
+        "type_B737": 0.4842125276625103,
+        "type_B738": 0.4840643237592984,
+        "type_B739": 0.012611281999702946,
+        "type_B744": 6.3789802889929845,
+        "type_B748": 0.0,
+        "type_B752": 0.0,
+        "type_B763": 0.0,
+        "type_B772": 2.520164542567595,
+        "type_B77L": 0.0,
+        "type_B77W": 20.62996916149504,
+        "type_B788": 10.382761980622867,
+        "type_B789": 9.146414620001833,
+        "type_MD11": 0.0
+      }
+    },
+    "sample_n": 2000
+  },
+  "status": "REAL_DATA_EXPLORATORY_METADATA_INTERPRETABILITY",
+  "test_regression": {
+    "bias_kg": -5.752087135733615,
+    "mae_kg": 79.21996011993191,
+    "n": 37456,
+    "r2": 0.9056972797194658,
+    "rmse_kg": 236.80976370596647
+  }
+}

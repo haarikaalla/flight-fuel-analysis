@@ -6,3 +6,5 @@ scipy==1.18.1
 scikit-learn==1.9.1
 matplotlib==3.11.2
 pyarrow==26.0.0
+shap==0.54.1
+venn-abers==1.5.4

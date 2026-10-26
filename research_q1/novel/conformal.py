@@ -12,7 +12,9 @@ def finite_quantile(scores: np.ndarray, alpha: float) -> float:
     scores = np.asarray(scores, float)
     if not len(scores) or not np.isfinite(scores).all() or not 0 < alpha < 1:
         raise ValueError("Finite conformal scores and alpha in (0,1) are required")
-    rank = min(len(scores), int(np.ceil((len(scores) + 1) * (1 - alpha))))
+    rank = int(np.ceil((len(scores) + 1) * (1 - alpha)))
+    if rank > len(scores):
+        return float("inf")
     return float(np.partition(scores, rank - 1)[rank - 1])
 
 

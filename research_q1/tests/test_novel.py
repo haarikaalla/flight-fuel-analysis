@@ -7,6 +7,7 @@ from research_q1.novel.conformal import (HierarchicalMondrian, benjamini_hochber
                                          bonferroni_risk_control_threshold,
                                          finite_quantile)
 from research_q1.novel.selection import exact_risk_budget, robust_risk_budget
+from research_q1.novel.calibration import RiskCalibrator
 
 
 class NovelMethodTests(unittest.TestCase):
@@ -50,6 +51,14 @@ class NovelMethodTests(unittest.TestCase):
 
     def test_finite_quantile_is_conservative(self):
         self.assertEqual(finite_quantile(np.arange(1, 11), .1), 10)
+        self.assertTrue(np.isinf(finite_quantile(np.arange(1, 11), .05)))
+
+    def test_all_risk_calibrators_return_probabilities(self):
+        score = np.linspace(0, 1, 30)
+        event = (score > .55).astype(int)
+        for method in ("isotonic", "platt", "venn_abers"):
+            probability = RiskCalibrator(method).fit(score, event).predict(score)
+            self.assertTrue(np.all((probability >= 0) & (probability <= 1)))
 
 
 if __name__ == "__main__":

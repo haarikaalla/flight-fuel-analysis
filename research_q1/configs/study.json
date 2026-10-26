@@ -27,7 +27,7 @@
     "minimum_mondrian_n": 50,
     "hierarchy": ["aircraft_type+flight_phase", "aircraft_type", "flight_phase", "global"]
   },
-  "prediction_baselines": ["physics_only", "ridge", "lasso", "hist_gradient_boosting", "mlp", "deep_ensemble", "quantile_regression", "existing_project"],
+  "prediction_baselines": ["physics_only", "ridge", "lasso", "hist_gradient_boosting", "mlp", "histgb_ensemble", "quantile_regression", "existing_project"],
   "interval_baselines": ["split_conformal", "mondrian_without_physics", "cqr", "weighted_conformal", "adaptive_conformal", "ensemble_variance"],
   "selection_baselines": ["random_group_hash", "fixed_threshold", "confidence_only", "greedy", "risk_ranked", "calibrated", "exact_milp", "robust_milp", "conformal_bh", "conformal_risk_control"],
   "alphas": [0.05, 0.10, 0.20],

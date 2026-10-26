@@ -62,7 +62,7 @@ class BaselineSuite:
             ).fit(x_train, y_train)
             members.append(model.predict(x_test))
         member_array = np.vstack(members)
-        results["deep_ensemble"] = PredictionBundle(
+        results["histgb_ensemble"] = PredictionBundle(
             np.maximum(0.0, member_array.mean(axis=0)),
             ensemble_standard_deviation=member_array.std(axis=0, ddof=1),
         )

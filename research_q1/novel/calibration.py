@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import numpy as np
+from scipy.special import expit
 from sklearn.isotonic import IsotonicRegression
 from sklearn.linear_model import LogisticRegression
 
@@ -22,7 +23,12 @@ class RiskCalibrator:
         elif self.method == "platt":
             self.model_ = LogisticRegression(random_state=self.seed).fit(x.reshape(-1, 1), y)
         else:
-            self.x_, self.y_ = x, y
+            from venn_abers import VennAbers
+            self.location_ = float(np.median(x))
+            q25, q75 = np.quantile(x, [.25, .75])
+            self.scale_ = float(max(q75 - q25, np.std(x), 1e-9))
+            base = expit((x - self.location_) / self.scale_)
+            self.model_ = VennAbers().fit(p_cal=np.c_[1 - base, base], y_cal=y, precision=6)
         return self
 
     def predict(self, score: np.ndarray) -> np.ndarray:
@@ -31,12 +37,8 @@ class RiskCalibrator:
             return self.model_.predict(x)
         if self.method == "platt":
             return self.model_.predict_proba(x.reshape(-1, 1))[:, 1]
-        probabilities = []
-        for value in x:
-            models = [IsotonicRegression(out_of_bounds="clip", y_min=0, y_max=1).fit(
-                np.r_[self.x_, value], np.r_[self.y_, label]) for label in (0, 1)]
-            low, high = (float(model.predict([value])[0]) for model in models)
-            denominator = 1 - low + high
-            probabilities.append(high / denominator if denominator else 0.5)
-        return np.asarray(probabilities)
+        base = expit((x - self.location_) / self.scale_)
+        probabilities, self.last_probability_bounds_ = self.model_.predict_proba(
+            p_test=np.c_[1 - base, base])
+        return probabilities[:, 1]
 

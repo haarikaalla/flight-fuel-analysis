@@ -71,7 +71,7 @@
         "winkler_score": 943.7470691449453
       }
     },
-    "deep_ensemble": {
+    "histgb_ensemble": {
       "mae_route_cluster_ci": {
         "cluster_bootstrap_95pct_ci": [
           67.35795707437923,
@@ -253,7 +253,7 @@
       "repetitions": 2000,
       "standardized_effect": 0.07303317829684917
     },
-    "deep_ensemble": {
+    "histgb_ensemble": {
       "cluster_bootstrap_95pct_ci": [
         -0.1650578521030242,
         0.7440217871941287
@@ -324,7 +324,7 @@
       "r2": 0.369654330907796,
       "rmse_kg": 15.593923845675173
     },
-    "deep_ensemble": {
+    "histgb_ensemble": {
       "bias_kg": 31.54173264084154,
       "mae_kg": 31.54173264084154,
       "n": 4,

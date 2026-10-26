@@ -7,7 +7,7 @@ import time
 
 import numpy as np
 from scipy.optimize import Bounds, LinearConstraint, milp
-from scipy.sparse import csr_matrix
+from scipy.sparse import coo_matrix, csr_matrix
 
 
 def _validate(utility, risk, budget, minimum_coverage):
@@ -46,18 +46,22 @@ def robust_risk_budget(utility: np.ndarray, risk: np.ndarray, deviation: np.ndar
     n, variables = len(risk), 2 * len(risk) + 1
     objective = np.r_[-utility, 0.0, np.zeros(n)]
     # risk*z + Gamma*theta + sum(p) <= B; sum(z) >= minimum
-    rows, lower, upper = [], [], []
-    rows.append(np.r_[risk, gamma, np.ones(n)]); lower.append(-np.inf); upper.append(budget)
-    rows.append(np.r_[np.ones(n), 0.0, np.zeros(n)]); lower.append(minimum); upper.append(np.inf)
-    # p_i >= d_i*z_i - theta  -> d_i*z_i - theta - p_i <= 0
-    for index in range(n):
-        row = np.zeros(variables)
-        row[index], row[n], row[n + 1 + index] = deviation[index], -1.0, -1.0
-        rows.append(row); lower.append(-np.inf); upper.append(0.0)
+    # Build the n+2 constraints with O(n) storage, including for full test sets.
+    indices = np.arange(n)
+    row_index = np.r_[np.zeros(n, int), np.zeros(n, int),
+                      np.array([0]), np.ones(n, int), 2 + indices,
+                      2 + indices, 2 + indices]
+    col_index = np.r_[indices, n + 1 + indices, np.array([n]),
+                      indices, indices, np.full(n, n), n + 1 + indices]
+    values = np.r_[risk, np.ones(n), np.array([gamma]),
+                   np.ones(n), deviation, -np.ones(n), -np.ones(n)]
+    matrix = coo_matrix((values, (row_index, col_index)), shape=(n + 2, variables)).tocsr()
+    lower = np.r_[-np.inf, minimum, np.full(n, -np.inf)]
+    upper = np.r_[budget, np.inf, np.zeros(n)]
     started = time.perf_counter()
     result = milp(objective, integrality=np.r_[np.ones(n), np.zeros(n + 1)],
                   bounds=Bounds(np.zeros(variables), np.r_[np.ones(n), np.inf, np.full(n, np.inf)]),
-                  constraints=LinearConstraint(csr_matrix(np.vstack(rows)), lower, upper),
+                  constraints=LinearConstraint(matrix, lower, upper),
                   options={"presolve": True})
     if not result.success or result.x is None:
         raise ValueError(f"Robust risk-budget MILP is infeasible: {result.message}")
