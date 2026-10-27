@@ -8,3 +8,8 @@ data/processed/
 models/
 reports/phase-2-metadata-audit.json
 *.log
+
+# Local manuscript deliverables (not published)
+research_q1/paper/build_revision.py
+research_q1/paper/revision/PI-MCS_revised_evidence_manuscript.docx
+research_q1/paper/revision/PI-MCS_revised_evidence_manuscript.pdf

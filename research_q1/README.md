@@ -1,5 +1,14 @@
 # Q1 research extension
 
+## Additional development experiments
+
+The additional experiments evaluate flight-block selective-release, aircraft-by-duration calibration,
+landing-time availability and inventory-accounting experiments. Results and
+all cell-level diagnostics are in [`outputs/manuscript-audit.json`](outputs/manuscript-audit.json).
+The experiments are exploratory and do not establish full PI-MCS validation or
+Q1 submission readiness. See [`../docs/manuscript-revision-audit.md`](../docs/manuscript-revision-audit.md)
+for reproduction, provenance, novelty assessment and remaining requirements.
+
 This directory is an additive, non-destructive research layer. It imports the
 existing project but does not modify its source, reports, tests, or dashboard.
 

@@ -1,0 +1,2730 @@
+{
+  "calibration_counts": [
+    {
+      "flights": 630,
+      "intervals": 7813
+    },
+    {
+      "flights": 629,
+      "intervals": 8259
+    },
+    {
+      "flights": 629,
+      "intervals": 8217
+    }
+  ],
+  "cells": [
+    {
+      "calibration_B_n": 219,
+      "cell": "A20N/long",
+      "coverage": 0.4858490566037736,
+      "coverage_flight_bootstrap_ci": [
+        0.4469587062019835,
+        0.5277794592413236
+      ],
+      "eligible": true,
+      "flights": 497,
+      "method": "split_B",
+      "n": 848,
+      "width_kg": 335.3442025143916
+    },
+    {
+      "calibration_B_n": 2278,
+      "cell": "A20N/medium",
+      "coverage": 0.9938080495356038,
+      "coverage_flight_bootstrap_ci": [
+        0.9917312866281096,
+        0.9956917886249259
+      ],
+      "eligible": true,
+      "flights": 1123,
+      "method": "split_B",
+      "n": 9044,
+      "width_kg": 271.75904435510955
+    },
+    {
+      "calibration_B_n": 1759,
+      "cell": "A20N/short",
+      "coverage": 0.9980563654033042,
+      "coverage_flight_bootstrap_ci": [
+        0.996961984168748,
+        0.9990125859632517
+      ],
+      "eligible": true,
+      "flights": 1053,
+      "method": "split_B",
+      "n": 7203,
+      "width_kg": 237.48378857528917
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "A21N/long",
+      "coverage": 0.52,
+      "coverage_flight_bootstrap_ci": [
+        0.32,
+        0.7084821428571421
+      ],
+      "eligible": false,
+      "flights": 16,
+      "method": "split_B",
+      "n": 25,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 18,
+      "cell": "A21N/medium",
+      "coverage": 0.9710982658959537,
+      "coverage_flight_bootstrap_ci": [
+        0.9352471269737457,
+        0.9947930090206185
+      ],
+      "eligible": true,
+      "flights": 68,
+      "method": "split_B",
+      "n": 173,
+      "width_kg": 323.87974532288456
+    },
+    {
+      "calibration_B_n": 21,
+      "cell": "A21N/short",
+      "coverage": 0.9950576606260296,
+      "coverage_flight_bootstrap_ci": [
+        0.9888711504257722,
+        1.0
+      ],
+      "eligible": true,
+      "flights": 89,
+      "method": "split_B",
+      "n": 607,
+      "width_kg": 303.7966531237872
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "A306/long",
+      "coverage": 0.0,
+      "coverage_flight_bootstrap_ci": null,
+      "eligible": false,
+      "flights": 1,
+      "method": "split_B",
+      "n": 1,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 5,
+      "cell": "A306/medium",
+      "coverage": 0.6666666666666666,
+      "coverage_flight_bootstrap_ci": null,
+      "eligible": false,
+      "flights": 1,
+      "method": "split_B",
+      "n": 3,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 2,
+      "cell": "A306/short",
+      "coverage": 0.0,
+      "coverage_flight_bootstrap_ci": null,
+      "eligible": false,
+      "flights": 1,
+      "method": "split_B",
+      "n": 2,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 2,
+      "cell": "A319/long",
+      "coverage": 0.5714285714285714,
+      "coverage_flight_bootstrap_ci": [
+        0.36354545454545456,
+        1.0
+      ],
+      "eligible": false,
+      "flights": 9,
+      "method": "split_B",
+      "n": 14,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 19,
+      "cell": "A319/medium",
+      "coverage": 0.974025974025974,
+      "coverage_flight_bootstrap_ci": [
+        0.9333146067415731,
+        1.0
+      ],
+      "eligible": true,
+      "flights": 16,
+      "method": "split_B",
+      "n": 77,
+      "width_kg": 331.1451890491426
+    },
+    {
+      "calibration_B_n": 49,
+      "cell": "A319/short",
+      "coverage": 0.9846153846153847,
+      "coverage_flight_bootstrap_ci": [
+        0.9682539682539683,
+        1.0
+      ],
+      "eligible": true,
+      "flights": 16,
+      "method": "split_B",
+      "n": 130,
+      "width_kg": 270.87912271853577
+    },
+    {
+      "calibration_B_n": 101,
+      "cell": "A320/long",
+      "coverage": 0.7459016393442623,
+      "coverage_flight_bootstrap_ci": [
+        0.7026409902046359,
+        0.7875032216494845
+      ],
+      "eligible": true,
+      "flights": 279,
+      "method": "split_B",
+      "n": 488,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 748,
+      "cell": "A320/medium",
+      "coverage": 0.9761407694601849,
+      "coverage_flight_bootstrap_ci": [
+        0.9695263575336797,
+        0.9820574514494793
+      ],
+      "eligible": true,
+      "flights": 605,
+      "method": "split_B",
+      "n": 3353,
+      "width_kg": 331.79126633686377
+    },
+    {
+      "calibration_B_n": 860,
+      "cell": "A320/short",
+      "coverage": 0.9892882646988812,
+      "coverage_flight_bootstrap_ci": [
+        0.985414041882938,
+        0.9928853304895988
+      ],
+      "eligible": true,
+      "flights": 631,
+      "method": "split_B",
+      "n": 4201,
+      "width_kg": 293.3511440100384
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "A321/long",
+      "coverage": 0.625,
+      "coverage_flight_bootstrap_ci": [
+        0.43243243243243246,
+        0.8
+      ],
+      "eligible": false,
+      "flights": 13,
+      "method": "split_B",
+      "n": 32,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 12,
+      "cell": "A321/medium",
+      "coverage": 0.6896551724137931,
+      "coverage_flight_bootstrap_ci": [
+        0.5,
+        0.875
+      ],
+      "eligible": false,
+      "flights": 19,
+      "method": "split_B",
+      "n": 29,
+      "width_kg": 331.49736320251947
+    },
+    {
+      "calibration_B_n": 8,
+      "cell": "A321/short",
+      "coverage": 0.9821428571428571,
+      "coverage_flight_bootstrap_ci": [
+        0.9473684210526315,
+        1.0
+      ],
+      "eligible": true,
+      "flights": 22,
+      "method": "split_B",
+      "n": 112,
+      "width_kg": 295.4679790809814
+    },
+    {
+      "calibration_B_n": 21,
+      "cell": "A332/long",
+      "coverage": 0.2894736842105263,
+      "coverage_flight_bootstrap_ci": [
+        0.18516081871345028,
+        0.41178308823529397
+      ],
+      "eligible": true,
+      "flights": 51,
+      "method": "split_B",
+      "n": 76,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 174,
+      "cell": "A332/medium",
+      "coverage": 0.6272321428571429,
+      "coverage_flight_bootstrap_ci": [
+        0.5474407161273922,
+        0.6970369126360755
+      ],
+      "eligible": true,
+      "flights": 93,
+      "method": "split_B",
+      "n": 448,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 110,
+      "cell": "A332/short",
+      "coverage": 0.8314220183486238,
+      "coverage_flight_bootstrap_ci": [
+        0.7678306788795708,
+        0.8786296473646406
+      ],
+      "eligible": true,
+      "flights": 92,
+      "method": "split_B",
+      "n": 872,
+      "width_kg": 329.52980961258027
+    },
+    {
+      "calibration_B_n": 3,
+      "cell": "A333/long",
+      "coverage": 0.25,
+      "coverage_flight_bootstrap_ci": [
+        0.10416666666666667,
+        0.4642857142857143
+      ],
+      "eligible": false,
+      "flights": 12,
+      "method": "split_B",
+      "n": 32,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 19,
+      "cell": "A333/medium",
+      "coverage": 0.6746987951807228,
+      "coverage_flight_bootstrap_ci": [
+        0.593939393939394,
+        0.7468354430379747
+      ],
+      "eligible": true,
+      "flights": 34,
+      "method": "split_B",
+      "n": 166,
+      "width_kg": 335.5502154330101
+    },
+    {
+      "calibration_B_n": 19,
+      "cell": "A333/short",
+      "coverage": 0.7391304347826086,
+      "coverage_flight_bootstrap_ci": [
+        0.6524665090622538,
+        0.8278223302980132
+      ],
+      "eligible": true,
+      "flights": 28,
+      "method": "split_B",
+      "n": 138,
+      "width_kg": 335.1420004435971
+    },
+    {
+      "calibration_B_n": 382,
+      "cell": "A359/long",
+      "coverage": 0.6300409117475161,
+      "coverage_flight_bootstrap_ci": [
+        0.6004500496165623,
+        0.6576625940353649
+      ],
+      "eligible": true,
+      "flights": 319,
+      "method": "split_B",
+      "n": 1711,
+      "width_kg": 335.620083326081
+    },
+    {
+      "calibration_B_n": 199,
+      "cell": "A359/medium",
+      "coverage": 0.7974576271186441,
+      "coverage_flight_bootstrap_ci": [
+        0.7563445254862509,
+        0.8337684467133064
+      ],
+      "eligible": true,
+      "flights": 301,
+      "method": "split_B",
+      "n": 1180,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 524,
+      "cell": "A359/short",
+      "coverage": 0.9252128841169938,
+      "coverage_flight_bootstrap_ci": [
+        0.8946539634893756,
+        0.950399413595644
+      ],
+      "eligible": true,
+      "flights": 197,
+      "method": "split_B",
+      "n": 2701,
+      "width_kg": 335.13608609896414
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "B38M/medium",
+      "coverage": 0.6666666666666666,
+      "coverage_flight_bootstrap_ci": [
+        0.0,
+        1.0
+      ],
+      "eligible": false,
+      "flights": 3,
+      "method": "split_B",
+      "n": 3,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "B38M/short",
+      "coverage": 1.0,
+      "coverage_flight_bootstrap_ci": [
+        1.0,
+        1.0
+      ],
+      "eligible": true,
+      "flights": 10,
+      "method": "split_B",
+      "n": 76,
+      "width_kg": 240.48688910936008
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "B734/short",
+      "coverage": 1.0,
+      "coverage_flight_bootstrap_ci": null,
+      "eligible": false,
+      "flights": 1,
+      "method": "split_B",
+      "n": 4,
+      "width_kg": 237.1349678094944
+    },
+    {
+      "calibration_B_n": 4,
+      "cell": "B737/long",
+      "coverage": 0.75,
+      "coverage_flight_bootstrap_ci": null,
+      "eligible": false,
+      "flights": 1,
+      "method": "split_B",
+      "n": 4,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 2,
+      "cell": "B737/medium",
+      "coverage": 1.0,
+      "coverage_flight_bootstrap_ci": null,
+      "eligible": false,
+      "flights": 1,
+      "method": "split_B",
+      "n": 2,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "B737/short",
+      "coverage": 1.0,
+      "coverage_flight_bootstrap_ci": [
+        1.0,
+        1.0
+      ],
+      "eligible": false,
+      "flights": 2,
+      "method": "split_B",
+      "n": 2,
+      "width_kg": 194.78206964615092
+    },
+    {
+      "calibration_B_n": 8,
+      "cell": "B738/long",
+      "coverage": 0.7633587786259542,
+      "coverage_flight_bootstrap_ci": [
+        0.6766917293233082,
+        0.8417464453633942
+      ],
+      "eligible": true,
+      "flights": 63,
+      "method": "split_B",
+      "n": 131,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 87,
+      "cell": "B738/medium",
+      "coverage": 0.9500624219725343,
+      "coverage_flight_bootstrap_ci": [
+        0.9223157281819427,
+        0.9727281570569509
+      ],
+      "eligible": true,
+      "flights": 129,
+      "method": "split_B",
+      "n": 801,
+      "width_kg": 327.71787536465314
+    },
+    {
+      "calibration_B_n": 59,
+      "cell": "B738/short",
+      "coverage": 0.9819121447028424,
+      "coverage_flight_bootstrap_ci": [
+        0.9610778443113772,
+        0.9957627118644068
+      ],
+      "eligible": true,
+      "flights": 99,
+      "method": "split_B",
+      "n": 387,
+      "width_kg": 281.9848220462533
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "B739/long",
+      "coverage": 0.875,
+      "coverage_flight_bootstrap_ci": [
+        0.6923076923076923,
+        1.0
+      ],
+      "eligible": false,
+      "flights": 5,
+      "method": "split_B",
+      "n": 16,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "B739/medium",
+      "coverage": 0.9230769230769231,
+      "coverage_flight_bootstrap_ci": [
+        0.7857142857142857,
+        1.0
+      ],
+      "eligible": false,
+      "flights": 5,
+      "method": "split_B",
+      "n": 13,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 17,
+      "cell": "B744/long",
+      "coverage": 0.18604651162790697,
+      "coverage_flight_bootstrap_ci": [
+        0.08884057971014493,
+        0.29545454545454547
+      ],
+      "eligible": false,
+      "flights": 35,
+      "method": "split_B",
+      "n": 43,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 76,
+      "cell": "B744/medium",
+      "coverage": 0.4329004329004329,
+      "coverage_flight_bootstrap_ci": [
+        0.3599912280701754,
+        0.49425504229017564
+      ],
+      "eligible": true,
+      "flights": 45,
+      "method": "split_B",
+      "n": 231,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 17,
+      "cell": "B744/short",
+      "coverage": 0.5882352941176471,
+      "coverage_flight_bootstrap_ci": [
+        0.4186046511627907,
+        0.7283994708994709
+      ],
+      "eligible": true,
+      "flights": 18,
+      "method": "split_B",
+      "n": 68,
+      "width_kg": 312.3484339180029
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "B763/long",
+      "coverage": 0.0,
+      "coverage_flight_bootstrap_ci": null,
+      "eligible": false,
+      "flights": 1,
+      "method": "split_B",
+      "n": 1,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "B763/medium",
+      "coverage": 0.5,
+      "coverage_flight_bootstrap_ci": null,
+      "eligible": false,
+      "flights": 1,
+      "method": "split_B",
+      "n": 2,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "B763/short",
+      "coverage": 0.8571428571428571,
+      "coverage_flight_bootstrap_ci": null,
+      "eligible": false,
+      "flights": 1,
+      "method": "split_B",
+      "n": 7,
+      "width_kg": 274.96557193777875
+    },
+    {
+      "calibration_B_n": 24,
+      "cell": "B772/long",
+      "coverage": 0.7380952380952381,
+      "coverage_flight_bootstrap_ci": [
+        0.6266666666666667,
+        0.8390804597701149
+      ],
+      "eligible": true,
+      "flights": 17,
+      "method": "split_B",
+      "n": 84,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 15,
+      "cell": "B772/medium",
+      "coverage": 0.7894736842105263,
+      "coverage_flight_bootstrap_ci": [
+        0.6216216216216216,
+        0.9166666666666666
+      ],
+      "eligible": false,
+      "flights": 17,
+      "method": "split_B",
+      "n": 38,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "B77L/long",
+      "coverage": 0.0,
+      "coverage_flight_bootstrap_ci": null,
+      "eligible": false,
+      "flights": 1,
+      "method": "split_B",
+      "n": 2,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "B77L/medium",
+      "coverage": 0.0,
+      "coverage_flight_bootstrap_ci": null,
+      "eligible": false,
+      "flights": 1,
+      "method": "split_B",
+      "n": 2,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "B77L/short",
+      "coverage": 0.3333333333333333,
+      "coverage_flight_bootstrap_ci": null,
+      "eligible": false,
+      "flights": 1,
+      "method": "split_B",
+      "n": 3,
+      "width_kg": 234.7772897095371
+    },
+    {
+      "calibration_B_n": 20,
+      "cell": "B77W/long",
+      "coverage": 0.3111111111111111,
+      "coverage_flight_bootstrap_ci": [
+        0.21837221095334686,
+        0.40646076612463145
+      ],
+      "eligible": true,
+      "flights": 70,
+      "method": "split_B",
+      "n": 180,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 22,
+      "cell": "B77W/medium",
+      "coverage": 0.3299492385786802,
+      "coverage_flight_bootstrap_ci": [
+        0.2358974358974359,
+        0.41969217421057775
+      ],
+      "eligible": true,
+      "flights": 67,
+      "method": "split_B",
+      "n": 197,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 105,
+      "cell": "B77W/short",
+      "coverage": 0.49702380952380953,
+      "coverage_flight_bootstrap_ci": [
+        0.38094843897824027,
+        0.6089313699258466
+      ],
+      "eligible": true,
+      "flights": 59,
+      "method": "split_B",
+      "n": 336,
+      "width_kg": 332.27685020675875
+    },
+    {
+      "calibration_B_n": 54,
+      "cell": "B788/long",
+      "coverage": 0.37373737373737376,
+      "coverage_flight_bootstrap_ci": [
+        0.26314144736842104,
+        0.48078703703703696
+      ],
+      "eligible": true,
+      "flights": 26,
+      "method": "split_B",
+      "n": 99,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 41,
+      "cell": "B788/medium",
+      "coverage": 0.7563025210084033,
+      "coverage_flight_bootstrap_ci": [
+        0.6588948519181077,
+        0.8495987178251229
+      ],
+      "eligible": true,
+      "flights": 33,
+      "method": "split_B",
+      "n": 238,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 3,
+      "cell": "B788/short",
+      "coverage": 0.9230769230769231,
+      "coverage_flight_bootstrap_ci": [
+        0.7272727272727273,
+        1.0
+      ],
+      "eligible": false,
+      "flights": 9,
+      "method": "split_B",
+      "n": 13,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 35,
+      "cell": "B789/long",
+      "coverage": 0.6025641025641025,
+      "coverage_flight_bootstrap_ci": [
+        0.5079334077380953,
+        0.6882610501827848
+      ],
+      "eligible": true,
+      "flights": 50,
+      "method": "split_B",
+      "n": 156,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 35,
+      "cell": "B789/medium",
+      "coverage": 0.8051282051282052,
+      "coverage_flight_bootstrap_ci": [
+        0.7206330833397107,
+        0.8718309859154928
+      ],
+      "eligible": true,
+      "flights": 49,
+      "method": "split_B",
+      "n": 195,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 76,
+      "cell": "B789/short",
+      "coverage": 0.875,
+      "coverage_flight_bootstrap_ci": [
+        0.8029765292650726,
+        0.933470281487585
+      ],
+      "eligible": true,
+      "flights": 51,
+      "method": "split_B",
+      "n": 456,
+      "width_kg": 335.3834927307079
+    },
+    {
+      "calibration_B_n": 219,
+      "cell": "A20N/long",
+      "coverage": 0.9563679245283019,
+      "coverage_flight_bootstrap_ci": [
+        0.9404897344001778,
+        0.9708963911525029
+      ],
+      "eligible": true,
+      "flights": 497,
+      "method": "hard_mondrian_B",
+      "n": 848,
+      "width_kg": 1184.2261366907126
+    },
+    {
+      "calibration_B_n": 2278,
+      "cell": "A20N/medium",
+      "coverage": 0.8905351614329943,
+      "coverage_flight_bootstrap_ci": [
+        0.8774562119681556,
+        0.9032504447425154
+      ],
+      "eligible": true,
+      "flights": 1123,
+      "method": "hard_mondrian_B",
+      "n": 9044,
+      "width_kg": 167.5536233667432
+    },
+    {
+      "calibration_B_n": 1759,
+      "cell": "A20N/short",
+      "coverage": 0.8999028182701652,
+      "coverage_flight_bootstrap_ci": [
+        0.8882251357196119,
+        0.91001414285665
+      ],
+      "eligible": true,
+      "flights": 1053,
+      "method": "hard_mondrian_B",
+      "n": 7203,
+      "width_kg": 105.56579446946071
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "A21N/long",
+      "coverage": 0.52,
+      "coverage_flight_bootstrap_ci": [
+        0.32,
+        0.7084821428571421
+      ],
+      "eligible": false,
+      "flights": 16,
+      "method": "hard_mondrian_B",
+      "n": 25,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 18,
+      "cell": "A21N/medium",
+      "coverage": 0.9710982658959537,
+      "coverage_flight_bootstrap_ci": [
+        0.9352471269737457,
+        0.9947930090206185
+      ],
+      "eligible": true,
+      "flights": 68,
+      "method": "hard_mondrian_B",
+      "n": 173,
+      "width_kg": 323.87974532288456
+    },
+    {
+      "calibration_B_n": 21,
+      "cell": "A21N/short",
+      "coverage": 0.9950576606260296,
+      "coverage_flight_bootstrap_ci": [
+        0.9888711504257722,
+        1.0
+      ],
+      "eligible": true,
+      "flights": 89,
+      "method": "hard_mondrian_B",
+      "n": 607,
+      "width_kg": 303.7966531237872
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "A306/long",
+      "coverage": 0.0,
+      "coverage_flight_bootstrap_ci": null,
+      "eligible": false,
+      "flights": 1,
+      "method": "hard_mondrian_B",
+      "n": 1,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 5,
+      "cell": "A306/medium",
+      "coverage": 0.6666666666666666,
+      "coverage_flight_bootstrap_ci": null,
+      "eligible": false,
+      "flights": 1,
+      "method": "hard_mondrian_B",
+      "n": 3,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 2,
+      "cell": "A306/short",
+      "coverage": 0.0,
+      "coverage_flight_bootstrap_ci": null,
+      "eligible": false,
+      "flights": 1,
+      "method": "hard_mondrian_B",
+      "n": 2,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 2,
+      "cell": "A319/long",
+      "coverage": 0.5714285714285714,
+      "coverage_flight_bootstrap_ci": [
+        0.36354545454545456,
+        1.0
+      ],
+      "eligible": false,
+      "flights": 9,
+      "method": "hard_mondrian_B",
+      "n": 14,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 19,
+      "cell": "A319/medium",
+      "coverage": 0.974025974025974,
+      "coverage_flight_bootstrap_ci": [
+        0.9333146067415731,
+        1.0
+      ],
+      "eligible": true,
+      "flights": 16,
+      "method": "hard_mondrian_B",
+      "n": 77,
+      "width_kg": 331.1451890491426
+    },
+    {
+      "calibration_B_n": 49,
+      "cell": "A319/short",
+      "coverage": 0.9846153846153847,
+      "coverage_flight_bootstrap_ci": [
+        0.9682539682539683,
+        1.0
+      ],
+      "eligible": true,
+      "flights": 16,
+      "method": "hard_mondrian_B",
+      "n": 130,
+      "width_kg": 270.87912271853577
+    },
+    {
+      "calibration_B_n": 101,
+      "cell": "A320/long",
+      "coverage": 0.860655737704918,
+      "coverage_flight_bootstrap_ci": [
+        0.8262688035076774,
+        0.8926513722802372
+      ],
+      "eligible": true,
+      "flights": 279,
+      "method": "hard_mondrian_B",
+      "n": 488,
+      "width_kg": 489.6096565646041
+    },
+    {
+      "calibration_B_n": 748,
+      "cell": "A320/medium",
+      "coverage": 0.9018789144050104,
+      "coverage_flight_bootstrap_ci": [
+        0.8897992300919385,
+        0.9136718930076323
+      ],
+      "eligible": true,
+      "flights": 605,
+      "method": "hard_mondrian_B",
+      "n": 3353,
+      "width_kg": 205.49986511638235
+    },
+    {
+      "calibration_B_n": 860,
+      "cell": "A320/short",
+      "coverage": 0.8971673411092597,
+      "coverage_flight_bootstrap_ci": [
+        0.8849908046036418,
+        0.9094835356658725
+      ],
+      "eligible": true,
+      "flights": 631,
+      "method": "hard_mondrian_B",
+      "n": 4201,
+      "width_kg": 170.75120912499276
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "A321/long",
+      "coverage": 0.625,
+      "coverage_flight_bootstrap_ci": [
+        0.43243243243243246,
+        0.8
+      ],
+      "eligible": false,
+      "flights": 13,
+      "method": "hard_mondrian_B",
+      "n": 32,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 12,
+      "cell": "A321/medium",
+      "coverage": 0.6896551724137931,
+      "coverage_flight_bootstrap_ci": [
+        0.5,
+        0.875
+      ],
+      "eligible": false,
+      "flights": 19,
+      "method": "hard_mondrian_B",
+      "n": 29,
+      "width_kg": 331.49736320251947
+    },
+    {
+      "calibration_B_n": 8,
+      "cell": "A321/short",
+      "coverage": 0.9821428571428571,
+      "coverage_flight_bootstrap_ci": [
+        0.9473684210526315,
+        1.0
+      ],
+      "eligible": true,
+      "flights": 22,
+      "method": "hard_mondrian_B",
+      "n": 112,
+      "width_kg": 295.4679790809814
+    },
+    {
+      "calibration_B_n": 21,
+      "cell": "A332/long",
+      "coverage": 0.2894736842105263,
+      "coverage_flight_bootstrap_ci": [
+        0.18516081871345028,
+        0.41178308823529397
+      ],
+      "eligible": true,
+      "flights": 51,
+      "method": "hard_mondrian_B",
+      "n": 76,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 174,
+      "cell": "A332/medium",
+      "coverage": 0.9464285714285714,
+      "coverage_flight_bootstrap_ci": [
+        0.9020024199074866,
+        0.9782620484768462
+      ],
+      "eligible": true,
+      "flights": 93,
+      "method": "hard_mondrian_B",
+      "n": 448,
+      "width_kg": 1034.5692440606804
+    },
+    {
+      "calibration_B_n": 110,
+      "cell": "A332/short",
+      "coverage": 0.9541284403669725,
+      "coverage_flight_bootstrap_ci": [
+        0.9117627960275019,
+        0.9818405877286546
+      ],
+      "eligible": true,
+      "flights": 92,
+      "method": "hard_mondrian_B",
+      "n": 872,
+      "width_kg": 645.9079083700714
+    },
+    {
+      "calibration_B_n": 3,
+      "cell": "A333/long",
+      "coverage": 0.25,
+      "coverage_flight_bootstrap_ci": [
+        0.10416666666666667,
+        0.4642857142857143
+      ],
+      "eligible": false,
+      "flights": 12,
+      "method": "hard_mondrian_B",
+      "n": 32,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 19,
+      "cell": "A333/medium",
+      "coverage": 0.6746987951807228,
+      "coverage_flight_bootstrap_ci": [
+        0.593939393939394,
+        0.7468354430379747
+      ],
+      "eligible": true,
+      "flights": 34,
+      "method": "hard_mondrian_B",
+      "n": 166,
+      "width_kg": 335.5502154330101
+    },
+    {
+      "calibration_B_n": 19,
+      "cell": "A333/short",
+      "coverage": 0.7391304347826086,
+      "coverage_flight_bootstrap_ci": [
+        0.6524665090622538,
+        0.8278223302980132
+      ],
+      "eligible": true,
+      "flights": 28,
+      "method": "hard_mondrian_B",
+      "n": 138,
+      "width_kg": 335.1420004435971
+    },
+    {
+      "calibration_B_n": 382,
+      "cell": "A359/long",
+      "coverage": 0.9228521332554062,
+      "coverage_flight_bootstrap_ci": [
+        0.9006599810785242,
+        0.9419821681784788
+      ],
+      "eligible": true,
+      "flights": 319,
+      "method": "hard_mondrian_B",
+      "n": 1711,
+      "width_kg": 937.1241401777322
+    },
+    {
+      "calibration_B_n": 199,
+      "cell": "A359/medium",
+      "coverage": 0.9440677966101695,
+      "coverage_flight_bootstrap_ci": [
+        0.9058182269005967,
+        0.9735450864077143
+      ],
+      "eligible": true,
+      "flights": 301,
+      "method": "hard_mondrian_B",
+      "n": 1180,
+      "width_kg": 1450.1180447084837
+    },
+    {
+      "calibration_B_n": 524,
+      "cell": "A359/short",
+      "coverage": 0.93891151425398,
+      "coverage_flight_bootstrap_ci": [
+        0.9090899200886146,
+        0.9632952045011044
+      ],
+      "eligible": true,
+      "flights": 197,
+      "method": "hard_mondrian_B",
+      "n": 2701,
+      "width_kg": 397.5879203041947
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "B38M/medium",
+      "coverage": 0.6666666666666666,
+      "coverage_flight_bootstrap_ci": [
+        0.0,
+        1.0
+      ],
+      "eligible": false,
+      "flights": 3,
+      "method": "hard_mondrian_B",
+      "n": 3,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "B38M/short",
+      "coverage": 1.0,
+      "coverage_flight_bootstrap_ci": [
+        1.0,
+        1.0
+      ],
+      "eligible": true,
+      "flights": 10,
+      "method": "hard_mondrian_B",
+      "n": 76,
+      "width_kg": 240.48688910936008
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "B734/short",
+      "coverage": 1.0,
+      "coverage_flight_bootstrap_ci": null,
+      "eligible": false,
+      "flights": 1,
+      "method": "hard_mondrian_B",
+      "n": 4,
+      "width_kg": 237.1349678094944
+    },
+    {
+      "calibration_B_n": 4,
+      "cell": "B737/long",
+      "coverage": 0.75,
+      "coverage_flight_bootstrap_ci": null,
+      "eligible": false,
+      "flights": 1,
+      "method": "hard_mondrian_B",
+      "n": 4,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 2,
+      "cell": "B737/medium",
+      "coverage": 1.0,
+      "coverage_flight_bootstrap_ci": null,
+      "eligible": false,
+      "flights": 1,
+      "method": "hard_mondrian_B",
+      "n": 2,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "B737/short",
+      "coverage": 1.0,
+      "coverage_flight_bootstrap_ci": [
+        1.0,
+        1.0
+      ],
+      "eligible": false,
+      "flights": 2,
+      "method": "hard_mondrian_B",
+      "n": 2,
+      "width_kg": 194.78206964615092
+    },
+    {
+      "calibration_B_n": 8,
+      "cell": "B738/long",
+      "coverage": 0.7633587786259542,
+      "coverage_flight_bootstrap_ci": [
+        0.6766917293233082,
+        0.8417464453633942
+      ],
+      "eligible": true,
+      "flights": 63,
+      "method": "hard_mondrian_B",
+      "n": 131,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 87,
+      "cell": "B738/medium",
+      "coverage": 0.8826466916354557,
+      "coverage_flight_bootstrap_ci": [
+        0.8439078181470373,
+        0.9182926829268293
+      ],
+      "eligible": true,
+      "flights": 129,
+      "method": "hard_mondrian_B",
+      "n": 801,
+      "width_kg": 194.6939556141725
+    },
+    {
+      "calibration_B_n": 59,
+      "cell": "B738/short",
+      "coverage": 0.9069767441860465,
+      "coverage_flight_bootstrap_ci": [
+        0.8715295479569828,
+        0.9382737189244038
+      ],
+      "eligible": true,
+      "flights": 99,
+      "method": "hard_mondrian_B",
+      "n": 387,
+      "width_kg": 148.08136276991902
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "B739/long",
+      "coverage": 0.875,
+      "coverage_flight_bootstrap_ci": [
+        0.6923076923076923,
+        1.0
+      ],
+      "eligible": false,
+      "flights": 5,
+      "method": "hard_mondrian_B",
+      "n": 16,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "B739/medium",
+      "coverage": 0.9230769230769231,
+      "coverage_flight_bootstrap_ci": [
+        0.7857142857142857,
+        1.0
+      ],
+      "eligible": false,
+      "flights": 5,
+      "method": "hard_mondrian_B",
+      "n": 13,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 17,
+      "cell": "B744/long",
+      "coverage": 0.18604651162790697,
+      "coverage_flight_bootstrap_ci": [
+        0.08884057971014493,
+        0.29545454545454547
+      ],
+      "eligible": false,
+      "flights": 35,
+      "method": "hard_mondrian_B",
+      "n": 43,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 76,
+      "cell": "B744/medium",
+      "coverage": 0.974025974025974,
+      "coverage_flight_bootstrap_ci": [
+        0.95,
+        0.9920634920634921
+      ],
+      "eligible": true,
+      "flights": 45,
+      "method": "hard_mondrian_B",
+      "n": 231,
+      "width_kg": 3214.032749812406
+    },
+    {
+      "calibration_B_n": 17,
+      "cell": "B744/short",
+      "coverage": 0.5882352941176471,
+      "coverage_flight_bootstrap_ci": [
+        0.4186046511627907,
+        0.7283994708994709
+      ],
+      "eligible": true,
+      "flights": 18,
+      "method": "hard_mondrian_B",
+      "n": 68,
+      "width_kg": 312.3484339180029
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "B763/long",
+      "coverage": 0.0,
+      "coverage_flight_bootstrap_ci": null,
+      "eligible": false,
+      "flights": 1,
+      "method": "hard_mondrian_B",
+      "n": 1,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "B763/medium",
+      "coverage": 0.5,
+      "coverage_flight_bootstrap_ci": null,
+      "eligible": false,
+      "flights": 1,
+      "method": "hard_mondrian_B",
+      "n": 2,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "B763/short",
+      "coverage": 0.8571428571428571,
+      "coverage_flight_bootstrap_ci": null,
+      "eligible": false,
+      "flights": 1,
+      "method": "hard_mondrian_B",
+      "n": 7,
+      "width_kg": 274.96557193777875
+    },
+    {
+      "calibration_B_n": 24,
+      "cell": "B772/long",
+      "coverage": 0.7380952380952381,
+      "coverage_flight_bootstrap_ci": [
+        0.6266666666666667,
+        0.8390804597701149
+      ],
+      "eligible": true,
+      "flights": 17,
+      "method": "hard_mondrian_B",
+      "n": 84,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 15,
+      "cell": "B772/medium",
+      "coverage": 0.7894736842105263,
+      "coverage_flight_bootstrap_ci": [
+        0.6216216216216216,
+        0.9166666666666666
+      ],
+      "eligible": false,
+      "flights": 17,
+      "method": "hard_mondrian_B",
+      "n": 38,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "B77L/long",
+      "coverage": 0.0,
+      "coverage_flight_bootstrap_ci": null,
+      "eligible": false,
+      "flights": 1,
+      "method": "hard_mondrian_B",
+      "n": 2,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "B77L/medium",
+      "coverage": 0.0,
+      "coverage_flight_bootstrap_ci": null,
+      "eligible": false,
+      "flights": 1,
+      "method": "hard_mondrian_B",
+      "n": 2,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "B77L/short",
+      "coverage": 0.3333333333333333,
+      "coverage_flight_bootstrap_ci": null,
+      "eligible": false,
+      "flights": 1,
+      "method": "hard_mondrian_B",
+      "n": 3,
+      "width_kg": 234.7772897095371
+    },
+    {
+      "calibration_B_n": 20,
+      "cell": "B77W/long",
+      "coverage": 0.3111111111111111,
+      "coverage_flight_bootstrap_ci": [
+        0.21837221095334686,
+        0.40646076612463145
+      ],
+      "eligible": true,
+      "flights": 70,
+      "method": "hard_mondrian_B",
+      "n": 180,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 22,
+      "cell": "B77W/medium",
+      "coverage": 0.3299492385786802,
+      "coverage_flight_bootstrap_ci": [
+        0.2358974358974359,
+        0.41969217421057775
+      ],
+      "eligible": true,
+      "flights": 67,
+      "method": "hard_mondrian_B",
+      "n": 197,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 105,
+      "cell": "B77W/short",
+      "coverage": 0.5178571428571429,
+      "coverage_flight_bootstrap_ci": [
+        0.4025916391301007,
+        0.6275566893424036
+      ],
+      "eligible": true,
+      "flights": 59,
+      "method": "hard_mondrian_B",
+      "n": 336,
+      "width_kg": 345.836432719516
+    },
+    {
+      "calibration_B_n": 54,
+      "cell": "B788/long",
+      "coverage": 0.9595959595959596,
+      "coverage_flight_bootstrap_ci": [
+        0.9124896978021978,
+        0.9911523831703152
+      ],
+      "eligible": true,
+      "flights": 26,
+      "method": "hard_mondrian_B",
+      "n": 99,
+      "width_kg": 2409.933155864294
+    },
+    {
+      "calibration_B_n": 41,
+      "cell": "B788/medium",
+      "coverage": 0.7563025210084033,
+      "coverage_flight_bootstrap_ci": [
+        0.6588948519181077,
+        0.8495987178251229
+      ],
+      "eligible": true,
+      "flights": 33,
+      "method": "hard_mondrian_B",
+      "n": 238,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 3,
+      "cell": "B788/short",
+      "coverage": 0.9230769230769231,
+      "coverage_flight_bootstrap_ci": [
+        0.7272727272727273,
+        1.0
+      ],
+      "eligible": false,
+      "flights": 9,
+      "method": "hard_mondrian_B",
+      "n": 13,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 35,
+      "cell": "B789/long",
+      "coverage": 0.6025641025641025,
+      "coverage_flight_bootstrap_ci": [
+        0.5079334077380953,
+        0.6882610501827848
+      ],
+      "eligible": true,
+      "flights": 50,
+      "method": "hard_mondrian_B",
+      "n": 156,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 35,
+      "cell": "B789/medium",
+      "coverage": 0.8051282051282052,
+      "coverage_flight_bootstrap_ci": [
+        0.7206330833397107,
+        0.8718309859154928
+      ],
+      "eligible": true,
+      "flights": 49,
+      "method": "hard_mondrian_B",
+      "n": 195,
+      "width_kg": 335.62008332608093
+    },
+    {
+      "calibration_B_n": 76,
+      "cell": "B789/short",
+      "coverage": 0.868421052631579,
+      "coverage_flight_bootstrap_ci": [
+        0.7957742549143944,
+        0.9270492406198335
+      ],
+      "eligible": true,
+      "flights": 51,
+      "method": "hard_mondrian_B",
+      "n": 456,
+      "width_kg": 303.1262711101858
+    },
+    {
+      "calibration_B_n": 219,
+      "cell": "A20N/long",
+      "coverage": 0.8207547169811321,
+      "coverage_flight_bootstrap_ci": [
+        0.7894721362229102,
+        0.8527205803186907
+      ],
+      "eligible": true,
+      "flights": 497,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 848,
+      "width_kg": 826.3732105982828
+    },
+    {
+      "calibration_B_n": 2278,
+      "cell": "A20N/medium",
+      "coverage": 0.9014816452896949,
+      "coverage_flight_bootstrap_ci": [
+        0.8896116596535889,
+        0.9135005388818674
+      ],
+      "eligible": true,
+      "flights": 1123,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 9044,
+      "width_kg": 171.26869512464742
+    },
+    {
+      "calibration_B_n": 1759,
+      "cell": "A20N/short",
+      "coverage": 0.9058725531028738,
+      "coverage_flight_bootstrap_ci": [
+        0.8946135151829784,
+        0.9158056442936408
+      ],
+      "eligible": true,
+      "flights": 1053,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 7203,
+      "width_kg": 109.00932198036202
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "A21N/long",
+      "coverage": 0.36,
+      "coverage_flight_bootstrap_ci": [
+        0.16666666666666666,
+        0.5555555555555556
+      ],
+      "eligible": false,
+      "flights": 16,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 25,
+      "width_kg": 186.84283988235075
+    },
+    {
+      "calibration_B_n": 18,
+      "cell": "A21N/medium",
+      "coverage": 0.8497109826589595,
+      "coverage_flight_bootstrap_ci": [
+        0.7870860215053763,
+        0.9016417132568938
+      ],
+      "eligible": true,
+      "flights": 68,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 173,
+      "width_kg": 195.7080021810779
+    },
+    {
+      "calibration_B_n": 21,
+      "cell": "A21N/short",
+      "coverage": 0.9209225700164745,
+      "coverage_flight_bootstrap_ci": [
+        0.873800303353019,
+        0.9606321765016689
+      ],
+      "eligible": true,
+      "flights": 89,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 607,
+      "width_kg": 121.93893559149974
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "A306/long",
+      "coverage": 0.0,
+      "coverage_flight_bootstrap_ci": null,
+      "eligible": false,
+      "flights": 1,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 1,
+      "width_kg": 313.8629160433611
+    },
+    {
+      "calibration_B_n": 5,
+      "cell": "A306/medium",
+      "coverage": 0.6666666666666666,
+      "coverage_flight_bootstrap_ci": null,
+      "eligible": false,
+      "flights": 1,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 3,
+      "width_kg": 313.8629160433611
+    },
+    {
+      "calibration_B_n": 2,
+      "cell": "A306/short",
+      "coverage": 0.0,
+      "coverage_flight_bootstrap_ci": null,
+      "eligible": false,
+      "flights": 1,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 2,
+      "width_kg": 313.862916043361
+    },
+    {
+      "calibration_B_n": 2,
+      "cell": "A319/long",
+      "coverage": 0.42857142857142855,
+      "coverage_flight_bootstrap_ci": [
+        0.2,
+        0.8
+      ],
+      "eligible": false,
+      "flights": 9,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 14,
+      "width_kg": 290.58635905613215
+    },
+    {
+      "calibration_B_n": 19,
+      "cell": "A319/medium",
+      "coverage": 0.961038961038961,
+      "coverage_flight_bootstrap_ci": [
+        0.9166666666666666,
+        1.0
+      ],
+      "eligible": true,
+      "flights": 16,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 77,
+      "width_kg": 287.86602546503605
+    },
+    {
+      "calibration_B_n": 49,
+      "cell": "A319/short",
+      "coverage": 0.9692307692307692,
+      "coverage_flight_bootstrap_ci": [
+        0.9387755102040817,
+        1.0
+      ],
+      "eligible": true,
+      "flights": 16,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 130,
+      "width_kg": 231.4987042678772
+    },
+    {
+      "calibration_B_n": 101,
+      "cell": "A320/long",
+      "coverage": 0.8811475409836066,
+      "coverage_flight_bootstrap_ci": [
+        0.8522446124102462,
+        0.9098196392785571
+      ],
+      "eligible": true,
+      "flights": 279,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 488,
+      "width_kg": 507.8268780675314
+    },
+    {
+      "calibration_B_n": 748,
+      "cell": "A320/medium",
+      "coverage": 0.9048613182224873,
+      "coverage_flight_bootstrap_ci": [
+        0.8930454918022849,
+        0.9164952336704931
+      ],
+      "eligible": true,
+      "flights": 605,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 3353,
+      "width_kg": 206.00011680799992
+    },
+    {
+      "calibration_B_n": 860,
+      "cell": "A320/short",
+      "coverage": 0.9074029992858843,
+      "coverage_flight_bootstrap_ci": [
+        0.8954790898353603,
+        0.9193144515929424
+      ],
+      "eligible": true,
+      "flights": 631,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 4201,
+      "width_kg": 176.32180671387192
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "A321/long",
+      "coverage": 0.40625,
+      "coverage_flight_bootstrap_ci": [
+        0.2,
+        0.59375
+      ],
+      "eligible": false,
+      "flights": 13,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 32,
+      "width_kg": 215.48961439672075
+    },
+    {
+      "calibration_B_n": 12,
+      "cell": "A321/medium",
+      "coverage": 0.5517241379310345,
+      "coverage_flight_bootstrap_ci": [
+        0.35714285714285715,
+        0.7419354838709677
+      ],
+      "eligible": false,
+      "flights": 19,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 29,
+      "width_kg": 206.79557232742607
+    },
+    {
+      "calibration_B_n": 8,
+      "cell": "A321/short",
+      "coverage": 0.8839285714285714,
+      "coverage_flight_bootstrap_ci": [
+        0.7682520325203253,
+        0.9569103081438003
+      ],
+      "eligible": true,
+      "flights": 22,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 112,
+      "width_kg": 154.16254476391032
+    },
+    {
+      "calibration_B_n": 21,
+      "cell": "A332/long",
+      "coverage": 0.6578947368421053,
+      "coverage_flight_bootstrap_ci": [
+        0.5316455696202531,
+        0.7777777777777778
+      ],
+      "eligible": true,
+      "flights": 51,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 76,
+      "width_kg": 921.593301016168
+    },
+    {
+      "calibration_B_n": 174,
+      "cell": "A332/medium",
+      "coverage": 0.984375,
+      "coverage_flight_bootstrap_ci": [
+        0.9628727034759518,
+        0.997912534342597
+      ],
+      "eligible": true,
+      "flights": 93,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 448,
+      "width_kg": 1351.0059282209827
+    },
+    {
+      "calibration_B_n": 110,
+      "cell": "A332/short",
+      "coverage": 0.9357798165137615,
+      "coverage_flight_bootstrap_ci": [
+        0.8878341165139222,
+        0.9671685432670385
+      ],
+      "eligible": true,
+      "flights": 92,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 872,
+      "width_kg": 543.4482014431968
+    },
+    {
+      "calibration_B_n": 3,
+      "cell": "A333/long",
+      "coverage": 0.4375,
+      "coverage_flight_bootstrap_ci": [
+        0.3076923076923077,
+        0.5833333333333334
+      ],
+      "eligible": false,
+      "flights": 12,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 32,
+      "width_kg": 554.1843842273427
+    },
+    {
+      "calibration_B_n": 19,
+      "cell": "A333/medium",
+      "coverage": 0.9397590361445783,
+      "coverage_flight_bootstrap_ci": [
+        0.9013137589343729,
+        0.9714326298701298
+      ],
+      "eligible": true,
+      "flights": 34,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 166,
+      "width_kg": 717.3453852274564
+    },
+    {
+      "calibration_B_n": 19,
+      "cell": "A333/short",
+      "coverage": 0.9130434782608695,
+      "coverage_flight_bootstrap_ci": [
+        0.84,
+        0.9726340764616347
+      ],
+      "eligible": true,
+      "flights": 28,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 138,
+      "width_kg": 462.0919619224487
+    },
+    {
+      "calibration_B_n": 382,
+      "cell": "A359/long",
+      "coverage": 0.886031560490941,
+      "coverage_flight_bootstrap_ci": [
+        0.8622667414876475,
+        0.9067908337950532
+      ],
+      "eligible": true,
+      "flights": 319,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 1711,
+      "width_kg": 761.5722520193752
+    },
+    {
+      "calibration_B_n": 199,
+      "cell": "A359/medium",
+      "coverage": 0.9050847457627119,
+      "coverage_flight_bootstrap_ci": [
+        0.8635214284939491,
+        0.9405975718606918
+      ],
+      "eligible": true,
+      "flights": 301,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 1180,
+      "width_kg": 629.0229297385365
+    },
+    {
+      "calibration_B_n": 524,
+      "cell": "A359/short",
+      "coverage": 0.8992965568308035,
+      "coverage_flight_bootstrap_ci": [
+        0.868312442100089,
+        0.9251879647839524
+      ],
+      "eligible": true,
+      "flights": 197,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 2701,
+      "width_kg": 264.673443472311
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "B38M/medium",
+      "coverage": 0.6666666666666666,
+      "coverage_flight_bootstrap_ci": [
+        0.0,
+        1.0
+      ],
+      "eligible": false,
+      "flights": 3,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 3,
+      "width_kg": 313.862916043361
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "B38M/short",
+      "coverage": 1.0,
+      "coverage_flight_bootstrap_ci": [
+        1.0,
+        1.0
+      ],
+      "eligible": true,
+      "flights": 10,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 76,
+      "width_kg": 228.27594374598021
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "B734/short",
+      "coverage": 1.0,
+      "coverage_flight_bootstrap_ci": null,
+      "eligible": false,
+      "flights": 1,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 4,
+      "width_kg": 226.25638416813442
+    },
+    {
+      "calibration_B_n": 4,
+      "cell": "B737/long",
+      "coverage": 0.75,
+      "coverage_flight_bootstrap_ci": null,
+      "eligible": false,
+      "flights": 1,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 4,
+      "width_kg": 313.86291604336105
+    },
+    {
+      "calibration_B_n": 2,
+      "cell": "B737/medium",
+      "coverage": 1.0,
+      "coverage_flight_bootstrap_ci": null,
+      "eligible": false,
+      "flights": 1,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 2,
+      "width_kg": 313.862916043361
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "B737/short",
+      "coverage": 1.0,
+      "coverage_flight_bootstrap_ci": [
+        1.0,
+        1.0
+      ],
+      "eligible": false,
+      "flights": 2,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 2,
+      "width_kg": 183.90348600479095
+    },
+    {
+      "calibration_B_n": 8,
+      "cell": "B738/long",
+      "coverage": 0.5877862595419847,
+      "coverage_flight_bootstrap_ci": [
+        0.5,
+        0.671878125
+      ],
+      "eligible": true,
+      "flights": 63,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 131,
+      "width_kg": 204.16218357514128
+    },
+    {
+      "calibration_B_n": 87,
+      "cell": "B738/medium",
+      "coverage": 0.8539325842696629,
+      "coverage_flight_bootstrap_ci": [
+        0.8144413860078825,
+        0.8908466709346992
+      ],
+      "eligible": true,
+      "flights": 129,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 801,
+      "width_kg": 179.46764639614818
+    },
+    {
+      "calibration_B_n": 59,
+      "cell": "B738/short",
+      "coverage": 0.9302325581395349,
+      "coverage_flight_bootstrap_ci": [
+        0.8945725777804091,
+        0.9595293583535109
+      ],
+      "eligible": true,
+      "flights": 99,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 387,
+      "width_kg": 166.3216139086949
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "B739/long",
+      "coverage": 0.8125,
+      "coverage_flight_bootstrap_ci": [
+        0.46153846153846156,
+        1.0
+      ],
+      "eligible": false,
+      "flights": 5,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 16,
+      "width_kg": 313.862916043361
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "B739/medium",
+      "coverage": 0.9230769230769231,
+      "coverage_flight_bootstrap_ci": [
+        0.7857142857142857,
+        1.0
+      ],
+      "eligible": false,
+      "flights": 5,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 13,
+      "width_kg": 313.86291604336105
+    },
+    {
+      "calibration_B_n": 17,
+      "cell": "B744/long",
+      "coverage": 0.9534883720930233,
+      "coverage_flight_bootstrap_ci": [
+        0.8863636363636364,
+        1.0
+      ],
+      "eligible": false,
+      "flights": 35,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 43,
+      "width_kg": 5042.241538376123
+    },
+    {
+      "calibration_B_n": 76,
+      "cell": "B744/medium",
+      "coverage": 0.9783549783549783,
+      "coverage_flight_bootstrap_ci": [
+        0.9567302489177489,
+        0.9957823415095332
+      ],
+      "eligible": true,
+      "flights": 45,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 231,
+      "width_kg": 3376.2346514394267
+    },
+    {
+      "calibration_B_n": 17,
+      "cell": "B744/short",
+      "coverage": 1.0,
+      "coverage_flight_bootstrap_ci": [
+        1.0,
+        1.0
+      ],
+      "eligible": true,
+      "flights": 18,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 68,
+      "width_kg": 2049.067819104814
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "B763/long",
+      "coverage": 0.0,
+      "coverage_flight_bootstrap_ci": null,
+      "eligible": false,
+      "flights": 1,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 1,
+      "width_kg": 313.8629160433611
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "B763/medium",
+      "coverage": 0.5,
+      "coverage_flight_bootstrap_ci": null,
+      "eligible": false,
+      "flights": 1,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 2,
+      "width_kg": 313.862916043361
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "B763/short",
+      "coverage": 0.8571428571428571,
+      "coverage_flight_bootstrap_ci": null,
+      "eligible": false,
+      "flights": 1,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 7,
+      "width_kg": 260.9788215417445
+    },
+    {
+      "calibration_B_n": 24,
+      "cell": "B772/long",
+      "coverage": 0.9404761904761905,
+      "coverage_flight_bootstrap_ci": [
+        0.8953335373317014,
+        0.9777777777777777
+      ],
+      "eligible": true,
+      "flights": 17,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 84,
+      "width_kg": 646.0074583715252
+    },
+    {
+      "calibration_B_n": 15,
+      "cell": "B772/medium",
+      "coverage": 0.8947368421052632,
+      "coverage_flight_bootstrap_ci": [
+        0.75,
+        1.0
+      ],
+      "eligible": false,
+      "flights": 17,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 38,
+      "width_kg": 513.0590579846959
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "B77L/long",
+      "coverage": 0.0,
+      "coverage_flight_bootstrap_ci": null,
+      "eligible": false,
+      "flights": 1,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 2,
+      "width_kg": 313.8629160433611
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "B77L/medium",
+      "coverage": 0.0,
+      "coverage_flight_bootstrap_ci": null,
+      "eligible": false,
+      "flights": 1,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 2,
+      "width_kg": 313.862916043361
+    },
+    {
+      "calibration_B_n": 0,
+      "cell": "B77L/short",
+      "coverage": 0.0,
+      "coverage_flight_bootstrap_ci": null,
+      "eligible": false,
+      "flights": 1,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 3,
+      "width_kg": 223.89870606817712
+    },
+    {
+      "calibration_B_n": 20,
+      "cell": "B77W/long",
+      "coverage": 0.6944444444444444,
+      "coverage_flight_bootstrap_ci": [
+        0.5975287835176488,
+        0.7857328869047618
+      ],
+      "eligible": true,
+      "flights": 70,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 180,
+      "width_kg": 2713.4295913855117
+    },
+    {
+      "calibration_B_n": 22,
+      "cell": "B77W/medium",
+      "coverage": 0.868020304568528,
+      "coverage_flight_bootstrap_ci": [
+        0.790224646983312,
+        0.9344324079413461
+      ],
+      "eligible": true,
+      "flights": 67,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 197,
+      "width_kg": 2001.372097609596
+    },
+    {
+      "calibration_B_n": 105,
+      "cell": "B77W/short",
+      "coverage": 1.0,
+      "coverage_flight_bootstrap_ci": [
+        1.0,
+        1.0
+      ],
+      "eligible": true,
+      "flights": 59,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 336,
+      "width_kg": 1461.5837622985161
+    },
+    {
+      "calibration_B_n": 54,
+      "cell": "B788/long",
+      "coverage": 0.8383838383838383,
+      "coverage_flight_bootstrap_ci": [
+        0.7115384615384616,
+        0.9369510135135134
+      ],
+      "eligible": true,
+      "flights": 26,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 99,
+      "width_kg": 1338.8745358364383
+    },
+    {
+      "calibration_B_n": 41,
+      "cell": "B788/medium",
+      "coverage": 0.9915966386554622,
+      "coverage_flight_bootstrap_ci": [
+        0.9776760690262651,
+        1.0
+      ],
+      "eligible": true,
+      "flights": 33,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 238,
+      "width_kg": 757.391459057402
+    },
+    {
+      "calibration_B_n": 3,
+      "cell": "B788/short",
+      "coverage": 1.0,
+      "coverage_flight_bootstrap_ci": [
+        1.0,
+        1.0
+      ],
+      "eligible": false,
+      "flights": 9,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 13,
+      "width_kg": 766.696912022091
+    },
+    {
+      "calibration_B_n": 35,
+      "cell": "B789/long",
+      "coverage": 0.8141025641025641,
+      "coverage_flight_bootstrap_ci": [
+        0.7288075060532687,
+        0.8808290155440415
+      ],
+      "eligible": true,
+      "flights": 50,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 156,
+      "width_kg": 640.263179415793
+    },
+    {
+      "calibration_B_n": 35,
+      "cell": "B789/medium",
+      "coverage": 0.9179487179487179,
+      "coverage_flight_bootstrap_ci": [
+        0.8350468173649863,
+        0.9756127160786171
+      ],
+      "eligible": true,
+      "flights": 49,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 195,
+      "width_kg": 683.2090817384868
+    },
+    {
+      "calibration_B_n": 76,
+      "cell": "B789/short",
+      "coverage": 0.881578947368421,
+      "coverage_flight_bootstrap_ci": [
+        0.8089091786662376,
+        0.9398086213303605
+      ],
+      "eligible": true,
+      "flights": 51,
+      "method": "shrinkage_A_plus_global_B",
+      "n": 456,
+      "width_kg": 365.46946631852677
+    }
+  ],
+  "code_sha256": "1411b5baba91243fdb6d99e8365d2e0c948254f32d92e719dc6e84468156caca",
+  "config": {
+    "absolute_tolerance_kg": 100,
+    "alpha": 0.1,
+    "beta": 0.05,
+    "bootstrap_repetitions": 2000,
+    "calibration_A": "September flights ordered by takeoff, first third",
+    "calibration_B": "September flights ordered by takeoff, second third",
+    "decision_rule": "Report every outcome; no method chosen or tuning performed using October; no claim of new theorem or established novelty",
+    "duration_edges_minutes": [
+      5,
+      15
+    ],
+    "evaluation": "Previously inspected October, development only",
+    "feature_availability": "Compare inherited retrospective features with version excluding landed-derived flight_duration_min and remaining_to_landing_min",
+    "guarantee_unit": "flight mean joint released-and-large-error loss",
+    "intervals": [
+      "split_B",
+      "hard_mondrian_B",
+      "shrinkage_A_plus_global_B"
+    ],
+    "inventory": "Observed labeled intervals only, not full-flight or global emissions; same-predictor imputation must equal all-point total",
+    "iterations": 300,
+    "min_cell_intervals": 50,
+    "models": [
+      "retrospective_hgb",
+      "landing_time_free_hgb",
+      "type_median_rate"
+    ],
+    "relative_tolerance": 0.2,
+    "risk_calibration_C": "September flights ordered by takeoff, final third",
+    "seed": 20251022,
+    "selection": "Fixed relative half-width threshold grid plus flight-block CRC on disjoint C",
+    "shrinkage_kappa": 50,
+    "status": "EXPLORATORY_POST_HOC_NOT_CONFIRMATORY",
+    "tolerance_basis": "Sensitivity benchmark only; not an aviation regulatory limit",
+    "training": "Published train April-August 2025"
+  },
+  "config_sha256": "f0220db35cbef8619f4684a09026cfb00f939c1cd63fe09fa14aac8f265f7f77",
+  "crc": {
+    "assumptions": "exchangeability of flight blocks; not established under time shift",
+    "beta": 0.05,
+    "calibration_flights": 629,
+    "target": "flight-mean JOINT release and large error",
+    "threshold": 0.38
+  },
+  "git_commit": "3b990bed6273f82351b897eb3e4db43a2acaccf1",
+  "hardware": "macOS-26.6.2-arm64-arm-64bit-Mach-O arm64",
+  "interval": {
+    "hard_mondrian_B": {
+      "coverage": 0.8893635198633063,
+      "eligible_cells": 34,
+      "mean_width_kg": 341.29469132936356,
+      "median_width_kg": 181.9993133283461,
+      "winkler_score": 752.9463935118918,
+      "worst_cell_coverage": 0.2894736842105263
+    },
+    "shrinkage_A_plus_global_B": {
+      "coverage": 0.8991616830414353,
+      "eligible_cells": 34,
+      "mean_width_kg": 336.428998052283,
+      "median_width_kg": 179.46764639614815,
+      "winkler_score": 650.6261922395571,
+      "worst_cell_coverage": 0.5877862595419847
+    },
+    "split_B": {
+      "coverage": 0.9095739000427168,
+      "eligible_cells": 34,
+      "mean_width_kg": 294.10383078425065,
+      "median_width_kg": 327.2410389837938,
+      "winkler_score": 858.569980652412,
+      "worst_cell_coverage": 0.2894736842105263
+    }
+  },
+  "inventory": {
+    "all_point": {
+      "absolute_bias_bootstrap_95th": 0.02510016486645268,
+      "bias_flight_bootstrap_ci": [
+        -0.027636529967346418,
+        -0.0008784591110913264
+      ],
+      "estimated_fuel_kg": 15257551.436481562,
+      "flight_blocks": 2836,
+      "reference_fuel_kg": 15473001.6122376,
+      "relative_bias": -0.013924265062160887
+    },
+    "released_only": {
+      "absolute_bias_bootstrap_95th": 0.4093032431734043,
+      "bias_flight_bootstrap_ci": [
+        -0.4117925988156221,
+        -0.37084891241753115
+      ],
+      "estimated_fuel_kg": 9422971.131490797,
+      "flight_blocks": 2836,
+      "reference_fuel_kg": 15473001.6122376,
+      "relative_bias": -0.3910056130261005
+    },
+    "released_plus_same_predictor": {
+      "absolute_bias_bootstrap_95th": 0.02510016486645268,
+      "bias_flight_bootstrap_ci": [
+        -0.027636529967346418,
+        -0.0008784591110913264
+      ],
+      "estimated_fuel_kg": 15257551.436481562,
+      "flight_blocks": 2836,
+      "reference_fuel_kg": 15473001.6122376,
+      "relative_bias": -0.013924265062160887
+    },
+    "released_plus_type_median": {
+      "absolute_bias_bootstrap_95th": 0.03697225534310302,
+      "bias_flight_bootstrap_ci": [
+        -0.03938716855285629,
+        -0.013205951536323961
+      ],
+      "estimated_fuel_kg": 15071459.459760541,
+      "flight_blocks": 2836,
+      "reference_fuel_kg": 15473001.6122376,
+      "relative_bias": -0.025951147847065415
+    }
+  },
+  "paired": {
+    "landing_time_free_hgb": {
+      "cluster_bootstrap_95pct_ci": [
+        2.2036532741340045,
+        6.300261730579679
+      ],
+      "clusters": 471,
+      "mean_difference_b_minus_a": 4.147106703183086,
+      "repetitions": 2000,
+      "standardized_effect": 0.04938352841338617
+    },
+    "type_median_rate": {
+      "cluster_bootstrap_95pct_ci": [
+        5.294996059406112,
+        14.69724438910169
+      ],
+      "clusters": 471,
+      "mean_difference_b_minus_a": 10.081532683495581,
+      "repetitions": 2000,
+      "standardized_effect": 0.07303317829684917
+    }
+  },
+  "point": {
+    "landing_time_free_hgb": {
+      "bias_kg": -7.969243803229887,
+      "features": [
+        "duration_min",
+        "elapsed_from_takeoff_min",
+        "start_hour_sin",
+        "start_hour_cos",
+        "type_A20N",
+        "type_A21N",
+        "type_A306",
+        "type_A318",
+        "type_A319",
+        "type_A320",
+        "type_A321",
+        "type_A332",
+        "type_A333",
+        "type_A359",
+        "type_A388",
+        "type_B38M",
+        "type_B39M",
+        "type_B737",
+        "type_B738",
+        "type_B739",
+        "type_B744",
+        "type_B748",
+        "type_B752",
+        "type_B763",
+        "type_B772",
+        "type_B77L",
+        "type_B77W",
+        "type_B788",
+        "type_B789",
+        "type_MD11"
+      ],
+      "fit_seconds": 3.5226113330000146,
+      "mae_kg": 83.36706682311498,
+      "n": 37456,
+      "predict_seconds": 0.13582758299997977,
+      "prediction_rows": 61745,
+      "r2": 0.9047967546416329,
+      "rmse_kg": 237.9377610853188,
+      "rows_per_second": 454583.6614055718
+    },
+    "retrospective_hgb": {
+      "bias_kg": -5.752087135733615,
+      "features": [
+        "duration_min",
+        "flight_duration_min",
+        "elapsed_from_takeoff_min",
+        "remaining_to_landing_min",
+        "start_hour_sin",
+        "start_hour_cos",
+        "type_A20N",
+        "type_A21N",
+        "type_A306",
+        "type_A318",
+        "type_A319",
+        "type_A320",
+        "type_A321",
+        "type_A332",
+        "type_A333",
+        "type_A359",
+        "type_A388",
+        "type_B38M",
+        "type_B39M",
+        "type_B737",
+        "type_B738",
+        "type_B739",
+        "type_B744",
+        "type_B748",
+        "type_B752",
+        "type_B763",
+        "type_B772",
+        "type_B77L",
+        "type_B77W",
+        "type_B788",
+        "type_B789",
+        "type_MD11"
+      ],
+      "fit_seconds": 3.8264133750000155,
+      "mae_kg": 79.21996011993191,
+      "n": 37456,
+      "predict_seconds": 0.12385349999999562,
+      "prediction_rows": 61745,
+      "r2": 0.9056972797194658,
+      "rmse_kg": 236.80976370596647,
+      "rows_per_second": 498532.54046112695
+    },
+    "type_median_rate": {
+      "bias_kg": -24.803900291313557,
+      "mae_kg": 89.30149280342748,
+      "n": 37456,
+      "r2": 0.8954395849941442,
+      "rmse_kg": 249.35675824116115
+    }
+  },
+  "runtime_seconds": 11.923534750000016,
+  "selection": [
+    {
+      "crc_selected": false,
+      "joint_flight_loss": 0.002565748478125065,
+      "min_type_release_fraction": 0.0,
+      "release_fraction": 0.012628150363092696,
+      "released_error_fraction": 0.11839323467230443,
+      "represented_reference_fuel_fraction": 0.11811641807847667,
+      "selected_mae_kg": 368.9490194265284,
+      "selected_n": 473,
+      "threshold": 0.1
+    },
+    {
+      "crc_selected": false,
+      "joint_flight_loss": 0.011164684681875023,
+      "min_type_release_fraction": 0.0,
+      "release_fraction": 0.04690837249038872,
+      "released_error_fraction": 0.14968696642003415,
+      "represented_reference_fuel_fraction": 0.288296311811662,
+      "selected_mae_kg": 296.1233288610433,
+      "selected_n": 1757,
+      "threshold": 0.2
+    },
+    {
+      "crc_selected": false,
+      "joint_flight_loss": 0.027024473818207443,
+      "min_type_release_fraction": 0.0,
+      "release_fraction": 0.1205948312686886,
+      "released_error_fraction": 0.16360416205446093,
+      "represented_reference_fuel_fraction": 0.475496046948064,
+      "selected_mae_kg": 207.6845303057166,
+      "selected_n": 4517,
+      "threshold": 0.3
+    },
+    {
+      "crc_selected": true,
+      "joint_flight_loss": 0.04368388952753161,
+      "min_type_release_fraction": 0.0,
+      "release_fraction": 0.22383596753524135,
+      "released_error_fraction": 0.17127862595419846,
+      "represented_reference_fuel_fraction": 0.6211099651169882,
+      "selected_mae_kg": 162.379214563398,
+      "selected_n": 8384,
+      "threshold": 0.38
+    },
+    {
+      "crc_selected": false,
+      "joint_flight_loss": 0.06568963135315856,
+      "min_type_release_fraction": 0.0,
+      "release_fraction": 0.3573526270824434,
+      "released_error_fraction": 0.16443780351139334,
+      "represented_reference_fuel_fraction": 0.7352140967163567,
+      "selected_mae_kg": 130.29021869297947,
+      "selected_n": 13385,
+      "threshold": 0.5
+    },
+    {
+      "crc_selected": false,
+      "joint_flight_loss": 0.0935894065906616,
+      "min_type_release_fraction": 0.0,
+      "release_fraction": 0.6766072191371209,
+      "released_error_fraction": 0.12437359428639072,
+      "represented_reference_fuel_fraction": 0.8657273609230139,
+      "selected_mae_kg": 90.77615140697847,
+      "selected_n": 25343,
+      "threshold": 0.75
+    },
+    {
+      "crc_selected": false,
+      "joint_flight_loss": 0.10920853105078542,
+      "min_type_release_fraction": 0.0,
+      "release_fraction": 0.951009184109355,
+      "released_error_fraction": 0.10482580500266697,
+      "represented_reference_fuel_fraction": 0.9462195588396592,
+      "selected_mae_kg": 76.23552911245463,
+      "selected_n": 35621,
+      "threshold": 1
+    },
+    {
+      "crc_selected": false,
+      "joint_flight_loss": 0.1183496816255207,
+      "min_type_release_fraction": 0.17721518987341772,
+      "release_fraction": 0.971860316104229,
+      "released_error_fraction": 0.1099939563760233,
+      "represented_reference_fuel_fraction": 0.9775224942365591,
+      "selected_mae_kg": 77.5718474089447,
+      "selected_n": 36402,
+      "threshold": 1.5
+    },
+    {
+      "crc_selected": false,
+      "joint_flight_loss": 0.1282240107589963,
+      "min_type_release_fraction": 0.8099415204678363,
+      "release_fraction": 0.9911629645450662,
+      "released_error_fraction": 0.11517845117845117,
+      "represented_reference_fuel_fraction": 0.9949891729933847,
+      "selected_mae_kg": 78.68322218295395,
+      "selected_n": 37125,
+      "threshold": 2
+    },
+    {
+      "crc_selected": false,
+      "joint_flight_loss": 0.1320263216659064,
+      "min_type_release_fraction": 0.8391812865497076,
+      "release_fraction": 0.9971967108073473,
+      "released_error_fraction": 0.1171052983855854,
+      "represented_reference_fuel_fraction": 0.9985484835041808,
+      "selected_mae_kg": 78.99324870763773,
+      "selected_n": 37351,
+      "threshold": 3
+    },
+    {
+      "crc_selected": false,
+      "joint_flight_loss": 0.1335537707044703,
+      "min_type_release_fraction": 0.8859649122807017,
+      "release_fraction": 0.998745194361384,
+      "released_error_fraction": 0.11804645940816381,
+      "represented_reference_fuel_fraction": 0.9992916443573991,
+      "selected_mae_kg": 79.13016032607528,
+      "selected_n": 37409,
+      "threshold": 5
+    },
+    {
+      "crc_selected": false,
+      "joint_flight_loss": 0.13429966405262034,
+      "min_type_release_fraction": 1.0,
+      "release_fraction": 1.0,
+      "released_error_fraction": 0.1183788979068774,
+      "represented_reference_fuel_fraction": 1.0,
+      "selected_mae_kg": 79.21996011993191,
+      "selected_n": 37456,
+      "threshold": 1000000.0
+    }
+  ],
+  "source_sha256": {
+    "flightlist_final.parquet": "4d67d4bd88081a9986c9327636467c2e99c7d6d6eafe070b0516a54cc2c64990",
+    "flightlist_rank.parquet": "ce2807ad8adf8212c068eb6a1d73b3480a174ac6a167dab93d0bed4d356ceaaf",
+    "flightlist_train.parquet": "70d4fbf0824e54a8657d3a87002a7dda98469dfd02c6c05bb2fdbdc83e5b5387",
+    "fuel_final.parquet": "87fda164e39ba7faa7ae7e2ac39f7f7fd01fdb61f13d5af4edfa4f6b08be24f4",
+    "fuel_rank.parquet": "25ac3903b7df7f97fd1dd1729a9383741422320bace33967aa7c8d23ec7edca4",
+    "fuel_train.parquet": "c7f22a18659db2e3d47948ccde0c6ff2aa350db56aa0c987114d175ce411170d"
+  },
+  "stage_b_correction": 0.9989046915073023,
+  "status": "EXPLORATORY_POST_HOC_NOT_CONFIRMATORY"
+}
