@@ -1,5 +1,7 @@
 # Flight Fuel Analysis: Coverage and Error Audit
 
+[![CI](https://github.com/haarikaalla/flight-fuel-analysis/actions/workflows/ci.yml/badge.svg)](https://github.com/haarikaalla/flight-fuel-analysis/actions/workflows/ci.yml)
+
 An interactive data science project that estimates fuel use for **completed flight intervals** from public flight tracking data, then checks **which flights those estimates cover and how accurate they are**. [Try the offline dashboard](demo/index.html) or [walk through the results in Jupyter](notebooks/eligibility-walkthrough.ipynb).
 
 ## The problem
@@ -18,6 +20,11 @@ Public ADS-B flight tracking data contain aircraft positions, but no measured fu
 4. Compare prediction error and access on later labeled intervals. The browser dashboard recalculates the selection locally as you change the overall target or group floor; labels are used to *evaluate* its choices, never to choose intervals.
 
 The dashboard contains pre-scored benchmark intervals and works without a server. It does not accept new raw flights or run live inference.
+
+CI checks the Python decision rules, runs the dashboard's JavaScript against
+the committed benchmark rows, and verifies that the summary numbers below
+match the committed result file. These checks require no raw dataset download;
+rebuilding the model and estimates still requires the publisher's data.
 
 ## Main finding
 
