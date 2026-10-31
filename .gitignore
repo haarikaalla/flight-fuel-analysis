@@ -5,6 +5,8 @@ __pycache__/
 .ipynb_checkpoints/
 data/raw/
 data/processed/
+data/smoke/
+data/*.log
 models/
 reports/phase-2-metadata-audit.json
 *.log

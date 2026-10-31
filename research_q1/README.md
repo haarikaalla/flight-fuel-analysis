@@ -1,5 +1,12 @@
 # Q1 research extension
 
+## Journal study (physics-informed model, cell-level conformal, representation-aware release)
+
+Code: [`journal/`](journal/) (`extract`, `study`, `artifacts`). Protocol: [`configs/journal_study.json`](configs/journal_study.json).
+Results: [`outputs/journal-study.json`](outputs/journal-study.json). Manuscript (Springer LNCS):
+[`paper/lncs/main.tex`](paper/lncs/main.tex) and [`paper/lncs/main.pdf`](paper/lncs/main.pdf). See the root README for
+headline numbers and reproduction commands.
+
 ## Additional development experiments
 
 The additional experiments evaluate flight-block selective-release, aircraft-by-duration calibration,

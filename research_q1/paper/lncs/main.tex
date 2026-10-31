@@ -1,0 +1,222 @@
+% Springer LNCS manuscript. Numbers are injected from generated/macros.tex, which is
+% produced by `python -m research_q1.journal.artifacts` from research_q1/outputs/journal-study.json.
+\documentclass[runningheads]{llncs}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath,amssymb}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage{microtype}
+\graphicspath{{generated/figures/}}
+\input{generated/macros}
+\renewcommand\UrlFont{\color{blue}\rmfamily}
+\setlength{\emergencystretch}{1.5em}
+
+\begin{document}
+
+\title{Physics-Informed Fuel Estimation from Open ADS-B Data with Group-Conditional Uncertainty and Representation-Aware Release}
+\titlerunning{Physics-Informed Fuel Estimation with Representation-Aware Release}
+
+\author{Anonymous Author(s)\inst{1}\orcidID{0000-0000-0000-0000}}
+\authorrunning{Anonymous et al.}
+\institute{Institution withheld for review\\
+\email{withheld@example.org}}
+
+\maketitle
+
+\begin{abstract}
+Open ADS-B surveillance enables large-scale aircraft fuel estimation, but aggregate accuracy hides three questions that matter for research use: whether a physics prior improves transfer to under-represented aircraft, whether uncertainty statements hold inside aircraft-type and duration cells, and how many hard cases are silently dropped when only ``reliable'' estimates are released.
+We study these questions on the EUROCONTROL PRC~2025 benchmark (\nTrain{} training, \nSep{} calibration and \nOct{} forward-test intervals from \nTypes{} aircraft types) under a strictly chronological, flight-disjoint protocol.
+We derive SI kinematic and OpenAP physics features from raw trajectories after correcting a unit discrepancy in the published documentation, and compare seven estimators from a type-median rate to a physics-residual gradient-boosting model.
+On October~2025 the physics-residual model reaches \maeHgbResidualPhysicsOct{}\,kg MAE versus \maeHgbMetadataAdsbOct{}\,kg for the inherited metadata+ADS-B model (paired flight-cluster bootstrap difference \deltaHgbResidualPhysicsOct{}\,kg, 95\% CI \deltaCiHgbResidualPhysicsOct{}); refit ablation attributes the gain to the OpenAP physics features rather than to additional kinematic summaries.
+In leave-one-aircraft-type-out refits over \lotoTypes{} types, the physics-informed learners beat the reference on \lotoWinsHgbFull{} (HGB full) and \lotoWinsHgbResidualPhysics{} (physics-residual) types and cut pooled held-out MAE from \lotoPooledHgbMetadataAdsb{} to \lotoPooledHgbResidualPhysics{}\,kg.
+Nominal 90\% split-conformal intervals with constant width keep \covHgbFullSplitConstant{}\% marginal coverage but under-cover \belowHgbFullSplitConstant{} of \eligibleCells{} aircraft-type$\times$duration cells (worst \worstHgbFullSplitConstant{}\%); error-scaled and hierarchical Mondrian intervals reduce this to \belowHgbFullSplitScaled{} and \belowHgbFullMondrianTypeDuration{} cells, but no method reaches 85\% in every cell under the September-to-October shift.
+At a fixed 75\% release rate, guaranteeing 50\% release in every duration bin and frequent aircraft type raises the share of labelled fuel represented from \fuelShareHgbResidualPhysicsRiskOnly{}\% to \fuelShareHgbResidualPhysicsRepresentationFloor{}\% at a cost of \floorCostHgbResidualPhysics{}\,kg accepted MAE.
+All code, configuration hashes and result files are released; the study is a forward temporal evaluation on development-era data and not an external validation.
+\keywords{Aircraft fuel burn \and ADS-B \and Physics-informed machine learning \and Conformal prediction \and Selective regression \and Open aviation data.}
+\end{abstract}
+
+\section{Introduction}
+Fuel burn is the dominant driver of aviation operating cost and CO$_2$ emissions, yet measured fuel data remain proprietary. Open surveillance data from the OpenSky Network~\cite{schafer2014opensky} make scalable estimation possible, and the EUROCONTROL PRC~2025 Data Challenge~\cite{sun2026prc,zenodo_prc2025} released the first large public benchmark that pairs ACARS fuel-on-board differences with ADS-B trajectories for 15,761 flights.
+Challenge entries showed that physics-guided gradient boosting with OpenAP~\cite{sun2020openap} features and meteorology is highly competitive~\cite{grigoriou2026physics,kacar2026weather}.
+
+Accuracy on a random or pooled test set, however, does not answer the questions that arise when such estimates are consumed downstream. A curator building an emissions inventory needs to know whether the estimator transfers to aircraft types rarely seen in training; a researcher reporting uncertainty needs intervals that are valid \emph{within} aircraft and duration groups, not only on average~\cite{vovk2012mondrian,gibbs2023conditional}; and anyone who filters estimates by predicted reliability needs to know which flights disappear, because selective regression is known to magnify subgroup disparities~\cite{shah2022selective}.
+Our earlier audit of this benchmark (released in the same repository) had already shown, with a metadata-and-ADS-B model, that risk-only release of 75\% of late-September intervals retained fewer than 1\% of 15--60-minute intervals and one of 66 Boeing 747-400 intervals.
+
+This paper makes the following contributions.
+\begin{enumerate}
+  \item We document and correct a unit discrepancy in the PRC~2025 trajectory release (feet, knots and ft/min rather than the documented metres and m/s) and derive SI kinematic, energy-rate and OpenAP fuel-flow features from the raw ADS-B rows only (Sect.~\ref{sec:data}).
+  \item We compare seven estimators under one pre-registered configuration (Sect.~\ref{sec:methods}), including a physics-residual model that learns corrections to a type-scaled OpenAP prior, and test them with paired flight-cluster bootstrap inference and Holm correction~\cite{holm1979} on a forward October test (Sect.~\ref{sec:results}).
+  \item We quantify transfer to withheld aircraft types with leave-one-type-out refits and to unseen routes.
+  \item We evaluate constant, $\hat\sigma$-scaled and hierarchical Mondrian conformal intervals cell-by-cell, and
+  \item we measure the accuracy cost of a representation floor across a release frontier for each estimator, so that the access--accuracy trade-off can be read together with the point and interval results.
+\end{enumerate}
+We do not claim a new learning algorithm or a conformal theorem. The contribution is an auditable, jointly evaluated estimation--uncertainty--release pipeline on open data, with every number in this paper generated from a committed result file.
+
+\section{Data and Leakage Controls}\label{sec:data}
+\paragraph{Benchmark.}
+The PRC~2025 dataset~\cite{zenodo_prc2025} provides, for each flight, metadata (aircraft type, take-off and landing times, origin and destination), a trajectory file fusing ADS-B positions with sparse ACARS reports, and labelled intervals whose target \texttt{fuel\_kg} is the difference between consecutive ACARS fuel-on-board reports. Splits are chronological by construction: April--August (training), September (``rank'') and October~2025 (``final''). All downloads were verified against the publisher's MD5 checksums.
+
+\paragraph{Unit correction.}
+The published README states that altitude, ground speed and vertical rate are in metres, m/s and m/s. Across all flights, the median per-flight 90th-percentile altitude when ground speed exceeds 300 is \unitAlt{} and the median ground speed is \unitGs{}; these are only plausible as feet and knots. We therefore convert to SI before any physics computation and report this as a correction to the dataset documentation. Out-of-range raw values are set to missing, and position spikes implying ground speeds above $\sim$680\,kt are excluded from along-track distance (Sect.~\ref{sec:features}).
+
+\paragraph{Leakage controls.}
+Only rows with \texttt{source = adsb} enter any feature; ACARS rows, which carry the labels, are discarded before aggregation. All models and the per-type physics scale factors are fit on April--August only. September is split by a stable hash of the flight identifier into two flight-disjoint halves: half~A fits the error model $\hat\sigma$, half~B provides conformal calibration. October is used once, for evaluation. Train, calibration and test flight identifiers are checked to be disjoint. October aggregates had been inspected during development of the inherited metadata+ADS-B model, so we describe October as a forward temporal test on development-era data, not a sealed confirmatory set.
+
+\section{Methods}\label{sec:methods}
+\subsection{Features}\label{sec:features}
+Four feature groups are used. \emph{Metadata} (7): interval duration, whole-flight duration, elapsed time from take-off, remaining time to landing, hour-of-day encoding and great-circle route distance from the airport table. \emph{ADS-B summaries} (14): the inherited position/speed counts, raw altitude/speed/vertical-rate quantiles and gap statistics. \emph{SI kinematics} (14): mean and change in altitude and ground speed, mean vertical rate, climb/descent/ground fractions, spike-filtered along-track distance, observed-span fraction, the specific-energy rate $\big(g\,\Delta h + \tfrac12\Delta v^2\big)/\Delta t$, and interpolated altitude and speed at the interval boundaries. \emph{Physics} (3): the OpenAP fuel-flow model~\cite{sun2020openap} integrated at 30-second steps over the interval using a nominal mass $m_{\mathrm{OEW}} + 0.5\,(m_{\mathrm{MTOW}}-m_{\mathrm{OEW}})$, ground speed as a proxy for true airspeed (winds are unavailable), a 7\%-of-static-thrust ground fuel flow when ground speed is below 40\,m/s, the fraction of ground samples and the largest interpolation gap. Types absent from OpenAP use the library's documented synonyms. The nominal mass and wind-free airspeed are deliberate, documented approximations; the learned models are expected to absorb their bias.
+
+\subsection{Estimators}
+Let $y_i$ be the labelled fuel of interval $i$ and $x_i$ its features. We compare
+(i) \emph{type median rate}: duration $\times$ training median kg/min per aircraft type;
+(ii) \emph{OpenAP physics}: the integrated fuel flow $\phi_i$ without calibration;
+(iii) \emph{OpenAP type-scaled}: $s_{t(i)}\,\phi_i$ with $s_t=\sum_i y_i\phi_i/\sum_i\phi_i^2$ over training intervals of type $t$;
+(iv--vi) histogram gradient boosting (HGB) on metadata, metadata+ADS-B (the inherited reference), and all four groups (\emph{HGB full}); and
+(vii) \emph{physics-residual HGB}: $\hat y_i = s_{t(i)}\phi_i + g(x_i)$ where $g$ is an HGB model fit to $y_i - s_{t(i)}\phi_i$ on all feature groups.
+Physics features are computed by interpolating the flight's ADS-B states at the sample times, so an interval without positions of its own still receives a prior from neighbouring observations; the largest interpolation gap is kept as a feature so that the learners can discount such cases. The type median rate is used only if a flight has fewer than two valid ADS-B positions. Hyperparameters (400 trees, learning rate 0.05, 31 leaves, $\ell_2=10$) were copied from the inherited configuration and not tuned on any evaluation period; all predictions are clipped at zero.
+
+\subsection{Error model, intervals and release}
+For each point model an HGB error model $\hat\sigma(x)$ is fit on September half~A to the absolute residuals using the full feature set plus the log prediction. On half~B we compute conformity scores $r_i=|y_i-\hat y_i|/\hat\sigma(x_i)$ and compare three nominal 90\% procedures: constant-width split conformal (quantile of $|y_i-\hat y_i|$), $\hat\sigma$-scaled split conformal (quantile of $r_i$), and a hierarchical Mondrian procedure~\cite{vovk2012mondrian} that takes the finite-sample quantile of $r_i$ within aircraft-type$\times$duration-bin cells with at least 50 calibration rows, falling back to the aircraft type, then the duration bin, then the global quantile. Coverage is evaluated on October in every cell with at least 100 test intervals, with flight-cluster bootstrap intervals.
+
+Release follows the inherited deterministic rule: intervals are ranked by $\hat\sigma$; a floor $f$ forces at least $\lceil f\,n_g\rceil$ releases in each duration bin $g$ and each aircraft type with at least 50 intervals in the batch, and the remaining budget up to the overall target is filled by lowest $\hat\sigma$. We compare $f=0$ (risk ranking only) with $f=0.5$ at targets from 50\% to 100\%, reporting accepted and rejected MAE, the share of labelled fuel represented and group release rates. Labels are used only after selection.
+
+\subsection{Statistics}
+MAE differences against the reference are tested with a paired bootstrap that resamples whole flights (\bootReps{} repetitions), reporting percentile 95\% CIs and two-sided bootstrap $p$-values, Holm-adjusted across the six comparisons per period~\cite{holm1979}. Leave-one-type-out (LOTO) refits all estimators and scale factors without one aircraft type and evaluates on that type's September and October intervals, for every type with at least 200 evaluation intervals. Flight-level totals and inventory bias use flight-cluster bootstraps. Configuration, code and source-file SHA-256 hashes, package versions and the git commit are recorded in the result file (commit \texttt{\gitCommit}, runtime \runtimeMin{}\,min).
+
+\section{Results}\label{sec:results}
+\subsection{Point prediction}
+Table~\ref{tab:models} and Fig.~\ref{fig:models} compare the seven estimators. The uncalibrated OpenAP prior alone reaches \maeOpenapPhysicsOct{}\,kg on October and overestimates labelled inventory by \invBiasOpenapPhysics{}\%, consistent with a nominal mass and wind-free airspeed; per-type scaling reduces its MAE to \maeOpenapCalibratedOct{}\,kg, \deltaOpenapCalibratedOct{}\,kg from the learned reference (\maeHgbMetadataAdsbOct{}\,kg). Adding SI kinematics and physics to the reference (HGB full) changes October MAE by \deltaHgbFullOct{}\,kg (95\% CI \deltaCiHgbFullOct{}, Holm $p$ = \holmHgbFullOct). The physics-residual model gives the largest improvement, \deltaHgbResidualPhysicsOct{}\,kg (95\% CI \deltaCiHgbResidualPhysicsOct{}, Holm $p$ = \holmHgbResidualPhysicsOct), with October RMSE \rmseHgbResidualPhysicsOct{}\,kg and $R^2$ = \rsqHgbResidualPhysicsOct. September shows the same ordering with larger gains (\deltaHgbResidualPhysicsSep{}\,kg, 95\% CI \deltaCiHgbResidualPhysicsSep{}). The improvements are a few percent of MAE: statistically clear, but modest relative to the remaining error.
+
+\begin{table}[t]
+\centering
+\caption{Point-prediction results. MAE confidence intervals resample whole flights; $\Delta$MAE is the paired difference against the metadata+ADS-B reference (negative favours the row model).}
+\label{tab:models}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\resizebox{\linewidth}{!}{\input{generated/table_models}}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{model_comparison.pdf}
+\caption{October 2025 MAE by estimator with 95\% flight-cluster bootstrap intervals.}
+\label{fig:models}
+\end{figure}
+
+\paragraph{Ablation.}
+Removing feature groups from HGB full (Table~\ref{tab:ablation}) shows where the gain comes from: dropping the three physics features raises October MAE by \ablDeltaPhys{}\,kg and dropping flight metadata by \ablDeltaMeta{}\,kg, whereas dropping the 14 SI kinematic features (\ablDeltaKin{}\,kg) or the 14 original ADS-B summaries (\ablDeltaAdsb{}\,kg) changes it by less than half a kilogram. Given the physics prior, raw kinematic summaries are therefore largely redundant. These are refit ablations on one configuration; they describe predictive contribution, not causal effect.
+
+\begin{table}[t]
+\centering
+\caption{Refit feature-group ablation of HGB full on October 2025.}
+\label{tab:ablation}
+\scriptsize
+\input{generated/table_ablation}
+\end{table}
+
+\paragraph{Subgroups and data availability.}
+Table~\ref{tab:subgroups} reports October MAE by duration bin, ADS-B availability and the most frequent aircraft types. \zeroAdsbOct{}\% of October intervals have no ADS-B position inside the interval. For these, the in-interval summaries are missing and the physics prior relies on interpolation across the gap; their MAE is \adsbZeroHgbResidualPhysics{}\,kg for the physics-residual model and \adsbZeroHgbMetadataAdsb{}\,kg for the reference, against \adsbManyHgbResidualPhysics{} and \adsbManyHgbMetadataAdsb{}\,kg for intervals with more than 50 positions. Error rises steeply with duration (15--60\,min: \durLongHgbResidualPhysics{}\,kg versus \durShortHgbResidualPhysics{}\,kg below five minutes), so pooled MAE is dominated by long intervals.
+
+\begin{table}[t]
+\centering
+\caption{October 2025 MAE (kg) by subgroup. ADS-B availability counts positions inside the interval.}
+\label{tab:subgroups}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\resizebox{\linewidth}{!}{\input{generated/table_subgroups}}
+\end{table}
+
+\subsection{Transfer to withheld aircraft types and unseen routes}
+Table~\ref{tab:loto} gives LOTO results for the \lotoTypes{} aircraft types with at least 200 evaluation intervals. HGB full beats the reference on \lotoWinsHgbFull{} types and the physics-residual model on \lotoWinsHgbResidualPhysics{}; pooled held-out MAE falls from \lotoPooledHgbMetadataAdsb{}\,kg (reference) to \lotoPooledHgbFull{} and \lotoPooledHgbResidualPhysics{}\,kg, and the simple type-scaled OpenAP prior, which wins only \lotoWinsOpenapCalibrated{} individual types, has the lowest pooled value (\lotoPooledOpenapCalibrated{}\,kg) because it avoids the largest failures on the most frequent types. Even the uncalibrated prior beats the reference on \lotoWinsOpenapPhysics{} held-out types, mostly narrow-bodies. The gains are largest for types whose closest training relatives differ in size or engines (e.g.\ A20N, B744, B788); for types with a close sibling in training (A21N, B738, A359) the reference remains competitive or better. When a type is unseen, its one-hot indicator is all zeros and the reference can only borrow from superficially similar types, whereas the physics prior carries type-specific engine and drag information from OpenAP. For an unseen type the scale factor $s_t$ falls back to the global scale, so the physics models' calibration is type-agnostic in these tests.
+
+\begin{table}[t]
+\centering
+\caption{Leave-one-aircraft-type-out MAE (kg) on the held-out type's September and October intervals. Bold marks the best model per row. The reference is HGB metadata+ADS-B.}
+\label{tab:loto}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\resizebox{\linewidth}{!}{\input{generated/table_loto}}
+\end{table}
+
+On October intervals from routes present in training (\seenRouteN{} intervals) versus unseen routes (\unseenRouteN{}), the reference has \seenRouteHgbMetadataAdsb{} vs.\ \unseenRouteHgbMetadataAdsb{}\,kg MAE and the physics-residual model \seenRouteHgbResidualPhysics{} vs.\ \unseenRouteHgbResidualPhysics{}\,kg. The seen/unseen comparison is confounded by aircraft and duration mix and is reported descriptively.
+
+\subsection{Group-conditional uncertainty}
+Table~\ref{tab:intervals} and Fig.~\ref{fig:cells} evaluate nominal 90\% intervals on October. For HGB full, all three methods are close to nominal marginally (\covHgbFullSplitConstant{}, \covHgbFullSplitScaled{} and \covHgbFullMondrianTypeDuration{}\%), which is precisely why marginal coverage is uninformative here. Constant-width split conformal under-covers \belowHgbFullSplitConstant{} of \eligibleCells{} cells (worst \worstHgbFullSplitConstant{}\%, long B77W intervals) and over-covers \aboveHgbFullSplitConstant{} narrow-body cells above 97\%. Scaling by the learned error model (Spearman correlation with realised error \spearmanHgbFull{}; Fig.~\ref{fig:deciles}) does most of the repair: \belowHgbFullSplitScaled{} cells below 85\%, worst \worstHgbFullSplitScaled{}\%, mean width \widthHgbFullSplitScaled{}\,kg. Hierarchical Mondrian calibration leaves \belowHgbFullMondrianTypeDuration{} cells below 85\% and \aboveHgbFullMondrianTypeDuration{} above 97\% at a narrower mean width of \widthHgbFullMondrianTypeDuration{}\,kg, but its worst cell (\worstHgbFullMondrianTypeDuration{}\%) is not better than the scaled method's. The remaining failures concentrate in A21N, A333, B788 and B77W cells, where the September calibration cells are small and the October error distribution has shifted. Because September and October are not exchangeable, these are empirical coverages, not guarantees; our pre-registered expectation that Mondrian calibration would reach 85\% in every cell (H3) is not supported.
+
+\begin{table}[t]
+\centering
+\caption{Nominal 90\% interval results on October 2025. Cells are aircraft type $\times$ duration bin with $\geq 100$ test intervals.}
+\label{tab:intervals}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\resizebox{\linewidth}{!}{\input{generated/table_intervals}}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{cell_coverage.pdf}
+\caption{Empirical coverage of nominal 90\% intervals in each eligible aircraft-type/duration cell (HGB full point model).}
+\label{fig:cells}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=.62\linewidth]{risk_deciles.pdf}
+\caption{Observed MAE against mean predicted error $\hat\sigma$ by decile on October 2025.}
+\label{fig:deciles}
+\end{figure}
+
+\subsection{Representation-aware release}
+Table~\ref{tab:selection} and Fig.~\ref{fig:frontier} show the release trade-off at the 75\% target. With risk ranking only, the reference releases \longCovHgbMetadataAdsbRiskOnly{}\% of 15--60-minute intervals and \bSevenCovHgbMetadataAdsbRiskOnly{}\% of B744 intervals while representing \fuelShareHgbMetadataAdsbRiskOnly{}\% of labelled fuel; the 50\% floor raises these to \longCovHgbMetadataAdsbRepresentationFloor{}\%, \bSevenCovHgbMetadataAdsbRepresentationFloor{}\% and \fuelShareHgbMetadataAdsbRepresentationFloor{}\% at an accepted-MAE cost of \floorCostHgbMetadataAdsb{}\,kg. For the physics-residual model the same floor costs \floorCostHgbResidualPhysics{}\,kg (accepted MAE \accMaeHgbResidualPhysicsRiskOnly{} $\rightarrow$ \accMaeHgbResidualPhysicsRepresentationFloor{}\,kg) while representing \fuelShareHgbResidualPhysicsRepresentationFloor{}\% of labelled fuel. A better point model therefore does not remove the access problem---risk-only release still excludes nearly all long intervals and wide-bodies---and lowers the price of fixing it only slightly; the difference in floor cost between estimators is descriptive and was not tested.
+
+\begin{table}[t]
+\centering
+\caption{Release policies at the 75\% target on October 2025. Fuel share is the fraction of labelled fuel in released intervals; it requires labels and is an evaluation quantity only.}
+\label{tab:selection}
+\scriptsize
+\setlength{\tabcolsep}{3pt}
+\resizebox{\linewidth}{!}{\input{generated/table_selection}}
+\end{table}
+
+\begin{figure}[t]
+\centering
+\includegraphics[width=\linewidth]{release_frontier.pdf}
+\caption{Release frontier: accepted MAE (left) and labelled fuel represented (right) against release rate for risk-only and 50\%-floor policies.}
+\label{fig:frontier}
+\end{figure}
+
+\subsection{Flight totals and inventory bias}
+Summing interval estimates per flight, the physics-residual model's October inventory bias is \invBiasHgbResidualPhysics{}\% (95\% flight-bootstrap CI \invBiasCiHgbResidualPhysics) against \invBiasHgbMetadataAdsb{}\% (\invBiasCiHgbMetadataAdsb) for the reference and \invBiasOpenapPhysics{}\% for the uncalibrated prior; mean absolute flight-total error is \flightMapeHgbResidualPhysics{}\% versus \flightMapeHgbMetadataAdsb{}\% (type-scaled OpenAP: \flightMapeOpenapCalibrated{}\%). Both learned models' inventory-bias intervals include zero. These totals cover only the labelled intervals of each flight, not whole-flight fuel.
+
+\subsection{Pre-registered hypotheses}
+H1 (HGB full improves October MAE with a Holm-adjusted CI excluding zero) is supported. H2 (physics-informed models beat the reference on most withheld types) is supported for HGB full and the physics-residual model but not for the type-scaled prior taken type by type. H3 (Mondrian intervals $\geq$85\% in every eligible cell) is not supported. H4 (a smaller floor cost for HGB full than for the reference) holds descriptively (\floorCostHgbFull{} vs.\ \floorCostHgbMetadataAdsb{}\,kg), with a difference too small to matter in practice.
+
+\section{Discussion}
+\paragraph{What the physics prior buys.}
+On pooled October data the physics-informed learners improve MAE by \relGainHgbFullOct{}\% (HGB full) and \relGainHgbResidualPhysicsOct{}\% (physics-residual), and the ablation locates that gain in three OpenAP features rather than in the many kinematic summaries. Their clearer value is on withheld aircraft types, where a one-hot type encoding has nothing to offer and pooled held-out MAE falls by \lotoRelGainHgbFull{}\% and \lotoRelGainHgbResidualPhysics{}\%, respectively. This matches the motivation of domain-generalising fuel-flow models~\cite{jarry2025unseen}, obtained here with a public performance model and no proprietary data. The uncalibrated prior is biased because mass and wind are unknown, which is why type scaling and residual learning are both needed, and the gain is not uniform: types with close relatives in training gain little or lose.
+
+\paragraph{Uncertainty must be read per cell.}
+A single marginal coverage figure would have rated all three interval methods as adequate. Only cell-level evaluation exposes that constant-width intervals under-cover long wide-body intervals and over-cover short narrow-body ones. Error-scaled and hierarchical Mondrian calibration remove most of this imbalance without new theory, but neither achieves cell-wise validity under a forward temporal shift; small calibration cells for rarer wide-bodies remain the binding constraint, and more calibration data or shift-aware methods~\cite{tibshirani2019weighted,gibbs2023conditional} are needed.
+
+\paragraph{Release policies change the sample.}
+Better accuracy lowers but does not eliminate the cost of representation floors. We recommend that any study releasing a filtered subset of open-data fuel estimates report, as here, the released fraction per duration bin and per aircraft type together with accepted and rejected error.
+
+\paragraph{Limitations.}
+Labels are ACARS fuel-on-board differences, not measured fuel flow, and \shortOct{}\% of October intervals are shorter than the five-minute lower bound stated by the publisher. Winds, take-off mass, payload and engine variant are absent; ground speed stands in for true airspeed. October was inspected during development of the inherited reference, so no claim of sealed confirmation is made. Routes and operators overlap between periods, and the benchmark covers a single year and a European-centric network. Hyperparameters were fixed rather than tuned, which is conservative for all learned models. The release rule is a deterministic greedy quota, not an optimal policy, and the ``labelled fuel share'' can only be computed where labels exist.
+
+\section{Conclusion}
+On the PRC~2025 benchmark, a type-scaled OpenAP prior with learned residual corrections improves forward-test accuracy modestly but significantly over a metadata+ADS-B gradient-boosting model, and transfers substantially better to most withheld aircraft types. Cell-level conformal evaluation shows that marginal coverage hides large under- and over-coverage across aircraft-type$\times$duration cells; error-scaled and Mondrian calibration reduce but do not eliminate it under temporal shift. Risk-only release of 75\% of intervals still drops nearly all long intervals regardless of point-model quality, and a representation floor restores access at a cost of \floorCostHgbResidualPhysics{}--\floorCostHgbMetadataAdsb{}\,kg accepted MAE across estimators. The pipeline, configuration hashes and result files are released so that each reported number can be regenerated.
+
+\subsubsection{Data and code availability.}
+The dataset is public under CC~BY~4.0~\cite{zenodo_prc2025}. Code, configuration (\texttt{research\_q1/configs/journal\_study.json}), the result file (\texttt{research\_q1/outputs/journal-study.json}) and this manuscript's generator are in the project repository on branch \texttt{q1-research-extension}.
+
+\subsubsection{Disclosure of interests.}
+The authors have no competing interests to declare that are relevant to the content of this article.
+
+\bibliographystyle{splncs04}
+\bibliography{references}
+
+\end{document}

@@ -1,0 +1,14 @@
+\begin{tabular}{lrrlrrl}
+\toprule
+Model & Sep.\ MAE & Oct.\ MAE & Oct.\ MAE 95\% CI & Oct.\ RMSE & Oct.\ $R^2$ & $\Delta$MAE vs.\ ref.\ [95\% CI] \\
+ & (kg) & (kg) & (kg) & (kg) & & (kg) \\
+\midrule
+Type median rate & 94.81 & 89.30 & [84.25, 95.05] & 249.36 & 0.895 & +12.78 [10.59, 14.91] \\
+OpenAP physics (uncalibrated) & 135.69 & 131.30 & [124.28, 139.21] & 338.00 & 0.808 & +54.78 [48.32, 61.24] \\
+OpenAP physics (type-scaled) & 88.85 & 85.60 & [80.71, 91.27] & 250.04 & 0.895 & +9.08 [6.06, 12.48] \\
+HGB metadata & 83.98 & 78.47 & [73.56, 84.07] & 233.14 & 0.909 & +1.94 [1.12, 2.78] \\
+HGB metadata + ADS-B summaries & 81.75 & 76.52 & [71.66, 82.05] & 226.12 & 0.914 & reference \\
+HGB full (+ kinematics + physics) & 75.23 & 73.12 & [68.95, 77.98] & 217.52 & 0.920 & -3.40 [-5.70, -1.03] \\
+Physics-residual HGB & 74.23 & 72.68 & [68.53, 77.41] & 211.99 & 0.924 & -3.84 [-6.27, -1.35] \\
+\bottomrule
+\end{tabular}

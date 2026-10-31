@@ -75,5 +75,30 @@ class StudyTests(unittest.TestCase):
         self.assertEqual(x[0, len(cols):].sum(), 0)
 
 
+class ManuscriptConsistencyTests(unittest.TestCase):
+    def test_committed_manuscript_numbers_match_result_json(self):
+        import json
+        import re
+        import tempfile
+        from pathlib import Path
+
+        from research_q1.journal import artifacts
+
+        root = Path(__file__).resolve().parents[2]
+        results = root / "research_q1/outputs/journal-study.json"
+        committed = root / "research_q1/paper/lncs/generated/macros.tex"
+        if not results.exists() or not committed.exists():
+            self.skipTest("journal results not generated")
+        result = json.loads(results.read_text(encoding="utf-8"))
+        with tempfile.TemporaryDirectory() as tmp:
+            fresh = Path(tmp) / "macros.tex"
+            artifacts.write_macros(result, fresh)
+            self.assertEqual(fresh.read_text(encoding="utf-8"), committed.read_text(encoding="utf-8"))
+        tex = (root / "research_q1/paper/lncs/main.tex").read_text(encoding="utf-8")
+        defined = set(re.findall(r"\\newcommand\{\\(\w+)\}", committed.read_text(encoding="utf-8")))
+        used = {m for m in re.findall(r"\\([a-zA-Z]+)\{\}", tex) if any(c.isupper() for c in m[1:])}
+        self.assertEqual(used - defined - {"UrlFont"}, set())
+
+
 if __name__ == "__main__":
     unittest.main()

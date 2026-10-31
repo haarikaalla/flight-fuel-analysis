@@ -1,0 +1,5874 @@
+{
+ "ablation_october": {
+  "drop": {
+   "adsb": {
+    "delta_vs_full_kg": -0.22284776369345138,
+    "mae_kg": 72.89644983156951
+   },
+   "kin": {
+    "delta_vs_full_kg": -0.19307182837546577,
+    "mae_kg": 72.9262257668875
+   },
+   "meta": {
+    "delta_vs_full_kg": 4.861407144337107,
+    "mae_kg": 77.98070473960007
+   },
+   "phys": {
+    "delta_vs_full_kg": 2.582074291117408,
+    "mae_kg": 75.70137188638037
+   }
+  },
+  "full_mae_kg": 73.11929759526296
+ },
+ "code_sha256": "f79819056ac1a31d148e734f06971fc832a8df20a0656e9ea908ea1f825cc265",
+ "config": {
+  "alpha": 0.1,
+  "bootstrap_repetitions": 2000,
+  "evidence_boundary": "April-August 2025 fits every model. September 2025 is the only period used for risk/sigma fitting and conformal calibration (two disjoint flight halves by stable hash). October 2025 is a forward temporal test for every model defined here; the inherited project had earlier inspected October aggregates for its own metadata/ADS-B model, so October is a development-era forward test, not a sealed confirmatory set.",
+  "frontier_targets": [
+   0.5,
+   0.6,
+   0.7,
+   0.75,
+   0.8,
+   0.9,
+   1.0
+  ],
+  "hist_gradient_boosting": {
+   "early_stopping": false,
+   "l2_regularization": 10.0,
+   "learning_rate": 0.05,
+   "loss": "squared_error",
+   "max_iter": 400,
+   "max_leaf_nodes": 31,
+   "random_state": 20261031
+  },
+  "hypotheses": {
+   "H1": "Adding SI kinematic and OpenAP physics features to the metadata+ADS-B gradient boosting model lowers October MAE; paired flight-cluster bootstrap 95% CI excludes zero after Holm correction.",
+   "H2": "Physics-informed models (openap_calibrated, hgb_residual_physics, hgb_full) have lower MAE than hgb_metadata_adsb on aircraft types withheld from training (leave-one-type-out), for the majority of eligible types.",
+   "H3": "Duration x aircraft hierarchical Mondrian conformal intervals calibrated on September attain >= 0.85 coverage in every eligible October cell, whereas constant-width split conformal does not.",
+   "H4": "At a 75% release target, the accepted-MAE cost of a 50% group representation floor is smaller (in kg) for hgb_full than for hgb_metadata_adsb."
+  },
+  "loto_min_intervals": 200,
+  "min_cell_n": 100,
+  "min_type_n": 50,
+  "name": "journal-study-v1",
+  "no_tuning_statement": "Hyperparameters are copied from configs/phase-3-baselines.json with max_iter raised to 400 and were not searched on any evaluation period.",
+  "reference_model": "hgb_metadata_adsb",
+  "risk_hist_gradient_boosting": {
+   "early_stopping": false,
+   "l2_regularization": 10.0,
+   "learning_rate": 0.05,
+   "loss": "absolute_error",
+   "max_iter": 200,
+   "max_leaf_nodes": 15,
+   "random_state": 20261031
+  },
+  "seed": 20261031,
+  "selection_floor": 0.5,
+  "selection_target": 0.75,
+  "status": "pre-specified before any kinematic/physics model result was computed"
+ },
+ "config_sha256": "84bec0865598449c57977e797af77e1f6a2c87281aa2d7e752fba9fd8e83c0c2",
+ "counts": {
+  "october": {
+   "aircraft_types": 21,
+   "flights": 2836,
+   "intervals": 37456,
+   "physics_available": 37456,
+   "zero_adsb_intervals": 9557
+  },
+  "september": {
+   "aircraft_types": 19,
+   "flights": 1888,
+   "intervals": 24289,
+   "physics_available": 24289,
+   "zero_adsb_intervals": 6395
+  },
+  "train": {
+   "aircraft_types": 26,
+   "flights": 11037,
+   "intervals": 131530,
+   "physics_available": 131530,
+   "zero_adsb_intervals": 45874
+  }
+ },
+ "evidence_boundary": "April-August 2025 fits every model. September 2025 is the only period used for risk/sigma fitting and conformal calibration (two disjoint flight halves by stable hash). October 2025 is a forward temporal test for every model defined here; the inherited project had earlier inspected October aggregates for its own metadata/ADS-B model, so October is a development-era forward test, not a sealed confirmatory set.",
+ "extract_sha256": "a4ac5287916c7430b6c6d5f805e3e3421262752226d4f33b8569a6408bbd57d9",
+ "feature_manifest": {
+  "final": {
+   "archive_md5": "517df5d6210aad1286900611963345f4",
+   "feature_file": "features_final.parquet",
+   "flights": 2836,
+   "intervals": 37456,
+   "kinematics_file": "kinematics_final.parquet",
+   "physics_missing_intervals": 0,
+   "seconds": 42.1,
+   "split": "final",
+   "subset": false,
+   "unit_check": {
+    "flights": 2835,
+    "interpretation": "feet and knots (README states metres and m/s)",
+    "median_flight_p90_raw_altitude_when_groundspeed_gt_300": 37000.0,
+    "median_raw_groundspeed_when_gt_300": 449.0
+   },
+   "zero_adsb_intervals": 9557
+  },
+  "rank": {
+   "archive_md5": "f8c7af3510d5ffd0d5662866d12aa760",
+   "feature_file": "features_rank.parquet",
+   "flights": 1888,
+   "intervals": 24289,
+   "kinematics_file": "kinematics_rank.parquet",
+   "physics_missing_intervals": 0,
+   "seconds": 29.3,
+   "split": "rank",
+   "subset": false,
+   "unit_check": {
+    "flights": 1888,
+    "interpretation": "feet and knots (README states metres and m/s)",
+    "median_flight_p90_raw_altitude_when_groundspeed_gt_300": 37012.5,
+    "median_raw_groundspeed_when_gt_300": 448.0
+   },
+   "zero_adsb_intervals": 6395
+  },
+  "train": {
+   "archive_md5": "255cef578697dc79d5d98958b8a880f5",
+   "feature_file": "features_train.parquet",
+   "flights": 11037,
+   "intervals": 131530,
+   "kinematics_file": "kinematics_train.parquet",
+   "physics_missing_intervals": 0,
+   "seconds": 129.1,
+   "split": "train",
+   "subset": false,
+   "unit_check": {
+    "flights": 11016,
+    "interpretation": "feet and knots (README states metres and m/s)",
+    "median_flight_p90_raw_altitude_when_groundspeed_gt_300": 37024.9704,
+    "median_raw_groundspeed_when_gt_300": 447.0
+   },
+   "zero_adsb_intervals": 45874
+  }
+ },
+ "fit_audit": {
+  "columns": {
+   "hgb_full": [
+    "duration_min",
+    "flight_duration_min",
+    "elapsed_from_takeoff_min",
+    "remaining_to_landing_min",
+    "start_hour_sin",
+    "start_hour_cos",
+    "route_gc_km",
+    "adsb_position_count",
+    "adsb_speed_count",
+    "adsb_altitude_median_raw",
+    "adsb_altitude_p10_raw",
+    "adsb_altitude_p90_raw",
+    "adsb_speed_median_raw",
+    "adsb_speed_p10_raw",
+    "adsb_speed_p90_raw",
+    "adsb_vertical_rate_abs_median_raw",
+    "adsb_vertical_rate_abs_p90_raw",
+    "adsb_max_gap_s",
+    "adsb_first_gap_s",
+    "adsb_last_gap_s",
+    "adsb_max_gap_fraction",
+    "kin_alt_mean_m",
+    "kin_alt_delta_m",
+    "kin_gs_mean_mps",
+    "kin_gs_delta_mps",
+    "kin_vr_mean_mps",
+    "kin_frac_climb",
+    "kin_frac_descent",
+    "kin_frac_ground",
+    "kin_track_km",
+    "kin_obs_span_fraction",
+    "kin_specific_energy_rate_w_per_kg",
+    "ctx_alt_start_m",
+    "ctx_alt_end_m",
+    "ctx_gs_mid_mps",
+    "phys_openap_kg",
+    "phys_frac_ground",
+    "phys_max_interp_gap_s",
+    "type_A20N",
+    "type_A21N",
+    "type_A306",
+    "type_A318",
+    "type_A319",
+    "type_A320",
+    "type_A321",
+    "type_A332",
+    "type_A333",
+    "type_A359",
+    "type_A388",
+    "type_B38M",
+    "type_B39M",
+    "type_B737",
+    "type_B738",
+    "type_B739",
+    "type_B744",
+    "type_B748",
+    "type_B752",
+    "type_B763",
+    "type_B772",
+    "type_B77L",
+    "type_B77W",
+    "type_B788",
+    "type_B789",
+    "type_MD11"
+   ],
+   "hgb_metadata": [
+    "duration_min",
+    "flight_duration_min",
+    "elapsed_from_takeoff_min",
+    "remaining_to_landing_min",
+    "start_hour_sin",
+    "start_hour_cos",
+    "route_gc_km",
+    "type_A20N",
+    "type_A21N",
+    "type_A306",
+    "type_A318",
+    "type_A319",
+    "type_A320",
+    "type_A321",
+    "type_A332",
+    "type_A333",
+    "type_A359",
+    "type_A388",
+    "type_B38M",
+    "type_B39M",
+    "type_B737",
+    "type_B738",
+    "type_B739",
+    "type_B744",
+    "type_B748",
+    "type_B752",
+    "type_B763",
+    "type_B772",
+    "type_B77L",
+    "type_B77W",
+    "type_B788",
+    "type_B789",
+    "type_MD11"
+   ],
+   "hgb_metadata_adsb": [
+    "duration_min",
+    "flight_duration_min",
+    "elapsed_from_takeoff_min",
+    "remaining_to_landing_min",
+    "start_hour_sin",
+    "start_hour_cos",
+    "route_gc_km",
+    "adsb_position_count",
+    "adsb_speed_count",
+    "adsb_altitude_median_raw",
+    "adsb_altitude_p10_raw",
+    "adsb_altitude_p90_raw",
+    "adsb_speed_median_raw",
+    "adsb_speed_p10_raw",
+    "adsb_speed_p90_raw",
+    "adsb_vertical_rate_abs_median_raw",
+    "adsb_vertical_rate_abs_p90_raw",
+    "adsb_max_gap_s",
+    "adsb_first_gap_s",
+    "adsb_last_gap_s",
+    "adsb_max_gap_fraction",
+    "type_A20N",
+    "type_A21N",
+    "type_A306",
+    "type_A318",
+    "type_A319",
+    "type_A320",
+    "type_A321",
+    "type_A332",
+    "type_A333",
+    "type_A359",
+    "type_A388",
+    "type_B38M",
+    "type_B39M",
+    "type_B737",
+    "type_B738",
+    "type_B739",
+    "type_B744",
+    "type_B748",
+    "type_B752",
+    "type_B763",
+    "type_B772",
+    "type_B77L",
+    "type_B77W",
+    "type_B788",
+    "type_B789",
+    "type_MD11"
+   ]
+  },
+  "fit_seconds": {
+   "hgb_full": 3.5752026999980444,
+   "hgb_metadata": 2.2423782000041683,
+   "hgb_metadata_adsb": 3.035431399999652,
+   "hgb_residual_physics": 3.2929151999996975
+  },
+  "physics_global_scale": 0.7835375149625228,
+  "physics_scales": {
+   "A20N": 0.8449676947697681,
+   "A21N": 1.0474082440065517,
+   "A306": 0.9602566233395503,
+   "A318": 0.5137358607361523,
+   "A319": 1.04708069007513,
+   "A320": 0.9116621668921425,
+   "A321": 0.7967631752537684,
+   "A332": 1.0240549947663038,
+   "A333": 1.0409730250238978,
+   "A359": 0.7622980739888523,
+   "A388": 1.2953966176386509,
+   "B38M": 0.9663466093672756,
+   "B39M": 0.662169404915725,
+   "B737": 0.7245259032886213,
+   "B738": 0.9561043931832972,
+   "B739": 1.0855940440903837,
+   "B744": 0.8037330401581745,
+   "B748": 0.797386109909992,
+   "B752": 0.6991686303114688,
+   "B763": 0.7465296102810117,
+   "B772": 0.6231059831415745,
+   "B77L": 0.9134887664799709,
+   "B77W": 0.7155493455052543,
+   "B788": 0.9777953573104264,
+   "B789": 0.8089135138934798,
+   "MD11": 1.2380584742502905
+  },
+  "train_rows": 131530
+ },
+ "git_commit": "de6495465c381505ba93505241c15d92383c6e77",
+ "leave_one_type_out": {
+  "eligible_types": [
+   "A20N",
+   "A21N",
+   "A319",
+   "A320",
+   "A321",
+   "A332",
+   "A333",
+   "A359",
+   "B738",
+   "B744",
+   "B772",
+   "B77W",
+   "B788",
+   "B789"
+  ],
+  "min_intervals": 200,
+  "pooled_mae_kg": {
+   "hgb_full": 111.49468178676287,
+   "hgb_metadata": 181.91962208604605,
+   "hgb_metadata_adsb": 174.6793091137813,
+   "hgb_residual_physics": 104.40409784201691,
+   "openap_calibrated": 98.58398923397999,
+   "openap_physics": 133.06742241360715,
+   "type_median_rate": 333.77469750294284
+  },
+  "types": {
+   "A20N": {
+    "flights": 2001,
+    "mae_kg": {
+     "hgb_full": 76.43241401377881,
+     "hgb_metadata": 208.22323375377175,
+     "hgb_metadata_adsb": 197.3571179528485,
+     "hgb_residual_physics": 56.20003672913325,
+     "openap_calibrated": 40.49660823036747,
+     "openap_physics": 52.77320689176463,
+     "type_median_rate": 284.82177063755864
+    },
+    "n": 29084,
+    "openap_scale_fallback": 0.7827111595180336,
+    "vs_reference": {
+     "hgb_full": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       -124.86674527548291,
+       -117.01235743496667
+      ],
+      "clusters": 2001,
+      "mae_difference_kg": -120.92470393906969
+     },
+     "hgb_metadata": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       9.662280429977024,
+       12.051794620713695
+      ],
+      "clusters": 2001,
+      "mae_difference_kg": 10.866115800923232
+     },
+     "hgb_residual_physics": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       -145.79888154122804,
+       -136.41637300122704
+      ],
+      "clusters": 2001,
+      "mae_difference_kg": -141.15708122371527
+     },
+     "openap_calibrated": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       -162.18115218089997,
+       -151.32923055889577
+      ],
+      "clusters": 2001,
+      "mae_difference_kg": -156.86050972248103
+     },
+     "openap_physics": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       -149.12232280451337,
+       -139.91084351462231
+      ],
+      "clusters": 2001,
+      "mae_difference_kg": -144.58391106108388
+     },
+     "type_median_rate": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       82.94183151065643,
+       92.0683304579312
+      ],
+      "clusters": 2001,
+      "mae_difference_kg": 87.46465268471015
+     }
+    }
+   },
+   "A21N": {
+    "flights": 114,
+    "mae_kg": {
+     "hgb_full": 62.06550023773822,
+     "hgb_metadata": 58.37613305744238,
+     "hgb_metadata_adsb": 60.19029815050777,
+     "hgb_residual_physics": 67.88008115000316,
+     "openap_calibrated": 81.71904084081437,
+     "openap_physics": 61.630559609005175,
+     "type_median_rate": 48.45836765284666
+    },
+    "n": 954,
+    "openap_scale_fallback": 0.7832572073716606,
+    "vs_reference": {
+     "hgb_full": {
+      "bootstrap_p": 0.665,
+      "ci95": [
+       -7.68442241456078,
+       10.86855667528481
+      ],
+      "clusters": 114,
+      "mae_difference_kg": 1.8752020872304405
+     },
+     "hgb_metadata": {
+      "bootstrap_p": 0.032,
+      "ci95": [
+       -3.5842279847582668,
+       -0.15510401197348803
+      ],
+      "clusters": 114,
+      "mae_difference_kg": -1.81416509306539
+     },
+     "hgb_residual_physics": {
+      "bootstrap_p": 0.204,
+      "ci95": [
+       -4.471662249365874,
+       19.354282511170727
+      ],
+      "clusters": 114,
+      "mae_difference_kg": 7.689782999495383
+     },
+     "openap_calibrated": {
+      "bootstrap_p": 0.004,
+      "ci95": [
+       6.977780865183222,
+       36.41945432131313
+      ],
+      "clusters": 114,
+      "mae_difference_kg": 21.528742690306593
+     },
+     "openap_physics": {
+      "bootstrap_p": 0.766,
+      "ci95": [
+       -8.927186199763744,
+       12.61485825552128
+      ],
+      "clusters": 114,
+      "mae_difference_kg": 1.4402614584973992
+     },
+     "type_median_rate": {
+      "bootstrap_p": 0.002,
+      "ci95": [
+       -18.457670014079007,
+       -4.2206467728955195
+      ],
+      "clusters": 114,
+      "mae_difference_kg": -11.731930497661118
+     }
+    }
+   },
+   "A319": {
+    "flights": 26,
+    "mae_kg": {
+     "hgb_full": 37.75815990050965,
+     "hgb_metadata": 47.420535268815236,
+     "hgb_metadata_adsb": 45.864976067087845,
+     "hgb_residual_physics": 49.624341983872476,
+     "openap_calibrated": 63.52709818355582,
+     "openap_physics": 33.04305712267825,
+     "type_median_rate": 56.242197937668
+    },
+    "n": 345,
+    "openap_scale_fallback": 0.7834952188968577,
+    "vs_reference": {
+     "hgb_full": {
+      "bootstrap_p": 0.035,
+      "ci95": [
+       -15.820933465685533,
+       -0.4997185265140394
+      ],
+      "clusters": 26,
+      "mae_difference_kg": -8.106816166578193
+     },
+     "hgb_metadata": {
+      "bootstrap_p": 0.444,
+      "ci95": [
+       -2.8095207981442463,
+       5.122105541631826
+      ],
+      "clusters": 26,
+      "mae_difference_kg": 1.5555592017273883
+     },
+     "hgb_residual_physics": {
+      "bootstrap_p": 0.433,
+      "ci95": [
+       -6.407081670328428,
+       13.32821215436688
+      ],
+      "clusters": 26,
+      "mae_difference_kg": 3.7593659167846245
+     },
+     "openap_calibrated": {
+      "bootstrap_p": 0.001,
+      "ci95": [
+       6.704539826764918,
+       29.868505777249396
+      ],
+      "clusters": 26,
+      "mae_difference_kg": 17.662122116467966
+     },
+     "openap_physics": {
+      "bootstrap_p": 0.002,
+      "ci95": [
+       -20.912993054660426,
+       -4.8396705636915796
+      ],
+      "clusters": 26,
+      "mae_difference_kg": -12.8219189444096
+     },
+     "type_median_rate": {
+      "bootstrap_p": 0.069,
+      "ci95": [
+       -0.6554664839877801,
+       21.989533769500657
+      ],
+      "clusters": 26,
+      "mae_difference_kg": 10.377221870580145
+     }
+    }
+   },
+   "A320": {
+    "flights": 1051,
+    "mae_kg": {
+     "hgb_full": 50.482546697060215,
+     "hgb_metadata": 74.716164817204,
+     "hgb_metadata_adsb": 66.44788159807275,
+     "hgb_residual_physics": 63.36947582667979,
+     "openap_calibrated": 70.4277701148391,
+     "openap_physics": 46.79509886397977,
+     "type_median_rate": 70.86778879296595
+    },
+    "n": 13035,
+    "openap_scale_fallback": 0.7791704997977641,
+    "vs_reference": {
+     "hgb_full": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       -18.5256554171279,
+       -13.636997275312163
+      ],
+      "clusters": 1051,
+      "mae_difference_kg": -15.965334901012543
+     },
+     "hgb_metadata": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       6.530537526157022,
+       9.872961391994602
+      ],
+      "clusters": 1051,
+      "mae_difference_kg": 8.268283219131252
+     },
+     "hgb_residual_physics": {
+      "bootstrap_p": 0.051,
+      "ci95": [
+       -6.425128173501693,
+       0.006122578869056808
+      ],
+      "clusters": 1051,
+      "mae_difference_kg": -3.0784057713929713
+     },
+     "openap_calibrated": {
+      "bootstrap_p": 0.02,
+      "ci95": [
+       0.7201792673715304,
+       7.112297729794712
+      ],
+      "clusters": 1051,
+      "mae_difference_kg": 3.979888516766345
+     },
+     "openap_physics": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       -22.185097721032417,
+       -17.1342281313968
+      ],
+      "clusters": 1051,
+      "mae_difference_kg": -19.652782734092984
+     },
+     "type_median_rate": {
+      "bootstrap_p": 0.001,
+      "ci95": [
+       1.5910029324077772,
+       7.18800370426469
+      ],
+      "clusters": 1051,
+      "mae_difference_kg": 4.419907194893203
+     }
+    }
+   },
+   "A321": {
+    "flights": 40,
+    "mae_kg": {
+     "hgb_full": 79.84486953091296,
+     "hgb_metadata": 90.7145998985374,
+     "hgb_metadata_adsb": 78.32060106758847,
+     "hgb_residual_physics": 80.05101263780674,
+     "openap_calibrated": 132.17409160387786,
+     "openap_physics": 125.373661604359,
+     "type_median_rate": 134.58926988575925
+    },
+    "n": 307,
+    "openap_scale_fallback": 0.7834984062426688,
+    "vs_reference": {
+     "hgb_full": {
+      "bootstrap_p": 0.68,
+      "ci95": [
+       -6.49985828044024,
+       9.129166518732116
+      ],
+      "clusters": 40,
+      "mae_difference_kg": 1.5242684633245107
+     },
+     "hgb_metadata": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       4.723399963456212,
+       22.141275720368867
+      ],
+      "clusters": 40,
+      "mae_difference_kg": 12.393998830948936
+     },
+     "hgb_residual_physics": {
+      "bootstrap_p": 0.674,
+      "ci95": [
+       -6.4048266400346945,
+       10.481278723610094
+      ],
+      "clusters": 40,
+      "mae_difference_kg": 1.7304115702182803
+     },
+     "openap_calibrated": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       29.266512946986147,
+       84.97232347214585
+      ],
+      "clusters": 40,
+      "mae_difference_kg": 53.85349053628939
+     },
+     "openap_physics": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       26.060258312580288,
+       74.70302149278714
+      ],
+      "clusters": 40,
+      "mae_difference_kg": 47.05306053677054
+     },
+     "type_median_rate": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       34.35936375589752,
+       83.71757736307498
+      ],
+      "clusters": 40,
+      "mae_difference_kg": 56.2686688181708
+     }
+    }
+   },
+   "A332": {
+    "flights": 182,
+    "mae_kg": {
+     "hgb_full": 173.05750026508198,
+     "hgb_metadata": 217.69467204219262,
+     "hgb_metadata_adsb": 217.48524456864294,
+     "hgb_residual_physics": 200.19118057536355,
+     "openap_calibrated": 218.51275687537537,
+     "openap_physics": 169.68347505465204,
+     "type_median_rate": 362.3203612001714
+    },
+    "n": 2201,
+    "openap_scale_fallback": 0.7736815332283767,
+    "vs_reference": {
+     "hgb_full": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       -63.20533665998512,
+       -25.830564175627295
+      ],
+      "clusters": 182,
+      "mae_difference_kg": -44.42774430356097
+     },
+     "hgb_metadata": {
+      "bootstrap_p": 0.914,
+      "ci95": [
+       -3.9606638880534932,
+       4.344601257527454
+      ],
+      "clusters": 182,
+      "mae_difference_kg": 0.20942747354972677
+     },
+     "hgb_residual_physics": {
+      "bootstrap_p": 0.091,
+      "ci95": [
+       -36.90290694208411,
+       2.958028104295168
+      ],
+      "clusters": 182,
+      "mae_difference_kg": -17.294063993279384
+     },
+     "openap_calibrated": {
+      "bootstrap_p": 0.905,
+      "ci95": [
+       -16.085808546835203,
+       17.163942676595966
+      ],
+      "clusters": 182,
+      "mae_difference_kg": 1.0275123067324143
+     },
+     "openap_physics": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       -66.38917047524896,
+       -31.191656012768906
+      ],
+      "clusters": 182,
+      "mae_difference_kg": -47.8017695139909
+     },
+     "type_median_rate": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       119.80433505248392,
+       172.30765476348722
+      ],
+      "clusters": 182,
+      "mae_difference_kg": 144.8351166315285
+     }
+    }
+   },
+   "A333": {
+    "flights": 56,
+    "mae_kg": {
+     "hgb_full": 140.8412166471229,
+     "hgb_metadata": 199.31401346509114,
+     "hgb_metadata_adsb": 188.60548613352236,
+     "hgb_residual_physics": 182.35437324296427,
+     "openap_calibrated": 200.73997672425534,
+     "openap_physics": 140.41435849316213,
+     "type_median_rate": 369.40210701456346
+    },
+    "n": 527,
+    "openap_scale_fallback": 0.7809436081688858,
+    "vs_reference": {
+     "hgb_full": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       -91.21568918988572,
+       -15.008633974931454
+      ],
+      "clusters": 56,
+      "mae_difference_kg": -47.76426948639944
+     },
+     "hgb_metadata": {
+      "bootstrap_p": 0.012,
+      "ci95": [
+       2.401540663560153,
+       19.265669699225814
+      ],
+      "clusters": 56,
+      "mae_difference_kg": 10.708527331568813
+     },
+     "hgb_residual_physics": {
+      "bootstrap_p": 0.74,
+      "ci95": [
+       -40.988582023262694,
+       21.708159901351454
+      ],
+      "clusters": 56,
+      "mae_difference_kg": -6.251112890558081
+     },
+     "openap_calibrated": {
+      "bootstrap_p": 0.467,
+      "ci95": [
+       -25.232941340999734,
+       45.23246857833273
+      ],
+      "clusters": 56,
+      "mae_difference_kg": 12.134490590733032
+     },
+     "openap_physics": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       -96.21870925625123,
+       -12.655503212827123
+      ],
+      "clusters": 56,
+      "mae_difference_kg": -48.191127640360236
+     },
+     "type_median_rate": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       136.27594831513787,
+       228.73310360653568
+      ],
+      "clusters": 56,
+      "mae_difference_kg": 180.79662088104106
+     }
+    }
+   },
+   "A359": {
+    "flights": 625,
+    "mae_kg": {
+     "hgb_full": 240.4791402141922,
+     "hgb_metadata": 178.7916093314497,
+     "hgb_metadata_adsb": 182.58694930544496,
+     "hgb_residual_physics": 219.06703104460465,
+     "openap_calibrated": 193.2655413518665,
+     "openap_physics": 371.2426362209851,
+     "type_median_rate": 731.4361195529527
+    },
+    "n": 9170,
+    "openap_scale_fallback": 0.8086117389274075,
+    "vs_reference": {
+     "hgb_full": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       43.82496826802661,
+       72.13444343998573
+      ],
+      "clusters": 625,
+      "mae_difference_kg": 57.89219090874726
+     },
+     "hgb_metadata": {
+      "bootstrap_p": 0.03,
+      "ci95": [
+       -7.076940342014726,
+       -0.4363507460818778
+      ],
+      "clusters": 625,
+      "mae_difference_kg": -3.795339973995277
+     },
+     "hgb_residual_physics": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       18.619567410184672,
+       55.65945935586951
+      ],
+      "clusters": 625,
+      "mae_difference_kg": 36.48008173915965
+     },
+     "openap_calibrated": {
+      "bootstrap_p": 0.095,
+      "ci95": [
+       -1.6680596720297416,
+       23.136518074028398
+      ],
+      "clusters": 625,
+      "mae_difference_kg": 10.67859204642147
+     },
+     "openap_physics": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       164.28143162778616,
+       213.20619161787783
+      ],
+      "clusters": 625,
+      "mae_difference_kg": 188.65568691554012
+     },
+     "type_median_rate": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       522.0030646227613,
+       576.9401786595818
+      ],
+      "clusters": 625,
+      "mae_difference_kg": 548.8491702475077
+     }
+    }
+   },
+   "B738": {
+    "flights": 202,
+    "mae_kg": {
+     "hgb_full": 63.37645282280243,
+     "hgb_metadata": 62.822050880434084,
+     "hgb_metadata_adsb": 59.99411350151627,
+     "hgb_residual_physics": 81.43217208792174,
+     "openap_calibrated": 91.74704729059658,
+     "openap_physics": 58.54782257845675,
+     "type_median_rate": 88.00657214224661
+    },
+    "n": 1904,
+    "openap_scale_fallback": 0.7826865135128709,
+    "vs_reference": {
+     "hgb_full": {
+      "bootstrap_p": 0.345,
+      "ci95": [
+       -3.5768443698246655,
+       10.77225271813274
+      ],
+      "clusters": 202,
+      "mae_difference_kg": 3.3823393212861625
+     },
+     "hgb_metadata": {
+      "bootstrap_p": 0.295,
+      "ci95": [
+       -3.0048767072852165,
+       7.408706007093347
+      ],
+      "clusters": 202,
+      "mae_difference_kg": 2.8279373789178184
+     },
+     "hgb_residual_physics": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       13.431838521223186,
+       28.73492121582418
+      ],
+      "clusters": 202,
+      "mae_difference_kg": 21.43805858640548
+     },
+     "openap_calibrated": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       23.270351429301474,
+       39.692509488624694
+      ],
+      "clusters": 202,
+      "mae_difference_kg": 31.752933789080313
+     },
+     "openap_physics": {
+      "bootstrap_p": 0.719,
+      "ci95": [
+       -9.669348444807783,
+       7.55282241310615
+      ],
+      "clusters": 202,
+      "mae_difference_kg": -1.4462909230595107
+     },
+     "type_median_rate": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       19.732898531919307,
+       35.0388718285848
+      ],
+      "clusters": 202,
+      "mae_difference_kg": 28.012458640730348
+     }
+    }
+   },
+   "B744": {
+    "flights": 85,
+    "mae_kg": {
+     "hgb_full": 551.3699926151116,
+     "hgb_metadata": 901.5907530674363,
+     "hgb_metadata_adsb": 879.8662544562881,
+     "hgb_residual_physics": 464.6012342445006,
+     "openap_calibrated": 547.0429433793977,
+     "openap_physics": 966.0184560597883,
+     "type_median_rate": 1367.3837791035717
+    },
+    "n": 582,
+    "openap_scale_fallback": 0.7827558367752833,
+    "vs_reference": {
+     "hgb_full": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       -406.81423676838205,
+       -243.75809940728146
+      ],
+      "clusters": 85,
+      "mae_difference_kg": -328.49626184117636
+     },
+     "hgb_metadata": {
+      "bootstrap_p": 0.001,
+      "ci95": [
+       9.356932260502505,
+       34.42300286566471
+      ],
+      "clusters": 85,
+      "mae_difference_kg": 21.724498611148164
+     },
+     "hgb_residual_physics": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       -502.8995504005549,
+       -327.83046925879285
+      ],
+      "clusters": 85,
+      "mae_difference_kg": -415.2650202117876
+     },
+     "openap_calibrated": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       -440.4987028514393,
+       -223.70909052345212
+      ],
+      "clusters": 85,
+      "mae_difference_kg": -332.8233110768903
+     },
+     "openap_physics": {
+      "bootstrap_p": 0.19,
+      "ci95": [
+       -39.53572972210951,
+       225.79684384970926
+      ],
+      "clusters": 85,
+      "mae_difference_kg": 86.15220160350026
+     },
+     "type_median_rate": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       401.50556374324077,
+       575.2586919629988
+      ],
+      "clusters": 85,
+      "mae_difference_kg": 487.5175246472836
+     }
+    }
+   },
+   "B772": {
+    "flights": 30,
+    "mae_kg": {
+     "hgb_full": 333.3450005011191,
+     "hgb_metadata": 365.6742834552239,
+     "hgb_metadata_adsb": 349.7199705510115,
+     "hgb_residual_physics": 518.5407167467719,
+     "openap_calibrated": 597.1095913101893,
+     "openap_physics": 1221.9382797853439,
+     "type_median_rate": 1137.0750799700065
+    },
+    "n": 220,
+    "openap_scale_fallback": 0.7923612910461827,
+    "vs_reference": {
+     "hgb_full": {
+      "bootstrap_p": 0.491,
+      "ci95": [
+       -66.93313409632363,
+       32.568809328472916
+      ],
+      "clusters": 30,
+      "mae_difference_kg": -16.374970049892358
+     },
+     "hgb_metadata": {
+      "bootstrap_p": 0.047,
+      "ci95": [
+       0.4452973215964063,
+       30.589818762758515
+      ],
+      "clusters": 30,
+      "mae_difference_kg": 15.954312904212337
+     },
+     "hgb_residual_physics": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       110.36188952692476,
+       229.91744729123053
+      ],
+      "clusters": 30,
+      "mae_difference_kg": 168.8207461957603
+     },
+     "openap_calibrated": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       172.47680493650645,
+       334.93627880448656
+      ],
+      "clusters": 30,
+      "mae_difference_kg": 247.38962075917794
+     },
+     "openap_physics": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       766.2839576365856,
+       991.6599026297156
+      ],
+      "clusters": 30,
+      "mae_difference_kg": 872.2183092343322
+     },
+     "type_median_rate": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       703.446761526237,
+       879.8301727889072
+      ],
+      "clusters": 30,
+      "mae_difference_kg": 787.3551094189947
+     }
+    }
+   },
+   "B77W": {
+    "flights": 112,
+    "mae_kg": {
+     "hgb_full": 382.5129773359245,
+     "hgb_metadata": 629.7359839926811,
+     "hgb_metadata_adsb": 599.4827429411602,
+     "hgb_residual_physics": 408.4128413445172,
+     "openap_calibrated": 422.69555680576264,
+     "openap_physics": 673.135730725921,
+     "type_median_rate": 1117.303427738847
+    },
+    "n": 1031,
+    "openap_scale_fallback": 0.795966582513921,
+    "vs_reference": {
+     "hgb_full": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       -275.8021079369866,
+       -162.93676903433126
+      ],
+      "clusters": 112,
+      "mae_difference_kg": -216.9697656052357
+     },
+     "hgb_metadata": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       22.82950632108697,
+       38.419461477738295
+      ],
+      "clusters": 112,
+      "mae_difference_kg": 30.253241051520938
+     },
+     "hgb_residual_physics": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       -257.964386643752,
+       -131.71484666364006
+      ],
+      "clusters": 112,
+      "mae_difference_kg": -191.06990159664306
+     },
+     "openap_calibrated": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       -253.78599647012925,
+       -110.3713636239337
+      ],
+      "clusters": 112,
+      "mae_difference_kg": -176.78718613539758
+     },
+     "openap_physics": {
+      "bootstrap_p": 0.186,
+      "ci95": [
+       -38.55084461863213,
+       181.4076966221185
+      ],
+      "clusters": 112,
+      "mae_difference_kg": 73.65298778476074
+     },
+     "type_median_rate": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       433.68987977243415,
+       602.1188961118045
+      ],
+      "clusters": 112,
+      "mae_difference_kg": 517.8206847976868
+     }
+    }
+   },
+   "B788": {
+    "flights": 72,
+    "mae_kg": {
+     "hgb_full": 144.78072782201167,
+     "hgb_metadata": 353.04704738481115,
+     "hgb_metadata_adsb": 354.72576787937874,
+     "hgb_residual_physics": 204.14062907563928,
+     "openap_calibrated": 222.0511127484473,
+     "openap_physics": 136.1977085372447,
+     "type_median_rate": 401.2796192418363
+    },
+    "n": 737,
+    "openap_scale_fallback": 0.7744262787457802,
+    "vs_reference": {
+     "hgb_full": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       -270.15796918432756,
+       -149.81988572004505
+      ],
+      "clusters": 72,
+      "mae_difference_kg": -209.94504005736707
+     },
+     "hgb_metadata": {
+      "bootstrap_p": 0.548,
+      "ci95": [
+       -7.6932488479223045,
+       4.31007032225317
+      ],
+      "clusters": 72,
+      "mae_difference_kg": -1.6787204945675747
+     },
+     "hgb_residual_physics": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       -231.9050279190512,
+       -75.89422188416519
+      ],
+      "clusters": 72,
+      "mae_difference_kg": -150.58513880373945
+     },
+     "openap_calibrated": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       -215.27821572156338,
+       -55.620178452933864
+      ],
+      "clusters": 72,
+      "mae_difference_kg": -132.67465513093143
+     },
+     "openap_physics": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       -280.2072257152587,
+       -158.4089620393975
+      ],
+      "clusters": 72,
+      "mae_difference_kg": -218.52805934213401
+     },
+     "type_median_rate": {
+      "bootstrap_p": 0.406,
+      "ci95": [
+       -60.093964442112856,
+       154.49430496778348
+      ],
+      "clusters": 72,
+      "mae_difference_kg": 46.55385136245756
+     }
+    }
+   },
+   "B789": {
+    "flights": 96,
+    "mae_kg": {
+     "hgb_full": 143.82124099487524,
+     "hgb_metadata": 143.7074836543116,
+     "hgb_metadata_adsb": 146.272290806837,
+     "hgb_residual_physics": 139.72851924082346,
+     "openap_calibrated": 171.97060973920762,
+     "openap_physics": 240.76830116426174,
+     "type_median_rate": 600.8280721318332
+    },
+    "n": 1437,
+    "openap_scale_fallback": 0.7821155105803509,
+    "vs_reference": {
+     "hgb_full": {
+      "bootstrap_p": 0.66,
+      "ci95": [
+       -15.537337009019813,
+       9.345755181933303
+      ],
+      "clusters": 96,
+      "mae_difference_kg": -2.451049811961761
+     },
+     "hgb_metadata": {
+      "bootstrap_p": 0.307,
+      "ci95": [
+       -7.431698788633497,
+       2.421611044197846
+      ],
+      "clusters": 96,
+      "mae_difference_kg": -2.564807152525392
+     },
+     "hgb_residual_physics": {
+      "bootstrap_p": 0.298,
+      "ci95": [
+       -21.034027927133792,
+       5.5562128286027255
+      ],
+      "clusters": 96,
+      "mae_difference_kg": -6.543771566013529
+     },
+     "openap_calibrated": {
+      "bootstrap_p": 0.005,
+      "ci95": [
+       7.063345770348189,
+       41.55701659112808
+      ],
+      "clusters": 96,
+      "mae_difference_kg": 25.698318932370633
+     },
+     "openap_physics": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       62.46646604594483,
+       130.2310747285128
+      ],
+      "clusters": 96,
+      "mae_difference_kg": 94.49601035742475
+     },
+     "type_median_rate": {
+      "bootstrap_p": 0.0005,
+      "ci95": [
+       399.4549502834371,
+       516.0534699518664
+      ],
+      "clusters": 96,
+      "mae_difference_kg": 454.5557813249962
+     }
+    }
+   }
+  },
+  "types_where_model_beats_reference": {
+   "hgb_full": 10,
+   "hgb_metadata": 4,
+   "hgb_metadata_adsb": 0,
+   "hgb_residual_physics": 8,
+   "openap_calibrated": 4,
+   "openap_physics": 7,
+   "type_median_rate": 1
+  }
+ },
+ "name": "journal-study-v1",
+ "periods": {
+  "october": {
+   "flight_totals": {
+    "flights": 2836,
+    "labelled_fuel_kg": 15473001.6122376,
+    "models": {
+     "hgb_full": {
+      "flight_total_mape": 0.264120686214837,
+      "flight_total_median_ape": 0.12484999954616718,
+      "flight_total_p90_ape": 0.4040352292563376,
+      "inventory_bias_ci95": [
+       -0.01972163016761771,
+       0.0021557200017539298
+      ],
+      "inventory_relative_bias": -0.00841548388216326
+     },
+     "hgb_metadata": {
+      "flight_total_mape": 0.2665097199158966,
+      "flight_total_median_ape": 0.11905371271063261,
+      "flight_total_p90_ape": 0.46905604095866865,
+      "inventory_bias_ci95": [
+       -0.025691571847239147,
+       0.0010242570913350927
+      ],
+      "inventory_relative_bias": -0.01247892385960202
+     },
+     "hgb_metadata_adsb": {
+      "flight_total_mape": 0.2687383274676899,
+      "flight_total_median_ape": 0.11608087099304781,
+      "flight_total_p90_ape": 0.45905025708819447,
+      "inventory_bias_ci95": [
+       -0.024125129267698785,
+       0.0022341135244932043
+      ],
+      "inventory_relative_bias": -0.010897898544930043
+     },
+     "hgb_residual_physics": {
+      "flight_total_mape": 0.2309637142221387,
+      "flight_total_median_ape": 0.1166397082001864,
+      "flight_total_p90_ape": 0.3982536967934125,
+      "inventory_bias_ci95": [
+       -0.01895480889597572,
+       0.002594982357478108
+      ],
+      "inventory_relative_bias": -0.007955866840597695
+     },
+     "openap_calibrated": {
+      "flight_total_mape": 0.21899955441305236,
+      "flight_total_median_ape": 0.17047932590011838,
+      "flight_total_p90_ape": 0.3833411703604694,
+      "inventory_bias_ci95": [
+       -0.054960388846522705,
+       -0.02845146132530909
+      ],
+      "inventory_relative_bias": -0.04136266908442295
+     },
+     "openap_physics": {
+      "flight_total_mape": 0.31965680749657743,
+      "flight_total_median_ape": 0.2604766567703868,
+      "flight_total_p90_ape": 0.5816175436309823,
+      "inventory_bias_ci95": [
+       0.1599269580018738,
+       0.19482174675441077
+      ],
+      "inventory_relative_bias": 0.17797880518804826
+     },
+     "type_median_rate": {
+      "flight_total_mape": 0.274745905776429,
+      "flight_total_median_ape": 0.1990055378216513,
+      "flight_total_p90_ape": 0.5166788778924469,
+      "inventory_bias_ci95": [
+       -0.0737411212566517,
+       -0.04731722936393574
+      ],
+      "inventory_relative_bias": -0.06004361096793595
+     }
+    }
+   },
+   "models": {
+    "hgb_full": {
+     "bias_kg": -3.4764202177613837,
+     "mae_flight_ci95": [
+      68.94797188270022,
+      77.97590349604795
+     ],
+     "mae_kg": 73.11929759526296,
+     "median_ae_kg": 28.88800091906232,
+     "n": 37456,
+     "p95_ae_kg": 259.47653823099796,
+     "r2": 0.9204311610086935,
+     "rmse_kg": 217.52491354286306,
+     "wape": 0.17700227010653746
+    },
+    "hgb_metadata": {
+     "bias_kg": -5.155019462799319,
+     "mae_flight_ci95": [
+      73.56107185682568,
+      84.07200592931909
+     ],
+     "mae_kg": 78.46914443701696,
+     "median_ae_kg": 30.091476895149583,
+     "n": 37456,
+     "p95_ae_kg": 273.44139101513326,
+     "r2": 0.9086000552103208,
+     "rmse_kg": 233.1366012124745,
+     "wape": 0.18995281896101793
+    },
+    "hgb_metadata_adsb": {
+     "bias_kg": -4.501900943926329,
+     "mae_flight_ci95": [
+      71.66278773080056,
+      82.0477236413845
+     ],
+     "mae_kg": 76.52420578962838,
+     "median_ae_kg": 29.36699447520694,
+     "n": 37456,
+     "p95_ae_kg": 273.95103974166886,
+     "r2": 0.9140195017085955,
+     "rmse_kg": 226.11921701684807,
+     "wape": 0.18524464249970546
+    },
+    "hgb_residual_physics": {
+     "bias_kg": -3.286553301241854,
+     "mae_flight_ci95": [
+      68.52703077875071,
+      77.40931857419878
+     ],
+     "mae_kg": 72.68257765345795,
+     "median_ae_kg": 28.076472048205048,
+     "n": 37456,
+     "p95_ae_kg": 263.1081632425648,
+     "r2": 0.9244289248842914,
+     "rmse_kg": 211.98996077418207,
+     "wape": 0.17594508789004296
+    },
+    "openap_calibrated": {
+     "bias_kg": -17.086839102673174,
+     "mae_flight_ci95": [
+      80.7096131627067,
+      91.27437582995316
+     ],
+     "mae_kg": 85.60352801795189,
+     "median_ae_kg": 31.43320575407978,
+     "n": 37456,
+     "p95_ae_kg": 312.8868311236817,
+     "r2": 0.8948671809970375,
+     "rmse_kg": 250.03836415480183,
+     "wape": 0.20722325414252463
+    },
+    "openap_physics": {
+     "bias_kg": 73.52270236060427,
+     "mae_flight_ci95": [
+      124.27793945115818,
+      139.21369414705828
+     ],
+     "mae_kg": 131.3003868378136,
+     "median_ae_kg": 41.17809710139907,
+     "n": 37456,
+     "p95_ae_kg": 572.4031990702022,
+     "r2": 0.8078914277558413,
+     "rmse_kg": 337.9954595777971,
+     "wape": 0.3178431317106248
+    },
+    "type_median_rate": {
+     "bias_kg": -24.803900291313557,
+     "mae_flight_ci95": [
+      84.2464447243789,
+      95.0518063766081
+     ],
+     "mae_kg": 89.30149280342748,
+     "median_ae_kg": 35.74331264293103,
+     "n": 37456,
+     "p95_ae_kg": 336.4707140362059,
+     "r2": 0.8954395849941442,
+     "rmse_kg": 249.35675824116115,
+     "wape": 0.21617503819037387
+    }
+   },
+   "paired_vs_reference": {
+    "hgb_full": {
+     "bootstrap_p": 0.005,
+     "ci95": [
+      -5.695127699169411,
+      -1.0304831057475032
+     ],
+     "clusters": 2836,
+     "holm_p": 0.005,
+     "mae_difference_kg": -3.4049081943654045
+    },
+    "hgb_metadata": {
+     "bootstrap_p": 0.0005,
+     "ci95": [
+      1.1239163603601465,
+      2.7776307158069513
+     ],
+     "clusters": 2836,
+     "holm_p": 0.003,
+     "mae_difference_kg": 1.9449386473885797
+    },
+    "hgb_residual_physics": {
+     "bootstrap_p": 0.002,
+     "ci95": [
+      -6.270385136789463,
+      -1.3477427001233464
+     ],
+     "clusters": 2836,
+     "holm_p": 0.004,
+     "mae_difference_kg": -3.8416281361704168
+    },
+    "openap_calibrated": {
+     "bootstrap_p": 0.0005,
+     "ci95": [
+      6.059548447404919,
+      12.4766389057631
+     ],
+     "clusters": 2836,
+     "holm_p": 0.003,
+     "mae_difference_kg": 9.079322228323507
+    },
+    "openap_physics": {
+     "bootstrap_p": 0.0005,
+     "ci95": [
+      48.32347818354929,
+      61.238929173282195
+     ],
+     "clusters": 2836,
+     "holm_p": 0.003,
+     "mae_difference_kg": 54.7761810481852
+    },
+    "type_median_rate": {
+     "bootstrap_p": 0.0005,
+     "ci95": [
+      10.59041732293136,
+      14.913527716240303
+     ],
+     "clusters": 2836,
+     "holm_p": 0.003,
+     "mae_difference_kg": 12.77728701379911
+    }
+   },
+   "route_transfer": {
+    "mae_kg": {
+     "hgb_full": {
+      "seen": 67.8429562316048,
+      "unseen": 165.00649709550842
+     },
+     "hgb_metadata": {
+      "seen": 72.55178452998624,
+      "unseen": 181.51964720340942
+     },
+     "hgb_metadata_adsb": {
+      "seen": 70.7478005033052,
+      "unseen": 177.11999145931333
+     },
+     "hgb_residual_physics": {
+      "seen": 67.65483640586052,
+      "unseen": 160.24041957695673
+     },
+     "openap_calibrated": {
+      "seen": 80.58483278686394,
+      "unseen": 173.00383405315193
+     },
+     "openap_physics": {
+      "seen": 122.55938250946632,
+      "unseen": 283.52450449696653
+     },
+     "type_median_rate": {
+      "seen": 84.08915508281974,
+      "unseen": 180.07407232130737
+     }
+    },
+    "seen_route_intervals": 35422,
+    "unseen_route_intervals": 2034,
+    "unseen_routes": 110
+   },
+   "subgroups": {
+    "adsb_availability": {
+     "1-50": {
+      "mae_kg": {
+       "hgb_full": 65.30551310641405,
+       "hgb_metadata": 65.07162258628468,
+       "hgb_metadata_adsb": 64.80123358723536,
+       "hgb_residual_physics": 61.84504880307799,
+       "openap_calibrated": 74.21118321135059,
+       "openap_physics": 96.73265601616413,
+       "type_median_rate": 53.86650213407879
+      },
+      "n": 1136,
+      "reference_fuel_kg": 227306.061792
+     },
+     "51+": {
+      "mae_kg": {
+       "hgb_full": 55.449080482883595,
+       "hgb_metadata": 60.02893941088966,
+       "hgb_metadata_adsb": 57.313844187279685,
+       "hgb_residual_physics": 54.15558705497476,
+       "openap_calibrated": 60.54311134863368,
+       "openap_physics": 86.92333494104473,
+       "type_median_rate": 74.4891476624934
+      },
+      "n": 26763,
+      "reference_fuel_kg": 7712542.7798568
+     },
+     "zero": {
+      "mae_kg": {
+       "hgb_full": 123.53098324535623,
+       "hgb_metadata": 131.7007853218842,
+       "hgb_metadata_adsb": 131.7135124743178,
+       "hgb_residual_physics": 125.85295352049127,
+       "openap_calibrated": 157.13576983246085,
+       "openap_physics": 259.68083908502695,
+       "type_median_rate": 134.9933356837455
+      },
+      "n": 9557,
+      "reference_fuel_kg": 7533152.7705888
+     }
+    },
+    "aircraft_type": {
+     "A20N": {
+      "mae_kg": {
+       "hgb_full": 38.21223601097443,
+       "hgb_metadata": 40.826536916382935,
+       "hgb_metadata_adsb": 39.26504780448329,
+       "hgb_residual_physics": 38.19751400704983,
+       "openap_calibrated": 43.07538335944102,
+       "openap_physics": 52.51702793770593,
+       "type_median_rate": 42.918047432074175
+      },
+      "n": 17095,
+      "reference_fuel_kg": 2173994.548312
+     },
+     "A21N": {
+      "mae_kg": {
+       "hgb_full": 50.198199780864414,
+       "hgb_metadata": 39.79030077090195,
+       "hgb_metadata_adsb": 40.27360613861652,
+       "hgb_residual_physics": 43.630267903762444,
+       "openap_calibrated": 59.71468822111756,
+       "openap_physics": 63.404739131926526,
+       "type_median_rate": 48.380125989595285
+      },
+      "n": 805,
+      "reference_fuel_kg": 152032.745344
+     },
+     "A306": {
+      "mae_kg": {
+       "hgb_full": 626.6481485821058,
+       "hgb_metadata": 647.9083476795499,
+       "hgb_metadata_adsb": 853.0335263043113,
+       "hgb_residual_physics": 789.0858281412397,
+       "openap_calibrated": 539.4897209975983,
+       "openap_physics": 591.6679757693297,
+       "type_median_rate": 693.4837840081331
+      },
+      "n": 6,
+      "reference_fuel_kg": 4490.5608
+     },
+     "A319": {
+      "mae_kg": {
+       "hgb_full": 38.877279640588476,
+       "hgb_metadata": 44.83357276095843,
+       "hgb_metadata_adsb": 44.07265655839369,
+       "hgb_residual_physics": 31.717070034844202,
+       "openap_calibrated": 30.751350050907064,
+       "openap_physics": 32.40183597504215,
+       "type_median_rate": 56.83212410871806
+      },
+      "n": 221,
+      "reference_fuel_kg": 50792.0
+     },
+     "A320": {
+      "mae_kg": {
+       "hgb_full": 41.27063862217549,
+       "hgb_metadata": 43.425899342226096,
+       "hgb_metadata_adsb": 42.933645785922344,
+       "hgb_residual_physics": 40.41133895791575,
+       "openap_calibrated": 48.313210782725854,
+       "openap_physics": 46.94491661343028,
+       "type_median_rate": 65.79269178637931
+      },
+      "n": 8042,
+      "reference_fuel_kg": 2044197.0629128001
+     },
+     "A321": {
+      "mae_kg": {
+       "hgb_full": 96.07564927794672,
+       "hgb_metadata": 108.64115405953508,
+       "hgb_metadata_adsb": 95.7381258678054,
+       "hgb_residual_physics": 85.34719067864395,
+       "openap_calibrated": 169.18266998701984,
+       "openap_physics": 160.67095986191555,
+       "type_median_rate": 165.75471735702766
+      },
+      "n": 173,
+      "reference_fuel_kg": 70773.99631999999
+     },
+     "A332": {
+      "mae_kg": {
+       "hgb_full": 129.83703425607342,
+       "hgb_metadata": 155.654473245825,
+       "hgb_metadata_adsb": 145.82702142862806,
+       "hgb_residual_physics": 129.02664148821987,
+       "openap_calibrated": 142.15678675574117,
+       "openap_physics": 142.43579071217934,
+       "type_median_rate": 158.05003061347352
+      },
+      "n": 1396,
+      "reference_fuel_kg": 779625.9508799999
+     },
+     "A333": {
+      "mae_kg": {
+       "hgb_full": 142.35262293554808,
+       "hgb_metadata": 169.8205393885355,
+       "hgb_metadata_adsb": 176.8666295254475,
+       "hgb_residual_physics": 138.22042336595936,
+       "openap_calibrated": 144.81348491990494,
+       "openap_physics": 148.60850498438361,
+       "type_median_rate": 158.66021524659877
+      },
+      "n": 336,
+      "reference_fuel_kg": 234879.43808
+     },
+     "A359": {
+      "mae_kg": {
+       "hgb_full": 134.19914203945874,
+       "hgb_metadata": 137.96311457874154,
+       "hgb_metadata_adsb": 136.34652192140834,
+       "hgb_residual_physics": 136.20827285804427,
+       "openap_calibrated": 177.36404038274006,
+       "openap_physics": 361.0309673403431,
+       "type_median_rate": 171.28562315831823
+      },
+      "n": 5592,
+      "reference_fuel_kg": 6410300.70052
+     },
+     "B38M": {
+      "mae_kg": {
+       "hgb_full": 47.80039923965709,
+       "hgb_metadata": 46.441357055446055,
+       "hgb_metadata_adsb": 50.380214004243086,
+       "hgb_residual_physics": 41.620654029354775,
+       "openap_calibrated": 30.729139043853753,
+       "openap_physics": 31.98666152935084,
+       "type_median_rate": 23.554868537572627
+      },
+      "n": 79,
+      "reference_fuel_kg": 4321.777520000001
+     },
+     "B734": {
+      "mae_kg": {
+       "hgb_full": 49.383651512602526,
+       "hgb_metadata": 25.50664902022403,
+       "hgb_metadata_adsb": 54.270524549747115,
+       "hgb_residual_physics": 37.59749315414542,
+       "openap_calibrated": 12.80278250331338,
+       "openap_physics": 21.750246259211778,
+       "type_median_rate": 11.017476604570058
+      },
+      "n": 4,
+      "reference_fuel_kg": 226.796
+     },
+     "B737": {
+      "mae_kg": {
+       "hgb_full": 50.73801277201662,
+       "hgb_metadata": 63.91694622591538,
+       "hgb_metadata_adsb": 84.08153082205182,
+       "hgb_residual_physics": 41.164221547144535,
+       "openap_calibrated": 92.57372427861908,
+       "openap_physics": 45.31623251659672,
+       "type_median_rate": 141.96535589292955
+      },
+      "n": 8,
+      "reference_fuel_kg": 3445.3308767999997
+     },
+     "B738": {
+      "mae_kg": {
+       "hgb_full": 56.288260018527836,
+       "hgb_metadata": 56.45581663722211,
+       "hgb_metadata_adsb": 58.48284842333436,
+       "hgb_residual_physics": 54.29416356759436,
+       "openap_calibrated": 65.71599612852198,
+       "openap_physics": 62.98984260377752,
+       "type_median_rate": 92.3302142945796
+      },
+      "n": 1319,
+      "reference_fuel_kg": 390901.83248
+     },
+     "B739": {
+      "mae_kg": {
+       "hgb_full": 87.20136103655531,
+       "hgb_metadata": 76.7184557438939,
+       "hgb_metadata_adsb": 79.76469325578637,
+       "hgb_residual_physics": 120.2290233592972,
+       "openap_calibrated": 81.43145655730838,
+       "openap_physics": 74.86224324292559,
+       "type_median_rate": 187.01355176477193
+      },
+      "n": 29,
+      "reference_fuel_kg": 21000.0
+     },
+     "B744": {
+      "mae_kg": {
+       "hgb_full": 418.79438948608225,
+       "hgb_metadata": 426.7389438730846,
+       "hgb_metadata_adsb": 383.0546532897574,
+       "hgb_residual_physics": 373.4415213897225,
+       "openap_calibrated": 467.09128491140336,
+       "openap_physics": 868.8270562462536,
+       "type_median_rate": 393.3480540716069
+      },
+      "n": 342,
+      "reference_fuel_kg": 584714.1984
+     },
+     "B763": {
+      "mae_kg": {
+       "hgb_full": 152.0379009401112,
+       "hgb_metadata": 161.08457128713084,
+       "hgb_metadata_adsb": 154.1905168924704,
+       "hgb_residual_physics": 64.69502291755516,
+       "openap_calibrated": 28.673221787096814,
+       "openap_physics": 148.03147310316544,
+       "type_median_rate": 69.1718963056702
+      },
+      "n": 10,
+      "reference_fuel_kg": 4481.488960000001
+     },
+     "B772": {
+      "mae_kg": {
+       "hgb_full": 137.7377717942417,
+       "hgb_metadata": 133.36729717171303,
+       "hgb_metadata_adsb": 132.14957881471744,
+       "hgb_residual_physics": 137.13272038031536,
+       "openap_calibrated": 170.3925084816424,
+       "openap_physics": 1140.6891032661451,
+       "type_median_rate": 328.28887351343855
+      },
+      "n": 122,
+      "reference_fuel_kg": 223300.0
+     },
+     "B77L": {
+      "mae_kg": {
+       "hgb_full": 626.157453084572,
+       "hgb_metadata": 1695.6652518564422,
+       "hgb_metadata_adsb": 1619.5738020275307,
+       "hgb_residual_physics": 620.2120019560246,
+       "openap_calibrated": 612.8163608425505,
+       "openap_physics": 488.2088143720266,
+       "type_median_rate": 206.0014713700389
+      },
+      "n": 7,
+      "reference_fuel_kg": 14500.0
+     },
+     "B77W": {
+      "mae_kg": {
+       "hgb_full": 450.0549833990356,
+       "hgb_metadata": 483.178692760435,
+       "hgb_metadata_adsb": 474.4075303972538,
+       "hgb_residual_physics": 452.23192002074694,
+       "openap_calibrated": 420.5544734068499,
+       "openap_physics": 725.6778538872355,
+       "type_median_rate": 409.3014236245139
+      },
+      "n": 713,
+      "reference_fuel_kg": 1163384.41816
+     },
+     "B788": {
+      "mae_kg": {
+       "hgb_full": 109.24196912973554,
+       "hgb_metadata": 183.4679255189625,
+       "hgb_metadata_adsb": 183.4251132063625,
+       "hgb_residual_physics": 109.66261095322777,
+       "openap_calibrated": 117.20658714470034,
+       "openap_physics": 111.9480962622011,
+       "type_median_rate": 145.33201970299538
+      },
+      "n": 350,
+      "reference_fuel_kg": 288106.396
+     },
+     "B789": {
+      "mae_kg": {
+       "hgb_full": 122.05821992825192,
+       "hgb_metadata": 143.89861059283365,
+       "hgb_metadata_adsb": 140.9052892068497,
+       "hgb_residual_physics": 130.63882027422565,
+       "openap_calibrated": 169.6528907290677,
+       "openap_physics": 247.1500043670138,
+       "type_median_rate": 144.13000686852607
+      },
+      "n": 807,
+      "reference_fuel_kg": 853532.3706720001
+     }
+    },
+    "duration": {
+     "15\u201360 min": {
+      "mae_kg": {
+       "hgb_full": 256.48532724123874,
+       "hgb_metadata": 272.3452800128739,
+       "hgb_metadata_adsb": 263.47647712864307,
+       "hgb_residual_physics": 259.0949316040467,
+       "openap_calibrated": 319.16708022914725,
+       "openap_physics": 596.1513484810873,
+       "type_median_rate": 310.4528192041214
+      },
+      "n": 3943,
+      "reference_fuel_kg": 7614683.405959999
+     },
+     "5\u201315 min": {
+      "mae_kg": {
+       "hgb_full": 60.57996831697002,
+       "hgb_metadata": 64.48292967693503,
+       "hgb_metadata_adsb": 62.878472098494925,
+       "hgb_residual_physics": 60.06521117780426,
+       "openap_calibrated": 69.97625646967538,
+       "openap_physics": 96.87347722004455,
+       "type_median_rate": 76.2574076198886
+      },
+      "n": 16195,
+      "reference_fuel_kg": 4695176.752272001
+     },
+     "<5 min": {
+      "mae_kg": {
+       "hgb_full": 43.09632628032314,
+       "hgb_metadata": 47.40627028664871,
+       "hgb_metadata_adsb": 46.71936985234759,
+       "hgb_residual_physics": 42.038989389573004,
+       "openap_calibrated": 47.03917742063088,
+       "openap_physics": 57.656574590460586,
+       "type_median_rate": 51.14750732874658
+      },
+      "n": 17318,
+      "reference_fuel_kg": 3163141.4540056
+     }
+    }
+   }
+  },
+  "september": {
+   "flight_totals": {
+    "flights": 1888,
+    "labelled_fuel_kg": 10211890.7678664,
+    "models": {
+     "hgb_full": {
+      "flight_total_mape": 0.2681719852927075,
+      "flight_total_median_ape": 0.12322644102743849,
+      "flight_total_p90_ape": 0.38342960704411516,
+      "inventory_bias_ci95": [
+       -0.025403974213830918,
+       0.003232907492589242
+      ],
+      "inventory_relative_bias": -0.011005345802758163
+     },
+     "hgb_metadata": {
+      "flight_total_mape": 0.26620851620705777,
+      "flight_total_median_ape": 0.12492488523319184,
+      "flight_total_p90_ape": 0.4452577328685456,
+      "inventory_bias_ci95": [
+       -0.02845425020406213,
+       0.007721957383287518
+      ],
+      "inventory_relative_bias": -0.010521171254145093
+     },
+     "hgb_metadata_adsb": {
+      "flight_total_mape": 0.2596096290737749,
+      "flight_total_median_ape": 0.11623028951784425,
+      "flight_total_p90_ape": 0.43037978422771744,
+      "inventory_bias_ci95": [
+       -0.02633054820062931,
+       0.008401078361442387
+      ],
+      "inventory_relative_bias": -0.008993572133140497
+     },
+     "hgb_residual_physics": {
+      "flight_total_mape": 0.2295773737776004,
+      "flight_total_median_ape": 0.11711385026580182,
+      "flight_total_p90_ape": 0.3799932073660969,
+      "inventory_bias_ci95": [
+       -0.02396963492002847,
+       0.0038970648653574563
+      ],
+      "inventory_relative_bias": -0.01015323309179692
+     },
+     "openap_calibrated": {
+      "flight_total_mape": 0.21186563171897133,
+      "flight_total_median_ape": 0.16901510786614138,
+      "flight_total_p90_ape": 0.3771926296910973,
+      "inventory_bias_ci95": [
+       -0.058367595225971826,
+       -0.023250739277740996
+      ],
+      "inventory_relative_bias": -0.04047288957963221
+     },
+     "openap_physics": {
+      "flight_total_mape": 0.3158222830577378,
+      "flight_total_median_ape": 0.26188189056288125,
+      "flight_total_p90_ape": 0.5848708799211749,
+      "inventory_bias_ci95": [
+       0.1569827252986835,
+       0.2043570286243089
+      ],
+      "inventory_relative_bias": 0.1809348044164232
+     },
+     "type_median_rate": {
+      "flight_total_mape": 0.27198435040480246,
+      "flight_total_median_ape": 0.1941238282446703,
+      "flight_total_p90_ape": 0.4977708754382698,
+      "inventory_bias_ci95": [
+       -0.07269031064794186,
+       -0.03692107294297052
+      ],
+      "inventory_relative_bias": -0.054865984329378115
+     }
+    }
+   },
+   "models": {
+    "hgb_full": {
+     "bias_kg": -4.627007666036625,
+     "mae_flight_ci95": [
+      69.60026912862462,
+      81.31309026948165
+     ],
+     "mae_kg": 75.2262368985933,
+     "median_ae_kg": 28.07134909561597,
+     "n": 24289,
+     "p95_ae_kg": 272.1851034458679,
+     "r2": 0.9091012833235855,
+     "rmse_kg": 233.48630264489321,
+     "wape": 0.1789257356511745
+    },
+    "hgb_metadata": {
+     "bias_kg": -4.423444835001292,
+     "mae_flight_ci95": [
+      76.96667880784032,
+      91.92389971417084
+     ],
+     "mae_kg": 83.98233505575713,
+     "median_ae_kg": 30.53173839724137,
+     "n": 24289,
+     "p95_ae_kg": 308.25664653167416,
+     "r2": 0.8846056421524993,
+     "rmse_kg": 263.0721168523928,
+     "wape": 0.1997521303878455
+    },
+    "hgb_metadata_adsb": {
+     "bias_kg": -3.7811921543315017,
+     "mae_flight_ci95": [
+      74.91920587772441,
+      89.39859149274189
+     ],
+     "mae_kg": 81.74844970934042,
+     "median_ae_kg": 29.636250108976412,
+     "n": 24289,
+     "p95_ae_kg": 307.8110814759981,
+     "r2": 0.892147212947776,
+     "rmse_kg": 254.3303671581129,
+     "wape": 0.1944388301956959
+    },
+    "hgb_residual_physics": {
+     "bias_kg": -4.2687515860725505,
+     "mae_flight_ci95": [
+      68.96466321039415,
+      80.21131937499634
+     ],
+     "mae_kg": 74.233630812533,
+     "median_ae_kg": 27.577885972310185,
+     "n": 24289,
+     "p95_ae_kg": 280.4212555592845,
+     "r2": 0.9191613236606121,
+     "rmse_kg": 220.18723048304025,
+     "wape": 0.17656482034446327
+    },
+    "openap_calibrated": {
+     "bias_kg": -17.016127771712394,
+     "mae_flight_ci95": [
+      82.13892342604701,
+      96.39959209825336
+     ],
+     "mae_kg": 88.84905711031243,
+     "median_ae_kg": 31.801189723936957,
+     "n": 24289,
+     "p95_ae_kg": 336.60068451693957,
+     "r2": 0.8812460666949444,
+     "rmse_kg": 266.87416502068965,
+     "wape": 0.21132763728173595
+    },
+    "openap_physics": {
+     "bias_kg": 76.07091517994913,
+     "mae_flight_ci95": [
+      125.82524197552735,
+      145.23743752374588
+     ],
+     "mae_kg": 135.69492924941116,
+     "median_ae_kg": 40.520234388813634,
+     "n": 24289,
+     "p95_ae_kg": 592.1140191220628,
+     "r2": 0.7739307489393608,
+     "rmse_kg": 368.21652903912525,
+     "wape": 0.32275062585961917
+    },
+    "type_median_rate": {
+     "bias_kg": -23.067456002432298,
+     "mae_flight_ci95": [
+      87.82574040172017,
+      102.61269092659596
+     ],
+     "mae_kg": 94.80628105312607,
+     "median_ae_kg": 36.54104933454511,
+     "n": 24289,
+     "p95_ae_kg": 370.66662013840414,
+     "r2": 0.8814989352593119,
+     "rmse_kg": 266.58987949141226,
+     "wape": 0.22549690481858722
+    }
+   },
+   "paired_vs_reference": {
+    "hgb_full": {
+     "bootstrap_p": 0.0005,
+     "ci95": [
+      -9.666191852287863,
+      -3.6736669790176335
+     ],
+     "clusters": 1888,
+     "holm_p": 0.003,
+     "mae_difference_kg": -6.522212810747112
+    },
+    "hgb_metadata": {
+     "bootstrap_p": 0.0005,
+     "ci95": [
+      1.3973371076410612,
+      3.151449391021542
+     ],
+     "clusters": 1888,
+     "holm_p": 0.003,
+     "mae_difference_kg": 2.233885346416714
+    },
+    "hgb_residual_physics": {
+     "bootstrap_p": 0.0005,
+     "ci95": [
+      -11.21219443836137,
+      -4.4410725593996325
+     ],
+     "clusters": 1888,
+     "holm_p": 0.003,
+     "mae_difference_kg": -7.514818896807426
+    },
+    "openap_calibrated": {
+     "bootstrap_p": 0.003,
+     "ci95": [
+      2.731360647749455,
+      11.295998548787871
+     ],
+     "clusters": 1888,
+     "holm_p": 0.003,
+     "mae_difference_kg": 7.100607400972024
+    },
+    "openap_physics": {
+     "bootstrap_p": 0.0005,
+     "ci95": [
+      46.38763882063297,
+      61.87989115122155
+     ],
+     "clusters": 1888,
+     "holm_p": 0.003,
+     "mae_difference_kg": 53.94647954007075
+    },
+    "type_median_rate": {
+     "bootstrap_p": 0.0005,
+     "ci95": [
+      9.849354183266383,
+      15.874079736742884
+     ],
+     "clusters": 1888,
+     "holm_p": 0.003,
+     "mae_difference_kg": 13.057831343785665
+    }
+   },
+   "route_transfer": {
+    "mae_kg": {
+     "hgb_full": {
+      "seen": 69.51004735346545,
+      "unseen": 239.86652325728167
+     },
+     "hgb_metadata": {
+      "seen": 77.89264671537921,
+      "unseen": 259.38030327910803
+     },
+     "hgb_metadata_adsb": {
+      "seen": 75.89872216450841,
+      "unseen": 250.2349581601213
+     },
+     "hgb_residual_physics": {
+      "seen": 68.89252551133251,
+      "unseen": 228.0705704939805
+     },
+     "openap_calibrated": {
+      "seen": 82.89959298551963,
+      "unseen": 260.2082238163077
+     },
+     "openap_physics": {
+      "seen": 125.33882588047315,
+      "unseen": 433.97612002542417
+     },
+     "type_median_rate": {
+      "seen": 88.73186037962166,
+      "unseen": 269.76450300385335
+     }
+    },
+    "seen_route_intervals": 23474,
+    "unseen_route_intervals": 815,
+    "unseen_routes": 70
+   },
+   "subgroups": {
+    "adsb_availability": {
+     "1-50": {
+      "mae_kg": {
+       "hgb_full": 77.76239098764971,
+       "hgb_metadata": 73.84446388694874,
+       "hgb_metadata_adsb": 72.62622168167195,
+       "hgb_residual_physics": 70.98106423164646,
+       "openap_calibrated": 78.55865652262557,
+       "openap_physics": 104.11940621963866,
+       "type_median_rate": 75.4784752882496
+      },
+      "n": 562,
+      "reference_fuel_kg": 114559.38116000002
+     },
+     "51+": {
+      "mae_kg": {
+       "hgb_full": 52.30129658768249,
+       "hgb_metadata": 57.468558581961695,
+       "hgb_metadata_adsb": 54.706753677503585,
+       "hgb_residual_physics": 50.99330299301742,
+       "openap_calibrated": 57.91781377201911,
+       "openap_physics": 83.56645790232184,
+       "type_median_rate": 70.5651876692548
+      },
+      "n": 17332,
+      "reference_fuel_kg": 4721059.186780799
+     },
+     "zero": {
+      "mae_kg": {
+       "hgb_full": 137.13550146007205,
+       "hgb_metadata": 156.73202347494285,
+       "hgb_metadata_adsb": 155.83967219180255,
+       "hgb_residual_physics": 137.5063914358797,
+       "openap_calibrated": 173.5845558858527,
+       "openap_physics": 279.75061483666434,
+       "type_median_rate": 162.20406953930558
+      },
+      "n": 6395,
+      "reference_fuel_kg": 5376272.1999256
+     }
+    },
+    "aircraft_type": {
+     "A20N": {
+      "mae_kg": {
+       "hgb_full": 39.1991000205789,
+       "hgb_metadata": 41.265244610525556,
+       "hgb_metadata_adsb": 39.1984822743786,
+       "hgb_residual_physics": 38.908202275924,
+       "openap_calibrated": 43.66147261542324,
+       "openap_physics": 53.1384900029193,
+       "type_median_rate": 44.95899711945846
+      },
+      "n": 11989,
+      "reference_fuel_kg": 1545394.3372552
+     },
+     "A21N": {
+      "mae_kg": {
+       "hgb_full": 46.197945483296465,
+       "hgb_metadata": 37.63195362601118,
+       "hgb_metadata_adsb": 36.27069768025551,
+       "hgb_residual_physics": 39.284803871112366,
+       "openap_calibrated": 48.12689729449873,
+       "openap_physics": 52.04522728718171,
+       "type_median_rate": 49.901623157492764
+      },
+      "n": 149,
+      "reference_fuel_kg": 26441.401608
+     },
+     "A306": {
+      "mae_kg": {
+       "hgb_full": 315.3896237797506,
+       "hgb_metadata": 344.4875971194323,
+       "hgb_metadata_adsb": 360.83709607340177,
+       "hgb_residual_physics": 337.9629896473937,
+       "openap_calibrated": 349.89165374219203,
+       "openap_physics": 322.98478296678485,
+       "type_median_rate": 297.0970451628585
+      },
+      "n": 7,
+      "reference_fuel_kg": 7720.0
+     },
+     "A319": {
+      "mae_kg": {
+       "hgb_full": 36.122650392612194,
+       "hgb_metadata": 37.22784870778143,
+       "hgb_metadata_adsb": 41.7249474442523,
+       "hgb_residual_physics": 34.25729387488255,
+       "openap_calibrated": 32.834237769954996,
+       "openap_physics": 34.18587868419099,
+       "type_median_rate": 60.93524298615169
+      },
+      "n": 124,
+      "reference_fuel_kg": 25904.0
+     },
+     "A320": {
+      "mae_kg": {
+       "hgb_full": 40.829080528620516,
+       "hgb_metadata": 44.29957663157728,
+       "hgb_metadata_adsb": 43.30962857678906,
+       "hgb_residual_physics": 39.95983373582602,
+       "openap_calibrated": 49.333494065239826,
+       "openap_physics": 46.55379416919087,
+       "type_median_rate": 69.18990060829395
+      },
+      "n": 4993,
+      "reference_fuel_kg": 1338869.1446560002
+     },
+     "A321": {
+      "mae_kg": {
+       "hgb_full": 43.91191310698268,
+       "hgb_metadata": 51.776566008087116,
+       "hgb_metadata_adsb": 48.21473958956403,
+       "hgb_residual_physics": 41.9748258690241,
+       "openap_calibrated": 78.43505665218633,
+       "openap_physics": 79.80326907781209,
+       "type_median_rate": 94.79259745803716
+      },
+      "n": 134,
+      "reference_fuel_kg": 39646.7
+     },
+     "A332": {
+      "mae_kg": {
+       "hgb_full": 190.06588677251776,
+       "hgb_metadata": 215.73401422370895,
+       "hgb_metadata_adsb": 217.50806137435146,
+       "hgb_residual_physics": 198.36893054131681,
+       "openap_calibrated": 216.31375336319863,
+       "openap_physics": 216.93535995166062,
+       "type_median_rate": 228.96872061992755
+      },
+      "n": 805,
+      "reference_fuel_kg": 501355.43488
+     },
+     "A333": {
+      "mae_kg": {
+       "hgb_full": 130.2588788184969,
+       "hgb_metadata": 132.31764310893126,
+       "hgb_metadata_adsb": 126.46673638325478,
+       "hgb_residual_physics": 112.9158371937454,
+       "openap_calibrated": 128.66644822459762,
+       "openap_physics": 125.99952487509708,
+       "type_median_rate": 169.00144658021682
+      },
+      "n": 191,
+      "reference_fuel_kg": 99600.0
+     },
+     "A359": {
+      "mae_kg": {
+       "hgb_full": 149.62165599162103,
+       "hgb_metadata": 162.02196644718222,
+       "hgb_metadata_adsb": 161.1741912325307,
+       "hgb_residual_physics": 147.80577750266977,
+       "openap_calibrated": 195.47493469186554,
+       "openap_physics": 387.2022931188471,
+       "type_median_rate": 191.67748998511848
+      },
+      "n": 3578,
+      "reference_fuel_kg": 4375376.946520001
+     },
+     "B737": {
+      "mae_kg": {
+       "hgb_full": 74.02289374185384,
+       "hgb_metadata": 53.98485929731962,
+       "hgb_metadata_adsb": 67.39369162452421,
+       "hgb_residual_physics": 70.09968195034568,
+       "openap_calibrated": 181.86175849803922,
+       "openap_physics": 72.94603559642181,
+       "type_median_rate": 165.51918837048336
+      },
+      "n": 21,
+      "reference_fuel_kg": 11795.181689599998
+     },
+     "B738": {
+      "mae_kg": {
+       "hgb_full": 44.74197725313182,
+       "hgb_metadata": 43.81282854149283,
+       "hgb_metadata_adsb": 46.03565193681046,
+       "hgb_residual_physics": 42.951183964821205,
+       "openap_calibrated": 53.88930670642028,
+       "openap_physics": 48.53239623076773,
+       "type_median_rate": 78.21210088780747
+      },
+      "n": 585,
+      "reference_fuel_kg": 172312.2090256
+     },
+     "B739": {
+      "mae_kg": {
+       "hgb_full": 129.42836283946832,
+       "hgb_metadata": 105.98046961150432,
+       "hgb_metadata_adsb": 126.4771139099361,
+       "hgb_residual_physics": 134.2948607376459,
+       "openap_calibrated": 131.3571304732852,
+       "openap_physics": 155.91745846999916,
+       "type_median_rate": 204.05630891598784
+      },
+      "n": 7,
+      "reference_fuel_kg": 5299.999999999999
+     },
+     "B744": {
+      "mae_kg": {
+       "hgb_full": 693.0827208780487,
+       "hgb_metadata": 836.5070735543482,
+       "hgb_metadata_adsb": 749.2314386818772,
+       "hgb_residual_physics": 588.8868388986504,
+       "openap_calibrated": 715.5698326461949,
+       "openap_physics": 1104.5162007940753,
+       "type_median_rate": 621.3939526021425
+      },
+      "n": 240,
+      "reference_fuel_kg": 470832.9256
+     },
+     "B752": {
+      "mae_kg": {
+       "hgb_full": 244.43998126092526,
+       "hgb_metadata": 397.73178455299393,
+       "hgb_metadata_adsb": 361.8975924744175,
+       "hgb_residual_physics": 298.18926207439915,
+       "openap_calibrated": 318.8795689830289,
+       "openap_physics": 247.3078729035873,
+       "type_median_rate": 346.44177552385474
+      },
+      "n": 25,
+      "reference_fuel_kg": 18554.06368
+     },
+     "B763": {
+      "mae_kg": {
+       "hgb_full": 123.96761622899885,
+       "hgb_metadata": 96.9359692917623,
+       "hgb_metadata_adsb": 128.81746777901662,
+       "hgb_residual_physics": 105.14172259404977,
+       "openap_calibrated": 103.44921602467156,
+       "openap_physics": 131.0636788415983,
+       "type_median_rate": 103.77581104424866
+      },
+      "n": 8,
+      "reference_fuel_kg": 1778.0806400000001
+     },
+     "B772": {
+      "mae_kg": {
+       "hgb_full": 127.63059574616884,
+       "hgb_metadata": 141.95211902743694,
+       "hgb_metadata_adsb": 130.41999581744219,
+       "hgb_residual_physics": 146.69248984040254,
+       "openap_calibrated": 188.19273093541364,
+       "openap_physics": 1323.0852138194482,
+       "type_median_rate": 211.46312331831834
+      },
+      "n": 98,
+      "reference_fuel_kg": 178300.0
+     },
+     "B77W": {
+      "mae_kg": {
+       "hgb_full": 265.5839704954789,
+       "hgb_metadata": 301.35966828804715,
+       "hgb_metadata_adsb": 292.6510738793892,
+       "hgb_residual_physics": 290.29978506014555,
+       "openap_calibrated": 225.38451593503459,
+       "openap_physics": 555.3290206189482,
+       "type_median_rate": 238.21700864471373
+      },
+      "n": 318,
+      "reference_fuel_kg": 427061.662672
+     },
+     "B788": {
+      "mae_kg": {
+       "hgb_full": 113.7827133229993,
+       "hgb_metadata": 273.402629250158,
+       "hgb_metadata_adsb": 269.8661966429138,
+       "hgb_residual_physics": 110.4484096243966,
+       "openap_calibrated": 161.0855711158634,
+       "openap_physics": 158.128882429403,
+       "type_median_rate": 271.86501218690046
+      },
+      "n": 387,
+      "reference_fuel_kg": 366193.4408
+     },
+     "B789": {
+      "mae_kg": {
+       "hgb_full": 123.16590822345951,
+       "hgb_metadata": 112.96360011866633,
+       "hgb_metadata_adsb": 118.23786236730442,
+       "hgb_residual_physics": 130.5937164429283,
+       "openap_calibrated": 153.4931453664728,
+       "openap_physics": 232.59364325216507,
+       "type_median_rate": 119.21346855401318
+      },
+      "n": 630,
+      "reference_fuel_kg": 599455.23884
+     }
+    },
+    "duration": {
+     "15\u201360 min": {
+      "mae_kg": {
+       "hgb_full": 256.27356922180275,
+       "hgb_metadata": 280.1330145565298,
+       "hgb_metadata_adsb": 271.90962905951494,
+       "hgb_residual_physics": 250.00992073236134,
+       "openap_calibrated": 311.23129228542086,
+       "openap_physics": 601.495774430931,
+       "type_median_rate": 320.28330664064936
+      },
+      "n": 2788,
+      "reference_fuel_kg": 5177249.0640239995
+     },
+     "5\u201315 min": {
+      "mae_kg": {
+       "hgb_full": 61.14637971131912,
+       "hgb_metadata": 70.21164296361532,
+       "hgb_metadata_adsb": 67.85181107148091,
+       "hgb_residual_physics": 61.438541090602875,
+       "openap_calibrated": 70.92239999979874,
+       "openap_physics": 94.530547821727,
+       "type_median_rate": 76.81876561157378
+      },
+      "n": 10952,
+      "reference_fuel_kg": 3101695.3411999997
+     },
+     "<5 min": {
+      "mae_kg": {
+       "hgb_full": 41.99490060111666,
+       "hgb_metadata": 46.43835224648446,
+       "hgb_metadata_adsb": 45.91819265497989,
+       "hgb_residual_physics": 41.061531688265006,
+       "openap_calibrated": 48.68705853283055,
+       "openap_physics": 55.32518320996851,
+       "type_median_rate": 53.88954219426417
+      },
+      "n": 10549,
+      "reference_fuel_kg": 1932946.3626424
+     }
+    }
+   }
+  }
+ },
+ "platform": "Windows-11-10.0.26200-SP0",
+ "runtime_seconds": 196.0,
+ "source_sha256": {
+  "airports.parquet": "8c1f9aa6c1ddf8e286dd8b3350d5983e7f7c41d6e87fda4aebbe9130de70eff4",
+  "flightlist_final.parquet": "4d67d4bd88081a9986c9327636467c2e99c7d6d6eafe070b0516a54cc2c64990",
+  "flightlist_rank.parquet": "ce2807ad8adf8212c068eb6a1d73b3480a174ac6a167dab93d0bed4d356ceaaf",
+  "flightlist_train.parquet": "70d4fbf0824e54a8657d3a87002a7dda98469dfd02c6c05bb2fdbdc83e5b5387",
+  "fuel_final.parquet": "87fda164e39ba7faa7ae7e2ac39f7f7fd01fdb61f13d5af4edfa4f6b08be24f4",
+  "fuel_rank.parquet": "25ac3903b7df7f97fd1dd1729a9383741422320bace33967aa7c8d23ec7edca4",
+  "fuel_train.parquet": "c7f22a18659db2e3d47948ccde0c6ff2aa350db56aa0c987114d175ce411170d"
+ },
+ "status": "pre-specified before any kinematic/physics model result was computed",
+ "uncertainty_and_selection": {
+  "calibration_split": {
+   "half_a_flights": 940,
+   "half_a_intervals": 12237,
+   "half_b_flights": 948,
+   "half_b_intervals": 12052
+  },
+  "eligible_test_cells": 28,
+  "models": {
+   "hgb_full": {
+    "intervals": {
+     "mondrian_type_duration": {
+      "cells": {
+       "A20N/15\u201360 min": {
+        "coverage": 0.8950471698113207,
+        "coverage_ci95": [
+         0.8736964078794901,
+         0.9153168678615061
+        ],
+        "mean_width_kg": 853.6110044251382,
+        "n": 848
+       },
+       "A20N/5\u201315 min": {
+        "coverage": 0.8885448916408669,
+        "coverage_ci95": [
+         0.8776976072845829,
+         0.8993549972568485
+        ],
+        "mean_width_kg": 172.14304243501394,
+        "n": 9044
+       },
+       "A20N/<5 min": {
+        "coverage": 0.9049007358045259,
+        "coverage_ci95": [
+         0.8955620427968604,
+         0.9140006917964121
+        ],
+        "mean_width_kg": 107.57905256334122,
+        "n": 7203
+       },
+       "A21N/5\u201315 min": {
+        "coverage": 0.6936416184971098,
+        "coverage_ci95": [
+         0.5892833011583012,
+         0.8055555555555556
+        ],
+        "mean_width_kg": 224.45410380481604,
+        "n": 173
+       },
+       "A21N/<5 min": {
+        "coverage": 0.8336079077429983,
+        "coverage_ci95": [
+         0.7790264976958525,
+         0.8812042712207728
+        ],
+        "mean_width_kg": 113.16936951246412,
+        "n": 607
+       },
+       "A319/<5 min": {
+        "coverage": 0.9461538461538461,
+        "coverage_ci95": [
+         0.8965435914118413,
+         0.9819860038610038
+        ],
+        "mean_width_kg": 151.93977947399824,
+        "n": 130
+       },
+       "A320/15\u201360 min": {
+        "coverage": 0.9159836065573771,
+        "coverage_ci95": [
+         0.8903769029301032,
+         0.9405763753820505
+        ],
+        "mean_width_kg": 538.5779749765738,
+        "n": 488
+       },
+       "A320/5\u201315 min": {
+        "coverage": 0.9036683566954966,
+        "coverage_ci95": [
+         0.8912232025068163,
+         0.9159776279497395
+        ],
+        "mean_width_kg": 235.34557741601736,
+        "n": 3353
+       },
+       "A320/<5 min": {
+        "coverage": 0.9062128064746489,
+        "coverage_ci95": [
+         0.8945186000813065,
+         0.9180673391417835
+        ],
+        "mean_width_kg": 151.26729531897738,
+        "n": 4201
+       },
+       "A321/<5 min": {
+        "coverage": 0.875,
+        "coverage_ci95": [
+         0.7721518987341772,
+         0.9576301026497971
+        ],
+        "mean_width_kg": 158.88594166019243,
+        "n": 112
+       },
+       "A332/5\u201315 min": {
+        "coverage": 0.9196428571428571,
+        "coverage_ci95": [
+         0.8839826738711803,
+         0.9475808564955704
+        ],
+        "mean_width_kg": 861.8097817608985,
+        "n": 448
+       },
+       "A332/<5 min": {
+        "coverage": 0.8876146788990825,
+        "coverage_ci95": [
+         0.8413699482623975,
+         0.9298682990494263
+        ],
+        "mean_width_kg": 509.0837660222827,
+        "n": 872
+       },
+       "A333/5\u201315 min": {
+        "coverage": 0.8493975903614458,
+        "coverage_ci95": [
+         0.7972027972027972,
+         0.8994082840236687
+        ],
+        "mean_width_kg": 578.069844913406,
+        "n": 166
+       },
+       "A333/<5 min": {
+        "coverage": 0.8260869565217391,
+        "coverage_ci95": [
+         0.7372769848349688,
+         0.9007105733311678
+        ],
+        "mean_width_kg": 389.8647837332296,
+        "n": 138
+       },
+       "A359/15\u201360 min": {
+        "coverage": 0.9047340736411456,
+        "coverage_ci95": [
+         0.881433703158452,
+         0.9256465212095272
+        ],
+        "mean_width_kg": 923.7251338752926,
+        "n": 1711
+       },
+       "A359/5\u201315 min": {
+        "coverage": 0.9347457627118644,
+        "coverage_ci95": [
+         0.9156814572538472,
+         0.9512418345127925
+        ],
+        "mean_width_kg": 683.801926416784,
+        "n": 1180
+       },
+       "A359/<5 min": {
+        "coverage": 0.8781932617549056,
+        "coverage_ci95": [
+         0.8602198447615627,
+         0.8963542085266216
+        ],
+        "mean_width_kg": 255.93562226530645,
+        "n": 2701
+       },
+       "B738/15\u201360 min": {
+        "coverage": 0.9465648854961832,
+        "coverage_ci95": [
+         0.9022516956727482,
+         0.9841301087364078
+        ],
+        "mean_width_kg": 719.3689870073977,
+        "n": 131
+       },
+       "B738/5\u201315 min": {
+        "coverage": 0.8776529338327091,
+        "coverage_ci95": [
+         0.8482880807365558,
+         0.9073671589912952
+        ],
+        "mean_width_kg": 207.49500458129717,
+        "n": 801
+       },
+       "B738/<5 min": {
+        "coverage": 0.9457364341085271,
+        "coverage_ci95": [
+         0.887777815734636,
+         0.981285498389079
+        ],
+        "mean_width_kg": 222.1448983219174,
+        "n": 387
+       },
+       "B744/5\u201315 min": {
+        "coverage": 0.961038961038961,
+        "coverage_ci95": [
+         0.9144144144144144,
+         0.991667531120332
+        ],
+        "mean_width_kg": 2394.181618898209,
+        "n": 231
+       },
+       "B77W/15\u201360 min": {
+        "coverage": 0.7388888888888889,
+        "coverage_ci95": [
+         0.6363526037069727,
+         0.8314662365112916
+        ],
+        "mean_width_kg": 2299.7903757282365,
+        "n": 180
+       },
+       "B77W/5\u201315 min": {
+        "coverage": 0.8324873096446701,
+        "coverage_ci95": [
+         0.7474514732579249,
+         0.9123879426266247
+        ],
+        "mean_width_kg": 1242.0698246780441,
+        "n": 197
+       },
+       "B77W/<5 min": {
+        "coverage": 0.9464285714285714,
+        "coverage_ci95": [
+         0.8964469981238274,
+         0.9813348837209301
+        ],
+        "mean_width_kg": 869.5542909849855,
+        "n": 336
+       },
+       "B788/5\u201315 min": {
+        "coverage": 0.8277310924369747,
+        "coverage_ci95": [
+         0.7542851853258392,
+         0.8898305084745762
+        ],
+        "mean_width_kg": 304.6751089143938,
+        "n": 238
+       },
+       "B789/15\u201360 min": {
+        "coverage": 0.9102564102564102,
+        "coverage_ci95": [
+         0.8679151568161939,
+         0.9515175953079179
+        ],
+        "mean_width_kg": 956.1199109111546,
+        "n": 156
+       },
+       "B789/5\u201315 min": {
+        "coverage": 0.958974358974359,
+        "coverage_ci95": [
+         0.9223165373976244,
+         0.9893048128342246
+        ],
+        "mean_width_kg": 718.0567656989432,
+        "n": 195
+       },
+       "B789/<5 min": {
+        "coverage": 0.881578947368421,
+        "coverage_ci95": [
+         0.8341106388978408,
+         0.9194092745496292
+        ],
+        "mean_width_kg": 353.2214044585748,
+        "n": 456
+       }
+      },
+      "cells_below_085": 7,
+      "coverage": 0.8962249038872276,
+      "coverage_ci95": [
+       0.8907974148002528,
+       0.9015661841598657
+      ],
+      "fallback_levels": {
+       "aircraft": 1790,
+       "aircraft+phase": 35523,
+       "phase": 143
+      },
+      "mean_width_kg": 321.4133949721944,
+      "median_width_kg": 170.67669337757167,
+      "winkler_score": 518.1105426992008,
+      "worst_cell_coverage": 0.6936416184971098
+     },
+     "split_constant": {
+      "cells": {
+       "A20N/15\u201360 min": {
+        "coverage": 0.46462264150943394,
+        "coverage_ci95": [
+         0.4255549559247903,
+         0.5005974432783866
+        ],
+        "mean_width_kg": 306.91534585210263,
+        "n": 848
+       },
+       "A20N/5\u201315 min": {
+        "coverage": 0.9932551968155683,
+        "coverage_ci95": [
+         0.9911423588920169,
+         0.9951385698708253
+        ],
+        "mean_width_kg": 255.67350183315855,
+        "n": 9044
+       },
+       "A20N/<5 min": {
+        "coverage": 0.9980563654033042,
+        "coverage_ci95": [
+         0.9970006509828335,
+         0.9990164498715688
+        ],
+        "mean_width_kg": 224.0550533728557,
+        "n": 7203
+       },
+       "A21N/5\u201315 min": {
+        "coverage": 0.930635838150289,
+        "coverage_ci95": [
+         0.8874172185430463,
+         0.9676049054373521
+        ],
+        "mean_width_kg": 303.8524864990516,
+        "n": 173
+       },
+       "A21N/<5 min": {
+        "coverage": 0.9934102141680395,
+        "coverage_ci95": [
+         0.9860673685291146,
+         0.9984521318273898
+        ],
+        "mean_width_kg": 275.6005165267174,
+        "n": 607
+       },
+       "A319/<5 min": {
+        "coverage": 0.9923076923076923,
+        "coverage_ci95": [
+         0.9776098440382358,
+         1.0
+        ],
+        "mean_width_kg": 260.09803368376504,
+        "n": 130
+       },
+       "A320/15\u201360 min": {
+        "coverage": 0.7110655737704918,
+        "coverage_ci95": [
+         0.6653760131481532,
+         0.7540339106292967
+        ],
+        "mean_width_kg": 307.8809759769436,
+        "n": 488
+       },
+       "A320/5\u201315 min": {
+        "coverage": 0.9740530867879511,
+        "coverage_ci95": [
+         0.967863763234613,
+         0.9796244982691898
+        ],
+        "mean_width_kg": 303.52290503067235,
+        "n": 3353
+       },
+       "A320/<5 min": {
+        "coverage": 0.9845274934539395,
+        "coverage_ci95": [
+         0.9794627303168019,
+         0.9890293447798989
+        ],
+        "mean_width_kg": 272.09097785560704,
+        "n": 4201
+       },
+       "A321/<5 min": {
+        "coverage": 0.9553571428571429,
+        "coverage_ci95": [
+         0.8924731182795699,
+         0.9921275221456693
+        ],
+        "mean_width_kg": 280.5244876665378,
+        "n": 112
+       },
+       "A332/5\u201315 min": {
+        "coverage": 0.6785714285714286,
+        "coverage_ci95": [
+         0.6126527769365878,
+         0.7361563730585866
+        ],
+        "mean_width_kg": 307.88573388370435,
+        "n": 448
+       },
+       "A332/<5 min": {
+        "coverage": 0.8360091743119266,
+        "coverage_ci95": [
+         0.7674127971254837,
+         0.8867929426516977
+        ],
+        "mean_width_kg": 296.099576626699,
+        "n": 872
+       },
+       "A333/5\u201315 min": {
+        "coverage": 0.6626506024096386,
+        "coverage_ci95": [
+         0.5783112039996722,
+         0.7453444381705251
+        ],
+        "mean_width_kg": 307.88884944583555,
+        "n": 166
+       },
+       "A333/<5 min": {
+        "coverage": 0.7608695652173914,
+        "coverage_ci95": [
+         0.6518384502923977,
+         0.8541666666666666
+        ],
+        "mean_width_kg": 307.6773548211987,
+        "n": 138
+       },
+       "A359/15\u201360 min": {
+        "coverage": 0.5563997662185857,
+        "coverage_ci95": [
+         0.5250143466745145,
+         0.5866368790229128
+        ],
+        "mean_width_kg": 307.8888494458355,
+        "n": 1711
+       },
+       "A359/5\u201315 min": {
+        "coverage": 0.7322033898305085,
+        "coverage_ci95": [
+         0.6852375302541497,
+         0.7780680698826916
+        ],
+        "mean_width_kg": 307.88884944583555,
+        "n": 1180
+       },
+       "A359/<5 min": {
+        "coverage": 0.8948537578674565,
+        "coverage_ci95": [
+         0.8619155247123367,
+         0.9227698025088423
+        ],
+        "mean_width_kg": 306.5581746589259,
+        "n": 2701
+       },
+       "B738/15\u201360 min": {
+        "coverage": 0.8015267175572519,
+        "coverage_ci95": [
+         0.7153832116788321,
+         0.8722013366750208
+        ],
+        "mean_width_kg": 307.41033079438176,
+        "n": 131
+       },
+       "B738/5\u201315 min": {
+        "coverage": 0.9538077403245943,
+        "coverage_ci95": [
+         0.929674494853641,
+         0.9730086323072624
+        ],
+        "mean_width_kg": 299.8895652884086,
+        "n": 801
+       },
+       "B738/<5 min": {
+        "coverage": 0.979328165374677,
+        "coverage_ci95": [
+         0.9641844410352848,
+         0.9921259842519685
+        ],
+        "mean_width_kg": 276.34183640753645,
+        "n": 387
+       },
+       "B744/5\u201315 min": {
+        "coverage": 0.4069264069264069,
+        "coverage_ci95": [
+         0.33624454148471616,
+         0.4758311215462092
+        ],
+        "mean_width_kg": 307.8888494458356,
+        "n": 231
+       },
+       "B77W/15\u201360 min": {
+        "coverage": 0.25555555555555554,
+        "coverage_ci95": [
+         0.17777120315581854,
+         0.3333333333333333
+        ],
+        "mean_width_kg": 307.8888494458354,
+        "n": 180
+       },
+       "B77W/5\u201315 min": {
+        "coverage": 0.3299492385786802,
+        "coverage_ci95": [
+         0.25117753623188405,
+         0.42046949760765545
+        ],
+        "mean_width_kg": 307.88884944583555,
+        "n": 197
+       },
+       "B77W/<5 min": {
+        "coverage": 0.5535714285714286,
+        "coverage_ci95": [
+         0.4354052226601811,
+         0.6709128658495745
+        ],
+        "mean_width_kg": 303.71336050004584,
+        "n": 336
+       },
+       "B788/5\u201315 min": {
+        "coverage": 0.8571428571428571,
+        "coverage_ci95": [
+         0.7947524897733745,
+         0.9121480042505147
+        ],
+        "mean_width_kg": 307.76539030942365,
+        "n": 238
+       },
+       "B789/15\u201360 min": {
+        "coverage": 0.5897435897435898,
+        "coverage_ci95": [
+         0.4967275185936444,
+         0.6730769230769231
+        ],
+        "mean_width_kg": 307.8888494458354,
+        "n": 156
+       },
+       "B789/5\u201315 min": {
+        "coverage": 0.7897435897435897,
+        "coverage_ci95": [
+         0.7236842105263158,
+         0.8475624274099883
+        ],
+        "mean_width_kg": 307.88884944583555,
+        "n": 195
+       },
+       "B789/<5 min": {
+        "coverage": 0.881578947368421,
+        "coverage_ci95": [
+         0.8162697291762296,
+         0.932823107343905
+        ],
+        "mean_width_kg": 307.77958848245544,
+        "n": 456
+       }
+      },
+      "cells_below_085": 15,
+      "coverage": 0.9023387441264417,
+      "coverage_ci95": [
+       0.8955945947387881,
+       0.9085333752884793
+      ],
+      "mean_width_kg": 272.8582127796868,
+      "median_width_kg": 307.88884944583515,
+      "winkler_score": 775.6524764007008,
+      "worst_cell_coverage": 0.25555555555555554
+     },
+     "split_scaled": {
+      "cells": {
+       "A20N/15\u201360 min": {
+        "coverage": 0.9952830188679245,
+        "coverage_ci95": [
+         0.9904191616766467,
+         0.9988452655889145
+        ],
+        "mean_width_kg": 1409.855601416904,
+        "n": 848
+       },
+       "A20N/5\u201315 min": {
+        "coverage": 0.8553737284387439,
+        "coverage_ci95": [
+         0.8433991826221935,
+         0.8672107182366909
+        ],
+        "mean_width_kg": 144.60247724231894,
+        "n": 9044
+       },
+       "A20N/<5 min": {
+        "coverage": 0.9051783978897682,
+        "coverage_ci95": [
+         0.8958466031150715,
+         0.9141668833943788
+        ],
+        "mean_width_kg": 107.81819969293352,
+        "n": 7203
+       },
+       "A21N/5\u201315 min": {
+        "coverage": 0.930635838150289,
+        "coverage_ci95": [
+         0.8902439024390244,
+         0.9689488919561383
+        ],
+        "mean_width_kg": 344.65401796477244,
+        "n": 173
+       },
+       "A21N/<5 min": {
+        "coverage": 0.9719934102141681,
+        "coverage_ci95": [
+         0.9515549307958477,
+         0.9885998119753184
+        ],
+        "mean_width_kg": 184.75028584915293,
+        "n": 607
+       },
+       "A319/<5 min": {
+        "coverage": 0.9692307692307692,
+        "coverage_ci95": [
+         0.9393939393939394,
+         0.9928057553956835
+        ],
+        "mean_width_kg": 178.0674985656143,
+        "n": 130
+       },
+       "A320/15\u201360 min": {
+        "coverage": 0.9733606557377049,
+        "coverage_ci95": [
+         0.9573127177700348,
+         0.9873956186248084
+        ],
+        "mean_width_kg": 807.7741337202654,
+        "n": 488
+       },
+       "A320/5\u201315 min": {
+        "coverage": 0.882195049209663,
+        "coverage_ci95": [
+         0.8694147664212055,
+         0.8960793890713656
+        ],
+        "mean_width_kg": 193.34065615369383,
+        "n": 3353
+       },
+       "A320/<5 min": {
+        "coverage": 0.9059747679124018,
+        "coverage_ci95": [
+         0.8941139027370946,
+         0.917841663188814
+        ],
+        "mean_width_kg": 150.10769185309823,
+        "n": 4201
+       },
+       "A321/<5 min": {
+        "coverage": 0.9464285714285714,
+        "coverage_ci95": [
+         0.8865848884248988,
+         0.991869918699187
+        ],
+        "mean_width_kg": 255.2451358060303,
+        "n": 112
+       },
+       "A332/5\u201315 min": {
+        "coverage": 0.90625,
+        "coverage_ci95": [
+         0.8671252476337221,
+         0.9359539085316597
+        ],
+        "mean_width_kg": 840.2418339888752,
+        "n": 448
+       },
+       "A332/<5 min": {
+        "coverage": 0.9025229357798165,
+        "coverage_ci95": [
+         0.8612300507116893,
+         0.9415712891596516
+        ],
+        "mean_width_kg": 545.3965726557875,
+        "n": 872
+       },
+       "A333/5\u201315 min": {
+        "coverage": 0.7771084337349398,
+        "coverage_ci95": [
+         0.7087732919254659,
+         0.84375
+        ],
+        "mean_width_kg": 428.8965803389831,
+        "n": 166
+       },
+       "A333/<5 min": {
+        "coverage": 0.8043478260869565,
+        "coverage_ci95": [
+         0.7165324950052885,
+         0.8855464716006884
+        ],
+        "mean_width_kg": 372.5004365642567,
+        "n": 138
+       },
+       "A359/15\u201360 min": {
+        "coverage": 0.9450613676212741,
+        "coverage_ci95": [
+         0.9266030175748867,
+         0.9621265746451036
+        ],
+        "mean_width_kg": 1187.3406401721852,
+        "n": 1711
+       },
+       "A359/5\u201315 min": {
+        "coverage": 0.9669491525423729,
+        "coverage_ci95": [
+         0.9541948063543082,
+         0.9785225318600117
+        ],
+        "mean_width_kg": 858.7154206665778,
+        "n": 1180
+       },
+       "A359/<5 min": {
+        "coverage": 0.9403924472417623,
+        "coverage_ci95": [
+         0.928660997993645,
+         0.9518728500247785
+        ],
+        "mean_width_kg": 363.17740410822194,
+        "n": 2701
+       },
+       "B738/15\u201360 min": {
+        "coverage": 0.9694656488549618,
+        "coverage_ci95": [
+         0.9274193548387096,
+         1.0
+        ],
+        "mean_width_kg": 840.9771253526476,
+        "n": 131
+       },
+       "B738/5\u201315 min": {
+        "coverage": 0.9400749063670412,
+        "coverage_ci95": [
+         0.9200494923857868,
+         0.958286259173426
+        ],
+        "mean_width_kg": 269.24240620161504,
+        "n": 801
+       },
+       "B738/<5 min": {
+        "coverage": 0.9018087855297158,
+        "coverage_ci95": [
+         0.8176863091648405,
+         0.962168258484048
+        ],
+        "mean_width_kg": 190.83343617224514,
+        "n": 387
+       },
+       "B744/5\u201315 min": {
+        "coverage": 0.8961038961038961,
+        "coverage_ci95": [
+         0.8423236514522822,
+         0.9424805225049753
+        ],
+        "mean_width_kg": 1646.5887588115727,
+        "n": 231
+       },
+       "B77W/15\u201360 min": {
+        "coverage": 0.7277777777777777,
+        "coverage_ci95": [
+         0.6243093922651933,
+         0.8215968785687096
+        ],
+        "mean_width_kg": 2037.2258542301488,
+        "n": 180
+       },
+       "B77W/5\u201315 min": {
+        "coverage": 0.7969543147208121,
+        "coverage_ci95": [
+         0.7134652163519005,
+         0.8800095693779904
+        ],
+        "mean_width_kg": 1106.1399067704199,
+        "n": 197
+       },
+       "B77W/<5 min": {
+        "coverage": 0.9315476190476191,
+        "coverage_ci95": [
+         0.8722823970608155,
+         0.9719754780073737
+        ],
+        "mean_width_kg": 775.956577139809,
+        "n": 336
+       },
+       "B788/5\u201315 min": {
+        "coverage": 0.865546218487395,
+        "coverage_ci95": [
+         0.7975206611570248,
+         0.9211851167670133
+        ],
+        "mean_width_kg": 349.134467959247,
+        "n": 238
+       },
+       "B789/15\u201360 min": {
+        "coverage": 0.9551282051282052,
+        "coverage_ci95": [
+         0.9193439407149084,
+         0.9840010638297872
+        ],
+        "mean_width_kg": 1321.1870810325258,
+        "n": 156
+       },
+       "B789/5\u201315 min": {
+        "coverage": 0.9333333333333333,
+        "coverage_ci95": [
+         0.892458587619878,
+         0.9687569137168142
+        ],
+        "mean_width_kg": 631.4960976444071,
+        "n": 195
+       },
+       "B789/<5 min": {
+        "coverage": 0.8486842105263158,
+        "coverage_ci95": [
+         0.804346657316503,
+         0.8903389819010664
+        ],
+        "mean_width_kg": 315.08465467664445,
+        "n": 456
+       }
+      },
+      "cells_below_085": 5,
+      "coverage": 0.900710166595472,
+      "coverage_ci95": [
+       0.8953856964525142,
+       0.9062497220162208
+      ],
+      "mean_width_kg": 349.8288810543991,
+      "median_width_kg": 178.51823398164225,
+      "winkler_score": 541.2499599290567,
+      "worst_cell_coverage": 0.7277777777777777
+     }
+    },
+    "selection_frontier": [
+     {
+      "representation_floor": {
+       "accepted": 22467,
+       "accepted_mae_kg": 41.629695183423465,
+       "aircraft_gap": 0.18259725065808718,
+       "b744_coverage": 0.5,
+       "coverage": 0.5998237932507475,
+       "duration_gap": 0.18397157765861882,
+       "fuel_share": 0.3700345189830825,
+       "long_interval_coverage": 0.5006340349987319,
+       "min_duration_coverage": 0.5006340349987319,
+       "rejected_mae_kg": 120.31903723011507
+      },
+      "risk_only": {
+       "accepted": 18728,
+       "accepted_mae_kg": 24.44025660439719,
+       "aircraft_gap": 0.7182801988885639,
+       "b744_coverage": 0.0,
+       "coverage": 0.5,
+       "duration_gap": 0.6007973156690603,
+       "fuel_share": 0.12369696283719417,
+       "long_interval_coverage": 0.000253613999492772,
+       "min_duration_coverage": 0.000253613999492772,
+       "rejected_mae_kg": 121.79833858612875
+      },
+      "target": 0.5
+     },
+     {
+      "representation_floor": {
+       "accepted": 22474,
+       "accepted_mae_kg": 41.62525986428514,
+       "aircraft_gap": 0.18277274056741732,
+       "b744_coverage": 0.5,
+       "coverage": 0.6000106791969244,
+       "duration_gap": 0.18437578137729305,
+       "fuel_share": 0.3700840455457498,
+       "long_interval_coverage": 0.5006340349987319,
+       "min_duration_coverage": 0.5006340349987319,
+       "rejected_mae_kg": 120.36245631679519
+      },
+      "risk_only": {
+       "accepted": 22474,
+       "accepted_mae_kg": 27.017276976514133,
+       "aircraft_gap": 0.8092424685580579,
+       "b744_coverage": 0.0,
+       "coverage": 0.6000106791969244,
+       "duration_gap": 0.726727752327697,
+       "fuel_share": 0.17379265696907797,
+       "long_interval_coverage": 0.002282525995434948,
+       "min_duration_coverage": 0.002282525995434948,
+       "rejected_mae_kg": 142.27540568402026
+      },
+      "target": 0.6
+     },
+     {
+      "representation_floor": {
+       "accepted": 26220,
+       "accepted_mae_kg": 40.485962559492265,
+       "aircraft_gap": 0.3129277566539924,
+       "b744_coverage": 0.5,
+       "coverage": 0.7000213583938488,
+       "duration_gap": 0.31429840523686103,
+       "fuel_share": 0.4000602606174242,
+       "long_interval_coverage": 0.5006340349987319,
+       "min_duration_coverage": 0.5006340349987319,
+       "rejected_mae_kg": 149.27149095926333
+      },
+      "risk_only": {
+       "accepted": 26220,
+       "accepted_mae_kg": 30.262744438036655,
+       "aircraft_gap": 0.9493670886075949,
+       "b744_coverage": 0.014619883040935672,
+       "coverage": 0.7000213583938488,
+       "duration_gap": 0.8411140804038094,
+       "fuel_share": 0.23398932442365494,
+       "long_interval_coverage": 0.006847577986304844,
+       "min_duration_coverage": 0.006847577986304844,
+       "rejected_mae_kg": 173.12809287672204
+      },
+      "target": 0.7
+     },
+     {
+      "representation_floor": {
+       "accepted": 28092,
+       "accepted_mae_kg": 40.88162566473496,
+       "aircraft_gap": 0.37341772151898733,
+       "b744_coverage": 0.5,
+       "coverage": 0.75,
+       "duration_gap": 0.3596847085051369,
+       "fuel_share": 0.4203457669258934,
+       "long_interval_coverage": 0.5006340349987319,
+       "min_duration_coverage": 0.5006340349987319,
+       "rejected_mae_kg": 169.83231338684703
+      },
+      "risk_only": {
+       "accepted": 28092,
+       "accepted_mae_kg": 32.41765527230426,
+       "aircraft_gap": 0.9746835443037974,
+       "b744_coverage": 0.02046783625730994,
+       "coverage": 0.75,
+       "duration_gap": 0.8808529543453504,
+       "fuel_share": 0.2688360463771743,
+       "long_interval_coverage": 0.013187927973624143,
+       "min_duration_coverage": 0.013187927973624143,
+       "rejected_mae_kg": 195.2242245641391
+      },
+      "target": 0.75
+     },
+     {
+      "representation_floor": {
+       "accepted": 29965,
+       "accepted_mae_kg": 41.58254229348228,
+       "aircraft_gap": 0.4620253164556962,
+       "b744_coverage": 0.5,
+       "coverage": 0.8000053395984622,
+       "duration_gap": 0.4028767630148955,
+       "fuel_share": 0.4494809655425248,
+       "long_interval_coverage": 0.5006340349987319,
+       "min_duration_coverage": 0.5006340349987319,
+       "rejected_mae_kg": 199.27052875503583
+      },
+      "risk_only": {
+       "accepted": 29965,
+       "accepted_mae_kg": 35.12451900783618,
+       "aircraft_gap": 0.9754098360655737,
+       "b744_coverage": 0.029239766081871343,
+       "coverage": 0.8000053395984622,
+       "duration_gap": 0.8749014313184498,
+       "fuel_share": 0.31573340613199324,
+       "long_interval_coverage": 0.04945472990109054,
+       "min_duration_coverage": 0.04945472990109054,
+       "rejected_mae_kg": 225.1034840019168
+      },
+      "target": 0.8
+     },
+     {
+      "representation_floor": {
+       "accepted": 33711,
+       "accepted_mae_kg": 46.03172916639963,
+       "aircraft_gap": 0.5,
+       "b744_coverage": 0.5,
+       "coverage": 0.9000160187953866,
+       "duration_gap": 0.45755975181267816,
+       "fuel_share": 0.5686491602750624,
+       "long_interval_coverage": 0.5006340349987319,
+       "min_duration_coverage": 0.5006340349987319,
+       "rejected_mae_kg": 316.9508114284838
+      },
+      "risk_only": {
+       "accepted": 33711,
+       "accepted_mae_kg": 44.97568952828421,
+       "aircraft_gap": 0.7748538011695907,
+       "b744_coverage": 0.22514619883040934,
+       "coverage": 0.9000160187953866,
+       "duration_gap": 0.5502852652257951,
+       "fuel_share": 0.5399319991522606,
+       "long_interval_coverage": 0.4179558711640883,
+       "min_duration_coverage": 0.4179558711640883,
+       "rejected_mae_kg": 326.4568600908361
+      },
+      "target": 0.9
+     },
+     {
+      "representation_floor": {
+       "accepted": 37456,
+       "accepted_mae_kg": 73.11929759526296,
+       "aircraft_gap": 0.0,
+       "b744_coverage": 1.0,
+       "coverage": 1.0,
+       "duration_gap": 0.0,
+       "fuel_share": 1.0,
+       "long_interval_coverage": 1.0,
+       "min_duration_coverage": 1.0,
+       "rejected_mae_kg": null
+      },
+      "risk_only": {
+       "accepted": 37456,
+       "accepted_mae_kg": 73.11929759526296,
+       "aircraft_gap": 0.0,
+       "b744_coverage": 1.0,
+       "coverage": 1.0,
+       "duration_gap": 0.0,
+       "fuel_share": 1.0,
+       "long_interval_coverage": 1.0,
+       "min_duration_coverage": 1.0,
+       "rejected_mae_kg": null
+      },
+      "target": 1.0
+     }
+    ],
+    "selection_primary": {
+     "floor_cost_kg": 8.463970392430703,
+     "representation_floor": {
+      "accepted": 28092,
+      "accepted_mae_kg": 40.88162566473496,
+      "aircraft_gap": 0.37341772151898733,
+      "b744_coverage": 0.5,
+      "coverage": 0.75,
+      "duration_gap": 0.3596847085051369,
+      "fuel_share": 0.4203457669258934,
+      "long_interval_coverage": 0.5006340349987319,
+      "min_duration_coverage": 0.5006340349987319,
+      "rejected_mae_kg": 169.83231338684703
+     },
+     "risk_only": {
+      "accepted": 28092,
+      "accepted_mae_kg": 32.41765527230426,
+      "aircraft_gap": 0.9746835443037974,
+      "b744_coverage": 0.02046783625730994,
+      "coverage": 0.75,
+      "duration_gap": 0.8808529543453504,
+      "fuel_share": 0.2688360463771743,
+      "long_interval_coverage": 0.013187927973624143,
+      "min_duration_coverage": 0.013187927973624143,
+      "rejected_mae_kg": 195.2242245641391
+     },
+     "target": 0.75
+    },
+    "sigma_deciles": [
+     {
+      "mean_sigma_kg": 5.781120964168229,
+      "n": 3746,
+      "observed_mae_kg": 16.834504650546624
+     },
+     {
+      "mean_sigma_kg": 10.469401820735499,
+      "n": 3746,
+      "observed_mae_kg": 20.914448353304202
+     },
+     {
+      "mean_sigma_kg": 14.806894497943466,
+      "n": 3746,
+      "observed_mae_kg": 26.966732199024662
+     },
+     {
+      "mean_sigma_kg": 19.430614741670283,
+      "n": 3746,
+      "observed_mae_kg": 27.039357749524214
+     },
+     {
+      "mean_sigma_kg": 24.126504534787266,
+      "n": 3746,
+      "observed_mae_kg": 30.44101547927161
+     },
+     {
+      "mean_sigma_kg": 29.532138268399482,
+      "n": 3746,
+      "observed_mae_kg": 39.91374953595417
+     },
+     {
+      "mean_sigma_kg": 36.409264206482966,
+      "n": 3745,
+      "observed_mae_kg": 49.72763275106991
+     },
+     {
+      "mean_sigma_kg": 52.97514705732287,
+      "n": 3745,
+      "observed_mae_kg": 69.1750673168013
+     },
+     {
+      "mean_sigma_kg": 96.85960391228623,
+      "n": 3745,
+      "observed_mae_kg": 123.7974679004235
+     },
+     {
+      "mean_sigma_kg": 235.68413287347383,
+      "n": 3745,
+      "observed_mae_kg": 326.4568600908361
+     }
+    ],
+    "sigma_spearman_with_error": 0.6034018203960674
+   },
+   "hgb_metadata_adsb": {
+    "intervals": {
+     "mondrian_type_duration": {
+      "cells": {
+       "A20N/15\u201360 min": {
+        "coverage": 0.8808962264150944,
+        "coverage_ci95": [
+         0.8571428571428571,
+         0.9035311880849901
+        ],
+        "mean_width_kg": 749.7002488988919,
+        "n": 848
+       },
+       "A20N/5\u201315 min": {
+        "coverage": 0.8750552852720035,
+        "coverage_ci95": [
+         0.8642198976575621,
+         0.8868841802087546
+        ],
+        "mean_width_kg": 151.58131471121342,
+        "n": 9044
+       },
+       "A20N/<5 min": {
+        "coverage": 0.8968485353325003,
+        "coverage_ci95": [
+         0.887432740858479,
+         0.9063640638084854
+        ],
+        "mean_width_kg": 104.68162957012945,
+        "n": 7203
+       },
+       "A21N/5\u201315 min": {
+        "coverage": 0.6878612716763006,
+        "coverage_ci95": [
+         0.6029150404237524,
+         0.7814718118526065
+        ],
+        "mean_width_kg": 194.5928182079728,
+        "n": 173
+       },
+       "A21N/<5 min": {
+        "coverage": 0.871499176276771,
+        "coverage_ci95": [
+         0.8119709563077758,
+         0.921179473969273
+        ],
+        "mean_width_kg": 117.10088941410355,
+        "n": 607
+       },
+       "A319/<5 min": {
+        "coverage": 0.8769230769230769,
+        "coverage_ci95": [
+         0.8294526375496314,
+         0.9280575539568345
+        ],
+        "mean_width_kg": 130.96466077893413,
+        "n": 130
+       },
+       "A320/15\u201360 min": {
+        "coverage": 0.9118852459016393,
+        "coverage_ci95": [
+         0.8851714476638045,
+         0.9363872999223473
+        ],
+        "mean_width_kg": 562.8628964733299,
+        "n": 488
+       },
+       "A320/5\u201315 min": {
+        "coverage": 0.9054577989859827,
+        "coverage_ci95": [
+         0.8935888791121145,
+         0.9164231747298563
+        ],
+        "mean_width_kg": 223.1942969149661,
+        "n": 3353
+       },
+       "A320/<5 min": {
+        "coverage": 0.9052606522256605,
+        "coverage_ci95": [
+         0.8937936469962413,
+         0.9161541163960758
+        ],
+        "mean_width_kg": 153.2380309036504,
+        "n": 4201
+       },
+       "A321/<5 min": {
+        "coverage": 0.8125,
+        "coverage_ci95": [
+         0.679990291262136,
+         0.9218836805555555
+        ],
+        "mean_width_kg": 114.09832342823435,
+        "n": 112
+       },
+       "A332/5\u201315 min": {
+        "coverage": 0.8616071428571429,
+        "coverage_ci95": [
+         0.8119047619047619,
+         0.9015015018693742
+        ],
+        "mean_width_kg": 791.6066575145851,
+        "n": 448
+       },
+       "A332/<5 min": {
+        "coverage": 0.8738532110091743,
+        "coverage_ci95": [
+         0.8185995109888583,
+         0.9180160965995062
+        ],
+        "mean_width_kg": 471.6630895939692,
+        "n": 872
+       },
+       "A333/5\u201315 min": {
+        "coverage": 0.8674698795180723,
+        "coverage_ci95": [
+         0.8116663741663742,
+         0.9176470588235294
+        ],
+        "mean_width_kg": 625.5149396037301,
+        "n": 166
+       },
+       "A333/<5 min": {
+        "coverage": 0.855072463768116,
+        "coverage_ci95": [
+         0.7635046230440967,
+         0.9354838709677419
+        ],
+        "mean_width_kg": 530.5157143237203,
+        "n": 138
+       },
+       "A359/15\u201360 min": {
+        "coverage": 0.9327878433664524,
+        "coverage_ci95": [
+         0.9129929905562683,
+         0.9506837571094011
+        ],
+        "mean_width_kg": 1033.9520732500755,
+        "n": 1711
+       },
+       "A359/5\u201315 min": {
+        "coverage": 0.923728813559322,
+        "coverage_ci95": [
+         0.890267630318037,
+         0.9512989208717342
+        ],
+        "mean_width_kg": 727.2420934486655,
+        "n": 1180
+       },
+       "A359/<5 min": {
+        "coverage": 0.8904109589041096,
+        "coverage_ci95": [
+         0.873275737010423,
+         0.9071605444548593
+        ],
+        "mean_width_kg": 300.9216338673449,
+        "n": 2701
+       },
+       "B738/15\u201360 min": {
+        "coverage": 0.9007633587786259,
+        "coverage_ci95": [
+         0.8412698412698413,
+         0.9541984732824428
+        ],
+        "mean_width_kg": 634.1752163870185,
+        "n": 131
+       },
+       "B738/5\u201315 min": {
+        "coverage": 0.867665418227216,
+        "coverage_ci95": [
+         0.832556993928285,
+         0.8997667093860997
+        ],
+        "mean_width_kg": 186.78473508421297,
+        "n": 801
+       },
+       "B738/<5 min": {
+        "coverage": 0.9457364341085271,
+        "coverage_ci95": [
+         0.9161788975454469,
+         0.9700468011997655
+        ],
+        "mean_width_kg": 164.64082572338387,
+        "n": 387
+       },
+       "B744/5\u201315 min": {
+        "coverage": 0.9956709956709957,
+        "coverage_ci95": [
+         0.9855751811594203,
+         1.0
+        ],
+        "mean_width_kg": 3272.0532927596296,
+        "n": 231
+       },
+       "B77W/15\u201360 min": {
+        "coverage": 0.7444444444444445,
+        "coverage_ci95": [
+         0.6432644110275689,
+         0.836636189129117
+        ],
+        "mean_width_kg": 2084.890022553061,
+        "n": 180
+       },
+       "B77W/5\u201315 min": {
+        "coverage": 0.7817258883248731,
+        "coverage_ci95": [
+         0.6974324324324324,
+         0.8618832158506382
+        ],
+        "mean_width_kg": 1253.224320228033,
+        "n": 197
+       },
+       "B77W/<5 min": {
+        "coverage": 0.8839285714285714,
+        "coverage_ci95": [
+         0.8198920557002605,
+         0.9454571502995571
+        ],
+        "mean_width_kg": 820.0579643744006,
+        "n": 336
+       },
+       "B788/5\u201315 min": {
+        "coverage": 0.7436974789915967,
+        "coverage_ci95": [
+         0.6352847805788981,
+         0.8414110347050607
+        ],
+        "mean_width_kg": 429.95388248404055,
+        "n": 238
+       },
+       "B789/15\u201360 min": {
+        "coverage": 0.8461538461538461,
+        "coverage_ci95": [
+         0.7734348958333334,
+         0.9122829625610417
+        ],
+        "mean_width_kg": 767.6140463330335,
+        "n": 156
+       },
+       "B789/5\u201315 min": {
+        "coverage": 0.9128205128205128,
+        "coverage_ci95": [
+         0.8324600254704967,
+         0.972976605637896
+        ],
+        "mean_width_kg": 620.5304004596234,
+        "n": 195
+       },
+       "B789/<5 min": {
+        "coverage": 0.9298245614035088,
+        "coverage_ci95": [
+         0.879560982239942,
+         0.9679647284987289
+        ],
+        "mean_width_kg": 410.05438705913673,
+        "n": 456
+       }
+      },
+      "cells_below_085": 6,
+      "coverage": 0.8897906877402819,
+      "coverage_ci95": [
+       0.8839599224774305,
+       0.8958046978340389
+      ],
+      "fallback_levels": {
+       "aircraft": 1790,
+       "aircraft+phase": 35523,
+       "phase": 143
+      },
+      "mean_width_kg": 329.10998580467276,
+      "median_width_kg": 168.6589793211219,
+      "winkler_score": 569.4659604584681,
+      "worst_cell_coverage": 0.6878612716763006
+     },
+     "split_constant": {
+      "cells": {
+       "A20N/15\u201360 min": {
+        "coverage": 0.5058962264150944,
+        "coverage_ci95": [
+         0.4675622695631932,
+         0.54292706911429
+        ],
+        "mean_width_kg": 327.8161518636859,
+        "n": 848
+       },
+       "A20N/5\u201315 min": {
+        "coverage": 0.9920389208314905,
+        "coverage_ci95": [
+         0.9895994937220334,
+         0.9942262412653443
+        ],
+        "mean_width_kg": 267.99028153332387,
+        "n": 9044
+       },
+       "A20N/<5 min": {
+        "coverage": 0.9956962376787449,
+        "coverage_ci95": [
+         0.9939234492598564,
+         0.997257163746306
+        ],
+        "mean_width_kg": 235.22887174941079,
+        "n": 7203
+       },
+       "A21N/5\u201315 min": {
+        "coverage": 0.9653179190751445,
+        "coverage_ci95": [
+         0.9346351655416265,
+         0.9891891891891892
+        ],
+        "mean_width_kg": 316.33141823153477,
+        "n": 173
+       },
+       "A21N/<5 min": {
+        "coverage": 0.9934102141680395,
+        "coverage_ci95": [
+         0.9860353218789175,
+         0.9985029940119761
+        ],
+        "mean_width_kg": 298.57547637348245,
+        "n": 607
+       },
+       "A319/<5 min": {
+        "coverage": 0.9923076923076923,
+        "coverage_ci95": [
+         0.9776098440382358,
+         1.0
+        ],
+        "mean_width_kg": 266.90572300824016,
+        "n": 130
+       },
+       "A320/15\u201360 min": {
+        "coverage": 0.7274590163934426,
+        "coverage_ci95": [
+         0.6858957905544147,
+         0.7656005490734386
+        ],
+        "mean_width_kg": 328.25122790047817,
+        "n": 488
+       },
+       "A320/5\u201315 min": {
+        "coverage": 0.9743513271696987,
+        "coverage_ci95": [
+         0.9683689675362983,
+         0.9799764245577454
+        ],
+        "mean_width_kg": 324.21043216850893,
+        "n": 3353
+       },
+       "A320/<5 min": {
+        "coverage": 0.9890502261366342,
+        "coverage_ci95": [
+         0.9851566333457098,
+         0.9924784806390318
+        ],
+        "mean_width_kg": 287.674238676592,
+        "n": 4201
+       },
+       "A321/<5 min": {
+        "coverage": 0.9732142857142857,
+        "coverage_ci95": [
+         0.9295733222866611,
+         1.0
+        ],
+        "mean_width_kg": 289.25588194111396,
+        "n": 112
+       },
+       "A332/5\u201315 min": {
+        "coverage": 0.6361607142857143,
+        "coverage_ci95": [
+         0.5583989251231745,
+         0.702318708797454
+        ],
+        "mean_width_kg": 328.2512279004782,
+        "n": 448
+       },
+       "A332/<5 min": {
+        "coverage": 0.8084862385321101,
+        "coverage_ci95": [
+         0.7356670677732389,
+         0.8624837816797855
+        ],
+        "mean_width_kg": 320.71993343496814,
+        "n": 872
+       },
+       "A333/5\u201315 min": {
+        "coverage": 0.7048192771084337,
+        "coverage_ci95": [
+         0.6282051282051282,
+         0.771284804307854
+        ],
+        "mean_width_kg": 328.2512279004781,
+        "n": 166
+       },
+       "A333/<5 min": {
+        "coverage": 0.7318840579710145,
+        "coverage_ci95": [
+         0.6295913682277319,
+         0.8283582089552238
+        ],
+        "mean_width_kg": 328.2512279004781,
+        "n": 138
+       },
+       "A359/15\u201360 min": {
+        "coverage": 0.6247808299240211,
+        "coverage_ci95": [
+         0.595579165319749,
+         0.6539774247378661
+        ],
+        "mean_width_kg": 328.2512279004782,
+        "n": 1711
+       },
+       "A359/5\u201315 min": {
+        "coverage": 0.7838983050847458,
+        "coverage_ci95": [
+         0.7437087564468078,
+         0.8186540487192607
+        ],
+        "mean_width_kg": 328.25122790047817,
+        "n": 1180
+       },
+       "A359/<5 min": {
+        "coverage": 0.9211403184005924,
+        "coverage_ci95": [
+         0.8908771733902576,
+         0.9466618803340324
+        ],
+        "mean_width_kg": 328.0189208252589,
+        "n": 2701
+       },
+       "B738/15\u201360 min": {
+        "coverage": 0.732824427480916,
+        "coverage_ci95": [
+         0.6451433691756272,
+         0.814523596176822
+        ],
+        "mean_width_kg": 328.25122790047817,
+        "n": 131
+       },
+       "B738/5\u201315 min": {
+        "coverage": 0.9400749063670412,
+        "coverage_ci95": [
+         0.91176369168357,
+         0.9628219257540603
+        ],
+        "mean_width_kg": 319.5028510944616,
+        "n": 801
+       },
+       "B738/<5 min": {
+        "coverage": 0.9844961240310077,
+        "coverage_ci95": [
+         0.9658775826098661,
+         0.9976650150086219
+        ],
+        "mean_width_kg": 277.61449425812907,
+        "n": 387
+       },
+       "B744/5\u201315 min": {
+        "coverage": 0.5108225108225108,
+        "coverage_ci95": [
+         0.43683654558932544,
+         0.5751145343688261
+        ],
+        "mean_width_kg": 328.2512279004782,
+        "n": 231
+       },
+       "B77W/15\u201360 min": {
+        "coverage": 0.29444444444444445,
+        "coverage_ci95": [
+         0.20929575614242546,
+         0.37888362209872506
+        ],
+        "mean_width_kg": 328.25122790047834,
+        "n": 180
+       },
+       "B77W/5\u201315 min": {
+        "coverage": 0.3197969543147208,
+        "coverage_ci95": [
+         0.23267326732673269,
+         0.4086597222222222
+        ],
+        "mean_width_kg": 328.25122790047817,
+        "n": 197
+       },
+       "B77W/<5 min": {
+        "coverage": 0.4375,
+        "coverage_ci95": [
+         0.35051108072094816,
+         0.5256451612903226
+        ],
+        "mean_width_kg": 327.1265741958049,
+        "n": 336
+       },
+       "B788/5\u201315 min": {
+        "coverage": 0.7857142857142857,
+        "coverage_ci95": [
+         0.6970954356846473,
+         0.865225611983924
+        ],
+        "mean_width_kg": 328.2512279004783,
+        "n": 238
+       },
+       "B789/15\u201360 min": {
+        "coverage": 0.46794871794871795,
+        "coverage_ci95": [
+         0.37878145865434,
+         0.5534619272237197
+        ],
+        "mean_width_kg": 328.2512279004782,
+        "n": 156
+       },
+       "B789/5\u201315 min": {
+        "coverage": 0.7794871794871795,
+        "coverage_ci95": [
+         0.7022105263157894,
+         0.8474640798416931
+        ],
+        "mean_width_kg": 328.25122790047817,
+        "n": 195
+       },
+       "B789/<5 min": {
+        "coverage": 0.8706140350877193,
+        "coverage_ci95": [
+         0.7952707499677295,
+         0.9299796940144618
+        ],
+        "mean_width_kg": 328.2512279004782,
+        "n": 456
+       }
+      },
+      "cells_below_085": 16,
+      "coverage": 0.9060230670653567,
+      "coverage_ci95": [
+       0.8994089137516826,
+       0.912272718923529
+      ],
+      "mean_width_kg": 288.89841093048716,
+      "median_width_kg": 322.9444107369725,
+      "winkler_score": 823.8697948718298,
+      "worst_cell_coverage": 0.29444444444444445
+     },
+     "split_scaled": {
+      "cells": {
+       "A20N/15\u201360 min": {
+        "coverage": 0.9893867924528302,
+        "coverage_ci95": [
+         0.9822899135036466,
+         0.9953865227305343
+        ],
+        "mean_width_kg": 1251.8075044992834,
+        "n": 848
+       },
+       "A20N/5\u201315 min": {
+        "coverage": 0.8578062804068997,
+        "coverage_ci95": [
+         0.8458376070731543,
+         0.8696143717490449
+        ],
+        "mean_width_kg": 140.62059399039157,
+        "n": 9044
+       },
+       "A20N/<5 min": {
+        "coverage": 0.9096209912536443,
+        "coverage_ci95": [
+         0.9008660412275743,
+         0.9186209204728452
+        ],
+        "mean_width_kg": 110.74675484283519,
+        "n": 7203
+       },
+       "A21N/5\u201315 min": {
+        "coverage": 0.9364161849710982,
+        "coverage_ci95": [
+         0.901840490797546,
+         0.9693267184174282
+        ],
+        "mean_width_kg": 293.0562779543233,
+        "n": 173
+       },
+       "A21N/<5 min": {
+        "coverage": 0.9621087314662273,
+        "coverage_ci95": [
+         0.9390598663179308,
+         0.9827599676724138
+        ],
+        "mean_width_kg": 176.50564822401023,
+        "n": 607
+       },
+       "A319/<5 min": {
+        "coverage": 0.9230769230769231,
+        "coverage_ci95": [
+         0.8732394366197183,
+         0.9745816123059392
+        ],
+        "mean_width_kg": 165.04351121450142,
+        "n": 130
+       },
+       "A320/15\u201360 min": {
+        "coverage": 0.9713114754098361,
+        "coverage_ci95": [
+         0.9542740438863699,
+         0.9866973854397635
+        ],
+        "mean_width_kg": 882.2011957604929,
+        "n": 488
+       },
+       "A320/5\u201315 min": {
+        "coverage": 0.8896510587533552,
+        "coverage_ci95": [
+         0.8770196735064175,
+         0.9028955656740623
+        ],
+        "mean_width_kg": 194.8475875375611,
+        "n": 3353
+       },
+       "A320/<5 min": {
+        "coverage": 0.9012139966674602,
+        "coverage_ci95": [
+         0.8894327274453347,
+         0.9120525088593828
+        ],
+        "mean_width_kg": 149.85418463466365,
+        "n": 4201
+       },
+       "A321/<5 min": {
+        "coverage": 0.9375,
+        "coverage_ci95": [
+         0.8386768948334645,
+         0.9923106060606061
+        ],
+        "mean_width_kg": 179.7405609131597,
+        "n": 112
+       },
+       "A332/5\u201315 min": {
+        "coverage": 0.9330357142857143,
+        "coverage_ci95": [
+         0.8999890829694324,
+         0.9580597047582927
+        ],
+        "mean_width_kg": 1000.900325664102,
+        "n": 448
+       },
+       "A332/<5 min": {
+        "coverage": 0.9346330275229358,
+        "coverage_ci95": [
+         0.898394098983227,
+         0.9622700471698113
+        ],
+        "mean_width_kg": 648.0774468727222,
+        "n": 872
+       },
+       "A333/5\u201315 min": {
+        "coverage": 0.6927710843373494,
+        "coverage_ci95": [
+         0.6050955414012739,
+         0.769663772557031
+        ],
+        "mean_width_kg": 407.6266113771352,
+        "n": 166
+       },
+       "A333/<5 min": {
+        "coverage": 0.6376811594202898,
+        "coverage_ci95": [
+         0.5328935363042644,
+         0.7398414634146342
+        ],
+        "mean_width_kg": 307.0505230563842,
+        "n": 138
+       },
+       "A359/15\u201360 min": {
+        "coverage": 0.9374634716540035,
+        "coverage_ci95": [
+         0.9178391514732568,
+         0.955724384363488
+        ],
+        "mean_width_kg": 1084.0429654428926,
+        "n": 1711
+       },
+       "A359/5\u201315 min": {
+        "coverage": 0.9203389830508475,
+        "coverage_ci95": [
+         0.8876424755945196,
+         0.9478814348188563
+        ],
+        "mean_width_kg": 708.1554892497081,
+        "n": 1180
+       },
+       "A359/<5 min": {
+        "coverage": 0.9207700851536468,
+        "coverage_ci95": [
+         0.9064855477473346,
+         0.9343198144339757
+        ],
+        "mean_width_kg": 352.3396545874308,
+        "n": 2701
+       },
+       "B738/15\u201360 min": {
+        "coverage": 0.9465648854961832,
+        "coverage_ci95": [
+         0.8934348016518583,
+         0.9860280658938376
+        ],
+        "mean_width_kg": 869.9433486053928,
+        "n": 131
+       },
+       "B738/5\u201315 min": {
+        "coverage": 0.9425717852684145,
+        "coverage_ci95": [
+         0.9168734491315137,
+         0.9643268831997871
+        ],
+        "mean_width_kg": 266.93413595320163,
+        "n": 801
+       },
+       "B738/<5 min": {
+        "coverage": 0.9534883720930233,
+        "coverage_ci95": [
+         0.925204026027104,
+         0.9769258872651356
+        ],
+        "mean_width_kg": 175.40173119851636,
+        "n": 387
+       },
+       "B744/5\u201315 min": {
+        "coverage": 0.9090909090909091,
+        "coverage_ci95": [
+         0.8543689320388349,
+         0.9495855098796274
+        ],
+        "mean_width_kg": 1460.475489565814,
+        "n": 231
+       },
+       "B77W/15\u201360 min": {
+        "coverage": 0.7388888888888889,
+        "coverage_ci95": [
+         0.6374138471177945,
+         0.8314636309875814
+        ],
+        "mean_width_kg": 2050.8991410983654,
+        "n": 180
+       },
+       "B77W/5\u201315 min": {
+        "coverage": 0.7817258883248731,
+        "coverage_ci95": [
+         0.6974324324324324,
+         0.8618832158506382
+        ],
+        "mean_width_kg": 1233.486896132348,
+        "n": 197
+       },
+       "B77W/<5 min": {
+        "coverage": 0.8839285714285714,
+        "coverage_ci95": [
+         0.8198920557002605,
+         0.9454571502995571
+        ],
+        "mean_width_kg": 807.854649707423,
+        "n": 336
+       },
+       "B788/5\u201315 min": {
+        "coverage": 0.8277310924369747,
+        "coverage_ci95": [
+         0.7324854686073882,
+         0.9102068271254691
+        ],
+        "mean_width_kg": 531.1953820837721,
+        "n": 238
+       },
+       "B789/15\u201360 min": {
+        "coverage": 0.967948717948718,
+        "coverage_ci95": [
+         0.9256704297465167,
+         1.0
+        ],
+        "mean_width_kg": 1323.709011035562,
+        "n": 156
+       },
+       "B789/5\u201315 min": {
+        "coverage": 0.9076923076923077,
+        "coverage_ci95": [
+         0.8271571571571572,
+         0.9693195208169677
+        ],
+        "mean_width_kg": 574.211014602051,
+        "n": 195
+       },
+       "B789/<5 min": {
+        "coverage": 0.7785087719298246,
+        "coverage_ci95": [
+         0.7245325854700855,
+         0.8292730194743807
+        ],
+        "mean_width_kg": 260.0266354813024,
+        "n": 456
+       }
+      },
+      "cells_below_085": 6,
+      "coverage": 0.8964651858180265,
+      "coverage_ci95": [
+       0.8907267679406452,
+       0.9020364390604431
+      ],
+      "mean_width_kg": 342.89656849987244,
+      "median_width_kg": 173.2156325470263,
+      "winkler_score": 577.2886368879161,
+      "worst_cell_coverage": 0.6376811594202898
+     }
+    },
+    "selection_frontier": [
+     {
+      "representation_floor": {
+       "accepted": 22347,
+       "accepted_mae_kg": 43.33960755089321,
+       "aircraft_gap": 0.20745832114653406,
+       "b744_coverage": 0.5,
+       "coverage": 0.5966200341734301,
+       "duration_gap": 0.173715894972582,
+       "fuel_share": 0.36598456004567514,
+       "long_interval_coverage": 0.5003804209992392,
+       "min_duration_coverage": 0.5003804209992392,
+       "rejected_mae_kg": 125.60595950205243
+      },
+      "risk_only": {
+       "accepted": 18728,
+       "accepted_mae_kg": 25.085934457202562,
+       "aircraft_gap": 0.7721518987341772,
+       "b744_coverage": 0.0,
+       "coverage": 0.5,
+       "duration_gap": 0.5927936251299226,
+       "fuel_share": 0.1313361123575636,
+       "long_interval_coverage": 0.0,
+       "min_duration_coverage": 0.0,
+       "rejected_mae_kg": 127.9624771220542
+      },
+      "target": 0.5
+     },
+     {
+      "representation_floor": {
+       "accepted": 22474,
+       "accepted_mae_kg": 43.25665699833233,
+       "aircraft_gap": 0.21219654869844984,
+       "b744_coverage": 0.5,
+       "coverage": 0.6000106791969244,
+       "duration_gap": 0.18104930529709984,
+       "fuel_share": 0.366718943313044,
+       "long_interval_coverage": 0.5003804209992392,
+       "min_duration_coverage": 0.5003804209992392,
+       "rejected_mae_kg": 126.42774947775996
+      },
+      "risk_only": {
+       "accepted": 22474,
+       "accepted_mae_kg": 27.881714781314784,
+       "aircraft_gap": 0.8607594936708861,
+       "b744_coverage": 0.0,
+       "coverage": 0.6000106791969244,
+       "duration_gap": 0.7227513519319081,
+       "fuel_share": 0.18351429533154223,
+       "long_interval_coverage": 0.000253613999492772,
+       "min_duration_coverage": 0.000253613999492772,
+       "rejected_mae_kg": 149.4911890309072
+      },
+      "target": 0.6
+     },
+     {
+      "representation_floor": {
+       "accepted": 26220,
+       "accepted_mae_kg": 42.13223219769215,
+       "aircraft_gap": 0.3481012658227848,
+       "b744_coverage": 0.5,
+       "coverage": 0.7000213583938488,
+       "duration_gap": 0.30271462461803766,
+       "fuel_share": 0.3976202445785103,
+       "long_interval_coverage": 0.5003804209992392,
+       "min_duration_coverage": 0.5003804209992392,
+       "rejected_mae_kg": 156.78030649989608
+      },
+      "risk_only": {
+       "accepted": 26220,
+       "accepted_mae_kg": 30.960425930583714,
+       "aircraft_gap": 0.9240506329113924,
+       "b744_coverage": 0.0,
+       "coverage": 0.7000213583938488,
+       "duration_gap": 0.8367968285333587,
+       "fuel_share": 0.23706030543682943,
+       "long_interval_coverage": 0.001521683996956632,
+       "min_duration_coverage": 0.001521683996956632,
+       "rejected_mae_kg": 182.85050588789744
+      },
+      "target": 0.7
+     },
+     {
+      "representation_floor": {
+       "accepted": 28092,
+       "accepted_mae_kg": 42.31528810470312,
+       "aircraft_gap": 0.38607594936708856,
+       "b744_coverage": 0.5,
+       "coverage": 0.75,
+       "duration_gap": 0.35416398366642665,
+       "fuel_share": 0.41766942697287185,
+       "long_interval_coverage": 0.5003804209992392,
+       "min_duration_coverage": 0.5003804209992392,
+       "rejected_mae_kg": 179.15095884440416
+      },
+      "risk_only": {
+       "accepted": 28092,
+       "accepted_mae_kg": 33.22671274070283,
+       "aircraft_gap": 0.9493670886075949,
+       "b744_coverage": 0.0,
+       "coverage": 0.75,
+       "duration_gap": 0.8800557646192625,
+       "fuel_share": 0.26844094957558373,
+       "long_interval_coverage": 0.006593963986812072,
+       "min_duration_coverage": 0.006593963986812072,
+       "rejected_mae_kg": 206.41668493640503
+      },
+      "target": 0.75
+     },
+     {
+      "representation_floor": {
+       "accepted": 29965,
+       "accepted_mae_kg": 42.90266327798912,
+       "aircraft_gap": 0.42405063291139244,
+       "b744_coverage": 0.5,
+       "coverage": 0.8000053395984622,
+       "duration_gap": 0.3990305964392641,
+       "fuel_share": 0.44331385331909373,
+       "long_interval_coverage": 0.5003804209992392,
+       "min_duration_coverage": 0.5003804209992392,
+       "rejected_mae_kg": 211.01486409443018
+      },
+      "risk_only": {
+       "accepted": 29965,
+       "accepted_mae_kg": 36.86053655090225,
+       "aircraft_gap": 0.9873417721518988,
+       "b744_coverage": 0.005847953216374269,
+       "coverage": 0.8000053395984622,
+       "duration_gap": 0.8681228144317876,
+       "fuel_share": 0.3235683471027302,
+       "long_interval_coverage": 0.04970834390058331,
+       "min_duration_coverage": 0.04970834390058331,
+       "rejected_mae_kg": 235.18417758757633
+      },
+      "target": 0.8
+     },
+     {
+      "representation_floor": {
+       "accepted": 33711,
+       "accepted_mae_kg": 48.371163819899834,
+       "aircraft_gap": 0.5,
+       "b744_coverage": 0.5,
+       "coverage": 0.9000160187953866,
+       "duration_gap": 0.4574091620934967,
+       "fuel_share": 0.5660061639840483,
+       "long_interval_coverage": 0.5003804209992392,
+       "min_duration_coverage": 0.5003804209992392,
+       "rejected_mae_kg": 329.9466885243463
+      },
+      "risk_only": {
+       "accepted": 33711,
+       "accepted_mae_kg": 47.72549359131059,
+       "aircraft_gap": 0.7748538011695907,
+       "b744_coverage": 0.22514619883040934,
+       "coverage": 0.9000160187953866,
+       "duration_gap": 0.5640936234282281,
+       "fuel_share": 0.5388341553635956,
+       "long_interval_coverage": 0.40299264519401473,
+       "min_duration_coverage": 0.40299264519401473,
+       "rejected_mae_kg": 335.75875503328405
+      },
+      "target": 0.9
+     },
+     {
+      "representation_floor": {
+       "accepted": 37456,
+       "accepted_mae_kg": 76.52420578962838,
+       "aircraft_gap": 0.0,
+       "b744_coverage": 1.0,
+       "coverage": 1.0,
+       "duration_gap": 0.0,
+       "fuel_share": 1.0,
+       "long_interval_coverage": 1.0,
+       "min_duration_coverage": 1.0,
+       "rejected_mae_kg": null
+      },
+      "risk_only": {
+       "accepted": 37456,
+       "accepted_mae_kg": 76.52420578962838,
+       "aircraft_gap": 0.0,
+       "b744_coverage": 1.0,
+       "coverage": 1.0,
+       "duration_gap": 0.0,
+       "fuel_share": 1.0,
+       "long_interval_coverage": 1.0,
+       "min_duration_coverage": 1.0,
+       "rejected_mae_kg": null
+      },
+      "target": 1.0
+     }
+    ],
+    "selection_primary": {
+     "floor_cost_kg": 9.088575364000292,
+     "representation_floor": {
+      "accepted": 28092,
+      "accepted_mae_kg": 42.31528810470312,
+      "aircraft_gap": 0.38607594936708856,
+      "b744_coverage": 0.5,
+      "coverage": 0.75,
+      "duration_gap": 0.35416398366642665,
+      "fuel_share": 0.41766942697287185,
+      "long_interval_coverage": 0.5003804209992392,
+      "min_duration_coverage": 0.5003804209992392,
+      "rejected_mae_kg": 179.15095884440416
+     },
+     "risk_only": {
+      "accepted": 28092,
+      "accepted_mae_kg": 33.22671274070283,
+      "aircraft_gap": 0.9493670886075949,
+      "b744_coverage": 0.0,
+      "coverage": 0.75,
+      "duration_gap": 0.8800557646192625,
+      "fuel_share": 0.26844094957558373,
+      "long_interval_coverage": 0.006593963986812072,
+      "min_duration_coverage": 0.006593963986812072,
+      "rejected_mae_kg": 206.41668493640503
+     },
+     "target": 0.75
+    },
+    "sigma_deciles": [
+     {
+      "mean_sigma_kg": 6.025145030610195,
+      "n": 3746,
+      "observed_mae_kg": 16.3599829842322
+     },
+     {
+      "mean_sigma_kg": 11.29726148987475,
+      "n": 3746,
+      "observed_mae_kg": 20.574734058995354
+     },
+     {
+      "mean_sigma_kg": 16.19693716149876,
+      "n": 3746,
+      "observed_mae_kg": 27.528759794790492
+     },
+     {
+      "mean_sigma_kg": 21.13128481744871,
+      "n": 3746,
+      "observed_mae_kg": 28.24365563015479
+     },
+     {
+      "mean_sigma_kg": 24.69144077054161,
+      "n": 3746,
+      "observed_mae_kg": 32.73396291387396
+     },
+     {
+      "mean_sigma_kg": 29.403360764515025,
+      "n": 3746,
+      "observed_mae_kg": 41.84570408493685
+     },
+     {
+      "mean_sigma_kg": 36.97572547272241,
+      "n": 3745,
+      "observed_mae_kg": 49.45357322930861
+     },
+     {
+      "mean_sigma_kg": 54.24671888070027,
+      "n": 3745,
+      "observed_mae_kg": 78.17428406878874
+     },
+     {
+      "mean_sigma_kg": 102.12839924961469,
+      "n": 3745,
+      "observed_mae_kg": 134.64657892442625
+     },
+     {
+      "mean_sigma_kg": 234.7950091928291,
+      "n": 3745,
+      "observed_mae_kg": 335.75875503328405
+     }
+    ],
+    "sigma_spearman_with_error": 0.6035966250114086
+   },
+   "hgb_residual_physics": {
+    "intervals": {
+     "mondrian_type_duration": {
+      "cells": {
+       "A20N/15\u201360 min": {
+        "coverage": 0.8985849056603774,
+        "coverage_ci95": [
+         0.8746951245843589,
+         0.9199092859570321
+        ],
+        "mean_width_kg": 797.5729934161491,
+        "n": 848
+       },
+       "A20N/5\u201315 min": {
+        "coverage": 0.8809155241043786,
+        "coverage_ci95": [
+         0.870059567230558,
+         0.8917736967144435
+        ],
+        "mean_width_kg": 152.59698954825424,
+        "n": 9044
+       },
+       "A20N/<5 min": {
+        "coverage": 0.9001804803554074,
+        "coverage_ci95": [
+         0.8906059716928285,
+         0.9095607651682633
+        ],
+        "mean_width_kg": 104.51029511455201,
+        "n": 7203
+       },
+       "A21N/5\u201315 min": {
+        "coverage": 0.6763005780346821,
+        "coverage_ci95": [
+         0.5681633192389007,
+         0.7924802191113816
+        ],
+        "mean_width_kg": 205.03344007113577,
+        "n": 173
+       },
+       "A21N/<5 min": {
+        "coverage": 0.8978583196046128,
+        "coverage_ci95": [
+         0.8428473581213307,
+         0.9424610183244303
+        ],
+        "mean_width_kg": 135.25142723197146,
+        "n": 607
+       },
+       "A319/<5 min": {
+        "coverage": 0.9076923076923077,
+        "coverage_ci95": [
+         0.8596454980426272,
+         0.9481481481481482
+        ],
+        "mean_width_kg": 110.83583520310648,
+        "n": 130
+       },
+       "A320/15\u201360 min": {
+        "coverage": 0.8934426229508197,
+        "coverage_ci95": [
+         0.8659716879519926,
+         0.9198332785358101
+        ],
+        "mean_width_kg": 517.9627473410554,
+        "n": 488
+       },
+       "A320/5\u201315 min": {
+        "coverage": 0.8956158663883089,
+        "coverage_ci95": [
+         0.8827758842965465,
+         0.9079827230099364
+        ],
+        "mean_width_kg": 216.60792094325976,
+        "n": 3353
+       },
+       "A320/<5 min": {
+        "coverage": 0.9000238038562247,
+        "coverage_ci95": [
+         0.8873560361937928,
+         0.9120657019314975
+        ],
+        "mean_width_kg": 145.52184449130363,
+        "n": 4201
+       },
+       "A321/<5 min": {
+        "coverage": 0.9375,
+        "coverage_ci95": [
+         0.8736842105263158,
+         0.9882387140902873
+        ],
+        "mean_width_kg": 147.18530856232005,
+        "n": 112
+       },
+       "A332/5\u201315 min": {
+        "coverage": 0.9464285714285714,
+        "coverage_ci95": [
+         0.9187496472911963,
+         0.96849221232117
+        ],
+        "mean_width_kg": 975.9570370094063,
+        "n": 448
+       },
+       "A332/<5 min": {
+        "coverage": 0.9174311926605505,
+        "coverage_ci95": [
+         0.8789803513272041,
+         0.9501983980185741
+        ],
+        "mean_width_kg": 638.3605728283634,
+        "n": 872
+       },
+       "A333/5\u201315 min": {
+        "coverage": 0.8734939759036144,
+        "coverage_ci95": [
+         0.8186876029853639,
+         0.9240506329113924
+        ],
+        "mean_width_kg": 595.4215366979279,
+        "n": 166
+       },
+       "A333/<5 min": {
+        "coverage": 0.8623188405797102,
+        "coverage_ci95": [
+         0.7861945812807882,
+         0.9259259259259259
+        ],
+        "mean_width_kg": 369.6965652816167,
+        "n": 138
+       },
+       "A359/15\u201360 min": {
+        "coverage": 0.907656341320865,
+        "coverage_ci95": [
+         0.8840820021531947,
+         0.928574638363434
+        ],
+        "mean_width_kg": 1000.3308167645688,
+        "n": 1711
+       },
+       "A359/5\u201315 min": {
+        "coverage": 0.9076271186440678,
+        "coverage_ci95": [
+         0.8835262591079247,
+         0.9294781346305683
+        ],
+        "mean_width_kg": 600.9515301258582,
+        "n": 1180
+       },
+       "A359/<5 min": {
+        "coverage": 0.9111440207330618,
+        "coverage_ci95": [
+         0.8966936218462678,
+         0.9249733891001056
+        ],
+        "mean_width_kg": 284.6496687844068,
+        "n": 2701
+       },
+       "B738/15\u201360 min": {
+        "coverage": 0.9389312977099237,
+        "coverage_ci95": [
+         0.8923076923076924,
+         0.9776119402985075
+        ],
+        "mean_width_kg": 659.8570069799401,
+        "n": 131
+       },
+       "B738/5\u201315 min": {
+        "coverage": 0.8776529338327091,
+        "coverage_ci95": [
+         0.8463501906482038,
+         0.9068110178229489
+        ],
+        "mean_width_kg": 201.29474369910565,
+        "n": 801
+       },
+       "B738/<5 min": {
+        "coverage": 0.9715762273901809,
+        "coverage_ci95": [
+         0.9447368421052632,
+         0.9918940598352363
+        ],
+        "mean_width_kg": 213.05330122035198,
+        "n": 387
+       },
+       "B744/5\u201315 min": {
+        "coverage": 0.9264069264069265,
+        "coverage_ci95": [
+         0.8831713015728289,
+         0.9622729677305589
+        ],
+        "mean_width_kg": 1635.1207972021145,
+        "n": 231
+       },
+       "B77W/15\u201360 min": {
+        "coverage": 0.8166666666666667,
+        "coverage_ci95": [
+         0.7254667136315603,
+         0.8983093865611288
+        ],
+        "mean_width_kg": 2756.5106249931287,
+        "n": 180
+       },
+       "B77W/5\u201315 min": {
+        "coverage": 0.9187817258883249,
+        "coverage_ci95": [
+         0.859457347972973,
+         0.9679174907821161
+        ],
+        "mean_width_kg": 1652.8563755610437,
+        "n": 197
+       },
+       "B77W/<5 min": {
+        "coverage": 0.9523809523809523,
+        "coverage_ci95": [
+         0.9159858710237587,
+         0.9845702681208817
+        ],
+        "mean_width_kg": 793.4676399149241,
+        "n": 336
+       },
+       "B788/5\u201315 min": {
+        "coverage": 0.8403361344537815,
+        "coverage_ci95": [
+         0.7806935563207082,
+         0.8939426040061633
+        ],
+        "mean_width_kg": 296.84681105517643,
+        "n": 238
+       },
+       "B789/15\u201360 min": {
+        "coverage": 0.9423076923076923,
+        "coverage_ci95": [
+         0.8962932604735883,
+         0.9806451612903225
+        ],
+        "mean_width_kg": 1396.9948207481523,
+        "n": 156
+       },
+       "B789/5\u201315 min": {
+        "coverage": 0.9487179487179487,
+        "coverage_ci95": [
+         0.8988707105982386,
+         0.9858507175126229
+        ],
+        "mean_width_kg": 706.7376011155143,
+        "n": 195
+       },
+       "B789/<5 min": {
+        "coverage": 0.918859649122807,
+        "coverage_ci95": [
+         0.868555112272278,
+         0.9571164706913609
+        ],
+        "mean_width_kg": 376.79076487390387,
+        "n": 456
+       }
+      },
+      "cells_below_085": 3,
+      "coverage": 0.8969724476719351,
+      "coverage_ci95": [
+       0.8914921312837593,
+       0.9025283182089252
+      ],
+      "fallback_levels": {
+       "aircraft": 1790,
+       "aircraft+phase": 35523,
+       "phase": 143
+      },
+      "mean_width_kg": 319.58825596818616,
+      "median_width_kg": 167.06757529655823,
+      "winkler_score": 510.08920543321403,
+      "worst_cell_coverage": 0.6763005780346821
+     },
+     "split_constant": {
+      "cells": {
+       "A20N/15\u201360 min": {
+        "coverage": 0.455188679245283,
+        "coverage_ci95": [
+         0.41501276823184735,
+         0.4930256560699808
+        ],
+        "mean_width_kg": 308.41146176091354,
+        "n": 848
+       },
+       "A20N/5\u201315 min": {
+        "coverage": 0.9930340557275542,
+        "coverage_ci95": [
+         0.9910585169959811,
+         0.9949286770307211
+        ],
+        "mean_width_kg": 258.63351170707006,
+        "n": 9044
+       },
+       "A20N/<5 min": {
+        "coverage": 0.9980563654033042,
+        "coverage_ci95": [
+         0.9969516419564917,
+         0.9990125755383754
+        ],
+        "mean_width_kg": 223.43116292011462,
+        "n": 7203
+       },
+       "A21N/5\u201315 min": {
+        "coverage": 0.9421965317919075,
+        "coverage_ci95": [
+         0.8944088443705713,
+         0.9788359788359788
+        ],
+        "mean_width_kg": 305.56498798465503,
+        "n": 173
+       },
+       "A21N/<5 min": {
+        "coverage": 0.9934102141680395,
+        "coverage_ci95": [
+         0.9860673685291146,
+         0.9984521318273898
+        ],
+        "mean_width_kg": 281.21657993226637,
+        "n": 607
+       },
+       "A319/<5 min": {
+        "coverage": 0.9923076923076923,
+        "coverage_ci95": [
+         0.9776098440382358,
+         1.0
+        ],
+        "mean_width_kg": 259.8239906966074,
+        "n": 130
+       },
+       "A320/15\u201360 min": {
+        "coverage": 0.7418032786885246,
+        "coverage_ci95": [
+         0.6973061101028433,
+         0.7851436271401395
+        ],
+        "mean_width_kg": 309.90037350123976,
+        "n": 488
+       },
+       "A320/5\u201315 min": {
+        "coverage": 0.9761407694601849,
+        "coverage_ci95": [
+         0.9697905865242297,
+         0.9815974313812791
+        ],
+        "mean_width_kg": 305.42535850444386,
+        "n": 3353
+       },
+       "A320/<5 min": {
+        "coverage": 0.9845274934539395,
+        "coverage_ci95": [
+         0.9795200998837043,
+         0.9888891513147536
+        ],
+        "mean_width_kg": 272.5842845066458,
+        "n": 4201
+       },
+       "A321/<5 min": {
+        "coverage": 0.9821428571428571,
+        "coverage_ci95": [
+         0.9468085106382979,
+         1.0
+        ],
+        "mean_width_kg": 275.9050541028028,
+        "n": 112
+       },
+       "A332/5\u201315 min": {
+        "coverage": 0.6785714285714286,
+        "coverage_ci95": [
+         0.6144493267186393,
+         0.7329448971451363
+        ],
+        "mean_width_kg": 309.8543504741366,
+        "n": 448
+       },
+       "A332/<5 min": {
+        "coverage": 0.8394495412844036,
+        "coverage_ci95": [
+         0.7697663022383232,
+         0.892161723046159
+        ],
+        "mean_width_kg": 292.81544478887747,
+        "n": 872
+       },
+       "A333/5\u201315 min": {
+        "coverage": 0.6987951807228916,
+        "coverage_ci95": [
+         0.6346153846153846,
+         0.7613636363636364
+        ],
+        "mean_width_kg": 309.9003735012398,
+        "n": 166
+       },
+       "A333/<5 min": {
+        "coverage": 0.782608695652174,
+        "coverage_ci95": [
+         0.6827439187383053,
+         0.8707653061224488
+        ],
+        "mean_width_kg": 309.68096694254547,
+        "n": 138
+       },
+       "A359/15\u201360 min": {
+        "coverage": 0.5441262419637639,
+        "coverage_ci95": [
+         0.5104419931806207,
+         0.5777189009661836
+        ],
+        "mean_width_kg": 309.90037350123964,
+        "n": 1711
+       },
+       "A359/5\u201315 min": {
+        "coverage": 0.7398305084745763,
+        "coverage_ci95": [
+         0.6912014344107501,
+         0.7837416275357704
+        ],
+        "mean_width_kg": 309.90037350123976,
+        "n": 1180
+       },
+       "A359/<5 min": {
+        "coverage": 0.9048500555349871,
+        "coverage_ci95": [
+         0.8735671470559238,
+         0.9306656032996161
+        ],
+        "mean_width_kg": 308.56939308060794,
+        "n": 2701
+       },
+       "B738/15\u201360 min": {
+        "coverage": 0.7862595419847328,
+        "coverage_ci95": [
+         0.7039925925925925,
+         0.8600034965034965
+        ],
+        "mean_width_kg": 309.6335408104534,
+        "n": 131
+       },
+       "B738/5\u201315 min": {
+        "coverage": 0.947565543071161,
+        "coverage_ci95": [
+         0.9225316274235745,
+         0.9684120824952507
+        ],
+        "mean_width_kg": 300.8410321337283,
+        "n": 801
+       },
+       "B738/<5 min": {
+        "coverage": 0.9896640826873385,
+        "coverage_ci95": [
+         0.9776520664131575,
+         0.9978824548139813
+        ],
+        "mean_width_kg": 274.7028939168923,
+        "n": 387
+       },
+       "B744/5\u201315 min": {
+        "coverage": 0.4155844155844156,
+        "coverage_ci95": [
+         0.3458323598130841,
+         0.48474685675797025
+        ],
+        "mean_width_kg": 309.9003735012397,
+        "n": 231
+       },
+       "B77W/15\u201360 min": {
+        "coverage": 0.23333333333333334,
+        "coverage_ci95": [
+         0.15383597883597885,
+         0.3163841807909605
+        ],
+        "mean_width_kg": 309.9003735012396,
+        "n": 180
+       },
+       "B77W/5\u201315 min": {
+        "coverage": 0.26903553299492383,
+        "coverage_ci95": [
+         0.17971018353267096,
+         0.3668738428987038
+        ],
+        "mean_width_kg": 309.90037350123976,
+        "n": 197
+       },
+       "B77W/<5 min": {
+        "coverage": 0.5982142857142857,
+        "coverage_ci95": [
+         0.48727221220705635,
+         0.7084964267364192
+        ],
+        "mean_width_kg": 304.8480721431005,
+        "n": 336
+       },
+       "B788/5\u201315 min": {
+        "coverage": 0.8529411764705882,
+        "coverage_ci95": [
+         0.7878557312252964,
+         0.9119002635798942
+        ],
+        "mean_width_kg": 309.7461032615456,
+        "n": 238
+       },
+       "B789/15\u201360 min": {
+        "coverage": 0.5448717948717948,
+        "coverage_ci95": [
+         0.43643483912902176,
+         0.6451698242020822
+        ],
+        "mean_width_kg": 309.9003735012396,
+        "n": 156
+       },
+       "B789/5\u201315 min": {
+        "coverage": 0.7743589743589744,
+        "coverage_ci95": [
+         0.7053016413480008,
+         0.8342288565686842
+        ],
+        "mean_width_kg": 309.4962486525574,
+        "n": 195
+       },
+       "B789/<5 min": {
+        "coverage": 0.8552631578947368,
+        "coverage_ci95": [
+         0.7823742429162373,
+         0.9145159530621151
+        ],
+        "mean_width_kg": 309.63125712790946,
+        "n": 456
+       }
+      },
+      "cells_below_085": 15,
+      "coverage": 0.903193079880393,
+      "coverage_ci95": [
+       0.8962909357944083,
+       0.9095351436385494
+      ],
+      "mean_width_kg": 274.19481997706555,
+      "median_width_kg": 307.9123170251877,
+      "winkler_score": 775.0487209379133,
+      "worst_cell_coverage": 0.23333333333333334
+     },
+     "split_scaled": {
+      "cells": {
+       "A20N/15\u201360 min": {
+        "coverage": 0.9846698113207547,
+        "coverage_ci95": [
+         0.9760457450483648,
+         0.9920807453416148
+        ],
+        "mean_width_kg": 1236.4040043978123,
+        "n": 848
+       },
+       "A20N/5\u201315 min": {
+        "coverage": 0.8660990712074303,
+        "coverage_ci95": [
+         0.8546541978769439,
+         0.8778693350765508
+        ],
+        "mean_width_kg": 143.57033693709693,
+        "n": 9044
+       },
+       "A20N/<5 min": {
+        "coverage": 0.8990698320144385,
+        "coverage_ci95": [
+         0.8892682656584319,
+         0.908556118962851
+        ],
+        "mean_width_kg": 104.01426479354312,
+        "n": 7203
+       },
+       "A21N/5\u201315 min": {
+        "coverage": 0.838150289017341,
+        "coverage_ci95": [
+         0.7560800140375504,
+         0.921574104502136
+        ],
+        "mean_width_kg": 272.9082146846552,
+        "n": 173
+       },
+       "A21N/<5 min": {
+        "coverage": 0.9390444810543658,
+        "coverage_ci95": [
+         0.8946539565848425,
+         0.9731913651555317
+        ],
+        "mean_width_kg": 166.2655833239171,
+        "n": 607
+       },
+       "A319/<5 min": {
+        "coverage": 0.9538461538461539,
+        "coverage_ci95": [
+         0.916083916083916,
+         0.9870171495171495
+        ],
+        "mean_width_kg": 166.15615755113674,
+        "n": 130
+       },
+       "A320/15\u201360 min": {
+        "coverage": 0.9672131147540983,
+        "coverage_ci95": [
+         0.9491492190096378,
+         0.9832720545436201
+        ],
+        "mean_width_kg": 777.1226038049386,
+        "n": 488
+       },
+       "A320/5\u201315 min": {
+        "coverage": 0.872651356993737,
+        "coverage_ci95": [
+         0.8590738720736942,
+         0.8867205925707548
+        ],
+        "mean_width_kg": 183.19367946639224,
+        "n": 3353
+       },
+       "A320/<5 min": {
+        "coverage": 0.8947869554867889,
+        "coverage_ci95": [
+         0.8816472732936217,
+         0.9069442075914018
+        ],
+        "mean_width_kg": 140.65425572382435,
+        "n": 4201
+       },
+       "A321/<5 min": {
+        "coverage": 0.9375,
+        "coverage_ci95": [
+         0.8736842105263158,
+         0.9882387140902873
+        ],
+        "mean_width_kg": 173.23309626061402,
+        "n": 112
+       },
+       "A332/5\u201315 min": {
+        "coverage": 0.9107142857142857,
+        "coverage_ci95": [
+         0.8729619633267481,
+         0.9429236531540329
+        ],
+        "mean_width_kg": 828.7986967347832,
+        "n": 448
+       },
+       "A332/<5 min": {
+        "coverage": 0.893348623853211,
+        "coverage_ci95": [
+         0.849791618740894,
+         0.9326948924731183
+        ],
+        "mean_width_kg": 577.7328315464524,
+        "n": 872
+       },
+       "A333/5\u201315 min": {
+        "coverage": 0.8072289156626506,
+        "coverage_ci95": [
+         0.7426856812690409,
+         0.8719547646057856
+        ],
+        "mean_width_kg": 445.27512398645644,
+        "n": 166
+       },
+       "A333/<5 min": {
+        "coverage": 0.8623188405797102,
+        "coverage_ci95": [
+         0.7861945812807882,
+         0.9259259259259259
+        ],
+        "mean_width_kg": 369.7975454012793,
+        "n": 138
+       },
+       "A359/15\u201360 min": {
+        "coverage": 0.9427235534774986,
+        "coverage_ci95": [
+         0.9225939324489214,
+         0.9604361218475573
+        ],
+        "mean_width_kg": 1237.6119870455248,
+        "n": 1711
+       },
+       "A359/5\u201315 min": {
+        "coverage": 0.9457627118644067,
+        "coverage_ci95": [
+         0.9251997857187874,
+         0.9638457692726534
+        ],
+        "mean_width_kg": 771.2123294341484,
+        "n": 1180
+       },
+       "A359/<5 min": {
+        "coverage": 0.9326175490559052,
+        "coverage_ci95": [
+         0.9199399682068203,
+         0.9444242405404286
+        ],
+        "mean_width_kg": 325.6048672306403,
+        "n": 2701
+       },
+       "B738/15\u201360 min": {
+        "coverage": 0.9618320610687023,
+        "coverage_ci95": [
+         0.9191126788553259,
+         0.9927549264935877
+        ],
+        "mean_width_kg": 724.6490237415117,
+        "n": 131
+       },
+       "B738/5\u201315 min": {
+        "coverage": 0.9151061173533084,
+        "coverage_ci95": [
+         0.8904277802698319,
+         0.9390682190415153
+        ],
+        "mean_width_kg": 237.91890857380514,
+        "n": 801
+       },
+       "B738/<5 min": {
+        "coverage": 0.9198966408268734,
+        "coverage_ci95": [
+         0.8630676485243166,
+         0.9656995853750471
+        ],
+        "mean_width_kg": 177.8965650511011,
+        "n": 387
+       },
+       "B744/5\u201315 min": {
+        "coverage": 0.8528138528138528,
+        "coverage_ci95": [
+         0.7976604442693198,
+         0.9056824193263974
+        ],
+        "mean_width_kg": 1132.082787894947,
+        "n": 231
+       },
+       "B77W/15\u201360 min": {
+        "coverage": 0.7888888888888889,
+        "coverage_ci95": [
+         0.6892655367231638,
+         0.8757396449704142
+        ],
+        "mean_width_kg": 2193.0893465506833,
+        "n": 180
+       },
+       "B77W/5\u201315 min": {
+        "coverage": 0.8629441624365483,
+        "coverage_ci95": [
+         0.7880393610013174,
+         0.926281330785658
+        ],
+        "mean_width_kg": 1317.0129720066138,
+        "n": 197
+       },
+       "B77W/<5 min": {
+        "coverage": 0.8869047619047619,
+        "coverage_ci95": [
+         0.8321540143705093,
+         0.9377364185110664
+        ],
+        "mean_width_kg": 634.6072061044518,
+        "n": 336
+       },
+       "B788/5\u201315 min": {
+        "coverage": 0.8697478991596639,
+        "coverage_ci95": [
+         0.8173505005268704,
+         0.9152542372881356
+        ],
+        "mean_width_kg": 321.5708690489865,
+        "n": 238
+       },
+       "B789/15\u201360 min": {
+        "coverage": 0.9358974358974359,
+        "coverage_ci95": [
+         0.8895705521472392,
+         0.9793103448275862
+        ],
+        "mean_width_kg": 1351.8786494703734,
+        "n": 156
+       },
+       "B789/5\u201315 min": {
+        "coverage": 0.9282051282051282,
+        "coverage_ci95": [
+         0.8744167782783393,
+         0.9714285714285714
+        ],
+        "mean_width_kg": 599.0735014635602,
+        "n": 195
+       },
+       "B789/<5 min": {
+        "coverage": 0.831140350877193,
+        "coverage_ci95": [
+         0.7694020021074816,
+         0.8846198156682027
+        ],
+        "mean_width_kg": 284.67228935952426,
+        "n": 456
+       }
+      },
+      "cells_below_085": 4,
+      "coverage": 0.8957443400256301,
+      "coverage_ci95": [
+       0.8903731361303959,
+       0.9013272868766314
+      ],
+      "mean_width_kg": 332.4432882559163,
+      "median_width_kg": 163.93615454397388,
+      "winkler_score": 528.2518471308808,
+      "worst_cell_coverage": 0.7888888888888889
+     }
+    },
+    "selection_frontier": [
+     {
+      "representation_floor": {
+       "accepted": 22239,
+       "accepted_mae_kg": 40.62950065000698,
+       "aircraft_gap": 0.2215189873417721,
+       "b744_coverage": 0.5,
+       "coverage": 0.5937366510038445,
+       "duration_gap": 0.174258225913985,
+       "fuel_share": 0.35449995312445204,
+       "long_interval_coverage": 0.5001268069997464,
+       "min_duration_coverage": 0.5001268069997464,
+       "rejected_mae_kg": 119.52679001330196
+      },
+      "risk_only": {
+       "accepted": 18728,
+       "accepted_mae_kg": 24.362215971670746,
+       "aircraft_gap": 0.8481012658227848,
+       "b744_coverage": 0.011695906432748537,
+       "coverage": 0.5,
+       "duration_gap": 0.6035837453547912,
+       "fuel_share": 0.12599065422981517,
+       "long_interval_coverage": 0.002028911995942176,
+       "min_duration_coverage": 0.002028911995942176,
+       "rejected_mae_kg": 121.00293933524517
+      },
+      "target": 0.5
+     },
+     {
+      "representation_floor": {
+       "accepted": 22474,
+       "accepted_mae_kg": 40.48067289402219,
+       "aircraft_gap": 0.24683544303797467,
+       "b744_coverage": 0.5,
+       "coverage": 0.6000106791969244,
+       "duration_gap": 0.1878279221837621,
+       "fuel_share": 0.3558532354021091,
+       "long_interval_coverage": 0.5001268069997464,
+       "min_duration_coverage": 0.5001268069997464,
+       "rejected_mae_kg": 120.9875841655097
+      },
+      "risk_only": {
+       "accepted": 22474,
+       "accepted_mae_kg": 26.78829067177651,
+       "aircraft_gap": 0.9367088607594937,
+       "b744_coverage": 0.029239766081871343,
+       "coverage": 0.6000106791969244,
+       "duration_gap": 0.7182666837753849,
+       "fuel_share": 0.17294941218884863,
+       "long_interval_coverage": 0.004565051990869896,
+       "min_duration_coverage": 0.004565051990869896,
+       "rejected_mae_kg": 141.52707142106632
+      },
+      "target": 0.6
+     },
+     {
+      "representation_floor": {
+       "accepted": 26220,
+       "accepted_mae_kg": 39.67530751082859,
+       "aircraft_gap": 0.42405063291139244,
+       "b744_coverage": 0.5,
+       "coverage": 0.7000213583938488,
+       "duration_gap": 0.3177505460433301,
+       "fuel_share": 0.3864786369775874,
+       "long_interval_coverage": 0.5001268069997464,
+       "min_duration_coverage": 0.5001268069997464,
+       "rejected_mae_kg": 149.7073750137056
+      },
+      "risk_only": {
+       "accepted": 26220,
+       "accepted_mae_kg": 29.914506838825652,
+       "aircraft_gap": 0.9493670886075949,
+       "b744_coverage": 0.06432748538011696,
+       "coverage": 0.7000213583938488,
+       "duration_gap": 0.8226056622730241,
+       "fuel_share": 0.22915153324286705,
+       "long_interval_coverage": 0.009130103981739792,
+       "min_duration_coverage": 0.009130103981739792,
+       "rejected_mae_kg": 172.4848931358057
+      },
+      "target": 0.7
+     },
+     {
+      "representation_floor": {
+       "accepted": 28092,
+       "accepted_mae_kg": 39.81155995659642,
+       "aircraft_gap": 0.43670886075949367,
+       "b744_coverage": 0.5,
+       "coverage": 0.75,
+       "duration_gap": 0.35822866129913333,
+       "fuel_share": 0.40625797312539386,
+       "long_interval_coverage": 0.5001268069997464,
+       "min_duration_coverage": 0.5001268069997464,
+       "rejected_mae_kg": 171.29563074404257
+      },
+      "risk_only": {
+       "accepted": 28092,
+       "accepted_mae_kg": 31.978253761626174,
+       "aircraft_gap": 0.9746835443037974,
+       "b744_coverage": 0.1023391812865497,
+       "coverage": 0.75,
+       "duration_gap": 0.863467830371921,
+       "fuel_share": 0.2632340323625538,
+       "long_interval_coverage": 0.023586101952827798,
+       "min_duration_coverage": 0.023586101952827798,
+       "rejected_mae_kg": 194.7955493289533
+      },
+      "target": 0.75
+     },
+     {
+      "representation_floor": {
+       "accepted": 29965,
+       "accepted_mae_kg": 40.43149867405721,
+       "aircraft_gap": 0.4620253164556962,
+       "b744_coverage": 0.5,
+       "coverage": 0.8000053395984622,
+       "duration_gap": 0.3980715992827343,
+       "fuel_share": 0.43115384770472154,
+       "long_interval_coverage": 0.5001268069997464,
+       "min_duration_coverage": 0.5001268069997464,
+       "rejected_mae_kg": 201.69119888129717
+      },
+      "risk_only": {
+       "accepted": 29965,
+       "accepted_mae_kg": 34.49444470479481,
+       "aircraft_gap": 0.9791450508404234,
+       "b744_coverage": 0.1286549707602339,
+       "coverage": 0.8000053395984622,
+       "duration_gap": 0.8631197005650183,
+       "fuel_share": 0.31232503078391016,
+       "long_interval_coverage": 0.06112097387775805,
+       "min_duration_coverage": 0.06112097387775805,
+       "rejected_mae_kg": 225.4402073166126
+      },
+      "target": 0.8
+     },
+     {
+      "representation_floor": {
+       "accepted": 33711,
+       "accepted_mae_kg": 45.00757801054478,
+       "aircraft_gap": 0.5,
+       "b744_coverage": 0.5,
+       "coverage": 0.9000160187953866,
+       "duration_gap": 0.4573740591510793,
+       "fuel_share": 0.5543490661771596,
+       "long_interval_coverage": 0.5001268069997464,
+       "min_duration_coverage": 0.5001268069997464,
+       "rejected_mae_kg": 321.8019135579296
+      },
+      "risk_only": {
+       "accepted": 33711,
+       "accepted_mae_kg": 44.89202538321239,
+       "aircraft_gap": 0.5292397660818713,
+       "b744_coverage": 0.47076023391812866,
+       "coverage": 0.9000160187953866,
+       "duration_gap": 0.56198661214488,
+       "fuel_share": 0.5359593985833196,
+       "long_interval_coverage": 0.40654324118691354,
+       "min_duration_coverage": 0.40654324118691354,
+       "rejected_mae_kg": 322.84207233496625
+      },
+      "target": 0.9
+     },
+     {
+      "representation_floor": {
+       "accepted": 37456,
+       "accepted_mae_kg": 72.68257765345795,
+       "aircraft_gap": 0.0,
+       "b744_coverage": 1.0,
+       "coverage": 1.0,
+       "duration_gap": 0.0,
+       "fuel_share": 1.0,
+       "long_interval_coverage": 1.0,
+       "min_duration_coverage": 1.0,
+       "rejected_mae_kg": null
+      },
+      "risk_only": {
+       "accepted": 37456,
+       "accepted_mae_kg": 72.68257765345795,
+       "aircraft_gap": 0.0,
+       "b744_coverage": 1.0,
+       "coverage": 1.0,
+       "duration_gap": 0.0,
+       "fuel_share": 1.0,
+       "long_interval_coverage": 1.0,
+       "min_duration_coverage": 1.0,
+       "rejected_mae_kg": null
+      },
+      "target": 1.0
+     }
+    ],
+    "selection_primary": {
+     "floor_cost_kg": 7.833306194970245,
+     "representation_floor": {
+      "accepted": 28092,
+      "accepted_mae_kg": 39.81155995659642,
+      "aircraft_gap": 0.43670886075949367,
+      "b744_coverage": 0.5,
+      "coverage": 0.75,
+      "duration_gap": 0.35822866129913333,
+      "fuel_share": 0.40625797312539386,
+      "long_interval_coverage": 0.5001268069997464,
+      "min_duration_coverage": 0.5001268069997464,
+      "rejected_mae_kg": 171.29563074404257
+     },
+     "risk_only": {
+      "accepted": 28092,
+      "accepted_mae_kg": 31.978253761626174,
+      "aircraft_gap": 0.9746835443037974,
+      "b744_coverage": 0.1023391812865497,
+      "coverage": 0.75,
+      "duration_gap": 0.863467830371921,
+      "fuel_share": 0.2632340323625538,
+      "long_interval_coverage": 0.023586101952827798,
+      "min_duration_coverage": 0.023586101952827798,
+      "rejected_mae_kg": 194.7955493289533
+     },
+     "target": 0.75
+    },
+    "sigma_deciles": [
+     {
+      "mean_sigma_kg": 6.1327421258424835,
+      "n": 3746,
+      "observed_mae_kg": 14.100235764622797
+     },
+     {
+      "mean_sigma_kg": 10.708338747773668,
+      "n": 3746,
+      "observed_mae_kg": 22.09164002876825
+     },
+     {
+      "mean_sigma_kg": 15.685877940431357,
+      "n": 3746,
+      "observed_mae_kg": 26.02925291994533
+     },
+     {
+      "mean_sigma_kg": 19.745351653305963,
+      "n": 3746,
+      "observed_mae_kg": 28.411477219211815
+     },
+     {
+      "mean_sigma_kg": 23.39265021590441,
+      "n": 3746,
+      "observed_mae_kg": 31.16878915092916
+     },
+     {
+      "mean_sigma_kg": 29.028291775218644,
+      "n": 3746,
+      "observed_mae_kg": 38.928015263648795
+     },
+     {
+      "mean_sigma_kg": 36.276271199860076,
+      "n": 3745,
+      "observed_mae_kg": 48.67266624056732
+     },
+     {
+      "mean_sigma_kg": 50.86350122699031,
+      "n": 3745,
+      "observed_mae_kg": 66.61219012525659
+     },
+     {
+      "mean_sigma_kg": 96.07946931684886,
+      "n": 3745,
+      "observed_mae_kg": 128.0429664734653
+     },
+     {
+      "mean_sigma_kg": 233.67798684003424,
+      "n": 3745,
+      "observed_mae_kg": 322.8420723349663
+     }
+    ],
+    "sigma_spearman_with_error": 0.6128333690959248
+   }
+  }
+ },
+ "versions": {
+  "numpy": "2.3.5",
+  "pandas": "2.2.3",
+  "scikit_learn": "1.8.0"
+ }
+}
