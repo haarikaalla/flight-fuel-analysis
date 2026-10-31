@@ -22,6 +22,7 @@ MD5 = {
     "fuel_train.parquet": "4ff4df3aca1a2d0850f48ef08395f1f9",
     "fuel_rank.parquet": "97f44f189f41df4957338b20e48f647c",
     "fuel_final.parquet": "90aff13775122bacbe0054040d7e83b6",
+    "airports.parquet": "c0f2d599ee9989385e27d28d18c9ac75",
 }
 SPLITS = ("train", "rank", "final")
 POUND_KG = 0.453592

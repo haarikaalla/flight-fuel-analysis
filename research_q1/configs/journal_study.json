@@ -1,0 +1,40 @@
+{
+  "name": "journal-study-v1",
+  "status": "pre-specified before any kinematic/physics model result was computed",
+  "evidence_boundary": "April-August 2025 fits every model. September 2025 is the only period used for risk/sigma fitting and conformal calibration (two disjoint flight halves by stable hash). October 2025 is a forward temporal test for every model defined here; the inherited project had earlier inspected October aggregates for its own metadata/ADS-B model, so October is a development-era forward test, not a sealed confirmatory set.",
+  "seed": 20261031,
+  "hist_gradient_boosting": {
+    "loss": "squared_error",
+    "max_iter": 400,
+    "learning_rate": 0.05,
+    "max_leaf_nodes": 31,
+    "l2_regularization": 10.0,
+    "early_stopping": false,
+    "random_state": 20261031
+  },
+  "risk_hist_gradient_boosting": {
+    "loss": "absolute_error",
+    "max_iter": 200,
+    "learning_rate": 0.05,
+    "max_leaf_nodes": 15,
+    "l2_regularization": 10.0,
+    "early_stopping": false,
+    "random_state": 20261031
+  },
+  "reference_model": "hgb_metadata_adsb",
+  "bootstrap_repetitions": 2000,
+  "alpha": 0.1,
+  "min_cell_n": 100,
+  "min_type_n": 50,
+  "selection_target": 0.75,
+  "selection_floor": 0.5,
+  "frontier_targets": [0.5, 0.6, 0.7, 0.75, 0.8, 0.9, 1.0],
+  "loto_min_intervals": 200,
+  "hypotheses": {
+    "H1": "Adding SI kinematic and OpenAP physics features to the metadata+ADS-B gradient boosting model lowers October MAE; paired flight-cluster bootstrap 95% CI excludes zero after Holm correction.",
+    "H2": "Physics-informed models (openap_calibrated, hgb_residual_physics, hgb_full) have lower MAE than hgb_metadata_adsb on aircraft types withheld from training (leave-one-type-out), for the majority of eligible types.",
+    "H3": "Duration x aircraft hierarchical Mondrian conformal intervals calibrated on September attain >= 0.85 coverage in every eligible October cell, whereas constant-width split conformal does not.",
+    "H4": "At a 75% release target, the accepted-MAE cost of a 50% group representation floor is smaller (in kg) for hgb_full than for hgb_metadata_adsb."
+  },
+  "no_tuning_statement": "Hyperparameters are copied from configs/phase-3-baselines.json with max_iter raised to 400 and were not searched on any evaluation period."
+}

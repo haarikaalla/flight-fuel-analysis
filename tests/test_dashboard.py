@@ -11,7 +11,7 @@ ROOT = Path(__file__).resolve().parents[1]
 @unittest.skipUnless(shutil.which("node"), "Node.js required for JavaScript integration check")
 class DashboardTests(unittest.TestCase):
     def test_live_javascript_matches_committed_python_scores(self):
-        html = (ROOT / "demo/index.html").read_text()
+        html = (ROOT / "demo/index.html").read_text(encoding="utf-8")
         source = html.split("<script>", 1)[1].split("</script>", 1)[0]
         startup = "['target','floor'].forEach(id=>$(id).addEventListener('change',update));update();"
         self.assertEqual(source.count(startup), 1)
@@ -24,9 +24,10 @@ const out={};for(const [name,floor] of [['risk_only',0],['representation_floor',
   b744:stats(DATA.rows,selected.selected,r=>r[0]==='B744').accepted};
 }console.log(JSON.stringify(out));
 """
-        run = subprocess.run(["node", "-"], input=source, text=True, capture_output=True, check=True)
+        run = subprocess.run(["node", "-"], input=source, text=True, encoding="utf-8",
+                             capture_output=True, check=True)
         actual = json.loads(run.stdout)
-        expected = json.loads((ROOT / "reports/eligibility-results.json").read_text())["periods"]["validation"]["policies"]
+        expected = json.loads((ROOT / "reports/eligibility-results.json").read_text(encoding="utf-8"))["periods"]["validation"]["policies"]
         for name in actual:
             with self.subTest(policy=name):
                 self.assertEqual(actual[name]["accepted"], expected[name]["accepted"])
